@@ -7,6 +7,7 @@ export interface GameObjectProps {
   cameraFilter?: number
   body?: Phaser.Physics.Arcade.Body | Phaser.Physics.Impact.Body
   ignoreDestroy?: boolean
+  input?: Phaser.Types.Input.InteractiveObject
 }
 
 export type AlphaProps = Partial<
