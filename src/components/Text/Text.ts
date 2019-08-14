@@ -1,8 +1,39 @@
 import * as Phaser from 'phaser'
 import { applyDefaultProps } from '../../utils/props'
 import setApplyProps from '../../utils/setApplyProps'
+import {
+  AlphaProps,
+  BlendModeProps,
+  ComputedSizeProps,
+  CropProps,
+  DepthProps,
+  FlipProps,
+  OriginProps,
+  PipelineProps,
+  ScrollFactorProps,
+  TransformProps,
+  VisibleProps,
+  MaskProps,
+  TintProps,
+  GameObjectProps,
+} from '..'
 
-export interface TextProps {
+export interface TextProps
+  extends GameObjectProps,
+    AlphaProps,
+    BlendModeProps,
+    ComputedSizeProps,
+    CropProps,
+    DepthProps,
+    FlipProps,
+    MaskProps,
+    OriginProps,
+    PipelineProps,
+    ScrollFactorProps,
+    TintProps,
+    TransformProps,
+    VisibleProps {
+  ref?: React.Ref<Phaser.GameObjects.Text>
   x: number
   y: number
   text: string | string[]

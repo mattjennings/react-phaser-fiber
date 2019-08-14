@@ -9,7 +9,6 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "removeComments": true,
-    "strictNullChecks": true,
     "preserveConstEnums": true,
     "sourceMap": true,
     "esModuleInterop": true,
