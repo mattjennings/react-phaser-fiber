@@ -46,7 +46,7 @@ export function createElement(
   return instance
 }
 
-export function PhaserComponent(type: string, lifecycle: any) {
+// export function PhaserComponent(type: string, lifecycle: any) {
 //   invariant(!!type, 'Expected type to be defined, got `%s`', type)
 //   invariant(
 //     !TYPES[type as keyof typeof TYPES],
