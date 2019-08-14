@@ -1,15 +1,17 @@
 import invariant from 'fbjs/lib/invariant'
-import idx from 'idx'
 import { applyDefaultProps } from './props'
 import Text from '../components/Text'
+import { ApplyProps } from './setApplyProps'
 
 export const TYPES = {
   Text: 'Text',
 }
 
+export const TYPES_INJECTED = {}
+
 export type ElementCreator<
   T extends {
-    applyProps?: (instance: T, oldProps: P, newProps: P) => any
+    applyProps?: ApplyProps<T, P>
   },
   P = {}
 > = (root: Phaser.Scene, props: P) => T
@@ -44,15 +46,15 @@ export function createElement(
   return instance
 }
 
-// export function PhaserComponent(type: string, lifecycle: any) {
-//   invariant(!!type, 'Expect type to be defined, got `%s`', type)
+export function PhaserComponent(type: string, lifecycle: any) {
+//   invariant(!!type, 'Expected type to be defined, got `%s`', type)
 //   invariant(
-//     !TYPES[type],
+//     !TYPES[type as keyof typeof TYPES],
 //     'Component `%s` could not be created, already exists in default components.',
 //     type
 //   )
 
-//   TYPES_INJECTED[type] = lifecycle
+//   TYPES_INJECTED[type as keyof typeof TYPES_INJECTED] = lifecycle
 
 //   return type
 // }

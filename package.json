@@ -48,7 +48,6 @@
   },
   "dependencies": {
     "fbjs": "^1.0.0",
-    "idx": "^2.5.6",
     "phaser": "^3.19.0",
     "react-reconciler": "^0.21.0"
   }

@@ -2,8 +2,6 @@ import invariant from 'fbjs/lib/invariant'
 
 /**
  * Reserved props
- *
- * @type {Object}
  */
 export const PROPS_RESERVED = {
   children: true,
@@ -25,13 +23,6 @@ const filterProps = (props: Record<string, any>): Record<string, any> => {
   }, {})
 }
 
-/**
- * Apply default props on Display Object instance (which are all components)
- *
- * @param {PIXI.DisplayObject} instance
- * @param {Object} oldProps
- * @param {Object} newProps
- */
 export function applyDefaultProps(
   instance: any,
   oldProps: Record<string, any>,
