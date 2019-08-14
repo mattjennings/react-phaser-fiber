@@ -9,7 +9,7 @@ import { FiberRoot } from 'react-reconciler'
 
 export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
   sceneKey: string
-  children?: JSX.Element
+  children?: JSX.Element | JSX.Element[]
 }
 
 class Scene extends React.Component<SceneProps & WithGameProps> {

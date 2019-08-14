@@ -1,15 +1,21 @@
 import 'react-app-polyfill/ie11'
 import * as Phaser from 'phaser'
-import React, { useState, useMemo, useCallback, useRef } from 'react'
+import React, { useState, useCallback } from 'react'
 import ReactDOM from 'react-dom'
 import { Game, Text, Scene, useInputEvent } from 'react-phaser'
 
 const App = () => {
-  const [value, setValue] = React.useState('this is a test')
+  const [value, setValue] = React.useState(
+    'this uses react state from a DOM input'
+  )
 
   return (
     <div>
-      <input value={value} onChange={e => setValue(e.currentTarget.value)} />
+      <input
+        value={value}
+        onChange={e => setValue(e.currentTarget.value)}
+        style={{ width: 500 }}
+      />
       <Game width={800} height={800}>
         <MainScene text={value} />
       </Game>
@@ -20,10 +26,8 @@ const App = () => {
 const MainScene = ({ text }: { text: string }) => {
   return (
     <Scene sceneKey="main">
-      <>
-        <Text x={0} y={0} text={text} style={{ color: 'white' }} />
-        <MovingText />
-      </>
+      <Text x={0} y={0} text={text} style={{ color: 'white' }} />
+      <MovingText />
     </Scene>
   )
 }
@@ -41,7 +45,7 @@ const MovingText = () => {
     <Text
       x={pointer.x}
       y={pointer.y}
-      text={'test'}
+      text={'following your mouse'}
       style={{ color: 'white' }}
     />
   )

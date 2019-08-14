@@ -3,7 +3,7 @@ import React, { useMemo, useState, useEffect } from 'react'
 import GameContext from './GameContext'
 
 export interface GameProps extends Phaser.Types.Core.GameConfig {
-  children?: JSX.Element
+  children?: JSX.Element | JSX.Element[]
 }
 
 function Game({ children, canvas, ...config }: GameProps): JSX.Element {
