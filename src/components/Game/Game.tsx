@@ -1,18 +1,40 @@
 import * as Phaser from 'phaser'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import GameContext from './GameContext'
 
 export interface GameProps extends Phaser.Types.Core.GameConfig {
   children?: JSX.Element
 }
 
-export default function Game({ children, ...config }: GameProps) {
-  const value = useMemo(
-    () => ({
-      game: new Phaser.Game(config),
-    }),
-    [config]
-  )
+function Game({ children, canvas, ...config }: GameProps): JSX.Element {
+  const [booting, setBooting] = useState(true)
 
-  return <GameContext.Provider value={value}>{children}</GameContext.Provider>
+  const game = useMemo(() => {
+    const phaserGame = new Phaser.Game({ ...config })
+
+    if (process.env.NODE_ENV === 'development') {
+      // @ts-ignore
+      window.game = phaserGame
+    }
+
+    phaserGame.events.on('ready', () => {
+      setBooting(false)
+    })
+
+    return phaserGame
+  }, [JSON.stringify(config)]) // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  // todo: loading screen? customizable?
+  if (booting) {
+    return null
+  }
+
+  return (
+    <GameContext.Provider value={game}>
+      {canvas}
+      {children}
+    </GameContext.Provider>
+  )
 }
+
+export default Game

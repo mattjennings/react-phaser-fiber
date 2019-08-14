@@ -8,15 +8,14 @@
     "declaration": true,
     "sourceMap": true,
     "rootDir": "./",
-    "strict": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "jsx": "react",
-    "esModuleInterop": true
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": false
   }
 }

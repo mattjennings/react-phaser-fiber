@@ -30,6 +30,7 @@
     "@types/jest": "^24.0.17",
     "@types/react": "^16.9.1",
     "@types/react-dom": "^16.8.5",
+    "@types/react-reconciler": "^0.18.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "eslint": "^6.1.0",
@@ -46,6 +47,9 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "phaser": "^3.19.0"
+    "fbjs": "^1.0.0",
+    "idx": "^2.5.6",
+    "phaser": "^3.19.0",
+    "react-reconciler": "^0.21.0"
   }
 }
