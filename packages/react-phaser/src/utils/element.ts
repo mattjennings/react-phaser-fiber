@@ -3,6 +3,7 @@ import invariant from 'fbjs/lib/invariant'
 import { applyDefaultProps } from './props'
 import Text from '../components/Text'
 import Sprite from '../components/Sprite'
+import Image from '../components/Image'
 
 export interface CreatePhaserComponentConfig<
   T extends Phaser.GameObjects.GameObject,
@@ -15,11 +16,13 @@ export interface CreatePhaserComponentConfig<
 export const TYPES: Record<string, string> = {
   Text: 'Text',
   Sprite: 'Sprite',
+  Image: 'Image',
 }
 
 export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
   Text,
   Sprite,
+  Image,
 }
 
 /**
@@ -41,8 +44,6 @@ export function createElement(
   instance.applyProps = applyProps.bind(instance)
 
   applyProps(instance, {}, props)
-
-  // root.add.existing(instance)
 
   return instance
 }

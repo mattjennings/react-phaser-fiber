@@ -4,7 +4,6 @@ import {
   AlphaProps,
   BlendModeProps,
   ComputedSizeProps,
-  CropProps,
   DepthProps,
   FlipProps,
   OriginProps,
@@ -18,12 +17,11 @@ import {
 } from '..'
 import { CreatePhaserComponentConfig } from '../../utils/element'
 
-export interface TextProps
-  extends GameObjectProps<Phaser.GameObjects.Text>,
+export interface ImageProps
+  extends GameObjectProps<Phaser.GameObjects.Image>,
     AlphaProps,
     BlendModeProps,
     ComputedSizeProps,
-    CropProps,
     DepthProps,
     FlipProps,
     MaskProps,
@@ -35,23 +33,30 @@ export interface TextProps
     VisibleProps {
   x: number
   y: number
-  text: string | string[]
-  style: Phaser.Types.GameObjects.Text.TextStyle
+  texture: string
+  frame?: string | number
 }
 
-const Text: CreatePhaserComponentConfig<Phaser.GameObjects.Text, TextProps> = {
-  create: ({ x, y, text, style }, scene) => {
-    return new Phaser.GameObjects.Text(scene, x, y, text, style)
+const Image: CreatePhaserComponentConfig<
+  Phaser.GameObjects.Image,
+  ImageProps
+> = {
+  create: ({ x, y, texture, frame }, scene) => {
+    return new Phaser.GameObjects.Image(scene, x, y, texture, frame)
   },
   applyProps: (instance, oldProps, newProps) => {
-    const { style, ...props } = newProps
+    const { texture, frame, ...props } = newProps
+
+    if (texture !== oldProps.texture) {
+      instance.setTexture(texture)
+    }
+
+    if (frame !== oldProps.frame) {
+      instance.setFrame(frame)
+    }
 
     applyDefaultProps(instance, oldProps, props)
-
-    if (oldProps.style !== newProps.style) {
-      instance.setStyle(style)
-    }
   },
 }
 
-export default Text
+export default Image

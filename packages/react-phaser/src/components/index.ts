@@ -1,4 +1,5 @@
-export interface GameObjectProps {
+export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
+  ref?: React.Ref<T>
   name?: string // todo: default to component's displayName?
   active?: boolean
   tabIndex?: boolean
@@ -66,6 +67,9 @@ export type ScrollFactorProps = Partial<
   >
 >
 
+export type TextureCropProps = Partial<
+  Pick<Phaser.GameObjects.Components.TextureCrop, 'texture' | 'frame'>
+>
 export type TintProps = Partial<
   Pick<
     Phaser.GameObjects.Components.Tint,
