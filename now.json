@@ -3,6 +3,8 @@
   "builds": [{ "src": "./example/package.json", "use": "@now/static-build" }],
   "routes": [
     { "src": "^/(.*).js$", "dest": "/example/$1.js" },
+    { "src": "^/(.*).png$", "dest": "/example/$1.png" },
+    { "src": "^/(.*).json$", "dest": "/example/$1.json" },
     { "src": "^/(.*)", "dest": "/example/index.html" }
   ]
 }

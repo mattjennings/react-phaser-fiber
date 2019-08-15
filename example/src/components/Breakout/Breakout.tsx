@@ -1,4 +1,10 @@
-import React, { useCallback, useReducer, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useReducer,
+  useRef,
+  useState,
+  useLayoutEffect,
+} from 'react'
 import { Game, Scene, Text } from 'react-phaser'
 import 'react-app-polyfill/ie11'
 import { useGameLoop, useInputEvent } from 'react-phaser'
@@ -47,6 +53,10 @@ const Breakout = () => {
       dispatch({ type: BreakoutFiniteState.PLAY })
     }, [])
   )
+
+  useLayoutEffect(() => {
+    // set colliders here
+  })
 
   return (
     <>
