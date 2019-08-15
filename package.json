@@ -6,6 +6,9 @@
     "packages/*",
     "example"
   ],
+  "scripts": {
+    "build:react-phaser": "cd packages/react-phaser && yarn build"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
