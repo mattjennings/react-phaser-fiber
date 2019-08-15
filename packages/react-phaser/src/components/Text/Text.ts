@@ -1,6 +1,5 @@
 import * as Phaser from 'phaser'
 import { applyDefaultProps } from '../../utils/props'
-import setApplyProps from '../../utils/setApplyProps'
 import {
   AlphaProps,
   BlendModeProps,
@@ -17,6 +16,7 @@ import {
   TintProps,
   GameObjectProps,
 } from '..'
+import { CreatePhaserComponentConfig } from '../../utils/element'
 
 export interface TextProps
   extends GameObjectProps,
@@ -40,23 +40,19 @@ export interface TextProps
   style: Phaser.Types.GameObjects.Text.TextStyle
 }
 
-function Text(root: Phaser.Scene, { text, x, y, style }: TextProps) {
-  const obj = new Phaser.GameObjects.Text(root, x, y, text, style)
+const Text: CreatePhaserComponentConfig<Phaser.GameObjects.Text, TextProps> = {
+  create: ({ x, y, text, style }, scene) => {
+    return new Phaser.GameObjects.Text(scene, x, y, text, style)
+  },
+  applyProps: (instance, oldProps, newProps) => {
+    const { style, ...props } = newProps
 
-  setApplyProps<Phaser.GameObjects.Text, TextProps>(
-    obj,
-    (instance, oldProps, newProps) => {
-      const { style, ...props } = newProps
+    applyDefaultProps(instance, oldProps, props)
 
-      applyDefaultProps(instance, oldProps, props)
-
-      if (oldProps.style !== newProps.style) {
-        instance.setStyle(style)
-      }
+    if (oldProps.style !== newProps.style) {
+      instance.setStyle(style)
     }
-  )
-
-  return obj
+  },
 }
 
 export default Text

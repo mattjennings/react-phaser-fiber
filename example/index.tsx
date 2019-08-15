@@ -3,6 +3,7 @@ import * as Phaser from 'phaser'
 import React, { useState, useCallback } from 'react'
 import ReactDOM from 'react-dom'
 import { Game, Text, Scene, useInputEvent } from 'react-phaser'
+import Line from './Line'
 
 const App = () => {
   const [value, setValue] = React.useState(
@@ -27,6 +28,17 @@ const MainScene = ({ text }: { text: string }) => {
   return (
     <Scene sceneKey="main">
       <Text x={0} y={0} text={text} style={{ color: 'white' }} />
+      <Line
+        from={{
+          x: 100,
+          y: 100,
+        }}
+        to={{
+          x: 100,
+          y: 500,
+        }}
+        color={0xffff00}
+      />
       <MovingText />
     </Scene>
   )

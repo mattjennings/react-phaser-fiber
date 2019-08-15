@@ -1,22 +1,21 @@
+import * as Phaser from 'phaser'
 import invariant from 'fbjs/lib/invariant'
 import { applyDefaultProps } from './props'
 import Text from '../components/Text'
-import { ApplyProps } from './setApplyProps'
 
-export const TYPES = {
+export interface CreatePhaserComponentConfig<
+  T extends Phaser.GameObjects.GameObject,
+  P
+> {
+  create: (props: P, scene: Phaser.Scene) => T
+  applyProps?: (instance: T, oldProps: P, newProps: P) => any
+}
+
+export const TYPES: Record<string, string> = {
   Text: 'Text',
 }
 
-export const TYPES_INJECTED = {}
-
-export type ElementCreator<
-  T extends {
-    applyProps?: ApplyProps<T, P>
-  },
-  P = {}
-> = (root: Phaser.Scene, props: P) => T
-
-const ELEMENTS: Record<keyof typeof TYPES, ElementCreator<any>> = {
+export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
   Text,
 }
 
@@ -33,11 +32,10 @@ export function createElement(
   props = {},
   root: Phaser.Scene
 ) {
-  const create = ELEMENTS[type]
+  const { create, applyProps = applyDefaultProps } = ELEMENTS[type]
 
-  const instance = create(root, props)
-
-  const { applyProps = applyDefaultProps } = instance
+  const instance = create(props, root)
+  instance.applyProps = applyProps.bind(instance)
 
   applyProps(instance, {}, props)
 
@@ -46,15 +44,26 @@ export function createElement(
   return instance
 }
 
-// export function PhaserComponent(type: string, lifecycle: any) {
-//   invariant(!!type, 'Expected type to be defined, got `%s`', type)
-//   invariant(
-//     !TYPES[type as keyof typeof TYPES],
-//     'Component `%s` could not be created, already exists in default components.',
-//     type
-//   )
+// external use
 
-//   TYPES_INJECTED[type as keyof typeof TYPES_INJECTED] = lifecycle
+/**
+ * Creates a custom Phaser component
+ * @param type
+ * @param config
+ */
+export function createPhaserComponent<
+  T extends Phaser.GameObjects.GameObject,
+  P
+>(type: string, config: CreatePhaserComponentConfig<T, P>) {
+  invariant(!!type, 'Expected type to be defined, got `%s`', type)
+  invariant(
+    !TYPES[type as keyof typeof TYPES],
+    'Component `%s` already exists',
+    type
+  )
 
-//   return type
-// }
+  TYPES[type as keyof typeof TYPES] = type
+  ELEMENTS[type] = config
+
+  return (type as unknown) as React.ComponentType<P>
+}
