@@ -65,5 +65,7 @@ export function createPhaserComponent<
   TYPES[type as keyof typeof TYPES] = type
   ELEMENTS[type] = config
 
+  // type needs to be returned as string for reconciler, but externally it will be typed
+  // as a component
   return (type as unknown) as React.ComponentType<P>
 }
