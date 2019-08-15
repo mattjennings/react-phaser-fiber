@@ -4,6 +4,7 @@ import SceneContext from './SceneContext'
 import { PhaserFiber } from '../../reconciler'
 import withGame, { WithGameProps } from '../Game/withGame'
 import { FiberRoot } from 'react-reconciler'
+import GameContext from '../Game/GameContext'
 
 export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
   sceneKey: string
@@ -105,10 +106,15 @@ class Scene extends React.Component<SceneProps & WithGameProps, SceneState> {
         ? this.props.loadingFallback(this.state.loadProgress)
         : this.props.children
 
+    // we're not in the render so we need to recreate the Game Context
+    // this is not ideal, because any contexts above this Scene will be lost...
+    // what's the solution? can we move this to render?
     return (
-      <SceneContext.Provider value={this.scene}>
-        {children}
-      </SceneContext.Provider>
+      <GameContext.Provider value={this.props.game}>
+        <SceneContext.Provider value={this.scene}>
+          {children}
+        </SceneContext.Provider>
+      </GameContext.Provider>
     )
   }
 

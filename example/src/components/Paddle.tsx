@@ -6,15 +6,21 @@ export interface PaddleProps {
   initialY: number
 }
 
-export default function Paddle({ initialX, initialY }: PaddleProps) {
-  const [x, setX] = useState(initialX)
-  const [y, setY] = useState(initialY)
+const Paddle = React.forwardRef<Phaser.GameObjects.Image, PaddleProps>(
+  ({ initialX, initialY }: PaddleProps, ref) => {
+    const [x, setX] = useState(initialX)
+    const [y, setY] = useState(initialY)
 
-  const updatePosition = useCallback((pointer: Phaser.Input.Pointer) => {
-    setX(pointer.x)
-  }, [])
+    const updatePosition = useCallback((pointer: Phaser.Input.Pointer) => {
+      setX(pointer.x)
+    }, [])
 
-  useInputEvent('pointermove', updatePosition)
+    useInputEvent('pointermove', updatePosition)
 
-  return <Image x={x} y={y} texture="assets" frame="paddle1" />
-}
+    return <Image ref={ref} x={x} y={y} texture="assets" frame="paddle1" />
+  }
+)
+
+Paddle.displayName = 'Paddle'
+
+export default Paddle

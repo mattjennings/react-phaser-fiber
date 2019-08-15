@@ -7,12 +7,13 @@ export default function useGameLoop(
   const game = useGame()
 
   useEffect(() => {
-    const listener = game.events.on('step', (time: number, delta: number) => {
+    const callback = (time: number, delta: number) => {
       onLoop({ delta, time })
-    })
+    }
+    game.events.on('step', callback)
 
     return () => {
-      listener.destroy()
+      game.events.off('step', callback)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onLoop])

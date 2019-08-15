@@ -1,3 +1,5 @@
+import * as Phaser from 'phaser'
+
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   ref?: React.Ref<T>
   name?: string // todo: default to component's displayName?
