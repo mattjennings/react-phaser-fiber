@@ -14,37 +14,28 @@ import performanceNow from 'performance-now'
 import { createElement } from '../utils/element'
 import { applyDefaultProps } from '../utils/props'
 
-function appendChild(parent: any, child: any) {
-  if (parent.addChild) {
-    parent.addChild(child)
-
-    if (typeof child.didMount === 'function') {
-      child.didMount.call(child, child, parent)
-    }
+function appendChild(parent: Phaser.Scene, child: any) {
+  if (parent.add.existing) {
+    parent.add.existing(child)
   }
 }
 
-function removeChild(parent: any, child: any) {
-  if (typeof child.willUnmount === 'function') {
-    child.willUnmount.call(child, child, parent)
-  }
-
-  parent.removeChild(child)
+function removeChild(parent: Phaser.Scene, child: any) {
   child.destroy()
 }
 
-function insertBefore(parent: any, child: any, beforeChild: any) {
+function insertBefore(parent: Phaser.Scene, child: any, beforeChild: any) {
   invariant(
     child !== beforeChild,
     'PhaserFiber cannot insert node before itself'
   )
 
-  const childExists = parent.children.indexOf(child) !== -1
-  const index = parent.getChildIndex(beforeChild)
+  const childExists = parent.children.exists(child)
+  const index = parent.children.getIndex(beforeChild)
 
   childExists
-    ? parent.setChildIndex(child, index)
-    : parent.addChildAt(child, index)
+    ? parent.children.moveTo(child, index)
+    : parent.children.addAt(child, index)
 }
 
 // get diff between 2 objects
