@@ -21,7 +21,9 @@ function appendChild(parent: Phaser.Scene, child: any) {
 }
 
 function removeChild(parent: Phaser.Scene, child: any) {
-  child.destroy()
+  if (child.destroy) {
+    child.destroy()
+  }
 }
 
 function insertBefore(parent: Phaser.Scene, child: any, beforeChild: any) {
@@ -30,12 +32,14 @@ function insertBefore(parent: Phaser.Scene, child: any, beforeChild: any) {
     'PhaserFiber cannot insert node before itself'
   )
 
-  const childExists = parent.children.exists(child)
-  const index = parent.children.getIndex(beforeChild)
+  if (parent.children) {
+    const childExists = parent.children.exists(child)
+    const index = parent.children.getIndex(beforeChild)
 
-  childExists
-    ? parent.children.moveTo(child, index)
-    : parent.children.addAt(child, index)
+    childExists
+      ? parent.children.moveTo(child, index)
+      : parent.children.addAt(child, index)
+  }
 }
 
 // get diff between 2 objects

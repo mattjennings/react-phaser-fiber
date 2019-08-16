@@ -5,7 +5,7 @@ import React, {
   useState,
   useLayoutEffect,
 } from 'react'
-import { Game, Scene, Text } from 'react-phaser'
+import { Scene, Text } from 'react-phaser'
 import 'react-app-polyfill/ie11'
 import { useGameLoop, useInputEvent } from 'react-phaser'
 import Ball from './Ball'

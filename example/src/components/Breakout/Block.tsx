@@ -1,7 +1,12 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Image } from 'react-phaser'
 import { ImageProps } from 'react-phaser/dist/components/Image'
 
-export default function Block(props: Omit<ImageProps, 'texture'>) {
-  return <Image texture="assets" {...props} />
+function Block(
+  props: Omit<ImageProps, 'texture'>,
+  ref: React.Ref<Phaser.GameObjects.Image>
+) {
+  return <Image ref={ref} texture="assets" {...props} />
 }
+
+export default React.forwardRef(Block)

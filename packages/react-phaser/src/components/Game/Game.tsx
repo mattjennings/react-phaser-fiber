@@ -24,6 +24,10 @@ function Game({ children, canvas, ...config }: GameProps): JSX.Element {
     return phaserGame
   }, [JSON.stringify(config)]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    return () => game.destroy(true)
+  }, [])
+
   // todo: loading screen? customizable?
   if (booting) {
     return null

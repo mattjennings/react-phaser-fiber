@@ -1,15 +1,9 @@
-import React from 'react'
 import 'react-app-polyfill/ie11'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { Game } from 'react-phaser'
-import Breakout from './components/Breakout'
-
-const App = () => {
-  return (
-    <Game width={800} height={800}>
-      <Breakout />
-    </Game>
-  )
-}
+import App from './App'
 
 ReactDOM.render(<App />, document.getElementById('root'))
+
+// @ts-ignore
+module.hot.accept()

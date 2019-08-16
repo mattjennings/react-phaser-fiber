@@ -5,6 +5,7 @@ import { PhaserFiber } from '../../reconciler'
 import withGame, { WithGameProps } from '../Game/withGame'
 import { FiberRoot } from 'react-reconciler'
 import GameContext from '../Game/GameContext'
+import { VERSION, PACKAGE_NAME } from '../../reconciler'
 
 export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
   sceneKey: string
@@ -21,9 +22,10 @@ export interface SceneState {
 }
 
 class Scene extends React.Component<SceneProps & WithGameProps, SceneState> {
+  static displayName = 'Scene'
+
   scene: Phaser.Scene
   mountNode: FiberRoot
-
   listeners: Phaser.Events.EventEmitter[] = []
 
   constructor(props: SceneProps & WithGameProps) {
@@ -61,6 +63,8 @@ class Scene extends React.Component<SceneProps & WithGameProps, SceneState> {
     game.scene.add(sceneKey, this.scene, true)
 
     this.mountNode = PhaserFiber.createContainer(this.scene, false, false)
+
+    injectDevtools()
 
     // can we use suspense instead somehow?
     this.listeners.push(
@@ -107,8 +111,7 @@ class Scene extends React.Component<SceneProps & WithGameProps, SceneState> {
         : this.props.children
 
     // we're not in the render so we need to recreate the Game Context
-    // this is not ideal, because any contexts above this Scene will be lost...
-    // what's the solution? can we move this to render?
+    // (can this be solved otherwise? it would be nice to preserve contexts above <Scene>)
     return (
       <GameContext.Provider value={this.props.game}>
         <SceneContext.Provider value={this.scene}>
@@ -128,13 +131,27 @@ class Scene extends React.Component<SceneProps & WithGameProps, SceneState> {
     PhaserFiber.updateContainer(null, this.mountNode, this, null as any)
     this.props.game.scene.remove(this.props.sceneKey)
 
-    this.listeners.forEach(listener => listener.destroy())
+    this.listeners.forEach(listener => {
+      listener.eventNames().forEach(event => listener.off(event))
+    })
     this.listeners = []
   }
 
   render() {
     return null as JSX.Element
   }
+}
+
+/**
+ * Inject into React Devtools
+ */
+function injectDevtools() {
+  PhaserFiber.injectIntoDevTools({
+    bundleType: process.env.NODE_ENV !== 'production' ? 1 : 0,
+    version: VERSION,
+    rendererPackageName: PACKAGE_NAME,
+    findFiberByHostInstance: PhaserFiber.findHostInstance as any,
+  })
 }
 
 export default withGame(Scene)
