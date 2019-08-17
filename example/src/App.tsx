@@ -10,6 +10,9 @@ const App = () => {
       physics={{
         default: 'arcade',
       }}
+      scale={{
+        mode: Phaser.Scale.FIT,
+      }}
     >
       <Breakout />
     </Game>
