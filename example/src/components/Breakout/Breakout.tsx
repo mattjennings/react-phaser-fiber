@@ -15,15 +15,18 @@ import { useEffect } from 'react'
 
 const blockFrames = ['blue1', 'red1', 'green1', 'yellow1', 'silver1', 'purple1']
 
-// is there better name for this?
-enum BreakoutFiniteState {
-  START = 'START',
-  PLAY = 'PLAY',
+interface BreakoutState {
+  isBallActive?: boolean
+  blocks: Array<{ x: number; y: number; frame: string }>
 }
 
-interface BreakoutState {
-  state: BreakoutFiniteState
-  blocks: Array<{ x: number; y: number; frame: string }>
+const defaultState: BreakoutState = {
+  isBallActive: false,
+  blocks: Array.from({ length: 60 }).map((_, index) => ({
+    x: (index % 10) * 64,
+    y: 10 * Math.floor(index / 10) * 3.2,
+    frame: blockFrames[Math.floor(index / 10)],
+  })),
 }
 
 const Breakout = () => {
@@ -32,14 +35,7 @@ const Breakout = () => {
   const ballRef = useRef<Phaser.Physics.Arcade.Image>(null)
   const [ballPos, setBallPos] = useState({ x: 116, y: 136 })
 
-  const [state, dispatch] = useReducer(reducer, {
-    state: BreakoutFiniteState.START,
-    blocks: Array.from({ length: 60 }).map((_, index) => ({
-      x: (index % 10) * 64,
-      y: 10 * Math.floor(index / 10) * 3.2,
-      frame: blockFrames[Math.floor(index / 10)],
-    })),
-  })
+  const [state, dispatch] = useReducer(reducer, defaultState)
 
   useEffect(() => {
     scene.physics.world.setBoundsCollision(true, true, true, false)
@@ -48,24 +44,29 @@ const Breakout = () => {
   // set ball position to paddle when game is in START state
   useGameLoop(
     useCallback(() => {
-      if (paddleRef.current && state.state === BreakoutFiniteState.START) {
-        // setBallPos({ x: paddleRef.current.x, y: paddleRef.current.y - 64 })
+      if (paddleRef.current && !state.isBallActive) {
+        setBallPos({ x: paddleRef.current.x, y: paddleRef.current.y - 48 })
       }
-    }, [state.state])
+
+      if (ballRef.current) {
+        if (ballRef.current.y > 800) {
+          ballRef.current.setVelocity(0)
+          dispatch({ type: 'RESET_BALL' })
+        }
+      }
+    }, [state.isBallActive])
   )
 
   useInputEvent(
     'pointerdown',
     useCallback(() => {
-      dispatch({ type: BreakoutFiniteState.PLAY })
+      if (ballRef.current) {
+        ballRef.current.setVelocity(-75, -300)
+      }
+
+      dispatch({ type: 'PLAY' })
     }, [])
   )
-
-  useLayoutEffect(() => {
-    if (ballRef.current) {
-      ballRef.current.setVelocity(-75, -300)
-    }
-  }, [])
 
   return (
     <>
@@ -116,10 +117,21 @@ function reducer(
   action: { type: string; payload?: any }
 ): BreakoutState {
   switch (action.type) {
-    case BreakoutFiniteState.PLAY: {
+    case 'RESET_GAME': {
+      return {
+        ...defaultState,
+      }
+    }
+    case 'RESET_BALL': {
       return {
         ...state,
-        state: BreakoutFiniteState.PLAY,
+        isBallActive: false,
+      }
+    }
+    case 'PLAY': {
+      return {
+        ...state,
+        isBallActive: true,
       }
     }
   }
