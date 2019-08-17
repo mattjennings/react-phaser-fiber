@@ -1,11 +1,8 @@
-import React, { useCallback, useReducer, useRef } from 'react'
-import { Scene, Text, ArcadeCollider, useScene } from 'react-phaser'
-import { useGameLoop, useInputEvent } from 'react-phaser'
+import React, { useCallback, useEffect, useReducer, useRef } from 'react'
+import { Scene, Text, useGameLoop, useInputEvent, useScene } from 'react-phaser'
 import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'
-import { useEffect } from 'react'
-import composeRefs from '@seznam/compose-react-refs'
 
 interface BreakoutState {
   isBallActive?: boolean

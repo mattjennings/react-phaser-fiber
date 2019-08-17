@@ -1,10 +1,10 @@
 import * as Phaser from 'phaser'
 import invariant from 'fbjs/lib/invariant'
 import { applyDefaultProps } from './props'
-import Text from '../components/Text'
-import Sprite from '../components/Sprite'
-import Image from '../components/Image'
-import ArcadeImage from '../components/ArcadeImage'
+import Text from '../elements/Text'
+import Sprite from '../elements/Sprite'
+import Image from '../elements/Image'
+import ArcadeImage from '../elements/ArcadeImage'
 
 export interface CreatePhaserComponentConfig<
   T extends Phaser.GameObjects.GameObject,

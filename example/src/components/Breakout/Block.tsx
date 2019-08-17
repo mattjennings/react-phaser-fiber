@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from 'react'
-import { ArcadeImage, useArcadeCollider } from 'react-phaser'
-import { ArcadeImageProps } from 'react-phaser/dist/components/ArcadeImage'
+import { ArcadeImage, ArcadeImageProps, useArcadeCollider } from 'react-phaser'
 
 export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {
   ballRef: React.RefObject<Phaser.Physics.Arcade.Image>

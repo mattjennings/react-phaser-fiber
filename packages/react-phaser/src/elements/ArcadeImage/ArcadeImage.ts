@@ -28,9 +28,6 @@ import {
   ArcadeVelocityProps,
 } from '..'
 import { CreatePhaserComponentConfig } from '../../utils/element'
-import pick from '../../utils/helpers/pick'
-import omit from 'lodash.omit'
-import { ArcadeColliderProps } from '../ArcadeCollider/ArcadeCollider'
 
 export interface ArcadeImageProps
   extends GameObjectProps<Phaser.Physics.Arcade.Image>,
