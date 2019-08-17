@@ -75,9 +75,9 @@ const Breakout = () => {
             collideWith={[ballRef]}
             onCollide={handleBallBlockCollision}
           >
-            {blockRef => (
+            {colliderRef => (
               <Block
-                ref={blockRef}
+                ref={colliderRef}
                 x={block.x + 116}
                 y={block.y + 200}
                 frame={block.frame}
