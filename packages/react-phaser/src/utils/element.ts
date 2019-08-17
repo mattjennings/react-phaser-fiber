@@ -4,6 +4,7 @@ import { applyDefaultProps } from './props'
 import Text from '../components/Text'
 import Sprite from '../components/Sprite'
 import Image from '../components/Image'
+import ArcadeImage from '../components/ArcadeImage'
 
 export interface CreatePhaserComponentConfig<
   T extends Phaser.GameObjects.GameObject,
@@ -17,12 +18,14 @@ export const TYPES: Record<string, string> = {
   Text: 'Text',
   Sprite: 'Sprite',
   Image: 'Image',
+  ArcadeImage: 'ArcadeImage',
 }
 
 export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
   Text,
   Sprite,
   Image,
+  ArcadeImage,
 }
 
 /**

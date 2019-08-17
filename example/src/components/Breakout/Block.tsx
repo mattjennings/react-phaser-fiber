@@ -1,12 +1,26 @@
-import React from 'react'
-import { Image } from 'react-phaser'
-import { ImageProps } from 'react-phaser/dist/components/Image'
+import React, { useCallback, useRef } from 'react'
+import { ArcadeImage, useArcadeCollider } from 'react-phaser'
+import { ArcadeImageProps } from 'react-phaser/dist/components/ArcadeImage'
 
-function Block(
-  props: Omit<ImageProps, 'texture'>,
-  ref: React.Ref<Phaser.GameObjects.Image>
-) {
-  return <Image ref={ref} texture="assets" {...props} />
+export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {
+  ballRef: React.RefObject<Phaser.Physics.Arcade.Image>
+  onBallHit: (block: Phaser.Physics.Arcade.Image) => any
 }
 
-export default React.forwardRef(Block)
+function Block({ ballRef, onBallHit, ...props }: BlockProps) {
+  const blockRef = useRef<Phaser.Physics.Arcade.Image>(null)
+
+  useArcadeCollider(
+    blockRef,
+    ballRef,
+    useCallback(
+      block => {
+        onBallHit(block)
+      },
+      [onBallHit]
+    )
+  )
+  return <ArcadeImage ref={blockRef} texture="assets" immovable {...props} />
+}
+
+export default Block

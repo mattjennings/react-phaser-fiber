@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { Image, useInputEvent } from 'react-phaser'
+import { ArcadeImage, useInputEvent } from 'react-phaser'
 
 export interface PaddleProps {
   initialX: number
@@ -8,7 +8,7 @@ export interface PaddleProps {
 
 function Paddle(
   { initialX, initialY }: PaddleProps,
-  ref: React.Ref<Phaser.GameObjects.Image>
+  ref: React.Ref<Phaser.Physics.Arcade.Image>
 ) {
   const [x, setX] = useState(initialX)
 
@@ -18,7 +18,16 @@ function Paddle(
 
   useInputEvent('pointermove', updatePosition)
 
-  return <Image ref={ref} x={x} y={initialY} texture="assets" frame="paddle1" />
+  return (
+    <ArcadeImage
+      ref={ref}
+      x={x}
+      y={initialY}
+      texture="assets"
+      frame="paddle1"
+      immovable
+    />
+  )
 }
 
 export default React.forwardRef(Paddle)
