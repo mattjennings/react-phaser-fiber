@@ -1,6 +1,5 @@
 import React, { useCallback, useReducer, useRef, useState } from 'react'
 import { Scene, Text, ArcadeCollider, useScene } from 'react-phaser'
-import 'react-app-polyfill/ie11'
 import { useGameLoop, useInputEvent } from 'react-phaser'
 import Ball from './Ball'
 import Block from './Block'
