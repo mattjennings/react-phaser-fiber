@@ -32,7 +32,7 @@ class Scene extends React.Component<SceneProps & WithGameProps, SceneState> {
     super(props)
 
     this.state = {
-      loading: props.onPreload ? true : false,
+      loading: true,
       loadProgress: 0,
     }
   }

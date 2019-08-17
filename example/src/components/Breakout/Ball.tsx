@@ -1,12 +1,12 @@
 import React from 'react'
-import { Image } from 'react-phaser'
-import { ImageProps } from 'react-phaser/dist/components/Image'
+import { ArcadeImage } from 'react-phaser'
+import { ArcadeImageProps } from 'react-phaser/dist/components/ArcadeImage'
 
 function Ball(
-  props: Omit<ImageProps, 'ref' | 'texture'>,
-  ref: React.Ref<Phaser.GameObjects.Image>
+  props: Omit<ArcadeImageProps, 'ref' | 'texture'>,
+  ref: React.Ref<Phaser.Physics.Arcade.Image>
 ) {
-  return <Image ref={ref} texture="assets" frame="ball1" {...props} />
+  return <ArcadeImage ref={ref} texture="assets" frame="ball1" {...props} />
 }
 
 export default React.forwardRef(Ball)

@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser'
 
+// GameObject
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   ref?: React.Ref<T>
   name?: string // todo: default to component's displayName?
@@ -95,3 +96,73 @@ export type TransformProps = Partial<
 export type VisibleProps = Partial<
   Pick<Phaser.GameObjects.Components.Visible, 'visible'>
 >
+
+// Arcade Physics
+
+export interface ArcadeAccelerationProps {
+  acceleration?: number | { x: number; y: number }
+}
+
+export interface ArcadeAngularProps {
+  angularAcceleration?: number
+  angularDrag?: number
+  angularVelocity?: number
+}
+
+export interface ArcadeBounceProps {
+  bounce?: number | { x: number; y: number }
+  collideWorldBounds?: boolean
+}
+
+export interface ArcadeDebugProps {
+  debugBodyColor?: number
+  debugShowBody?: boolean
+  debugShowVelocity?: boolean
+}
+
+export interface ArcadeDragProps {
+  damping?: number
+  drag?: number | { x: number; y: number }
+}
+
+export interface ArcadeEnableProps {
+  disableBody?: boolean
+}
+
+export interface ArcadeFrictionProps {
+  friction?: number | { x: number; y: number }
+}
+
+export interface ArcadeGravityProps {
+  gravity?: number | { x: number; y: number }
+}
+
+export interface ArcadeImmovableProps {
+  immovable?: boolean
+}
+
+export interface ArcadeMassProps {
+  mass?: number
+}
+
+export interface ArcadeSizeProps {
+  circle?: {
+    radius: number
+    offsetX?: number
+    offsetY?: number
+  }
+  offset?: {
+    x?: number
+    y?: number
+  }
+  size?: {
+    width: number
+    height: number
+    center?: number
+  }
+}
+
+export interface ArcadeVelocityProps {
+  velocity?: number | { x: number; y: number }
+  maxVelocity?: number | { x: number; y: number }
+}
