@@ -14,9 +14,16 @@ import performanceNow from 'performance-now'
 import { createElement } from '../utils/element'
 import { applyDefaultProps } from '../utils/props'
 
-function appendChild(parent: Phaser.Scene, child: any) {
-  if (parent.add.existing) {
+function appendChild(
+  parent: Phaser.Scene | Phaser.GameObjects.GameObject,
+  child: any
+) {
+  if (parent instanceof Phaser.Scene) {
     parent.add.existing(child)
+  }
+
+  if (parent instanceof Phaser.GameObjects.GameObject) {
+    // todo
   }
 }
 
@@ -32,7 +39,7 @@ function insertBefore(parent: Phaser.Scene, child: any, beforeChild: any) {
     'PhaserFiber cannot insert node before itself'
   )
 
-  if (parent.children) {
+  if (parent instanceof Phaser.Scene) {
     const childExists = parent.children.exists(child)
     const index = parent.children.getIndex(beforeChild)
 
@@ -186,7 +193,7 @@ export default {
   ) {
     invariant(
       false,
-      'PhaserFiber does not support text instances. Use `<Text /> component` instead.'
+      'react-phaser does not support text instances. Use `<Text /> component` instead.'
     )
   },
 
