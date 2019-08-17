@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser'
 import invariant from 'fbjs/lib/invariant'
-import { applyDefaultProps } from './props'
+import applyDefaultProps from './applyProps/applyDefaultProps'
 import Text from '../elements/Text'
 import Sprite from '../elements/Sprite'
 import Image from '../elements/Image'

@@ -12,6 +12,7 @@ export const ArcadeImage = (TYPES.ArcadeImage as unknown) as React.FC<
 >
 
 export { TextProps, SpriteProps, ImageProps, ArcadeImageProps }
+
 /*********************
  * Common Prop Types *
  *********************/
@@ -19,7 +20,7 @@ export { TextProps, SpriteProps, ImageProps, ArcadeImageProps }
 // GameObject
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   ref?: React.Ref<T>
-  name?: string // todo: default to component's displayName?
+  name?: string
   active?: boolean
   tabIndex?: boolean
   data?: any
@@ -143,6 +144,7 @@ export interface ArcadeDragProps {
 
 export interface ArcadeEnableProps {
   disableBody?: boolean
+  hideBody?: boolean
 }
 
 export interface ArcadeFrictionProps {

@@ -1,5 +1,8 @@
 import * as Phaser from 'phaser'
-import { applyDefaultProps } from '../../utils/props'
+import {
+  applyDefaultProps,
+  applyArcadePhysicsProps,
+} from '../../utils/applyProps'
 import {
   AlphaProps,
   BlendModeProps,
@@ -83,52 +86,8 @@ const ArcadeImage: CreatePhaserComponentConfig<
     }
 
     applyDefaultProps(instance, oldProps, props)
-    applyPhysicsProps(instance, oldProps, props)
+    applyArcadePhysicsProps(instance, oldProps, props)
   },
-}
-
-export function applyPhysicsProps(
-  instance: Phaser.Physics.Arcade.Image,
-  oldProps: ArcadeImageProps,
-  newProps: Partial<ArcadeImageProps>
-) {
-  const oldBounce = convertToPoint(oldProps.bounce)
-  const newBounce = convertToPoint(newProps.bounce)
-  if (oldBounce.x !== newBounce.x || oldBounce.y !== newBounce.y) {
-    instance.setBounce(newBounce.x, newBounce.y)
-  }
-
-  if (oldProps.collideWorldBounds !== newProps.collideWorldBounds) {
-    instance.setCollideWorldBounds(newProps.collideWorldBounds)
-  }
-
-  if (
-    oldProps.debugShowBody !== newProps.debugShowBody ||
-    oldProps.debugShowVelocity !== newProps.debugShowVelocity ||
-    oldProps.debugBodyColor !== newProps.debugBodyColor
-  ) {
-    instance.setDebug(
-      newProps.debugShowBody,
-      newProps.debugShowVelocity,
-      newProps.debugBodyColor
-    )
-  }
-
-  if (oldProps.immovable !== newProps.immovable) {
-    instance.setImmovable(newProps.immovable)
-  }
-}
-
-function convertToPoint(num: number | { x: number; y: number }) {
-  if (typeof num === 'number') {
-    return { x: num, y: num }
-  }
-
-  if (!num) {
-    return { x: 0, y: 0 }
-  }
-
-  return num
 }
 
 export default ArcadeImage
