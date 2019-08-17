@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser'
-import { applyDefaultProps } from '../../utils/props'
+import { applyDefaultProps } from '../../utils/applyProps'
 import {
   AlphaProps,
   BlendModeProps,

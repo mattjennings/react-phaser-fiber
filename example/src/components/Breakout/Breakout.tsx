@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useReducer, useRef } from 'react'
-import { Scene, Text, useGameLoop, useInputEvent, useScene } from 'react-phaser'
+import {
+  Scene,
+  Text,
+  useGameLoop,
+  useInputEvent,
+  useScene,
+} from 'react-phaser-fiber'
 import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'

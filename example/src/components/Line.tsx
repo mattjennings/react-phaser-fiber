@@ -1,4 +1,4 @@
-import { createPhaserComponent, applyDefaultProps } from 'react-phaser'
+import { createPhaserComponent, applyDefaultProps } from 'react-phaser-fiber'
 
 export interface LineProps {
   from: {

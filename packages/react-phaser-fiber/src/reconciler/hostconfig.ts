@@ -12,7 +12,7 @@ import invariant from 'fbjs/lib/invariant'
 import performanceNow from 'performance-now'
 
 import { createElement } from '../utils/element'
-import { applyDefaultProps } from '../utils/props'
+import { applyDefaultProps } from '../utils/applyProps'
 
 function appendChild(
   parent: Phaser.Scene | Phaser.GameObjects.GameObject,

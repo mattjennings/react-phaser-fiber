@@ -1,5 +1,9 @@
 import React from 'react'
-import { ArcadeImage, ArcadeImageProps, useArcadeCollider } from 'react-phaser'
+import {
+  ArcadeImage,
+  ArcadeImageProps,
+  useArcadeCollider,
+} from 'react-phaser-fiber'
 import { useCallback } from 'react'
 
 export interface BallProps

@@ -1,8 +1,8 @@
 {
-  "name": "react-phaser",
+  "name": "react-phaser-fiber",
   "version": "0.1.0",
   "main": "dist/index.js",
-  "module": "dist/react-phaser.esm.js",
+  "module": "dist/react-phaser-fiber.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"

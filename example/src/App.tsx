@@ -1,5 +1,5 @@
 import React from 'react'
-import { Game } from 'react-phaser'
+import { Game } from 'react-phaser-fiber'
 import Breakout from './components/Breakout'
 
 const App = () => {

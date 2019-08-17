@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { ArcadeImage, useInputEvent } from 'react-phaser'
+import { ArcadeImage, useInputEvent } from 'react-phaser-fiber'
 
 export interface PaddleProps {
   initialX: number

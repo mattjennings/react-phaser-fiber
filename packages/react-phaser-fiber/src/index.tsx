@@ -1,5 +1,5 @@
 export { createPhaserComponent } from './utils/element'
-export { applyDefaultProps } from './utils/props'
+export { applyDefaultProps, applyArcadePhysicsProps } from './utils/applyProps'
 export * from './hooks'
 export * from './components'
 export * from './elements'
