@@ -64,57 +64,23 @@ const Breakout = () => {
     }, [state.isBallActive])
   )
 
-  const handleBallPaddleCollision = (
-    ball: Phaser.Physics.Arcade.Image,
-    paddle: Phaser.Physics.Arcade.Image
-  ) => {
-    if (ball.x < paddle.x) {
-      const diff = paddle.x - ball.x
-      ball.setVelocityX(-10 * diff)
-    } else if (ball.x > paddle.x) {
-      const diff = ball.x - paddle.x
-      ball.setVelocityX(10 * diff)
-    } else {
-      ball.setVelocityX(2 + Math.random() * 8)
-    }
-  }
-
   return (
     <>
       {state.blocks.map((block, index) => {
         return (
-          <ArcadeCollider
+          <Block
             key={index}
-            collideWith={[ballRef]}
-            onCollide={() => {
+            ballRef={ballRef}
+            x={block.x + 116}
+            y={block.y + 200}
+            frame={block.frame}
+            onBallHit={() => {
               dispatch({ type: 'BLOCK_HIT', payload: index })
             }}
-          >
-            {colliderRef => (
-              <Block
-                ref={colliderRef}
-                x={block.x + 116}
-                y={block.y + 200}
-                frame={block.frame}
-              />
-            )}
-          </ArcadeCollider>
+          />
         )
       })}
-      <ArcadeCollider
-        collideWith={[paddleRef]}
-        onCollide={handleBallPaddleCollision}
-      >
-        {colliderRef => (
-          <Ball
-            x={0} // velocity will take over x/y once set
-            y={0}
-            ref={composeRefs(colliderRef, ballRef)}
-            bounce={1}
-            collideWorldBounds
-          />
-        )}
-      </ArcadeCollider>
+      <Ball ref={ballRef} paddleRef={paddleRef} bounce={1} collideWorldBounds />
       <Paddle ref={paddleRef} initialX={400} initialY={700} />
     </>
   )
