@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useReducer,
-  useRef,
-  useState,
-  useLayoutEffect,
-} from 'react'
+import React, { useCallback, useReducer, useRef, useState } from 'react'
 import { Scene, Text, ArcadeCollider, useScene } from 'react-phaser'
 import 'react-app-polyfill/ie11'
 import { useGameLoop, useInputEvent } from 'react-phaser'
@@ -12,6 +6,7 @@ import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'
 import { useEffect } from 'react'
+import composeRefs from '@seznam/compose-react-refs'
 
 const blockFrames = ['blue1', 'red1', 'green1', 'yellow1', 'silver1', 'purple1']
 
@@ -68,33 +63,32 @@ const Breakout = () => {
     }, [])
   )
 
+  const handleBallBlockCollision = useCallback((block, ball) => {
+    block.disableBody(true, true)
+  }, [])
+
   return (
     <>
       {state.blocks.map((block, index) => {
         return (
-          <Block
+          <ArcadeCollider
             key={index}
-            x={block.x + 116}
-            y={block.y + 200}
-            frame={block.frame}
-          />
+            collideWith={[ballRef]}
+            onCollide={handleBallBlockCollision}
+          >
+            {blockRef => (
+              <Block
+                ref={blockRef}
+                x={block.x + 116}
+                y={block.y + 200}
+                frame={block.frame}
+              />
+            )}
+          </ArcadeCollider>
         )
       })}
-      <Ball
-        ref={ballRef}
-        x={ballPos.x}
-        y={ballPos.y}
-        bounce={1}
-        collideWorldBounds
-        debugBodyColor={0xff0000}
-        debugShowBody
-        debugShowVelocity
-      />
-      <Paddle ref={paddleRef} initialX={400} initialY={700} />
-
-      {/* Colliders */}
       <ArcadeCollider
-        between={[ballRef, paddleRef]}
+        collideWith={[paddleRef]}
         onCollide={useCallback((ball, paddle) => {
           // ball hits paddle, randomize direction
           if (ball.x < paddle.x) {
@@ -107,7 +101,21 @@ const Breakout = () => {
             ball.setVelocityX(2 + Math.random() * 8)
           }
         }, [])}
-      />
+      >
+        {colliderRef => (
+          <Ball
+            ref={composeRefs(colliderRef, ballRef)}
+            x={ballPos.x}
+            y={ballPos.y}
+            bounce={1}
+            collideWorldBounds
+            debugBodyColor={0xff0000}
+            debugShowBody
+            debugShowVelocity
+          />
+        )}
+      </ArcadeCollider>
+      <Paddle ref={paddleRef} initialX={400} initialY={700} />
     </>
   )
 }

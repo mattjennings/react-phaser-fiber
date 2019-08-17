@@ -1,12 +1,12 @@
 import React from 'react'
-import { Image } from 'react-phaser'
-import { ImageProps } from 'react-phaser/dist/components/Image'
+import { ArcadeImage } from 'react-phaser'
+import { ArcadeImageProps } from 'react-phaser/dist/components/ArcadeImage'
 
 function Block(
-  props: Omit<ImageProps, 'texture'>,
-  ref: React.Ref<Phaser.GameObjects.Image>
+  props: Omit<ArcadeImageProps, 'texture'>,
+  ref: React.Ref<Phaser.Physics.Arcade.Image>
 ) {
-  return <Image ref={ref} texture="assets" {...props} />
+  return <ArcadeImage ref={ref} texture="assets" immovable {...props} />
 }
 
 export default React.forwardRef(Block)
