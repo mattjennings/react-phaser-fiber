@@ -19,14 +19,15 @@ const Breakout = () => {
 
   const [state, dispatch] = useReducer(reducer, defaultState)
 
+  // set collisions on edge of world
   useEffect(() => {
     scene.physics.world.setBoundsCollision(true, true, true, false)
   }, [scene.physics.world])
 
-  // set ball position to paddle when game is in START state
   useGameLoop(
     useCallback(() => {
       if (paddleRef.current && ballRef.current) {
+        // set ball position to paddle when ball is inactive
         if (!state.isBallActive) {
           ballRef.current.setPosition(
             paddleRef.current.x,
@@ -34,11 +35,13 @@ const Breakout = () => {
           )
         }
 
+        // reset ball position if it exits bottom of screen
         if (ballRef.current.y > 800) {
           ballRef.current.setVelocity(0)
           dispatch({ type: 'RESET_BALL' })
         }
 
+        // restart game when all blocks are destroyed
         if (state.blocks.length === 0) {
           ballRef.current.setVelocity(0, 0)
           ballRef.current.setPosition(
@@ -61,30 +64,20 @@ const Breakout = () => {
     }, [state.isBallActive])
   )
 
-  const handleBallBlockCollision = useCallback(
-    (block: Phaser.Physics.Arcade.Image, ball: Phaser.Physics.Arcade.Image) => {
-      dispatch({ type: 'BLOCK_HIT', payload: block.data.get('index') })
-    },
-    []
-  )
-
-  const handleBallPaddleCollision = useCallback(
-    (
-      ball: Phaser.Physics.Arcade.Image,
-      paddle: Phaser.Physics.Arcade.Image
-    ) => {
-      if (ball.x < paddle.x) {
-        const diff = paddle.x - ball.x
-        ball.setVelocityX(-10 * diff)
-      } else if (ball.x > paddle.x) {
-        const diff = ball.x - paddle.x
-        ball.setVelocityX(10 * diff)
-      } else {
-        ball.setVelocityX(2 + Math.random() * 8)
-      }
-    },
-    []
-  )
+  const handleBallPaddleCollision = (
+    ball: Phaser.Physics.Arcade.Image,
+    paddle: Phaser.Physics.Arcade.Image
+  ) => {
+    if (ball.x < paddle.x) {
+      const diff = paddle.x - ball.x
+      ball.setVelocityX(-10 * diff)
+    } else if (ball.x > paddle.x) {
+      const diff = ball.x - paddle.x
+      ball.setVelocityX(10 * diff)
+    } else {
+      ball.setVelocityX(2 + Math.random() * 8)
+    }
+  }
 
   return (
     <>
@@ -93,7 +86,9 @@ const Breakout = () => {
           <ArcadeCollider
             key={index}
             collideWith={[ballRef]}
-            onCollide={handleBallBlockCollision}
+            onCollide={() => {
+              dispatch({ type: 'BLOCK_HIT', payload: index })
+            }}
           >
             {colliderRef => (
               <Block
@@ -101,9 +96,6 @@ const Breakout = () => {
                 x={block.x + 116}
                 y={block.y + 200}
                 frame={block.frame}
-                data={{
-                  index,
-                }}
               />
             )}
           </ArcadeCollider>
