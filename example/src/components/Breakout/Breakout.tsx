@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer, useRef, useState } from 'react'
+import React, { useCallback, useReducer, useRef } from 'react'
 import { Scene, Text, ArcadeCollider, useScene } from 'react-phaser'
 import { useGameLoop, useInputEvent } from 'react-phaser'
 import Ball from './Ball'
@@ -7,27 +7,15 @@ import Paddle from './Paddle'
 import { useEffect } from 'react'
 import composeRefs from '@seznam/compose-react-refs'
 
-const blockFrames = ['blue1', 'red1', 'green1', 'yellow1', 'silver1', 'purple1']
-
 interface BreakoutState {
   isBallActive?: boolean
   blocks: Array<{ x: number; y: number; frame: string }>
-}
-
-const defaultState: BreakoutState = {
-  isBallActive: false,
-  blocks: Array.from({ length: 60 }).map((_, index) => ({
-    x: (index % 10) * 64,
-    y: 10 * Math.floor(index / 10) * 3.2,
-    frame: blockFrames[Math.floor(index / 10)],
-  })),
 }
 
 const Breakout = () => {
   const scene = useScene()
   const paddleRef = useRef<Phaser.Physics.Arcade.Image>(null)
   const ballRef = useRef<Phaser.Physics.Arcade.Image>(null)
-  const [ballPos, setBallPos] = useState({ x: 116, y: 136 })
 
   const [state, dispatch] = useReducer(reducer, defaultState)
 
@@ -38,33 +26,65 @@ const Breakout = () => {
   // set ball position to paddle when game is in START state
   useGameLoop(
     useCallback(() => {
-      if (paddleRef.current && !state.isBallActive) {
-        setBallPos({ x: paddleRef.current.x, y: paddleRef.current.y - 48 })
-      }
+      if (paddleRef.current && ballRef.current) {
+        if (!state.isBallActive) {
+          ballRef.current.setPosition(
+            paddleRef.current.x,
+            paddleRef.current.y - 48
+          )
+        }
 
-      if (ballRef.current) {
         if (ballRef.current.y > 800) {
           ballRef.current.setVelocity(0)
           dispatch({ type: 'RESET_BALL' })
         }
+
+        if (state.blocks.length === 0) {
+          ballRef.current.setVelocity(0, 0)
+          ballRef.current.setPosition(
+            paddleRef.current.x,
+            paddleRef.current.y - 48
+          )
+          dispatch({ type: 'RESET_GAME' })
+        }
       }
-    }, [state.isBallActive])
+    }, [state.isBallActive, state.blocks.length])
   )
 
   useInputEvent(
     'pointerdown',
     useCallback(() => {
-      if (ballRef.current) {
-        ballRef.current.setVelocity(-75, -300)
+      if (ballRef.current && !state.isBallActive) {
+        ballRef.current.setVelocity(-75, -600)
+        dispatch({ type: 'PLAY' })
       }
-
-      dispatch({ type: 'PLAY' })
-    }, [])
+    }, [state.isBallActive])
   )
 
-  const handleBallBlockCollision = useCallback((block, ball) => {
-    block.disableBody(true, true)
-  }, [])
+  const handleBallBlockCollision = useCallback(
+    (block: Phaser.Physics.Arcade.Image, ball: Phaser.Physics.Arcade.Image) => {
+      dispatch({ type: 'BLOCK_HIT', payload: block.data.get('index') })
+    },
+    []
+  )
+
+  const handleBallPaddleCollision = useCallback(
+    (
+      ball: Phaser.Physics.Arcade.Image,
+      paddle: Phaser.Physics.Arcade.Image
+    ) => {
+      if (ball.x < paddle.x) {
+        const diff = paddle.x - ball.x
+        ball.setVelocityX(-10 * diff)
+      } else if (ball.x > paddle.x) {
+        const diff = ball.x - paddle.x
+        ball.setVelocityX(10 * diff)
+      } else {
+        ball.setVelocityX(2 + Math.random() * 8)
+      }
+    },
+    []
+  )
 
   return (
     <>
@@ -81,6 +101,9 @@ const Breakout = () => {
                 x={block.x + 116}
                 y={block.y + 200}
                 frame={block.frame}
+                data={{
+                  index,
+                }}
               />
             )}
           </ArcadeCollider>
@@ -88,29 +111,15 @@ const Breakout = () => {
       })}
       <ArcadeCollider
         collideWith={[paddleRef]}
-        onCollide={useCallback((ball, paddle) => {
-          // ball hits paddle, randomize direction
-          if (ball.x < paddle.x) {
-            const diff = paddle.x - ball.x
-            ball.setVelocityX(-10 * diff)
-          } else if (ball.x > paddle.x) {
-            const diff = ball.x - paddle.x
-            ball.setVelocityX(10 * diff)
-          } else {
-            ball.setVelocityX(2 + Math.random() * 8)
-          }
-        }, [])}
+        onCollide={handleBallPaddleCollision}
       >
         {colliderRef => (
           <Ball
+            x={0} // velocity will take over x/y once set
+            y={0}
             ref={composeRefs(colliderRef, ballRef)}
-            x={ballPos.x}
-            y={ballPos.y}
             bounce={1}
             collideWorldBounds
-            debugBodyColor={0xff0000}
-            debugShowBody
-            debugShowVelocity
           />
         )}
       </ArcadeCollider>
@@ -119,15 +128,33 @@ const Breakout = () => {
   )
 }
 
+const defaultState: BreakoutState = {
+  isBallActive: false,
+  blocks: Array.from({ length: 60 }).map((_, index) => {
+    const blockFrames = [
+      'blue1',
+      'red1',
+      'green1',
+      'yellow1',
+      'silver1',
+      'purple1',
+    ]
+
+    return {
+      x: (index % 10) * 64,
+      y: 10 * Math.floor(index / 10) * 3.2,
+      frame: blockFrames[Math.floor(index / 10)],
+    }
+  }),
+}
+
 function reducer(
   state: BreakoutState,
   action: { type: string; payload?: any }
 ): BreakoutState {
   switch (action.type) {
     case 'RESET_GAME': {
-      return {
-        ...defaultState,
-      }
+      return defaultState
     }
     case 'RESET_BALL': {
       return {
@@ -139,6 +166,12 @@ function reducer(
       return {
         ...state,
         isBallActive: true,
+      }
+    }
+    case 'BLOCK_HIT': {
+      return {
+        ...state,
+        blocks: state.blocks.filter((_, index) => index !== action.payload),
       }
     }
   }
@@ -156,7 +189,7 @@ export default function BreakoutScene() {
           'assets/breakout.json'
         )
       }}
-      loadingFallback={progress => (
+      renderLoading={progress => (
         <Text
           x={400}
           y={400}

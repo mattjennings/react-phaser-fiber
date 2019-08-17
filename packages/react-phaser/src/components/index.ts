@@ -6,7 +6,7 @@ export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   name?: string // todo: default to component's displayName?
   active?: boolean
   tabIndex?: boolean
-  data?: boolean
+  data?: any
   renderFlags?: integer
   cameraFilter?: number
   body?: Phaser.Physics.Arcade.Body | Phaser.Physics.Impact.Body

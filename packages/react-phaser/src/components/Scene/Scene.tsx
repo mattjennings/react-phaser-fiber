@@ -13,7 +13,7 @@ export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
   onPreload?: (scene: Phaser.Scene) => any
   onCreate?: (scene: Phaser.Scene) => any
   onInit?: (scene: Phaser.Scene) => any
-  loadingFallback?: (progress: number) => JSX.Element
+  renderLoading?: (progress: number) => JSX.Element
 }
 
 export interface SceneState {
@@ -106,8 +106,8 @@ class Scene extends React.Component<SceneProps & WithGameProps, SceneState> {
 
   getChildren() {
     const children =
-      this.state.loading && this.props.loadingFallback
-        ? this.props.loadingFallback(this.state.loadProgress)
+      this.state.loading && this.props.renderLoading
+        ? this.props.renderLoading(this.state.loadProgress)
         : this.props.children
 
     // we're not in the render so we need to recreate the Game Context

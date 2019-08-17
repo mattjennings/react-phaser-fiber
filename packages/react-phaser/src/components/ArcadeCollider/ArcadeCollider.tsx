@@ -1,11 +1,11 @@
-import React, { useLayoutEffect, useRef, useMemo } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import { useScene } from '../../hooks'
 
 export interface ArcadeColliderProps {
   collideWith: Array<React.RefObject<any>>
   children: (ref: React.Ref<any>) => JSX.Element
-  onCollide?: ArcadePhysicsCallback
-  onProcess?: ArcadePhysicsCallback
+  onCollide?: (obj1: any, obj2: any) => any
+  onProcess?: (obj1: any, obj2: any) => any
 }
 
 export default function ArcadeCollider({
@@ -20,7 +20,7 @@ export default function ArcadeCollider({
   useLayoutEffect(() => {
     let collider: Phaser.Physics.Arcade.Collider
 
-    // this timeout is gross. it's necessary because otherwise
+    // this timeout feels gross. it's necessary because otherwise
     // `collideWith` refs are null for sibling components _after_ this one
     // is there a better solution?
     setTimeout(() => {

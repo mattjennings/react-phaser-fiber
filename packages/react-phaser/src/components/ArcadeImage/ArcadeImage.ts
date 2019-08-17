@@ -58,9 +58,9 @@ export interface ArcadeImageProps
     ArcadeMassProps,
     ArcadeSizeProps,
     ArcadeVelocityProps {
+  texture: string
   x: number
   y: number
-  texture: string
   frame?: string | number
 }
 

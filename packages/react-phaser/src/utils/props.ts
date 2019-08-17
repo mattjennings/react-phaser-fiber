@@ -28,7 +28,13 @@ export function applyDefaultProps(
   oldProps: Record<string, any>,
   newProps: Record<string, any>
 ) {
-  const props = filterProps(newProps)
+  const { data, ...props } = filterProps(newProps)
+
+  if (data && instance.setData) {
+    Object.keys(data).forEach(dataKey => {
+      instance.setData(dataKey, data[dataKey])
+    })
+  }
 
   Object.keys(props).forEach(key => {
     instance[key] = props[key]
