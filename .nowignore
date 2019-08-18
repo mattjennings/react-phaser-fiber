@@ -1,4 +1,5 @@
 node_modules
 .rts2*
 .cache
-example/dist
+.npmignore
+examples/**/dist

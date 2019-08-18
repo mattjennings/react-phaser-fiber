@@ -1,10 +1,28 @@
 {
   "version": 2,
-  "builds": [{ "src": "./example/package.json", "use": "@now/static-build" }],
+  "builds": [
+    {
+      "src": "/examples/breakout/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "build" }
+    }
+  ],
   "routes": [
-    { "src": "^/(.*).js$", "dest": "/example/$1.js" },
-    { "src": "^/(.*).png$", "dest": "/example/$1.png" },
-    { "src": "^/(.*).json$", "dest": "/example/$1.json" },
-    { "src": "^/(.*)", "dest": "/example/index.html" }
+    {
+      "src": "^/examples/breakout/(.*).js$",
+      "dest": "/examples/breakout/$1.js"
+    },
+    {
+      "src": "^/examples/breakout/(.*).png$",
+      "dest": "/examples/breakout/$1.png"
+    },
+    {
+      "src": "^/examples/breakout/(.*).json$",
+      "dest": "/examples/breakout/$1.json"
+    },
+    {
+      "src": "^/examples/breakout/(.*)",
+      "dest": "/examples/breakout/index.html"
+    }
   ]
 }

@@ -1,9 +1,9 @@
-# react-phaser
+# react-phaser-fiber
 
 Create Phaser 3 games using React.
 
 This is _very_ much a work in progress.
 
-## Demo
+## Example
 
 https://react-phaser-fiber.mattjennings.now.sh
