@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "build:react-phaser": "cd packages/react-phaser && yarn build",
-    "deploy": "now"
+    "deploy": "now",
+    "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
   },
   "husky": {
     "hooks": {
