@@ -2,7 +2,7 @@
 
 Create Phaser 3 games using React. Heavily inspired by [@inlet/react-pixi](https://github.com/inlet/react-pixi).
 
-This is _very_ much a work in progress. The following components are supported:
+This is _very_ much a work in progress. The following components are provided (linked to their respective Phaser class):
 
 - [Game](https://photonstorm.github.io/phaser3-docs/Phaser.Game.html)
 - [Scene](https://photonstorm.github.io/phaser3-docs/Phaser.Scene.html)
