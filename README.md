@@ -6,4 +6,4 @@ This is _very_ much a work in progress.
 
 ## Demo
 
-https://react-phaser.mattjennings.now.sh
+https://react-phaser-fiber.mattjennings.now.sh
