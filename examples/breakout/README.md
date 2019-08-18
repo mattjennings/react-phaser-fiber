@@ -1,1 +1,1 @@
-[View on CodeSandbox](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/breakout)
+[![Edit Breakout](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/breakout)

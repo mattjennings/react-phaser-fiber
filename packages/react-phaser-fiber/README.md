@@ -22,3 +22,35 @@ The current goal is to support all GameObjects and Physics.Arcade objects. After
 ## Other
 
 [Custom Phaser Component](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/custom-component)
+
+# Getting Started
+
+## Install
+
+```cli
+npm install react-phaser-fiber
+```
+
+## Create a game
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Game, Scene, Text } from 'react-phaser-fiber'
+
+const App = () => {
+  return (
+    <Game width={400} height={400}>
+      <Scene sceneKey="main">
+        <Text x={100} y={100} text="Hello World!" style={{ color: 'white' }} />
+      </Scene>
+    </Game>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
+```
+
+[![Edit Hello World](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/hello-world)
+
+There will be proper documentation eventually, but for now look through the examples to see what else is possible.
