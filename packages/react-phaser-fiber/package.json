@@ -1,6 +1,6 @@
 {
   "name": "react-phaser-fiber",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "license": "ISC",
   "homepage": "https://github.com/mattjennings/react-phaser-fiber",
   "repository": {
@@ -22,7 +22,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
-    "prepublishOnly": "cp ../../README.md README.md",
+    "prepublishOnly": "cp ../../README.md README.md && yarn build",
     "publish": "npm publish"
   },
   "peerDependencies": {
