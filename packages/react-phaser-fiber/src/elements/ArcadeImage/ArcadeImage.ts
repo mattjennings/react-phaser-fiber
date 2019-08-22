@@ -58,9 +58,7 @@ export interface ArcadeImageProps
     ArcadeMassProps,
     ArcadeSizeProps,
     ArcadeVelocityProps {
-  texture: string
-  x: number
-  y: number
+  texture?: string
   frame?: string | number
 }
 
@@ -68,8 +66,14 @@ const ArcadeImage: CreatePhaserComponentConfig<
   Phaser.Physics.Arcade.Image,
   ArcadeImageProps
 > = {
-  create: ({ x, y, texture, frame }, scene) => {
-    const img = new Phaser.Physics.Arcade.Image(scene, x, y, texture, frame)
+  create: ({ x, y, initialX, initialY, texture, frame }, scene) => {
+    const img = new Phaser.Physics.Arcade.Image(
+      scene,
+      typeof initialX !== undefined ? initialX : x,
+      typeof initialY !== undefined ? initialY : y,
+      texture,
+      frame
+    )
     scene.physics.add.existing(img)
 
     return img

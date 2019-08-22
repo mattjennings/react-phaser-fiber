@@ -31,9 +31,9 @@ export interface SpriteProps
     TintProps,
     TransformProps,
     VisibleProps {
-  texture: string
-  x: number
-  y: number
+  texture?: string
+  x?: number
+  y?: number
   frame?: number
 }
 

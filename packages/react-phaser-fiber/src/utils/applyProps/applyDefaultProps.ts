@@ -5,7 +5,8 @@ export default function applyDefaultProps(
   oldProps: Record<string, any>,
   newProps: Record<string, any>
 ) {
-  const { data, ...props } = sanitizeProps(newProps)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data, initialX, initialY, ...props } = sanitizeProps(newProps)
 
   if (data && instance.setData) {
     Object.keys(data).forEach(dataKey => {
