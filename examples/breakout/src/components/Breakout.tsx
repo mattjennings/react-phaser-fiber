@@ -83,7 +83,7 @@ const Breakout = () => {
           />
         )
       })}
-      <Ball ref={ballRef} paddleRef={paddleRef} bounce={1} collideWorldBounds />
+      <Ball ref={ballRef} paddleRef={paddleRef} />
       <Paddle ref={paddleRef} initialX={400} initialY={700} />
     </>
   )

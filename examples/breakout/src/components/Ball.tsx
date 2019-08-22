@@ -42,6 +42,8 @@ function Ball(
       y={0}
       texture="assets"
       frame="ball1"
+      bounce={1}
+      collideWorldBounds
       {...props}
     />
   )

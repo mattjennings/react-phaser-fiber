@@ -33,9 +33,7 @@ export interface TextProps
     TintProps,
     TransformProps,
     VisibleProps {
-  x: number
-  y: number
-  text: string | string[]
+  text?: string | string[]
   style: Phaser.Types.GameObjects.Text.TextStyle
 }
 

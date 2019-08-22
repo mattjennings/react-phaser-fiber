@@ -103,12 +103,31 @@ export type TintProps = Partial<
   >
 >
 
-export type TransformProps = Partial<
-  Pick<
-    Phaser.GameObjects.Components.Transform,
-    'angle' | 'rotation' | 'scale' | 'scaleX' | 'scaleY' | 'x' | 'y' | 'z' | 'w'
-  >
->
+export interface TransformProps
+  extends Partial<
+    Pick<
+      Phaser.GameObjects.Components.Transform,
+      | 'angle'
+      | 'rotation'
+      | 'scale'
+      | 'scaleX'
+      | 'scaleY'
+      | 'x'
+      | 'y'
+      | 'z'
+      | 'w'
+    >
+  > {
+  /**
+   * Sets the X only on the first render
+   */
+  initialX?: number
+
+  /**
+   * Sets the Y only on the first render
+   */
+  initialY?: number
+}
 
 export type VisibleProps = Partial<
   Pick<Phaser.GameObjects.Components.Visible, 'visible'>
