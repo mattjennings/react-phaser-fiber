@@ -5,13 +5,15 @@ export type BallProps = Omit<ArcadeImageProps, 'texture'> & SpawnProps
 
 function Ball(props: BallProps) {
   // create a random velocity and memoize it so it doesn't change on re-renders
-  const velocity = useMemo(
-    () => ({
-      x: getRandom([75, -75, 30, -30]),
-      y: getRandom([300, -300, 600, -600]),
-    }),
-    []
-  )
+  const velocity = useMemo(() => {
+    const speed = 450
+    const angle = (Math.floor(Math.random() * 360) / 180) * Math.PI
+
+    return {
+      x: speed * Math.cos(angle),
+      y: speed * Math.sin(angle),
+    }
+  }, [])
 
   // destroy self after 3 seconds
   useEffect(() => {
@@ -31,10 +33,6 @@ function Ball(props: BallProps) {
       {...props}
     />
   )
-}
-
-function getRandom(array: any[]) {
-  return array[Math.floor(Math.random() * array.length)]
 }
 
 export default Ball
