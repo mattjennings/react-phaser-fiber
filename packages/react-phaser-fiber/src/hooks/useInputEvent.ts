@@ -1,16 +1,20 @@
 import useScene from './useScene'
 import { useEffect } from 'react'
+import invariant from 'fbjs/lib/invariant'
 
 export default function useInputEvent(event: string, callback: Function) {
   const scene = useScene()
 
   useEffect(() => {
-    if (scene) {
-      scene.input.on(event, callback)
+    invariant(
+      !!scene,
+      '`useInputEvent` could not find the scene. Make sure it is used in a component that is a child of <Scene />'
+    )
 
-      return () => {
-        scene.input.off(event, callback)
-      }
+    scene.input.on(event, callback)
+
+    return () => {
+      scene.input.off(event, callback)
     }
   }, [scene, event, callback])
 }
