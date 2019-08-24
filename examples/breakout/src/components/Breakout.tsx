@@ -1,11 +1,5 @@
-import React, { useCallback, useEffect, useReducer, useRef } from 'react'
-import {
-  Scene,
-  Text,
-  useGameLoop,
-  useInputEvent,
-  useScene,
-} from 'react-phaser-fiber'
+import React, { useCallback, useReducer, useRef } from 'react'
+import { Scene, Text, useGameLoop, useInputEvent } from 'react-phaser-fiber'
 import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'
@@ -16,16 +10,10 @@ interface BreakoutState {
 }
 
 const Breakout = () => {
-  const scene = useScene()
   const paddleRef = useRef<Phaser.Physics.Arcade.Image>(null)
   const ballRef = useRef<Phaser.Physics.Arcade.Image>(null)
 
   const [state, dispatch] = useReducer(reducer, defaultState)
-
-  // set collisions on edge of world
-  useEffect(() => {
-    scene.physics.world.setBoundsCollision(true, true, true, false)
-  }, [scene.physics.world])
 
   useGameLoop(
     useCallback(() => {
@@ -143,6 +131,10 @@ export default function BreakoutScene() {
   return (
     <Scene
       sceneKey="breakout"
+      onCreate={scene => {
+        // set collisions on edge of world
+        scene.physics.world.setBoundsCollision(true, true, true, false)
+      }}
       onPreload={scene => {
         scene.load.atlas(
           'assets',

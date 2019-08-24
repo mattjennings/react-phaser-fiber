@@ -1,28 +1,8 @@
 import 'react-app-polyfill/ie11'
-import React, { useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { Game, Scene, Spawner, Text, useScene } from 'react-phaser-fiber'
+import { Game, Scene, Spawner, Text } from 'react-phaser-fiber'
 import BallSpawner from './BallSpawner'
-
-function SpawnerExample() {
-  const scene = useScene()
-
-  useEffect(() => {
-    scene.physics.world.setBoundsCollision(true, true, true, true)
-  }, [scene.physics.world])
-
-  return (
-    <Spawner>
-      <Text
-        x={35}
-        y={200}
-        style={{ color: 'white' }}
-        text="Click anywhere to create a ball that lives for 3 seconds"
-      />
-      <BallSpawner />
-    </Spawner>
-  )
-}
 
 const App = () => {
   return (
@@ -45,6 +25,9 @@ const App = () => {
             'assets/breakout.json'
           )
         }}
+        onCreate={scene => {
+          scene.physics.world.setBoundsCollision(true, true, true, true)
+        }}
         renderLoading={progress => (
           <Text
             x={200}
@@ -54,13 +37,18 @@ const App = () => {
           />
         )}
       >
-        <SpawnerExample />
+        <Spawner>
+          <Text
+            x={35}
+            y={200}
+            style={{ color: 'white' }}
+            text="Click anywhere to create a ball that lives for 3 seconds"
+          />
+          <BallSpawner />
+        </Spawner>
       </Scene>
     </Game>
   )
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))
-
-// @ts-ignore
-module.hot.accept()
