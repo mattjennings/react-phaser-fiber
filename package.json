@@ -15,6 +15,10 @@
       "pre-commit": "pretty-quick --staged"
     }
   },
+  "resolutions": {
+    "react-phaser-fiber": "0.0.7",
+    "jest": "24.8.0"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
