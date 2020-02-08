@@ -10,20 +10,21 @@ export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {
   onBallHit: (block: Phaser.Physics.Arcade.Image) => any
 }
 
-function Block({ ballRef, onBallHit, ...props }: BlockProps) {
-  const blockRef = useRef<Phaser.Physics.Arcade.Image>(null)
-
-  useArcadeCollider(
-    blockRef,
-    ballRef,
-    useCallback(
-      block => {
-        onBallHit(block)
-      },
-      [onBallHit]
-    )
-  )
-  return <ArcadeImage ref={blockRef} texture="assets" immovable {...props} />
+function Block(
+  { ballRef, onBallHit, ...props }: BlockProps,
+  ref: React.Ref<Phaser.Physics.Arcade.Image>
+) {
+  // useArcadeCollider(
+  //   blockRef,
+  //   ballRef,
+  //   useCallback(
+  //     block => {
+  //       onBallHit(block)
+  //     },
+  //     [onBallHit]
+  //   )
+  // )
+  return <ArcadeImage ref={ref} texture="assets" immovable {...props} />
 }
 
-export default Block
+export default React.forwardRef(Block)

@@ -1,5 +1,11 @@
 import React, { useCallback, useReducer, useRef } from 'react'
-import { Scene, Text, useGameLoop, useInputEvent } from 'react-phaser-fiber'
+import {
+  Scene,
+  Text,
+  useGameLoop,
+  useInputEvent,
+  ArcadeCollider,
+} from 'react-phaser-fiber'
 import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'
@@ -57,22 +63,28 @@ const Breakout = () => {
 
   return (
     <>
-      {state.blocks.map((block, index) => {
-        return (
-          <Block
-            key={index}
-            ballRef={ballRef}
-            x={block.x + 116}
-            y={block.y + 200}
-            frame={block.frame}
-            onBallHit={() => {
-              dispatch({ type: 'BLOCK_HIT', payload: index })
-            }}
-          />
-        )
-      })}
-      <Ball ref={ballRef} paddleRef={paddleRef} />
-      <Paddle ref={paddleRef} initialX={400} initialY={700} />
+      <ArcadeCollider
+        onCollide={(obj1, obj2) => {
+          console.log(obj1, obj2)
+        }}
+      >
+        {state.blocks.map((block, index) => {
+          return (
+            <Block
+              key={index}
+              ballRef={ballRef}
+              x={block.x + 116}
+              y={block.y + 200}
+              frame={block.frame}
+              onBallHit={() => {
+                dispatch({ type: 'BLOCK_HIT', payload: index })
+              }}
+            />
+          )
+        })}
+        <Ball ref={ballRef} paddleRef={paddleRef} />
+        <Paddle ref={paddleRef} initialX={400} initialY={700} />
+      </ArcadeCollider>
     </>
   )
 }

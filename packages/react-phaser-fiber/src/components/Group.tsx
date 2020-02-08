@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import React, { useLayoutEffect, useMemo, useRef } from 'react'
-import { useScene } from '../../hooks'
-import isRefObject from '../../utils/helpers/isRefObject'
+import { useScene } from '../hooks'
+import isRefObject from '../utils/helpers/isRefObject'
 
 export interface GroupProps
   extends Partial<

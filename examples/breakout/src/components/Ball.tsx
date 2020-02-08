@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useImperativeHandle, useEffect } from 'react'
 import {
-  ArcadeImage,
   ArcadeImageProps,
   useArcadeCollider,
+  useGameObject,
+  GameObject,
 } from 'react-phaser-fiber'
 import { useCallback } from 'react'
 
@@ -15,38 +16,37 @@ function Ball(
   { paddleRef, ...props }: BallProps,
   ref: React.Ref<Phaser.Physics.Arcade.Image>
 ) {
-  const ballRef = ref as React.RefObject<Phaser.Physics.Arcade.Image>
+  const ball = useGameObject(
+    scene => new Phaser.Physics.Arcade.Image(scene, 0, 0, 'assets', 'ball1')
+  )
+
+  useEffect(() => {
+    ball.setName('ball')
+    ball.setBounce(1)
+    ball.setCollideWorldBounds(true)
+  }, [])
+
+  useImperativeHandle(ref, () => ball)
 
   // collide with paddle
-  useArcadeCollider(
-    ballRef,
-    paddleRef,
-    useCallback((ball, paddle) => {
-      // add X velocity to ball when hitting paddle
-      if (ball.x < paddle.x) {
-        const diff = paddle.x - ball.x
-        ball.setVelocityX(-10 * diff)
-      } else if (ball.x > paddle.x) {
-        const diff = ball.x - paddle.x
-        ball.setVelocityX(10 * diff)
-      } else {
-        ball.setVelocityX(2 + Math.random() * 8)
-      }
-    }, [])
-  )
+  // useArcadeCollider(
+  //   ball,
+  //   paddleRef.current,
+  //   useCallback((ball, paddle) => {
+  //     // add X velocity to ball when hitting paddle
+  //     if (ball.x < paddle.x) {
+  //       const diff = paddle.x - ball.x
+  //       ball.setVelocityX(-10 * diff)
+  //     } else if (ball.x > paddle.x) {
+  //       const diff = ball.x - paddle.x
+  //       ball.setVelocityX(10 * diff)
+  //     } else {
+  //       ball.setVelocityX(2 + Math.random() * 8)
+  //     }
+  //   }, [])
+  // )
 
-  return (
-    <ArcadeImage
-      ref={ref}
-      x={0} // ball position will be controlled its velocity once set
-      y={0}
-      texture="assets"
-      frame="ball1"
-      bounce={1}
-      collideWorldBounds
-      {...props}
-    />
-  )
+  return <GameObject object={ball} {...props} />
 }
 
 export default React.forwardRef(Ball)

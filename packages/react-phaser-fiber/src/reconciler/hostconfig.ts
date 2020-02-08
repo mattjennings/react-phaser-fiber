@@ -12,14 +12,19 @@ import invariant from 'fbjs/lib/invariant'
 import performanceNow from 'performance-now'
 
 import { createElement } from '../utils/element'
-import { applyDefaultProps } from '../utils/applyProps'
+import { applyProps as defaultApplyProps } from '../utils/applyProps'
 
 function appendChild(
   parent: Phaser.Scene | Phaser.GameObjects.GameObject,
-  child: any
+  child: Phaser.GameObjects.GameObject
 ) {
   if (parent instanceof Phaser.Scene) {
     parent.add.existing(child)
+
+    // is this the right way to do this? Physics objects need to be added via scene.physics.add ...
+    if (child.constructor.name.includes('Arcade')) {
+      parent.physics.add.existing(child)
+    }
   }
 
   if (parent instanceof Phaser.GameObjects.GameObject) {
@@ -255,7 +260,7 @@ export default {
     let applyProps = instance && instance.applyProps
 
     if (typeof applyProps !== 'function') {
-      applyProps = applyDefaultProps
+      applyProps = defaultApplyProps
     }
     applyProps(instance, oldProps, newProps)
   },

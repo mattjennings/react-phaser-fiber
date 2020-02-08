@@ -1,2 +1,1 @@
-export { default as applyDefaultProps } from './applyDefaultProps'
-export { default as applyArcadePhysicsProps } from './applyArcadePhysicsProps'
+export { default as applyProps } from './applyProps'
