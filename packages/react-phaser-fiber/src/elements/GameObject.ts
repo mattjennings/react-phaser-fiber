@@ -13,6 +13,13 @@ export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   body?: Phaser.Physics.Arcade.Body | Phaser.Physics.Impact.Body
   ignoreDestroy?: boolean
   input?: Phaser.Types.Input.InteractiveObject
+
+  /**
+   * Creates the body in the phaser for the specified physics world
+   *
+   * note: only 'arcade' is supported for now
+   */
+  physics?: 'arcade'
 }
 
 export type AlphaProps = Partial<

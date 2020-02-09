@@ -32,6 +32,7 @@ function Ball(props: BallProps) {
       velocity={velocity}
       bounce={1}
       collideWorldBounds
+      physics="arcade"
       {...props}
     />
   )

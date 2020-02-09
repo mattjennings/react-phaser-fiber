@@ -23,9 +23,9 @@ export default function Breakout() {
 
   useGameLoop(
     useCallback(() => {
-      if (paddleRef.current && ballRef.current) {
-        // restart game when all blocks are destroyed
-        if (state.blocks.length === 0) {
+      // restart game when all blocks are destroyed
+      if (state.blocks.length === 0) {
+        if (paddleRef.current && ballRef.current) {
           ballRef.current.setVelocity(0, 0)
           ballRef.current.setPosition(
             paddleRef.current.x,

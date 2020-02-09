@@ -19,7 +19,10 @@ function Ball(
   ref: React.Ref<Phaser.Physics.Arcade.Image>
 ) {
   const ball = useGameObject(
-    scene => new Phaser.Physics.Arcade.Image(scene, 0, 0, 'assets', 'ball1')
+    scene => new Phaser.Physics.Arcade.Image(scene, 0, 0, 'assets', 'ball1'),
+    {
+      physics: 'arcade',
+    }
   )
 
   useImperativeHandle(ref, () => ball)

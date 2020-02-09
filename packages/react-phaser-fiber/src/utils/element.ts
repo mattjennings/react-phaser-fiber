@@ -29,7 +29,7 @@ export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
  */
 export function createElement(
   type: keyof typeof TYPES,
-  props = {},
+  props: any = {},
   root: Phaser.Scene
 ) {
   const { create, applyProps = defaultApplyProps } = ELEMENTS[type]
@@ -37,7 +37,7 @@ export function createElement(
   const instance = create(props, root)
 
   // if this is a physics object we need to add the body before applyProps
-  if (instance.constructor.name.includes('Arcade')) {
+  if (props.physics === 'arcade') {
     root.physics.add.existing(instance)
   }
 
