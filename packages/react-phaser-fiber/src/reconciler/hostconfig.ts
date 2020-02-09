@@ -19,11 +19,8 @@ function appendChild(
   child: Phaser.GameObjects.GameObject
 ) {
   if (parent instanceof Phaser.Scene) {
-    parent.add.existing(child)
-
-    // is this the right way to do this? Physics objects need to be added via scene.physics.add ...
-    if (child.constructor.name.includes('Arcade')) {
-      parent.physics.add.existing(child)
+    if (!parent.children.exists(child)) {
+      parent.add.existing(child)
     }
   }
 

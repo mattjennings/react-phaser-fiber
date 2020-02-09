@@ -9,6 +9,7 @@ import {
 import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'
+import composeRefs from '@seznam/compose-react-refs'
 
 interface BreakoutState {
   isBallActive?: boolean
@@ -63,27 +64,49 @@ const Breakout = () => {
 
   return (
     <>
+      <Ball ref={ballRef} />
+      {state.blocks.map((block, index) => {
+        return (
+          <ArcadeCollider
+            key={index}
+            with={ballRef}
+            onCollide={(obj1, obj2) => {
+              dispatch({ type: 'BLOCK_HIT', payload: index })
+            }}
+          >
+            {ref => (
+              <Block
+                ref={ref}
+                x={block.x + 116}
+                y={block.y + 200}
+                frame={block.frame}
+              />
+            )}
+          </ArcadeCollider>
+        )
+      })}
       <ArcadeCollider
-        onCollide={(obj1, obj2) => {
-          console.log(obj1, obj2)
+        with={ballRef}
+        onCollide={(paddle, ball) => {
+          // add X velocity to ball when hitting paddle
+          if (ball.x < paddle.x) {
+            const diff = paddle.x - ball.x
+            ball.setVelocityX(-10 * diff)
+          } else if (ball.x > paddle.x) {
+            const diff = ball.x - paddle.x
+            ball.setVelocityX(10 * diff)
+          } else {
+            ball.setVelocityX(2 + Math.random() * 8)
+          }
         }}
       >
-        {state.blocks.map((block, index) => {
-          return (
-            <Block
-              key={index}
-              ballRef={ballRef}
-              x={block.x + 116}
-              y={block.y + 200}
-              frame={block.frame}
-              onBallHit={() => {
-                dispatch({ type: 'BLOCK_HIT', payload: index })
-              }}
-            />
-          )
-        })}
-        <Ball ref={ballRef} paddleRef={paddleRef} />
-        <Paddle ref={paddleRef} initialX={400} initialY={700} />
+        {ref => (
+          <Paddle
+            ref={composeRefs(ref, paddleRef)}
+            initialX={400}
+            initialY={700}
+          />
+        )}
       </ArcadeCollider>
     </>
   )

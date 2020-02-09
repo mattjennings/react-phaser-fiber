@@ -1,31 +1,28 @@
 import React, { useRef, useLayoutEffect, useState } from 'react'
 import useArcadeCollider from '../hooks/useArcadeCollider'
 
-export interface ArcadeColliderProps {
-  children: React.ReactNode
-  onCollide?: (obj1: any, obj2: any) => any
-  onProcess?: (obj1: any, obj2: any) => any
+export interface ArcadeColliderProps<T> {
+  with: React.RefObject<T>
+  children: (ref: React.RefObject<any>) => JSX.Element
+  onCollide?: (obj1: any, obj2: T) => any
+  onProcess?: (obj1: any, obj2: T) => any
 }
 
-export default function ArcadeCollider({
-  children,
-  onCollide,
-  onProcess,
-}: ArcadeColliderProps): JSX.Element {
-  const [childRefs, setChildRefs] = useState([])
+export default function ArcadeCollider<T>(
+  props: ArcadeColliderProps<T>
+): JSX.Element {
+  const { children, onCollide, onProcess } = props
+
+  const ref = useRef(null)
+  const [firstObj, setFirstObj] = useState(null)
+  const [secondObj, setSecondObj] = useState(null)
+
   useLayoutEffect(() => {
-    const childrenRefs = React.Children.map(
-      children,
-      child => (child as any).ref
-    )
+    setFirstObj(ref.current)
+    setSecondObj(props.with.current)
+  }, [props.with, ref.current])
 
-    setChildRefs(childrenRefs.map(ref => ref.current))
-  }, [children])
+  useArcadeCollider(firstObj, secondObj, onCollide, onProcess)
 
-  useArcadeCollider(childRefs, childRefs, onCollide)
-
-  return (children as unknown) as JSX.Element
-  // useArcadeCollider(childRef, collideWith, onCollide, onProcess)
-
-  // return children ? children(childRef) : null
+  return children(ref)
 }

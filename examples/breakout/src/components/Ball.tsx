@@ -8,12 +8,10 @@ import {
 import { useCallback } from 'react'
 
 export interface BallProps
-  extends Omit<ArcadeImageProps, 'ref' | 'texture' | 'x' | 'y'> {
-  paddleRef: React.RefObject<Phaser.Physics.Arcade.Image>
-}
+  extends Omit<ArcadeImageProps, 'ref' | 'texture' | 'x' | 'y'> {}
 
 function Ball(
-  { paddleRef, ...props }: BallProps,
+  { ...props }: BallProps,
   ref: React.Ref<Phaser.Physics.Arcade.Image>
 ) {
   const ball = useGameObject(
@@ -24,7 +22,7 @@ function Ball(
     ball.setName('ball')
     ball.setBounce(1)
     ball.setCollideWorldBounds(true)
-  }, [])
+  }, [ball])
 
   useImperativeHandle(ref, () => ball)
 
@@ -33,16 +31,16 @@ function Ball(
   //   ball,
   //   paddleRef.current,
   //   useCallback((ball, paddle) => {
-  //     // add X velocity to ball when hitting paddle
-  //     if (ball.x < paddle.x) {
-  //       const diff = paddle.x - ball.x
-  //       ball.setVelocityX(-10 * diff)
-  //     } else if (ball.x > paddle.x) {
-  //       const diff = ball.x - paddle.x
-  //       ball.setVelocityX(10 * diff)
-  //     } else {
-  //       ball.setVelocityX(2 + Math.random() * 8)
-  //     }
+  // // add X velocity to ball when hitting paddle
+  // if (ball.x < paddle.x) {
+  //   const diff = paddle.x - ball.x
+  //   ball.setVelocityX(-10 * diff)
+  // } else if (ball.x > paddle.x) {
+  //   const diff = ball.x - paddle.x
+  //   ball.setVelocityX(10 * diff)
+  // } else {
+  //   ball.setVelocityX(2 + Math.random() * 8)
+  // }
   //   }, [])
   // )
 

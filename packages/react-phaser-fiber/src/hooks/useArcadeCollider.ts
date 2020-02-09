@@ -16,8 +16,8 @@ export default function useArcadeCollider(
     // is there a better solution?
     // setTimeout(() => {
     collider.current = scene.physics.add.collider(
-      obj1,
-      obj2,
+      obj1 || [],
+      obj2 || [],
       onCollide,
       onProcess
     )

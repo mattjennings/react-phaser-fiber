@@ -35,8 +35,13 @@ export function createElement(
   const { create, applyProps = defaultApplyProps } = ELEMENTS[type]
 
   const instance = create(props, root)
-  instance.applyProps = applyProps.bind(instance)
 
+  // if this is a physics object we need to add the body before applyProps
+  if (instance.constructor.name.includes('Arcade')) {
+    root.physics.add.existing(instance)
+  }
+
+  instance.applyProps = applyProps.bind(instance)
   applyProps(instance, {}, props)
 
   return instance

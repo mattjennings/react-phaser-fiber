@@ -3,6 +3,7 @@ import { CreatePhaserComponentConfig } from '../utils/element'
 
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   object: T
+  // onMount?: (instance: T) => void
 }
 
 export type AlphaProps = Partial<
