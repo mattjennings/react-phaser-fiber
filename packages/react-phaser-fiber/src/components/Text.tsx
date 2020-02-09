@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser'
 import React, { useImperativeHandle } from 'react'
-import { GameObject } from '../elements'
-import {
+import GameObject, {
   AlphaProps,
   BlendModeProps,
   ComputedSizeProps,
@@ -16,7 +15,7 @@ import {
   TintProps,
   TransformProps,
   VisibleProps,
-} from '../elements/GameObject'
+} from './GameObject'
 import { useGameObject } from '../hooks'
 
 export interface TextProps

@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser'
 import invariant from 'fbjs/lib/invariant'
 import { applyProps as defaultApplyProps } from './applyProps'
-import GameObject from '../elements/GameObject'
+import GameObject from './elements/GameObject'
 
 export interface CreatePhaserComponentConfig<
   T extends Phaser.GameObjects.GameObject,

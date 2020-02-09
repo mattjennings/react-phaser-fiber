@@ -21,3 +21,6 @@ export * from './Image'
 
 export { default as ArcadeImage } from './ArcadeImage'
 export * from './ArcadeImage'
+
+export { default as GameObject } from './GameObject'
+export * from './GameObject'

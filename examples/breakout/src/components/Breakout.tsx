@@ -62,17 +62,27 @@ export default function Breakout() {
           }
         }}
       />
-      {state.blocks.map((block, index) => (
-        <Block
-          key={index}
-          x={block.x + 116}
-          y={block.y + 200}
-          frame={block.frame}
-          onBallHit={() => {
-            dispatch({ type: 'BLOCK_HIT', payload: index })
-          }}
-        />
-      ))}
+      <ArcadeCollider
+        with="ball"
+        onCollide={(block: Phaser.Physics.Arcade.Image) => {
+          dispatch({ type: 'BLOCK_HIT', payload: block.data.get('index') })
+        }}
+      >
+        {ref =>
+          state.blocks.map((block, index) => (
+            <Block
+              key={index}
+              ref={ref}
+              data={{
+                index,
+              }}
+              x={block.x + 116}
+              y={block.y + 200}
+              frame={block.frame}
+            />
+          ))
+        }
+      </ArcadeCollider>
       <Paddle ref={paddleRef} initialX={400} initialY={700} />
     </>
   )

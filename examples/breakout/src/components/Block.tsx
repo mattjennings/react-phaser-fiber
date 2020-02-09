@@ -6,27 +6,21 @@ import {
   ArcadeColliderProps,
 } from 'react-phaser-fiber'
 
-export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {
-  onBallHit: ArcadeColliderProps<
-    Phaser.Physics.Arcade.Image,
-    Phaser.Physics.Arcade.Image
-  >['onCollide']
-}
+export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {}
 
-function Block({ onBallHit, ...props }: BlockProps) {
+function Block(
+  { ...props }: BlockProps,
+  ref: React.Ref<Phaser.Physics.Arcade.Image>
+) {
   return (
-    <ArcadeCollider with="ball" onCollide={onBallHit}>
-      {ref => (
-        <ArcadeImage
-          ref={ref}
-          texture="assets"
-          immovable
-          physics="arcade"
-          {...props}
-        />
-      )}
-    </ArcadeCollider>
+    <ArcadeImage
+      ref={ref}
+      texture="assets"
+      immovable
+      physics="arcade"
+      {...props}
+    />
   )
 }
 
-export default Block
+export default React.forwardRef(Block)

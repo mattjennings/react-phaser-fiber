@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser'
-import {
+import GameObject, {
   AlphaProps,
   BlendModeProps,
   ComputedSizeProps,
@@ -13,8 +13,7 @@ import {
   MaskProps,
   TintProps,
   GameObjectProps,
-} from '../elements/GameObject'
-import { GameObject } from '../elements'
+} from './GameObject'
 import { useGameObject } from '../hooks'
 import React, { useImperativeHandle } from 'react'
 

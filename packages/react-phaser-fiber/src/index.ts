@@ -1,5 +1,3 @@
-export { createPhaserComponent } from './utils/element'
-export { applyProps } from './utils/applyProps'
 export * from './hooks'
 export * from './components'
-export * from './elements'
+export * from './utils'

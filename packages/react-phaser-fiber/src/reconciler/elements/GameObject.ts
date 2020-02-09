@@ -1,5 +1,5 @@
-import { applyProps } from '../utils/applyProps'
-import { CreatePhaserComponentConfig } from '../utils/element'
+import { applyProps } from '../applyProps'
+import { CreatePhaserComponentConfig } from '../element'
 
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   object: T
