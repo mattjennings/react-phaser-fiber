@@ -7,7 +7,10 @@ import {
 } from 'react-phaser-fiber'
 
 export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {
-  onBallHit: ArcadeColliderProps<Phaser.Physics.Arcade.Image>['onCollide']
+  onBallHit: ArcadeColliderProps<
+    Phaser.Physics.Arcade.Image,
+    Phaser.Physics.Arcade.Image
+  >['onCollide']
 }
 
 function Block({ onBallHit, ...props }: BlockProps) {

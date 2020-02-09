@@ -4,11 +4,24 @@ import { Scene } from 'phaser'
 
 type ColliderObjectType = Phaser.GameObjects.GameObject | string
 
-export default function useArcadeCollider(
-  obj1: ColliderObjectType | ColliderObjectType[],
-  obj2: ColliderObjectType | ColliderObjectType[],
-  onCollide: (obj1: any, obj2: any) => any,
-  onProcess?: (obj1: any, obj2: any) => boolean
+/**
+ * Creates a collider between objects or arrays of objects. If provided values are strings, it will
+ * search for all objects by that name in the scene.
+ */
+export default function useArcadeCollider<
+  T1 extends ColliderObjectType,
+  T2 extends ColliderObjectType
+>(
+  obj1: T1 | T1[],
+  obj2: T2 | T2[],
+  onCollide: (
+    obj1: T1 extends string ? any : T1,
+    obj2: T2 extends string ? any : T2
+  ) => any,
+  onProcess?: (
+    obj1: T1 extends string ? any : T1,
+    obj2: T2 extends string ? any : T2
+  ) => boolean
 ) {
   const scene = useScene()
   const collider = useRef<Phaser.Physics.Arcade.Collider>(null)

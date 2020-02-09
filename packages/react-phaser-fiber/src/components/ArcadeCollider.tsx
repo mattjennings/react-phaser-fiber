@@ -1,32 +1,53 @@
 import React, { useRef, useLayoutEffect, useState } from 'react'
 import useArcadeCollider from '../hooks/useArcadeCollider'
 
-export interface ArcadeColliderProps<T = any> {
-  with: React.RefObject<T> | T | string
-  children: (ref: React.RefObject<any>) => JSX.Element
-  onCollide?: (self: any, other: T extends String ? any : T) => any
-  onProcess?: (self: any, other: T extends String ? any : T) => any
+export interface ArcadeColliderProps<With, For> {
+  with: With | string
+  for?: For | string
+  children?: JSX.Element | ((ref: React.RefObject<any>) => JSX.Element)
+  onCollide?: (
+    self: For extends string ? any : For,
+    other: With extends string ? any : With
+  ) => any
+  onProcess?: (
+    self: For extends string ? any : For,
+    other: With extends string ? any : With
+  ) => any
 }
 
-export default function ArcadeCollider<T = any>(
-  props: ArcadeColliderProps<T>
+/**
+ * Creates a collider between the "with" and "for" objects. If provided values are strings, it will
+ * search for all objects by that name in the scene.
+ *
+ * Alternative to the "for" prop, you can use a render function for the children
+ * and assign the ref to a child GameObject component
+ *
+ * ex:
+ *  <ArcadeCollider with={myObject}>
+ *    {ref => <GameObject ref={ref} />}
+ *  </ArcadeCollider>
+ */
+export default function ArcadeCollider<With = any, For = any>(
+  props: ArcadeColliderProps<With, For>
 ): JSX.Element {
   const { children, onCollide, onProcess } = props
 
   const ref = useRef(null)
-  const [firstObj, setFirstObj] = useState(null)
-  const [secondObj, setSecondObj] = useState(null)
+  const [objFor, setObjFor] = useState(null)
+  const [objWith, setObjWith] = useState(null)
 
   useLayoutEffect(() => {
-    setFirstObj(ref.current)
-    setSecondObj(isRef(props.with) ? props.with.current : props.with)
+    setObjFor(props.for || ref.current)
+    setObjWith(props.with)
   }, [props.with, ref.current])
 
-  useArcadeCollider(firstObj, secondObj, onCollide, onProcess)
+  useArcadeCollider(objFor, objWith, onCollide, onProcess)
 
-  return children(ref)
+  return isRenderFunction(children) ? children(ref) : (children as JSX.Element)
 }
 
-function isRef(obj: any): obj is React.RefObject<any> {
-  return !!obj.current
+function isRenderFunction(
+  children: any
+): children is (ref: React.RefObject<any>) => JSX.Element {
+  return typeof children === 'function'
 }
