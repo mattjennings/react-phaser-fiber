@@ -5,14 +5,15 @@ export default function applyProps(
   oldProps: Record<string, any>,
   newProps: Record<string, any>
 ) {
-  const props = sanitizeProps(newProps)
-
-  Object.keys(props).forEach(key => {
-    if (typeof props[key] !== 'undefined' && props[key] !== oldProps[key]) {
+  Object.keys(sanitizeProps(newProps)).forEach(key => {
+    if (
+      typeof newProps[key] !== 'undefined' &&
+      oldProps[key] !== newProps[key]
+    ) {
       switch (key) {
         case 'data':
-          Object.keys(props.data).forEach(dataKey => {
-            instance.setData(dataKey, props.data[dataKey])
+          Object.keys(newProps.data).forEach(dataKey => {
+            instance.setData(dataKey, newProps.data[dataKey])
           })
           break
 
@@ -24,20 +25,20 @@ export default function applyProps(
         case 'gravity':
         case 'velocity':
         case 'maxVelocity':
-          const oldValue = convertToPoint(props[key])
+          const oldValue = convertToPoint(oldProps[key])
           const newValue = convertToPoint(newProps[key])
-
           if (!pointsAreEqual(oldValue, newValue)) {
-            setProp(instance, key, props[key])
+            // console.log(oldProps[key], newProps[key])
+            setProp(instance, key, newValue.x, newValue.y)
           }
           break
 
         /** Physics */
         case 'debug':
           if (
-            props.debugShowBody !== newProps.debugShowBody ||
-            props.debugShowVelocity !== newProps.debugShowVelocity ||
-            props.debugBodyColor !== newProps.debugBodyColor
+            oldProps.debugShowBody !== newProps.debugShowBody ||
+            oldProps.debugShowVelocity !== newProps.debugShowVelocity ||
+            oldProps.debugBodyColor !== newProps.debugBodyColor
           ) {
             instance.setDebug(
               newProps.debugShowBody,
@@ -49,8 +50,8 @@ export default function applyProps(
         case 'disableBody':
         case 'hideBody':
           if (
-            props.disableBody !== newProps.disableBody ||
-            props.hideBody !== newProps.hideBody
+            oldProps.disableBody !== newProps.disableBody ||
+            oldProps.hideBody !== newProps.hideBody
           ) {
             instance.disableBody(newProps.disableBody, newProps.hideBody)
           }
@@ -58,10 +59,10 @@ export default function applyProps(
         case 'circle':
           if (newProps.circle) {
             if (
-              !props.circle ||
-              (props.circle.radius !== newProps.circle.radius ||
-                props.circle.offsetX !== newProps.circle.offsetX ||
-                props.circle.offsetY !== newProps.circle.offsetY)
+              !oldProps.circle ||
+              oldProps.circle.radius !== newProps.circle.radius ||
+              oldProps.circle.offsetX !== newProps.circle.offsetX ||
+              oldProps.circle.offsetY !== newProps.circle.offsetY
             ) {
               instance.setCircle(
                 newProps.circle.radius,
@@ -73,9 +74,9 @@ export default function applyProps(
           break
         case 'offset':
           if (
-            !props.offset ||
-            (props.offset.x !== newProps.offset.x ||
-              props.offset.y !== newProps.offset.y)
+            !oldProps.offset ||
+            oldProps.offset.x !== newProps.offset.x ||
+            oldProps.offset.y !== newProps.offset.y
           ) {
             instance.setOffset(newProps.offset.x, newProps.offset.y)
           }
@@ -83,10 +84,10 @@ export default function applyProps(
         case 'size':
           if (newProps.size) {
             if (
-              !props.size ||
-              (props.size.width !== newProps.size.width ||
-                props.size.height !== newProps.size.height ||
-                props.size.center !== newProps.size.center)
+              !oldProps.size ||
+              oldProps.size.width !== newProps.size.width ||
+              oldProps.size.height !== newProps.size.height ||
+              oldProps.size.center !== newProps.size.center
             ) {
               instance.setSize(
                 newProps.size.width,
@@ -99,18 +100,18 @@ export default function applyProps(
           }
           break
         default:
-          setProp(instance, key, props[key])
+          setProp(instance, key, newProps[key])
       }
     }
   })
 }
 
-function setProp(instance: any, key: string, value: any) {
+function setProp(instance: any, key: string, ...value: any) {
   // get method name for property. ex: 'setStyle' for 'style'
   const methodName = `set${key.slice(0, 1).toUpperCase() + key.slice(1)}`
 
   if (instance[methodName]) {
-    instance[methodName](value)
+    instance[methodName](...value)
   } else {
     instance[key] = value
   }
