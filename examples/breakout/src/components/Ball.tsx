@@ -25,7 +25,6 @@ function Ball(
   useImperativeHandle(ref, () => ball)
 
   useEffect(() => {
-    ball.setName('ball')
     ball.setBounce(1)
     ball.setCollideWorldBounds(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,10 +32,12 @@ function Ball(
 
   useGameLoop(
     useCallback(() => {
+      // snap ball to paddle
       if (paddleRef.current && snapToPaddle) {
         ball.setPosition(paddleRef.current.x, paddleRef.current.y - 48)
       }
 
+      // reset when ball leaves bottom of screen
       if (ball.y > 800) {
         ball.setVelocity(0)
         onReset()

@@ -12,6 +12,7 @@ function Paddle(
 ) {
   const [x, setX] = useState(initialX)
 
+  // snap paddle to mouse X
   const updatePosition = useCallback((pointer: Phaser.Input.Pointer) => {
     setX(pointer.x)
   }, [])

@@ -1,25 +1,25 @@
-import React, { useCallback, useReducer, useRef } from 'react'
+import React, { useCallback, useReducer, useRef, useEffect } from 'react'
 import {
-  Scene,
-  Text,
   useGameLoop,
   useInputEvent,
   ArcadeCollider,
+  useScene,
 } from 'react-phaser-fiber'
 import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'
 
-interface BreakoutState {
-  isBallActive: boolean
-  blocks: Array<{ x: number; y: number; frame: string }>
-}
-
-const Breakout = () => {
+export default function Breakout() {
+  const scene = useScene()
   const paddleRef = useRef<Phaser.Physics.Arcade.Image>(null)
   const ballRef = useRef<Phaser.Physics.Arcade.Image>(null)
 
   const [state, dispatch] = useReducer(reducer, defaultState)
+
+  useEffect(() => {
+    // set collisions on all edges of world except bottom
+    scene.physics.world.setBoundsCollision(true, true, true, false)
+  }, [scene])
 
   useGameLoop(
     useCallback(() => {
@@ -37,6 +37,7 @@ const Breakout = () => {
     }, [state.blocks.length])
   )
 
+  // launch ball when clicked
   useInputEvent(
     'pointerdown',
     useCallback(() => {
@@ -86,9 +87,15 @@ const Breakout = () => {
   )
 }
 
+interface BreakoutState {
+  isBallActive: boolean
+  blocks: Array<{ x: number; y: number; frame: string }>
+}
+
 const defaultState: BreakoutState = {
   isBallActive: false,
   blocks: Array.from({ length: 60 }).map((_, index) => {
+    // possible sprites to use for block
     const blockFrames = [
       'blue1',
       'red1',
@@ -101,6 +108,7 @@ const defaultState: BreakoutState = {
     return {
       x: (index % 10) * 64,
       y: 10 * Math.floor(index / 10) * 3.2,
+      // each row uses same sprite
       frame: blockFrames[Math.floor(index / 10)],
     }
   }),
@@ -134,33 +142,4 @@ function reducer(
     }
   }
   return state
-}
-
-export default function BreakoutScene() {
-  return (
-    <Scene
-      sceneKey="breakout"
-      onCreate={scene => {
-        // set collisions on edge of world
-        scene.physics.world.setBoundsCollision(true, true, true, false)
-      }}
-      onPreload={scene => {
-        scene.load.atlas(
-          'assets',
-          'assets/breakout.png',
-          'assets/breakout.json'
-        )
-      }}
-      renderLoading={progress => (
-        <Text
-          x={400}
-          y={400}
-          text={`Loading... (${progress * 100}%)`}
-          style={{ color: 'white' }}
-        />
-      )}
-    >
-      <Breakout />
-    </Scene>
-  )
 }
