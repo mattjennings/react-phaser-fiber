@@ -1,7 +1,7 @@
 {
   "name": "monorepo",
   "private": true,
-  "version": "0.0.7",
+  "version": "0.1.0",
   "workspaces": [
     "packages/*",
     "examples/*"
@@ -16,7 +16,7 @@
     }
   },
   "resolutions": {
-    "react-phaser-fiber": "0.0.7",
+    "react-phaser-fiber": "0.1.0",
     "jest": "24.9.0"
   },
   "devDependencies": {
