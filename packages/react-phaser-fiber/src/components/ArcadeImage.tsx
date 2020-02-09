@@ -31,7 +31,7 @@ import { useGameObject } from '../hooks'
 import React, { useImperativeHandle } from 'react'
 
 export interface ArcadeImageProps
-  extends Omit<GameObjectProps<Phaser.Physics.Arcade.Image>, 'object'>,
+  extends Omit<GameObjectProps<Phaser.Physics.Arcade.Image>, 'object' | 'ref'>,
     AlphaProps,
     BlendModeProps,
     ComputedSizeProps,

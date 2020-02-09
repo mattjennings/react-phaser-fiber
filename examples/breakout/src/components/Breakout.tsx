@@ -9,10 +9,9 @@ import {
 import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'
-import composeRefs from '@seznam/compose-react-refs'
 
 interface BreakoutState {
-  isBallActive?: boolean
+  isBallActive: boolean
   blocks: Array<{ x: number; y: number; frame: string }>
 }
 
@@ -25,20 +24,6 @@ const Breakout = () => {
   useGameLoop(
     useCallback(() => {
       if (paddleRef.current && ballRef.current) {
-        // set ball position to paddle when ball is inactive
-        if (!state.isBallActive) {
-          ballRef.current.setPosition(
-            paddleRef.current.x,
-            paddleRef.current.y - 48
-          )
-        }
-
-        // reset ball position if it exits bottom of screen
-        if (ballRef.current.y > 800) {
-          ballRef.current.setVelocity(0)
-          dispatch({ type: 'RESET_BALL' })
-        }
-
         // restart game when all blocks are destroyed
         if (state.blocks.length === 0) {
           ballRef.current.setVelocity(0, 0)
@@ -49,7 +34,7 @@ const Breakout = () => {
           dispatch({ type: 'RESET_GAME' })
         }
       }
-    }, [state.isBallActive, state.blocks.length])
+    }, [state.blocks.length])
   )
 
   useInputEvent(
@@ -64,13 +49,24 @@ const Breakout = () => {
 
   return (
     <>
-      <Ball ref={ballRef} />
+      <Ball
+        ref={ballRef}
+        paddleRef={paddleRef}
+        snapToPaddle={!state.isBallActive}
+        onReset={() => {
+          // reset ball position if it exits bottom of screen
+          if (ballRef.current && ballRef.current.y > 800) {
+            ballRef.current.setVelocity(0)
+            dispatch({ type: 'RESET_BALL' })
+          }
+        }}
+      />
       {state.blocks.map((block, index) => {
         return (
           <ArcadeCollider
             key={index}
             with={ballRef}
-            onCollide={(obj1, obj2) => {
+            onCollide={() => {
               dispatch({ type: 'BLOCK_HIT', payload: index })
             }}
           >
@@ -85,29 +81,7 @@ const Breakout = () => {
           </ArcadeCollider>
         )
       })}
-      <ArcadeCollider
-        with={ballRef}
-        onCollide={(paddle, ball) => {
-          // add X velocity to ball when hitting paddle
-          if (ball.x < paddle.x) {
-            const diff = paddle.x - ball.x
-            ball.setVelocityX(-10 * diff)
-          } else if (ball.x > paddle.x) {
-            const diff = ball.x - paddle.x
-            ball.setVelocityX(10 * diff)
-          } else {
-            ball.setVelocityX(2 + Math.random() * 8)
-          }
-        }}
-      >
-        {ref => (
-          <Paddle
-            ref={composeRefs(ref, paddleRef)}
-            initialX={400}
-            initialY={700}
-          />
-        )}
-      </ArcadeCollider>
+      <Paddle ref={paddleRef} initialX={400} initialY={700} />
     </>
   )
 }

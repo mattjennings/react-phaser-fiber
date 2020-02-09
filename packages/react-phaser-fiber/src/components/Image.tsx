@@ -19,7 +19,7 @@ import { useGameObject } from '../hooks'
 import React, { useImperativeHandle } from 'react'
 
 export interface ImageProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Image>, 'object'>,
+  extends Omit<GameObjectProps<Phaser.GameObjects.Image>, 'object' | 'ref'>,
     AlphaProps,
     BlendModeProps,
     ComputedSizeProps,

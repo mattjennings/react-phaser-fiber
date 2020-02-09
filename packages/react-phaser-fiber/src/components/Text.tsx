@@ -20,7 +20,7 @@ import {
 import { useGameObject } from '../hooks'
 
 export interface TextProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Text>, 'object'>,
+  extends Omit<GameObjectProps<Phaser.GameObjects.Text>, 'object' | 'ref'>,
     AlphaProps,
     BlendModeProps,
     ComputedSizeProps,

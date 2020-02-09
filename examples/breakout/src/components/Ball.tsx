@@ -1,50 +1,68 @@
-import React, { useImperativeHandle, useEffect } from 'react'
+import React, { useEffect, useImperativeHandle, useCallback } from 'react'
 import {
   ArcadeImageProps,
-  useArcadeCollider,
-  useGameObject,
   GameObject,
+  useGameObject,
+  useGameLoop,
+  ArcadeCollider,
 } from 'react-phaser-fiber'
-import { useCallback } from 'react'
 
 export interface BallProps
-  extends Omit<ArcadeImageProps, 'ref' | 'texture' | 'x' | 'y'> {}
+  extends Omit<ArcadeImageProps, 'ref' | 'texture' | 'x' | 'y'> {
+  paddleRef: React.RefObject<Phaser.Physics.Arcade.Image>
+  snapToPaddle: boolean
+  onReset: () => void
+}
 
 function Ball(
-  { ...props }: BallProps,
+  { paddleRef, snapToPaddle, onReset, ...props }: BallProps,
   ref: React.Ref<Phaser.Physics.Arcade.Image>
 ) {
   const ball = useGameObject(
     scene => new Phaser.Physics.Arcade.Image(scene, 0, 0, 'assets', 'ball1')
   )
 
+  useImperativeHandle(ref, () => ball)
+
   useEffect(() => {
     ball.setName('ball')
     ball.setBounce(1)
     ball.setCollideWorldBounds(true)
-  }, [ball])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  useImperativeHandle(ref, () => ball)
+  useGameLoop(
+    useCallback(() => {
+      if (paddleRef.current && snapToPaddle) {
+        ball.setPosition(paddleRef.current.x, paddleRef.current.y - 48)
+      }
 
-  // collide with paddle
-  // useArcadeCollider(
-  //   ball,
-  //   paddleRef.current,
-  //   useCallback((ball, paddle) => {
-  // // add X velocity to ball when hitting paddle
-  // if (ball.x < paddle.x) {
-  //   const diff = paddle.x - ball.x
-  //   ball.setVelocityX(-10 * diff)
-  // } else if (ball.x > paddle.x) {
-  //   const diff = ball.x - paddle.x
-  //   ball.setVelocityX(10 * diff)
-  // } else {
-  //   ball.setVelocityX(2 + Math.random() * 8)
-  // }
-  //   }, [])
-  // )
+      if (ball.y > 800) {
+        ball.setVelocity(0)
+        onReset()
+      }
+    }, [ball, snapToPaddle, onReset, paddleRef])
+  )
 
-  return <GameObject object={ball} {...props} />
+  return (
+    <ArcadeCollider
+      with={paddleRef}
+      onCollide={(ball, paddle) => {
+        // add X velocity to ball when hitting paddle
+        if (ball.x < paddle.x) {
+          const diff = paddle.x - ball.x
+          ball.setVelocityX(-10 * diff)
+        } else if (ball.x > paddle.x) {
+          const diff = ball.x - paddle.x
+          ball.setVelocityX(10 * diff)
+        } else {
+          ball.setVelocityX(2 + Math.random() * 8)
+        }
+      }}
+    >
+      {ref => <GameObject object={ball} {...props} ref={ref} />}
+    </ArcadeCollider>
+  )
 }
 
 export default React.forwardRef(Ball)
