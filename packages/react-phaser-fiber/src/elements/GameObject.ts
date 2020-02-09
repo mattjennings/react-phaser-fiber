@@ -4,6 +4,15 @@ import { CreatePhaserComponentConfig } from '../utils/element'
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   object: T
   ref?: React.RefObject<Phaser.GameObjects.GameObject>
+  name?: string
+  active?: boolean
+  tabIndex?: boolean
+  data?: any
+  renderFlags?: integer
+  cameraFilter?: number
+  body?: Phaser.Physics.Arcade.Body | Phaser.Physics.Impact.Body
+  ignoreDestroy?: boolean
+  input?: Phaser.Types.Input.InteractiveObject
 }
 
 export type AlphaProps = Partial<
