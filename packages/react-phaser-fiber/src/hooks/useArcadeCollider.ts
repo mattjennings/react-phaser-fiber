@@ -1,9 +1,12 @@
 import { useLayoutEffect, useRef } from 'react'
 import useScene from './useScene'
+import { Scene } from 'phaser'
+
+type ColliderObjectType = Phaser.GameObjects.GameObject | string
 
 export default function useArcadeCollider(
-  obj1: any | any[],
-  obj2: any | any[],
+  obj1: ColliderObjectType | ColliderObjectType[],
+  obj2: ColliderObjectType | ColliderObjectType[],
   onCollide: (obj1: any, obj2: any) => any,
   onProcess?: (obj1: any, obj2: any) => boolean
 ) {
@@ -12,8 +15,8 @@ export default function useArcadeCollider(
 
   useLayoutEffect(() => {
     collider.current = scene.physics.add.collider(
-      obj1 || [],
-      obj2 || [],
+      createObjectsArray(scene, obj1),
+      createObjectsArray(scene, obj2),
       onCollide,
       onProcess
     )
@@ -29,8 +32,8 @@ export default function useArcadeCollider(
   // rather than destroy() and recreate in the above useLayoutEffect
   useLayoutEffect(() => {
     if (collider.current) {
-      collider.current.object1 = obj1
-      collider.current.object2 = obj2
+      collider.current.object1 = createObjectsArray(scene, obj1)
+      collider.current.object2 = createObjectsArray(scene, obj2)
     }
   }, [obj1, obj2])
 
@@ -40,4 +43,28 @@ export default function useArcadeCollider(
       collider.current.processCallback = onProcess
     }
   }, [onCollide, onProcess])
+}
+
+function createObjectsArray(
+  scene: Scene,
+  objects: ColliderObjectType | ColliderObjectType[]
+) {
+  return toArray(objects).reduce(
+    (total: Phaser.GameObjects.GameObject[], object) => {
+      if (typeof object === 'string') {
+        return [...total, ...findGameObjectsByName(scene, object)]
+      }
+
+      return [...total, object]
+    },
+    []
+  ) as Phaser.GameObjects.GameObject[]
+}
+
+function findGameObjectsByName(scene: Scene, name: string) {
+  return scene.children.list.filter(child => child.name === name)
+}
+
+function toArray<T>(obj: T): T[] {
+  return Array.isArray(obj) ? obj : [obj]
 }

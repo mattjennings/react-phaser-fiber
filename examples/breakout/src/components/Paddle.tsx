@@ -22,6 +22,7 @@ function Paddle(
   return (
     <ArcadeImage
       ref={ref}
+      name="paddle"
       x={x}
       y={initialY}
       texture="assets"

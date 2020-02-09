@@ -28,6 +28,7 @@ function Ball(
   useImperativeHandle(ref, () => ball)
 
   useEffect(() => {
+    ball.setName('ball')
     ball.setBounce(1)
     ball.setCollideWorldBounds(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,10 +51,11 @@ function Ball(
 
   return (
     <ArcadeCollider
+      // by using the ref instead of a string, we get types in the onCollide
       with={paddleRef}
-      onCollide={(ball, paddle) => {
+      onCollide={(self, paddle) => {
         // add X velocity to ball when hitting paddle
-        if (ball.x < paddle.x) {
+        if (self.x < paddle.x) {
           const diff = paddle.x - ball.x
           ball.setVelocityX(-10 * diff)
         } else if (ball.x > paddle.x) {

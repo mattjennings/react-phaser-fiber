@@ -1,14 +1,14 @@
 import React, { useRef, useLayoutEffect, useState } from 'react'
 import useArcadeCollider from '../hooks/useArcadeCollider'
 
-export interface ArcadeColliderProps<T> {
-  with: React.RefObject<T> | T
+export interface ArcadeColliderProps<T = any> {
+  with: React.RefObject<T> | T | string
   children: (ref: React.RefObject<any>) => JSX.Element
-  onCollide?: (obj1: any, obj2: T) => any
-  onProcess?: (obj1: any, obj2: T) => any
+  onCollide?: (self: any, other: T extends String ? any : T) => any
+  onProcess?: (self: any, other: T extends String ? any : T) => any
 }
 
-export default function ArcadeCollider<T>(
+export default function ArcadeCollider<T = any>(
   props: ArcadeColliderProps<T>
 ): JSX.Element {
   const { children, onCollide, onProcess } = props

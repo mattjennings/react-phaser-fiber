@@ -62,26 +62,17 @@ export default function Breakout() {
           }
         }}
       />
-      {state.blocks.map((block, index) => {
-        return (
-          <ArcadeCollider
-            key={index}
-            with={ballRef}
-            onCollide={() => {
-              dispatch({ type: 'BLOCK_HIT', payload: index })
-            }}
-          >
-            {ref => (
-              <Block
-                ref={ref}
-                x={block.x + 116}
-                y={block.y + 200}
-                frame={block.frame}
-              />
-            )}
-          </ArcadeCollider>
-        )
-      })}
+      {state.blocks.map((block, index) => (
+        <Block
+          key={index}
+          x={block.x + 116}
+          y={block.y + 200}
+          frame={block.frame}
+          onBallHit={() => {
+            dispatch({ type: 'BLOCK_HIT', payload: index })
+          }}
+        />
+      ))}
       <Paddle ref={paddleRef} initialX={400} initialY={700} />
     </>
   )
