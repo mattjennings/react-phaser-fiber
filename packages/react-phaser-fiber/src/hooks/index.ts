@@ -1,5 +1,6 @@
 export * from './useScene'
 export * from './useGameLoop'
+export * from './useGame'
 export * from './useInputEvent'
 export * from './useArcadeCollider'
 export * from './useSpawner'
