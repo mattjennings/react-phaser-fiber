@@ -1,18 +1,11 @@
-import React, { useLayoutEffect, useState, useMemo } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import useArcadeCollider from '../hooks/useArcadeCollider'
+import { useGameObject } from './GameObject'
 
-export interface ArcadeColliderProps<With, For> {
+export interface ArcadeColliderProps<With> {
   with: With | string | string[]
-  for?: For | string | string[]
-  children?: React.ReactNode
-  onCollide?: (
-    self: For extends string ? any : For,
-    other: With extends string ? any : With
-  ) => any
-  onProcess?: (
-    self: For extends string ? any : For,
-    other: With extends string ? any : With
-  ) => any
+  onCollide?: (self: any, other: With extends string ? any : With) => any
+  onProcess?: (self: any, other: With extends string ? any : With) => any
 }
 
 /**
@@ -40,33 +33,22 @@ export interface ArcadeColliderProps<With, For> {
  * ```
  *
  */
-export default function ArcadeCollider<With = any, For = any>(
-  props: ArcadeColliderProps<With, For>
+export default function ArcadeCollider<With = any>(
+  props: ArcadeColliderProps<With>
 ): JSX.Element {
-  const { children, onCollide, onProcess } = props
+  const { onCollide, onProcess } = props
 
-  // create refs for each child
-  const refs = useMemo(() => {
-    return React.Children.map(
-      children,
-      (child: any) => child.ref || React.createRef()
-    )
-  }, [children])
+  const gameObject = useGameObject()
 
-  const [objFor, setObjFor] = useState(null)
   const [objWith, setObjWith] = useState(null)
 
   useLayoutEffect(() => {
-    setObjFor(props.for || refs.map(ref => ref.current))
     setObjWith(props.with)
-  }, [props.with, children])
+  }, [props.with, gameObject])
 
-  useArcadeCollider(objFor, objWith, onCollide, onProcess)
+  useArcadeCollider(gameObject, objWith, onCollide, onProcess)
 
+  return null
   // map over each child component and assign the ref
-  return (React.Children.map(children, (child: any, index) =>
-    React.cloneElement(child, {
-      ref: refs[index],
-    })
-  ) as unknown) as JSX.Element
+  // return renderChildrenWithRefs(children, refs)
 }

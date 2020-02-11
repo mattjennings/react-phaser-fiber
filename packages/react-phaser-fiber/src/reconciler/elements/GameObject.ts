@@ -2,7 +2,7 @@ import { applyProps } from '../applyProps'
 import { CreatePhaserComponentConfig } from '../element'
 
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
-  object: T
+  instance: T
   ref?: React.Ref<T>
   name?: string
   active?: boolean
@@ -13,6 +13,7 @@ export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   body?: Phaser.Physics.Arcade.Body | Phaser.Physics.Impact.Body
   ignoreDestroy?: boolean
   input?: Phaser.Types.Input.InteractiveObject
+  children?: React.ReactNode
 
   /**
    * Creates the body in the phaser for the specified physics world
@@ -200,8 +201,8 @@ const GameObject: CreatePhaserComponentConfig<
   Phaser.GameObjects.GameObject,
   GameObjectProps<Phaser.GameObjects.GameObject>
 > = {
-  create: ({ object }, scene) => {
-    return object
+  create: ({ instance }, scene) => {
+    return instance
   },
   applyProps: (instance, oldProps, newProps) => {
     applyProps(instance, oldProps, newProps)

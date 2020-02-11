@@ -14,11 +14,11 @@ import GameObject, {
   TintProps,
   GameObjectProps,
 } from './GameObject'
-import { useGameObject } from '../hooks'
-import React, { useImperativeHandle } from 'react'
+import { useScene } from '../hooks'
+import React, { useImperativeHandle, useMemo } from 'react'
 
 export interface ImageProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Image>, 'object' | 'ref'>,
+  extends Omit<GameObjectProps<Phaser.GameObjects.Image>, 'instance' | 'ref'>,
     AlphaProps,
     BlendModeProps,
     ComputedSizeProps,
@@ -36,19 +36,21 @@ export interface ImageProps
 }
 
 function Image(props: ImageProps, ref: React.Ref<Phaser.GameObjects.Image>) {
-  const object = useGameObject(
-    scene =>
+  const scene = useScene()
+  const instance = useMemo(
+    () =>
       new Phaser.GameObjects.Image(
         scene,
         props.x,
         props.y,
         props.texture,
         props.frame
-      )
+      ),
+    []
   )
-  useImperativeHandle(ref, () => object)
+  useImperativeHandle(ref, () => instance)
 
-  return <GameObject object={object} {...props} />
+  return <GameObject instance={instance} {...props} />
 }
 
 export default React.forwardRef(Image)

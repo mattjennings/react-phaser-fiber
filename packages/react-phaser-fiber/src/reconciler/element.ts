@@ -46,29 +46,3 @@ export function createElement(
 
   return instance
 }
-
-// external use
-
-/**
- * Creates a custom Phaser component
- * @param type
- * @param config
- */
-export function createPhaserComponent<
-  T extends Phaser.GameObjects.GameObject,
-  P
->(type: string, config: CreatePhaserComponentConfig<T, P>) {
-  invariant(!!type, 'Expected type to be defined, got `%s`', type)
-  invariant(
-    !TYPES[type as keyof typeof TYPES],
-    'Component `%s` already exists',
-    type
-  )
-
-  TYPES[type as keyof typeof TYPES] = type
-  ELEMENTS[type] = config
-
-  // type needs to be returned as string for reconciler, but externally it will be typed
-  // as a component
-  return (type as unknown) as React.ComponentType<P>
-}

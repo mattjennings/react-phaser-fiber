@@ -26,11 +26,14 @@ import GameObject, {
   ArcadeSizeProps,
   ArcadeVelocityProps,
 } from './GameObject'
-import { useGameObject } from '../hooks'
-import React, { useImperativeHandle } from 'react'
+import { useScene } from '../hooks'
+import React, { useImperativeHandle, useMemo } from 'react'
 
 export interface ArcadeImageProps
-  extends Omit<GameObjectProps<Phaser.Physics.Arcade.Image>, 'object' | 'ref'>,
+  extends Omit<
+      GameObjectProps<Phaser.Physics.Arcade.Image>,
+      'instance' | 'ref'
+    >,
     AlphaProps,
     BlendModeProps,
     ComputedSizeProps,
@@ -63,26 +66,22 @@ function ArcadeImage(
   props: ArcadeImageProps,
   ref: React.Ref<Phaser.Physics.Arcade.Image>
 ) {
-  const object = useGameObject(
-    scene => {
-      const instance = new Phaser.Physics.Arcade.Image(
+  const scene = useScene()
+  const instance = useMemo(
+    () =>
+      new Phaser.Physics.Arcade.Image(
         scene,
         props.x,
         props.y,
         props.texture,
         props.frame
-      )
-
-      return instance
-    },
-    {
-      physics: 'arcade',
-    }
+      ),
+    []
   )
 
-  useImperativeHandle(ref, () => object)
+  useImperativeHandle(ref, () => instance)
 
-  return <GameObject object={object} {...props} />
+  return <GameObject instance={instance} physics="arcade" {...props} />
 }
 
 export default React.forwardRef(ArcadeImage)
