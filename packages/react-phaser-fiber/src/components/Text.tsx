@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser'
-import React, { useImperativeHandle } from 'react'
+import React, { useImperativeHandle, useMemo } from 'react'
 import GameObject, {
   AlphaProps,
   BlendModeProps,
@@ -16,10 +16,10 @@ import GameObject, {
   TransformProps,
   VisibleProps,
 } from './GameObject'
-import { useGameObject } from '../hooks'
+import { useScene } from '../hooks'
 
 export interface TextProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Text>, 'object' | 'ref'>,
+  extends Omit<GameObjectProps<Phaser.GameObjects.Text>, 'instance' | 'ref'>,
     AlphaProps,
     BlendModeProps,
     ComputedSizeProps,
@@ -38,20 +38,22 @@ export interface TextProps
 }
 
 function Text(props: TextProps, ref: React.Ref<Phaser.GameObjects.Text>) {
-  const object = useGameObject(
-    scene =>
+  const scene = useScene()
+  const instance = useMemo(
+    () =>
       new Phaser.GameObjects.Text(
         scene,
         props.x,
         props.y,
         props.text,
         props.style
-      )
+      ),
+    []
   )
 
-  useImperativeHandle(ref, () => object)
+  useImperativeHandle(ref, () => instance)
 
-  return <GameObject object={object} {...props} />
+  return <GameObject instance={instance} {...props} />
 }
 
 export default React.forwardRef(Text)

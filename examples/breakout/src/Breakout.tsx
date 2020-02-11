@@ -1,10 +1,5 @@
 import React, { useCallback, useReducer, useRef, useEffect } from 'react'
-import {
-  useGameLoop,
-  useInputEvent,
-  ArcadeCollider,
-  useScene,
-} from 'react-phaser-fiber'
+import { useGameLoop, useInputEvent, useScene } from 'react-phaser-fiber'
 import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'
@@ -63,24 +58,17 @@ export default function Breakout() {
           }
         }}
       />
-      <ArcadeCollider
-        with="ball"
-        onCollide={(block: Phaser.Physics.Arcade.Image) => {
-          dispatch({ type: 'BLOCK_HIT', payload: block.data.get('index') })
-        }}
-      >
-        {state.blocks.map((block, index) => (
-          <Block
-            key={index}
-            data={{
-              index,
-            }}
-            x={block.x + 116}
-            y={block.y + 200}
-            frame={block.frame}
-          />
-        ))}
-      </ArcadeCollider>
+      {state.blocks.map((block, index) => (
+        <Block
+          key={index}
+          x={block.x + 116}
+          y={block.y + 200}
+          frame={block.frame}
+          onBallHit={() => {
+            dispatch({ type: 'BLOCK_HIT', payload: index })
+          }}
+        />
+      ))}
     </>
   )
 }

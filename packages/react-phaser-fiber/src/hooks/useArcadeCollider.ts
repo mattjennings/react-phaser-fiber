@@ -1,14 +1,15 @@
 import { useLayoutEffect, useRef } from 'react'
-import useScene from './useScene'
+import { useScene } from './useScene'
 import { Scene } from 'phaser'
+import { findGameObjectsByName } from '../utils'
 
-type ColliderObjectType = Phaser.GameObjects.GameObject | string
+export type ColliderObjectType = Phaser.GameObjects.GameObject | string
 
 /**
  * Creates a collider between objects or arrays of objects. If provided values are strings, it will
  * search for all objects by that name in the scene.
  */
-export default function useArcadeCollider<
+export function useArcadeCollider<
   T1 extends ColliderObjectType,
   T2 extends ColliderObjectType
 >(
@@ -72,10 +73,6 @@ function createObjectsArray(
     },
     []
   ) as Phaser.GameObjects.GameObject[]
-}
-
-function findGameObjectsByName(scene: Scene, name: string) {
-  return scene.children.list.filter(child => child.name === name)
 }
 
 function toArray<T>(obj: T): T[] {

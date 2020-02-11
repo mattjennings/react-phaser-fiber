@@ -14,11 +14,11 @@ import GameObject, {
   TintProps,
   GameObjectProps,
 } from './GameObject'
-import { useGameObject } from '../hooks'
-import React, { useImperativeHandle } from 'react'
+import { useScene } from '../hooks'
+import React, { useImperativeHandle, useMemo } from 'react'
 
 export interface SpriteProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Sprite>, 'object' | 'ref'>,
+  extends Omit<GameObjectProps<Phaser.GameObjects.Sprite>, 'instance' | 'ref'>,
     AlphaProps,
     BlendModeProps,
     ComputedSizeProps,
@@ -38,19 +38,21 @@ export interface SpriteProps
 }
 
 function Sprite(props: SpriteProps, ref: React.Ref<Phaser.GameObjects.Sprite>) {
-  const object = useGameObject(
-    scene =>
+  const scene = useScene()
+  const instance = useMemo(
+    () =>
       new Phaser.GameObjects.Sprite(
         scene,
         props.x,
         props.y,
         props.texture,
         props.frame
-      )
+      ),
+    []
   )
-  useImperativeHandle(ref, () => object)
+  useImperativeHandle(ref, () => instance)
 
-  return <GameObject object={object} {...props} />
+  return <GameObject instance={instance} {...props} />
 }
 
 export default React.forwardRef(Sprite)

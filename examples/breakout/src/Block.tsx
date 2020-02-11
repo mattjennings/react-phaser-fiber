@@ -1,9 +1,18 @@
 import React from 'react'
-import { ArcadeImage, ArcadeImageProps } from 'react-phaser-fiber'
+import {
+  ArcadeImage,
+  ArcadeImageProps,
+  ArcadeCollider,
+} from 'react-phaser-fiber'
 
-export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {}
+export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {
+  onBallHit: () => any
+}
 
-function Block(props: BlockProps, ref: React.Ref<Phaser.Physics.Arcade.Image>) {
+function Block(
+  { onBallHit, ...props }: BlockProps,
+  ref: React.Ref<Phaser.Physics.Arcade.Image>
+) {
   return (
     <ArcadeImage
       ref={ref}
@@ -11,7 +20,9 @@ function Block(props: BlockProps, ref: React.Ref<Phaser.Physics.Arcade.Image>) {
       immovable
       physics="arcade"
       {...props}
-    />
+    >
+      <ArcadeCollider with="ball" onCollide={() => onBallHit()} />
+    </ArcadeImage>
   )
 }
 

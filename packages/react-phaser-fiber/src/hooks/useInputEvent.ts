@@ -1,8 +1,8 @@
-import useScene from './useScene'
+import { useScene } from './useScene'
 import { useEffect } from 'react'
 import invariant from 'fbjs/lib/invariant'
 
-export default function useInputEvent(event: string, callback: Function) {
+export function useInputEvent(event: string, callback: Function) {
   const scene = useScene()
 
   useEffect(() => {
