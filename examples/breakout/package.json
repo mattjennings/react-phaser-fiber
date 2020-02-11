@@ -12,7 +12,8 @@
     "react-app-polyfill": "^1.0.0",
     "react-dom": "^16.9.0",
     "react-phaser-fiber": "latest",
-    "react-scripts": "3.3.1"
+    "react-scripts": "3.3.1",
+    "typescript": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
