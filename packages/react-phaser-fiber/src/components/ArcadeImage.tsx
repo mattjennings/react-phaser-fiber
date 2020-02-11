@@ -63,19 +63,22 @@ function ArcadeImage(
   props: ArcadeImageProps,
   ref: React.Ref<Phaser.Physics.Arcade.Image>
 ) {
-  const object = useGameObject(scene => {
-    const instance = new Phaser.Physics.Arcade.Image(
-      scene,
-      props.x,
-      props.y,
-      props.texture,
-      props.frame
-    )
+  const object = useGameObject(
+    scene => {
+      const instance = new Phaser.Physics.Arcade.Image(
+        scene,
+        props.x,
+        props.y,
+        props.texture,
+        props.frame
+      )
 
-    scene.physics.add.existing(instance)
-
-    return instance
-  })
+      return instance
+    },
+    {
+      physics: 'arcade',
+    }
+  )
 
   useImperativeHandle(ref, () => object)
 

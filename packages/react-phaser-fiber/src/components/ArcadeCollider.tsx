@@ -25,7 +25,7 @@ export interface ArcadeColliderProps<With, For> {
  * Note: The child component must forward refs using React.forwardRef to a GameObject or <GameObject /> component
  *
  * ```
- *  <ArcadeCollider with={myObject}>
+ *  <ArcadeCollider with="my-game-object">
  *    <Sprite />
  *  </ArcadeCollider>
  * ```
@@ -33,7 +33,7 @@ export interface ArcadeColliderProps<With, For> {
  * You can also use it for multiple children
  *
  * ```
- *  <ArcadeCollider with={myObject}>
+ *  <ArcadeCollider with="my-game-object">
  *    <Sprite />
  *    <Sprite />
  *  </ArcadeCollider>

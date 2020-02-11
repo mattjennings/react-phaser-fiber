@@ -62,7 +62,7 @@ function diffProperties(
 ) {
   let updatePayload: any = null
 
-  for (let propKey in lastProps) {
+  for (const propKey in lastProps) {
     if (
       nextProps.hasOwnProperty(propKey) ||
       !lastProps.hasOwnProperty(propKey) ||
@@ -82,7 +82,7 @@ function diffProperties(
     }
   }
 
-  for (let propKey in nextProps) {
+  for (const propKey in nextProps) {
     const nextProp = nextProps[propKey]
     const lastProp = lastProps != null ? lastProps[propKey] : undefined
 

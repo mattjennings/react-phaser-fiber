@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo, useState } from 'react'
+import { useRef, useLayoutEffect } from 'react'
 import { Scene } from 'phaser'
 import useScene from './useScene'
 
@@ -10,6 +10,7 @@ export interface UseGameObjectOptions {
 
   physics?: 'arcade'
 }
+
 export default function useGameObject<T extends Phaser.GameObjects.GameObject>(
   creator: (scene: Scene) => T,
   options: UseGameObjectOptions = {}
@@ -18,7 +19,7 @@ export default function useGameObject<T extends Phaser.GameObjects.GameObject>(
   const scene = useScene()
   const ref = useRef(creator(scene))
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (addToScene) {
       scene.add.existing(ref.current)
     }
