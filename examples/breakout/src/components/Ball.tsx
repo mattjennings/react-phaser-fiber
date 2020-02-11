@@ -51,7 +51,6 @@ function Ball(
 
   return (
     <ArcadeCollider
-      for={ball}
       // by using the ref instead of a string, we get types in the onCollide
       with={paddleRef.current as Phaser.Physics.Arcade.Image}
       onCollide={(self, paddle) => {
@@ -67,7 +66,7 @@ function Ball(
         }
       }}
     >
-      <GameObject object={ball} {...props} />
+      <GameObject object={ball} ref={ref} {...props} />
     </ArcadeCollider>
   )
 }

@@ -3,7 +3,7 @@ import { CreatePhaserComponentConfig } from '../element'
 
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   object: T
-  ref?: React.RefObject<Phaser.GameObjects.GameObject>
+  ref?: React.Ref<T>
   name?: string
   active?: boolean
   tabIndex?: boolean

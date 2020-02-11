@@ -68,20 +68,17 @@ export default function Breakout() {
           dispatch({ type: 'BLOCK_HIT', payload: block.data.get('index') })
         }}
       >
-        {ref =>
-          state.blocks.map((block, index) => (
-            <Block
-              key={index}
-              ref={ref}
-              data={{
-                index,
-              }}
-              x={block.x + 116}
-              y={block.y + 200}
-              frame={block.frame}
-            />
-          ))
-        }
+        {state.blocks.map((block, index) => (
+          <Block
+            key={index}
+            data={{
+              index,
+            }}
+            x={block.x + 116}
+            y={block.y + 200}
+            frame={block.frame}
+          />
+        ))}
       </ArcadeCollider>
       <Paddle ref={paddleRef} initialX={400} initialY={700} />
     </>
