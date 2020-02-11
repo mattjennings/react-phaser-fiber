@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  ArcadeImage,
-  ArcadeImageProps,
-  ArcadeCollider,
-  ArcadeColliderProps,
-} from 'react-phaser-fiber'
+import { ArcadeImage, ArcadeImageProps } from 'react-phaser-fiber'
 
 export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {}
 
