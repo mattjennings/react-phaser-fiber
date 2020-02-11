@@ -55,7 +55,7 @@ function Ball(
       with={paddleRef.current as Phaser.Physics.Arcade.Image}
       onCollide={(self, paddle) => {
         // add X velocity to ball when hitting paddle
-        if (self.x < paddle.x) {
+        if (ball.x < paddle.x) {
           const diff = paddle.x - ball.x
           ball.setVelocityX(-10 * diff)
         } else if (ball.x > paddle.x) {
@@ -66,7 +66,7 @@ function Ball(
         }
       }}
     >
-      <GameObject object={ball} ref={ref} {...props} />
+      <GameObject object={ball} {...props} />
     </ArcadeCollider>
   )
 }
