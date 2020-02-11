@@ -3,10 +3,7 @@ import { ArcadeImage, ArcadeImageProps } from 'react-phaser-fiber'
 
 export interface BlockProps extends Omit<ArcadeImageProps, 'texture'> {}
 
-function Block(
-  { ...props }: BlockProps,
-  ref: React.Ref<Phaser.Physics.Arcade.Image>
-) {
+function Block(props: BlockProps, ref: React.Ref<Phaser.Physics.Arcade.Image>) {
   return (
     <ArcadeImage
       ref={ref}
