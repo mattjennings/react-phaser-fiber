@@ -1,54 +1,43 @@
-import { useLayoutEffect, useState } from 'react'
-import useArcadeCollider from '../hooks/useArcadeCollider'
-import { useGameObject } from './GameObject'
+import { useArcadeCollider, useGameObject, ColliderObjectType } from '../hooks'
 
-export interface ArcadeColliderProps<With> {
-  with: With | string | string[]
+export interface ArcadeColliderProps<With extends ColliderObjectType> {
+  with: With
   onCollide?: (self: any, other: With extends string ? any : With) => any
   onProcess?: (self: any, other: With extends string ? any : With) => any
 }
 
 /**
- * Creates a collider between the child GameObject component and the "with" prop. The
- * "with" prop can either be a GameObject, a ref to a GameObject, or a string that is
- * the name of the GameObject (in Phaser).
- *
- * Alternatively, you can use the "for" prop instead of children which acts like the "with" prop
- *
- * Note: The child component must forward refs using React.forwardRef to a GameObject or <GameObject /> component
+ * Creates a collider between the parent GameObject component and the "with" prop. The
+ * "with" prop can either be a GameObject, a ref to a GameObject, or a string matching
+ * the name of a GameObject (in Phaser).
  *
  * ```
- *  <ArcadeCollider with="my-game-object">
- *    <Sprite />
- *  </ArcadeCollider>
+ *  <ArcadeImage {...props}>
+ *    <ArcadeCollider with="coin">
+ *  </ArcadeImage>
  * ```
  *
- * You can also use it for multiple children
+ * You can also use it with a custom GameObject component
  *
  * ```
- *  <ArcadeCollider with="my-game-object">
- *    <Sprite />
- *    <Sprite />
- *  </ArcadeCollider>
+ *  <GameObject instance={instance}>
+ *    <ArcadeCollider with="coin">
+ *  </GameObject>
  * ```
  *
  */
-export default function ArcadeCollider<With = any>(
+export default function ArcadeCollider<With extends ColliderObjectType = any>(
   props: ArcadeColliderProps<With>
 ): JSX.Element {
   const { onCollide, onProcess } = props
 
   const gameObject = useGameObject()
 
-  const [objWith, setObjWith] = useState(null)
+  if (!gameObject) {
+    throw Error('ArcadeCollider must be used within a GameObject component')
+  }
 
-  useLayoutEffect(() => {
-    setObjWith(props.with)
-  }, [props.with, gameObject])
-
-  useArcadeCollider(gameObject, objWith, onCollide, onProcess)
+  useArcadeCollider(gameObject, props.with, onCollide, onProcess)
 
   return null
-  // map over each child component and assign the ref
-  // return renderChildrenWithRefs(children, refs)
 }

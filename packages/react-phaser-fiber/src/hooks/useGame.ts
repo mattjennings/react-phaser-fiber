@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import GameContext from '../components/Game/GameContext'
 
-export default function useGame() {
+export function useGame() {
   return useContext(GameContext)
 }

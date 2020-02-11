@@ -1,5 +1,5 @@
-import React, { useLayoutEffect } from 'react'
-import { GameObject, useGameObject } from 'react-phaser-fiber'
+import React, { useLayoutEffect, useMemo } from 'react'
+import { GameObject, useGameObject, useScene } from 'react-phaser-fiber'
 
 export interface LineProps {
   from: {
@@ -14,18 +14,21 @@ export interface LineProps {
 }
 
 export default function Line({ color, from, to, ...props }: LineProps) {
-  const object = useGameObject(scene => new Phaser.GameObjects.Graphics(scene))
+  const scene = useScene()
+  const instance = useMemo(() => new Phaser.GameObjects.Graphics(scene), [
+    scene,
+  ])
 
   useLayoutEffect(() => {
-    object.clear()
+    instance.clear()
 
-    object.lineStyle(5, color, 1.0)
-    object.beginPath()
-    object.moveTo(from.x, from.y)
-    object.lineTo(to.x, to.y)
-    object.closePath()
-    object.strokePath()
-  }, [color, from.x, from.y, object, to.x, to.y])
+    instance.lineStyle(5, color, 1.0)
+    instance.beginPath()
+    instance.moveTo(from.x, from.y)
+    instance.lineTo(to.x, to.y)
+    instance.closePath()
+    instance.strokePath()
+  }, [color, from.x, from.y, instance, to.x, to.y])
 
-  return <GameObject object={object} {...props} />
+  return <GameObject instance={instance} {...props} />
 }
