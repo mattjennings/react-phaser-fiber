@@ -50,6 +50,7 @@ export default function Breakout() {
 
   return (
     <>
+      <Paddle ref={paddleRef} initialX={400} initialY={700} />
       <Ball
         ref={ballRef}
         paddleRef={paddleRef}
@@ -80,7 +81,6 @@ export default function Breakout() {
           />
         ))}
       </ArcadeCollider>
-      <Paddle ref={paddleRef} initialX={400} initialY={700} />
     </>
   )
 }

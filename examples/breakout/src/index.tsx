@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Game, Scene, Text } from 'react-phaser-fiber'
-import Breakout from './components/Breakout'
+import Breakout from './Breakout'
 
 const App = () => {
   return (
