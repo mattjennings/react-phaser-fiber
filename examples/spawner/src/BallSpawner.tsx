@@ -7,8 +7,8 @@ const BallSpawner: React.FC<{}> = () => {
   // Spawn a ball at the mouse's position when clicked
   useInputEvent('pointerdown', (pointer: Phaser.Input.Pointer) => {
     spawn(Ball, {
-      initialX: pointer.x,
-      initialY: pointer.y,
+      x: pointer.x,
+      y: pointer.y,
     })
   })
 

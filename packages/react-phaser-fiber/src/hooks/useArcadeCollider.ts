@@ -1,27 +1,38 @@
-import React, { useLayoutEffect, useRef, useEffect } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import useScene from './useScene'
+import { Scene } from 'phaser'
 
-export default function useArcadeCollider(
-  obj1: React.RefObject<any> | React.RefObject<any>[],
-  obj2: React.RefObject<any> | React.RefObject<any>[],
-  onCollide: (obj1: any, obj2: any) => any,
-  onProcess?: (obj1: any, obj2: any) => boolean
+type ColliderObjectType = Phaser.GameObjects.GameObject | string
+
+/**
+ * Creates a collider between objects or arrays of objects. If provided values are strings, it will
+ * search for all objects by that name in the scene.
+ */
+export default function useArcadeCollider<
+  T1 extends ColliderObjectType,
+  T2 extends ColliderObjectType
+>(
+  obj1: T1 | T1[],
+  obj2: T2 | T2[],
+  onCollide: (
+    obj1: T1 extends string ? any : T1,
+    obj2: T2 extends string ? any : T2
+  ) => any,
+  onProcess?: (
+    obj1: T1 extends string ? any : T1,
+    obj2: T2 extends string ? any : T2
+  ) => boolean
 ) {
   const scene = useScene()
-  let collider = useRef<Phaser.Physics.Arcade.Collider>(null)
+  const collider = useRef<Phaser.Physics.Arcade.Collider>(null)
 
   useLayoutEffect(() => {
-    // this timeout feels gross. it's necessary because otherwise
-    // `collideWith` refs are null for sibling components _after_ this one
-    // is there a better solution?
-    setTimeout(() => {
-      collider.current = scene.physics.add.collider(
-        Array.isArray(obj1) ? obj1.map(ref => ref.current) : obj1.current,
-        Array.isArray(obj2) ? obj2.map(ref => ref.current) : obj2.current,
-        onCollide,
-        onProcess
-      )
-    })
+    collider.current = scene.physics.add.collider(
+      createObjectsArray(scene, obj1),
+      createObjectsArray(scene, obj2),
+      onCollide,
+      onProcess
+    )
 
     return () => {
       if (collider.current) {
@@ -32,25 +43,41 @@ export default function useArcadeCollider(
 
   // it is much more performant to update the collider via mutations
   // rather than destroy() and recreate in the above useLayoutEffect
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (collider.current) {
-      collider.current.object1 = Array.isArray(obj1)
-        ? obj1.map(ref => ref.current)
-        : obj1.current
-      collider.current.object2 = Array.isArray(obj2)
-        ? obj2.map(ref => ref.current)
-        : obj2.current
+      collider.current.object1 = createObjectsArray(scene, obj1)
+      collider.current.object2 = createObjectsArray(scene, obj2)
     }
-  }, [
-    // spread into deps if obj is array
-    Array.isArray(obj1) ? [...obj1] : obj1,
-    Array.isArray(obj2) ? [...obj2] : obj2,
-  ])
+  }, [obj1, obj2])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (collider.current) {
       collider.current.collideCallback = onCollide
       collider.current.processCallback = onProcess
     }
   }, [onCollide, onProcess])
+}
+
+function createObjectsArray(
+  scene: Scene,
+  objects: ColliderObjectType | ColliderObjectType[]
+) {
+  return toArray(objects).reduce(
+    (total: Phaser.GameObjects.GameObject[], object) => {
+      if (typeof object === 'string') {
+        return [...total, ...findGameObjectsByName(scene, object)]
+      }
+
+      return [...total, object]
+    },
+    []
+  ) as Phaser.GameObjects.GameObject[]
+}
+
+function findGameObjectsByName(scene: Scene, name: string) {
+  return scene.children.list.filter(child => child.name === name)
+}
+
+function toArray<T>(obj: T): T[] {
+  return Array.isArray(obj) ? obj : [obj]
 }

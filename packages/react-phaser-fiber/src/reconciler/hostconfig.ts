@@ -11,15 +11,17 @@
 import invariant from 'fbjs/lib/invariant'
 import performanceNow from 'performance-now'
 
-import { createElement } from '../utils/element'
-import { applyDefaultProps } from '../utils/applyProps'
+import { createElement } from './element'
+import { applyProps as defaultApplyProps } from './applyProps'
 
 function appendChild(
   parent: Phaser.Scene | Phaser.GameObjects.GameObject,
-  child: any
+  child: Phaser.GameObjects.GameObject
 ) {
   if (parent instanceof Phaser.Scene) {
-    parent.add.existing(child)
+    if (!parent.children.exists(child)) {
+      parent.add.existing(child)
+    }
   }
 
   if (parent instanceof Phaser.GameObjects.GameObject) {
@@ -60,7 +62,7 @@ function diffProperties(
 ) {
   let updatePayload: any = null
 
-  for (let propKey in lastProps) {
+  for (const propKey in lastProps) {
     if (
       nextProps.hasOwnProperty(propKey) ||
       !lastProps.hasOwnProperty(propKey) ||
@@ -80,7 +82,7 @@ function diffProperties(
     }
   }
 
-  for (let propKey in nextProps) {
+  for (const propKey in nextProps) {
     const nextProp = nextProps[propKey]
     const lastProp = lastProps != null ? lastProps[propKey] : undefined
 
@@ -255,7 +257,7 @@ export default {
     let applyProps = instance && instance.applyProps
 
     if (typeof applyProps !== 'function') {
-      applyProps = applyDefaultProps
+      applyProps = defaultApplyProps
     }
     applyProps(instance, oldProps, newProps)
   },

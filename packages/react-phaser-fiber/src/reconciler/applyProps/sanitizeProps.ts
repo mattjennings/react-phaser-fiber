@@ -4,6 +4,8 @@
 export const PROPS_RESERVED = {
   children: true,
   parent: true,
+  object: true,
+  physics: true,
 }
 
 /**

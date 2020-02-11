@@ -1,9 +1,8 @@
 import 'react-app-polyfill/ie11'
 import React from 'react'
 import ReactDOM from 'react-dom'
-
 import { Game, Scene } from 'react-phaser-fiber'
-import Line from './components/Line'
+import Line from './Line'
 
 const App = () => {
   return (

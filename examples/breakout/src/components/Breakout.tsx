@@ -1,39 +1,31 @@
-import React, { useCallback, useReducer, useRef } from 'react'
-import { Scene, Text, useGameLoop, useInputEvent } from 'react-phaser-fiber'
+import React, { useCallback, useReducer, useRef, useEffect } from 'react'
+import {
+  useGameLoop,
+  useInputEvent,
+  ArcadeCollider,
+  useScene,
+} from 'react-phaser-fiber'
 import Ball from './Ball'
 import Block from './Block'
 import Paddle from './Paddle'
 
-interface BreakoutState {
-  isBallActive?: boolean
-  blocks: Array<{ x: number; y: number; frame: string }>
-}
-
-const Breakout = () => {
+export default function Breakout() {
+  const scene = useScene()
   const paddleRef = useRef<Phaser.Physics.Arcade.Image>(null)
   const ballRef = useRef<Phaser.Physics.Arcade.Image>(null)
 
   const [state, dispatch] = useReducer(reducer, defaultState)
 
+  useEffect(() => {
+    // set collisions on all edges of world except bottom
+    scene.physics.world.setBoundsCollision(true, true, true, false)
+  }, [scene])
+
   useGameLoop(
     useCallback(() => {
-      if (paddleRef.current && ballRef.current) {
-        // set ball position to paddle when ball is inactive
-        if (!state.isBallActive) {
-          ballRef.current.setPosition(
-            paddleRef.current.x,
-            paddleRef.current.y - 48
-          )
-        }
-
-        // reset ball position if it exits bottom of screen
-        if (ballRef.current.y > 800) {
-          ballRef.current.setVelocity(0)
-          dispatch({ type: 'RESET_BALL' })
-        }
-
-        // restart game when all blocks are destroyed
-        if (state.blocks.length === 0) {
+      // restart game when all blocks are destroyed
+      if (state.blocks.length === 0) {
+        if (paddleRef.current && ballRef.current) {
           ballRef.current.setVelocity(0, 0)
           ballRef.current.setPosition(
             paddleRef.current.x,
@@ -42,9 +34,10 @@ const Breakout = () => {
           dispatch({ type: 'RESET_GAME' })
         }
       }
-    }, [state.isBallActive, state.blocks.length])
+    }, [state.blocks.length])
   )
 
+  // launch ball when clicked
   useInputEvent(
     'pointerdown',
     useCallback(() => {
@@ -57,29 +50,50 @@ const Breakout = () => {
 
   return (
     <>
-      {state.blocks.map((block, index) => {
-        return (
+      <Ball
+        ref={ballRef}
+        paddleRef={paddleRef}
+        snapToPaddle={!state.isBallActive}
+        onReset={() => {
+          // reset ball position if it exits bottom of screen
+          if (ballRef.current && ballRef.current.y > 800) {
+            ballRef.current.setVelocity(0)
+            dispatch({ type: 'RESET_BALL' })
+          }
+        }}
+      />
+      <ArcadeCollider
+        with="ball"
+        onCollide={(block: Phaser.Physics.Arcade.Image) => {
+          dispatch({ type: 'BLOCK_HIT', payload: block.data.get('index') })
+        }}
+      >
+        {state.blocks.map((block, index) => (
           <Block
             key={index}
-            ballRef={ballRef}
+            data={{
+              index,
+            }}
             x={block.x + 116}
             y={block.y + 200}
             frame={block.frame}
-            onBallHit={() => {
-              dispatch({ type: 'BLOCK_HIT', payload: index })
-            }}
           />
-        )
-      })}
-      <Ball ref={ballRef} paddleRef={paddleRef} />
+        ))}
+      </ArcadeCollider>
       <Paddle ref={paddleRef} initialX={400} initialY={700} />
     </>
   )
 }
 
+interface BreakoutState {
+  isBallActive: boolean
+  blocks: Array<{ x: number; y: number; frame: string }>
+}
+
 const defaultState: BreakoutState = {
   isBallActive: false,
   blocks: Array.from({ length: 60 }).map((_, index) => {
+    // possible sprites to use for block
     const blockFrames = [
       'blue1',
       'red1',
@@ -92,6 +106,7 @@ const defaultState: BreakoutState = {
     return {
       x: (index % 10) * 64,
       y: 10 * Math.floor(index / 10) * 3.2,
+      // each row uses same sprite
       frame: blockFrames[Math.floor(index / 10)],
     }
   }),
@@ -125,33 +140,4 @@ function reducer(
     }
   }
   return state
-}
-
-export default function BreakoutScene() {
-  return (
-    <Scene
-      sceneKey="breakout"
-      onCreate={scene => {
-        // set collisions on edge of world
-        scene.physics.world.setBoundsCollision(true, true, true, false)
-      }}
-      onPreload={scene => {
-        scene.load.atlas(
-          'assets',
-          'assets/breakout.png',
-          'assets/breakout.json'
-        )
-      }}
-      renderLoading={progress => (
-        <Text
-          x={400}
-          y={400}
-          text={`Loading... (${progress * 100}%)`}
-          style={{ color: 'white' }}
-        />
-      )}
-    >
-      <Breakout />
-    </Scene>
-  )
 }

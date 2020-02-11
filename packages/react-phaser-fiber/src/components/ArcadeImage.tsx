@@ -1,9 +1,5 @@
 import * as Phaser from 'phaser'
-import {
-  applyDefaultProps,
-  applyArcadePhysicsProps,
-} from '../../utils/applyProps'
-import {
+import GameObject, {
   AlphaProps,
   BlendModeProps,
   ComputedSizeProps,
@@ -29,11 +25,12 @@ import {
   ArcadeMassProps,
   ArcadeSizeProps,
   ArcadeVelocityProps,
-} from '..'
-import { CreatePhaserComponentConfig } from '../../utils/element'
+} from './GameObject'
+import { useGameObject } from '../hooks'
+import React, { useImperativeHandle } from 'react'
 
 export interface ArcadeImageProps
-  extends GameObjectProps<Phaser.Physics.Arcade.Image>,
+  extends Omit<GameObjectProps<Phaser.Physics.Arcade.Image>, 'object' | 'ref'>,
     AlphaProps,
     BlendModeProps,
     ComputedSizeProps,
@@ -62,36 +59,30 @@ export interface ArcadeImageProps
   frame?: string | number
 }
 
-const ArcadeImage: CreatePhaserComponentConfig<
-  Phaser.Physics.Arcade.Image,
-  ArcadeImageProps
-> = {
-  create: ({ x, y, initialX, initialY, texture, frame }, scene) => {
-    const img = new Phaser.Physics.Arcade.Image(
-      scene,
-      typeof initialX !== undefined ? initialX : x,
-      typeof initialY !== undefined ? initialY : y,
-      texture,
-      frame
-    )
-    scene.physics.add.existing(img)
+function ArcadeImage(
+  props: ArcadeImageProps,
+  ref: React.Ref<Phaser.Physics.Arcade.Image>
+) {
+  const object = useGameObject(
+    scene => {
+      const instance = new Phaser.Physics.Arcade.Image(
+        scene,
+        props.x,
+        props.y,
+        props.texture,
+        props.frame
+      )
 
-    return img
-  },
-  applyProps: (instance, oldProps, newProps) => {
-    const { texture, frame, ...props } = newProps
-
-    if (texture !== oldProps.texture) {
-      instance.setTexture(texture)
+      return instance
+    },
+    {
+      physics: 'arcade',
     }
+  )
 
-    if (frame !== oldProps.frame) {
-      instance.setFrame(frame)
-    }
+  useImperativeHandle(ref, () => object)
 
-    applyDefaultProps(instance, oldProps, props)
-    applyArcadePhysicsProps(instance, oldProps, props)
-  },
+  return <GameObject object={object} {...props} />
 }
 
-export default ArcadeImage
+export default React.forwardRef(ArcadeImage)

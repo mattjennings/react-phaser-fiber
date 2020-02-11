@@ -1,7 +1,7 @@
 {
   "name": "monorepo",
   "private": true,
-  "version": "0.0.7",
+  "version": "0.1.0",
   "workspaces": [
     "packages/*",
     "examples/*"
@@ -16,19 +16,19 @@
     }
   },
   "resolutions": {
-    "react-phaser-fiber": "0.0.7",
-    "jest": "24.8.0"
+    "react-phaser-fiber": "0.1.0",
+    "jest": "24.9.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^1.7.0",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "husky": "^3.0.3",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "pretty-quick": "^1.11.1",
-    "typescript": "^3.5.3"
+    "typescript": "^3.7.5"
   }
 }

@@ -1,24 +1,8 @@
-import { TYPES } from '../utils/element'
-import { TextProps } from './Text'
-import { SpriteProps } from './Sprite'
-import { ImageProps } from './Image'
-import { ArcadeImageProps } from './ArcadeImage'
+import { applyProps } from '../applyProps'
+import { CreatePhaserComponentConfig } from '../element'
 
-export const Text = (TYPES.Text as unknown) as React.FC<TextProps>
-export const Sprite = (TYPES.Sprite as unknown) as React.FC<SpriteProps>
-export const Image = (TYPES.Image as unknown) as React.FC<ImageProps>
-export const ArcadeImage = (TYPES.ArcadeImage as unknown) as React.FC<
-  ArcadeImageProps
->
-
-export { TextProps, SpriteProps, ImageProps, ArcadeImageProps }
-
-/*********************
- * Common Prop Types *
- *********************/
-
-// GameObject
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
+  object: T
   ref?: React.Ref<T>
   name?: string
   active?: boolean
@@ -29,6 +13,13 @@ export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   body?: Phaser.Physics.Arcade.Body | Phaser.Physics.Impact.Body
   ignoreDestroy?: boolean
   input?: Phaser.Types.Input.InteractiveObject
+
+  /**
+   * Creates the body in the phaser for the specified physics world
+   *
+   * note: only 'arcade' is supported for now
+   */
+  physics?: 'arcade'
 }
 
 export type AlphaProps = Partial<
@@ -203,3 +194,18 @@ export interface ArcadeVelocityProps {
   velocity?: number | { x: number; y: number }
   maxVelocity?: number | { x: number; y: number }
 }
+
+// this should only be imported by reconciler. elements/index.ts will export the renderable component GameObject
+const GameObject: CreatePhaserComponentConfig<
+  Phaser.GameObjects.GameObject,
+  GameObjectProps<Phaser.GameObjects.GameObject>
+> = {
+  create: ({ object }, scene) => {
+    return object
+  },
+  applyProps: (instance, oldProps, newProps) => {
+    applyProps(instance, oldProps, newProps)
+  },
+}
+
+export default GameObject

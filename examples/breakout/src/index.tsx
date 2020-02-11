@@ -1,7 +1,7 @@
 import 'react-app-polyfill/ie11'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Game } from 'react-phaser-fiber'
+import { Game, Scene, Text } from 'react-phaser-fiber'
 import Breakout from './components/Breakout'
 
 const App = () => {
@@ -16,7 +16,26 @@ const App = () => {
         mode: Phaser.Scale.FIT,
       }}
     >
-      <Breakout />
+      <Scene
+        sceneKey="breakout"
+        onPreload={scene => {
+          scene.load.atlas(
+            'assets',
+            'assets/breakout.png',
+            'assets/breakout.json'
+          )
+        }}
+        renderLoading={progress => (
+          <Text
+            x={300}
+            y={400}
+            text={`Loading... (${progress * 100}%)`}
+            style={{ color: 'white' }}
+          />
+        )}
+      >
+        <Breakout />
+      </Scene>
     </Game>
   )
 }

@@ -1,9 +1,10 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useRef } from 'react'
 import { ArcadeImage, ArcadeImageProps, SpawnProps } from 'react-phaser-fiber'
 
 export type BallProps = Omit<ArcadeImageProps, 'texture'> & SpawnProps
 
 function Ball(props: BallProps) {
+  const ref = useRef(null)
   // create a random velocity and memoize it so it doesn't change on re-renders
   const velocity = useMemo(() => {
     const speed = 450
@@ -25,11 +26,13 @@ function Ball(props: BallProps) {
 
   return (
     <ArcadeImage
+      ref={ref}
       texture="assets"
       frame="ball1"
       velocity={velocity}
       bounce={1}
       collideWorldBounds
+      physics="arcade"
       {...props}
     />
   )
