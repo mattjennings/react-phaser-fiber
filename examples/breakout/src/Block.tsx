@@ -18,7 +18,7 @@ function Block(
       ref={ref}
       texture="assets"
       immovable
-      physics="arcade"
+      physicsType="static"
       {...props}
     >
       <ArcadeCollider with="ball" onCollide={() => onBallHit()} />

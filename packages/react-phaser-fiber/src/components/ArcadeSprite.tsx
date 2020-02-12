@@ -25,16 +25,18 @@ import GameObject, {
   ArcadeMassProps,
   ArcadeSizeProps,
   ArcadeVelocityProps,
+  AnimationProps,
 } from './GameObject'
 import { useScene } from '../hooks'
-import React, { useImperativeHandle, useMemo } from 'react'
+import React, { useImperativeHandle, useMemo, useLayoutEffect } from 'react'
 
-export interface ArcadeImageProps
+export interface ArcadeSpriteProps
   extends Omit<
-      GameObjectProps<Phaser.Physics.Arcade.Image>,
+      GameObjectProps<Phaser.Physics.Arcade.Sprite>,
       'ref' | 'instance' | 'physics'
     >,
     AlphaProps,
+    AnimationProps,
     BlendModeProps,
     ComputedSizeProps,
     DepthProps,
@@ -58,20 +60,24 @@ export interface ArcadeImageProps
     ArcadeMassProps,
     ArcadeSizeProps,
     ArcadeVelocityProps {
-  instance?: Phaser.Physics.Arcade.Image
+  animations?: Phaser.Types.Animations.Animation[]
+  animation?: string
+  instance?: Phaser.Physics.Arcade.Sprite
   texture?: string
-  frame?: string | number
+  x?: number
+  y?: number
+  frame?: number
 }
 
-function ArcadeImage(
-  props: ArcadeImageProps,
-  ref: React.Ref<Phaser.Physics.Arcade.Image>
+function ArcadeSprite(
+  { animations, animation, ...props }: ArcadeSpriteProps,
+  ref: React.Ref<Phaser.Physics.Arcade.Sprite>
 ) {
   const scene = useScene()
   const instance = useMemo(
     () =>
       props.instance ||
-      new Phaser.Physics.Arcade.Image(
+      new Phaser.Physics.Arcade.Sprite(
         scene,
         props.x,
         props.y,
@@ -83,7 +89,28 @@ function ArcadeImage(
 
   useImperativeHandle(ref, () => instance)
 
+  useLayoutEffect(() => {
+    if (animations) {
+      animations.forEach(animation => {
+        scene.anims.create(animation)
+      })
+    }
+    return () => {
+      if (animations) {
+        animations.forEach(animation => {
+          scene.anims.remove(animation.key)
+        })
+      }
+    }
+  }, [animations])
+
+  useLayoutEffect(() => {
+    if (animation) {
+      instance.play(animation, true)
+    }
+  }, [animation])
+
   return <GameObject instance={instance} physics="arcade" {...props} />
 }
 
-export default React.forwardRef(ArcadeImage)
+export default React.forwardRef(ArcadeSprite)

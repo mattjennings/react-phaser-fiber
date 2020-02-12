@@ -10,7 +10,6 @@ export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   data?: any
   renderFlags?: integer
   cameraFilter?: number
-  body?: Phaser.Physics.Arcade.Body | Phaser.Physics.Impact.Body
   ignoreDestroy?: boolean
   input?: Phaser.Types.Input.InteractiveObject
   children?: React.ReactNode
@@ -21,6 +20,7 @@ export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
    * note: only 'arcade' is supported for now
    */
   physics?: 'arcade'
+  physicsType?: 'static' | 'dynamic'
 }
 
 export type AlphaProps = Partial<
@@ -110,6 +110,7 @@ export interface TransformProps
       | 'w'
     >
   > {
+  allowRotation?: boolean
   /**
    * Sets the X only on the first render
    */
@@ -125,8 +126,26 @@ export type VisibleProps = Partial<
   Pick<Phaser.GameObjects.Components.Visible, 'visible'>
 >
 
-// Arcade Physics
+export interface AnimationProps {
+  playingAnimation?: string
+  accumulator?: number
+  delay?: number
+  duration?: number
+  forward?: boolean
+  frameRate?: number
+  isPlaying?: boolean
+  msPerFrame?: number
+  skipMissedFrames?: boolean
+  progress?: boolean
+  stopOnFrame?: Phaser.Animations.AnimationFrame
+  stopAfterDelay?: number
+  repeat?: boolean
+  repeatDelay?: number
+  timeScale?: number
+  yoyo?: boolean
+}
 
+// Arcade Physics
 export interface ArcadeAccelerationProps {
   acceleration?: number | { x: number; y: number }
 }
@@ -151,6 +170,7 @@ export interface ArcadeDebugProps {
 export interface ArcadeDragProps {
   damping?: number
   drag?: number | { x: number; y: number }
+  allowDrag?: boolean
 }
 
 export interface ArcadeEnableProps {
@@ -163,6 +183,7 @@ export interface ArcadeFrictionProps {
 }
 
 export interface ArcadeGravityProps {
+  allowGravity?: boolean
   gravity?: number | { x: number; y: number }
 }
 
