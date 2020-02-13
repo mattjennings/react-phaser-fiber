@@ -1,40 +1,38 @@
 import * as Phaser from 'phaser'
+import React, { useImperativeHandle, useLayoutEffect, useMemo } from 'react'
+import { useScene } from '../hooks'
 import GameObject, {
+  AccelerationProps,
   AlphaProps,
+  AngularProps,
+  AnimationProps,
   BlendModeProps,
+  BounceProps,
   ComputedSizeProps,
+  DebugProps,
   DepthProps,
+  DragProps,
+  EnableProps,
   FlipProps,
+  FrictionProps,
+  GameObjectProps,
+  GravityProps,
+  ImmovableProps,
+  MaskProps,
+  MassProps,
   OriginProps,
   PipelineProps,
   ScrollFactorProps,
-  TransformProps,
-  VisibleProps,
-  MaskProps,
+  SizeProps,
   TintProps,
-  GameObjectProps,
-  ArcadeAccelerationProps,
-  ArcadeAngularProps,
-  ArcadeBounceProps,
-  ArcadeDebugProps,
-  ArcadeEnableProps,
-  ArcadeDragProps,
-  ArcadeFrictionProps,
-  ArcadeGravityProps,
-  ArcadeImmovableProps,
-  ArcadeMassProps,
-  ArcadeSizeProps,
-  ArcadeVelocityProps,
-  AnimationProps,
+  TransformProps,
+  VelocityProps,
+  VisibleProps,
 } from './GameObject'
-import { useScene } from '../hooks'
-import React, { useImperativeHandle, useMemo, useLayoutEffect } from 'react'
+import Sprite, { SpriteProps } from './Sprite'
 
 export interface ArcadeSpriteProps
-  extends Omit<
-      GameObjectProps<Phaser.Physics.Arcade.Sprite>,
-      'ref' | 'instance' | 'physics'
-    >,
+  extends Omit<SpriteProps, 'ref' | 'instance' | 'physics'>,
     AlphaProps,
     AnimationProps,
     BlendModeProps,
@@ -48,29 +46,23 @@ export interface ArcadeSpriteProps
     TintProps,
     TransformProps,
     VisibleProps,
-    ArcadeAccelerationProps,
-    ArcadeAngularProps,
-    ArcadeBounceProps,
-    ArcadeDebugProps,
-    ArcadeEnableProps,
-    ArcadeDragProps,
-    ArcadeFrictionProps,
-    ArcadeGravityProps,
-    ArcadeImmovableProps,
-    ArcadeMassProps,
-    ArcadeSizeProps,
-    ArcadeVelocityProps {
-  animations?: Phaser.Types.Animations.Animation[]
-  animation?: string
+    AccelerationProps,
+    AngularProps,
+    BounceProps,
+    DebugProps,
+    EnableProps,
+    DragProps,
+    FrictionProps,
+    GravityProps,
+    ImmovableProps,
+    MassProps,
+    SizeProps,
+    VelocityProps {
   instance?: Phaser.Physics.Arcade.Sprite
-  texture?: string
-  x?: number
-  y?: number
-  frame?: number
 }
 
 function ArcadeSprite(
-  { animations, animation, ...props }: ArcadeSpriteProps,
+  props: ArcadeSpriteProps,
   ref: React.Ref<Phaser.Physics.Arcade.Sprite>
 ) {
   const scene = useScene()
@@ -89,28 +81,10 @@ function ArcadeSprite(
 
   useImperativeHandle(ref, () => instance)
 
-  useLayoutEffect(() => {
-    if (animations) {
-      animations.forEach(animation => {
-        scene.anims.create(animation)
-      })
-    }
-    return () => {
-      if (animations) {
-        animations.forEach(animation => {
-          scene.anims.remove(animation.key)
-        })
-      }
-    }
-  }, [animations])
-
-  useLayoutEffect(() => {
-    if (animation) {
-      instance.play(animation, true)
-    }
-  }, [animation])
-
-  return <GameObject instance={instance} physics="arcade" {...props} />
+  // reuse the Sprite component because it does some Sprite prop things
+  // but we'll need to disguise the props as any. This is smelly, but does
+  // share the common Sprite logic
+  return <Sprite instance={instance} physics="arcade" {...(props as any)} />
 }
 
 export default React.forwardRef(ArcadeSprite)

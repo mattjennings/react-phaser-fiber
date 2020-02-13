@@ -146,32 +146,32 @@ export interface AnimationProps {
 }
 
 // Arcade Physics
-export interface ArcadeAccelerationProps {
+export interface AccelerationProps {
   accelerationX?: number
   accelerationY?: number
   acceleration?: number | { x: number; y: number }
 }
 
-export interface ArcadeAngularProps {
+export interface AngularProps {
   angularAcceleration?: number
   angularDrag?: number
   angularVelocity?: number
 }
 
-export interface ArcadeBounceProps {
+export interface BounceProps {
   bounceX?: number
   bounceY?: number
   bounce?: number | { x: number; y: number }
   collideWorldBounds?: boolean
 }
 
-export interface ArcadeDebugProps {
+export interface DebugProps {
   debugBodyColor?: number
   debugShowBody?: boolean
   debugShowVelocity?: boolean
 }
 
-export interface ArcadeDragProps {
+export interface DragProps {
   damping?: number
   dragX?: number
   dragY?: number
@@ -179,33 +179,33 @@ export interface ArcadeDragProps {
   allowDrag?: boolean
 }
 
-export interface ArcadeEnableProps {
+export interface EnableProps {
   disableBody?: boolean
   hideBody?: boolean
 }
 
-export interface ArcadeFrictionProps {
+export interface FrictionProps {
   frictionX?: number
   frictionY?: number
   friction?: number | { x: number; y: number }
 }
 
-export interface ArcadeGravityProps {
+export interface GravityProps {
   allowGravity?: boolean
   gravityX?: number
   gravityY?: number
   gravity?: number | { x: number; y: number }
 }
 
-export interface ArcadeImmovableProps {
+export interface ImmovableProps {
   immovable?: boolean
 }
 
-export interface ArcadeMassProps {
+export interface MassProps {
   mass?: number
 }
 
-export interface ArcadeSizeProps {
+export interface SizeProps {
   circle?: {
     radius: number
     offsetX?: number
@@ -222,7 +222,7 @@ export interface ArcadeSizeProps {
   }
 }
 
-export interface ArcadeVelocityProps {
+export interface VelocityProps {
   velocity?: number | { x: number; y: number }
   velocityX?: number
   velocityY?: number

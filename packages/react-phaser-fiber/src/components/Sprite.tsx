@@ -19,7 +19,7 @@ import React, { useImperativeHandle, useMemo, useLayoutEffect } from 'react'
 import { AnimationProps } from '../reconciler/elements/GameObject'
 
 export interface SpriteProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Sprite>, 'instance' | 'ref'>,
+  extends Omit<GameObjectProps<Phaser.GameObjects.Sprite>, 'ref'>,
     AlphaProps,
     AnimationProps,
     BlendModeProps,
@@ -35,7 +35,6 @@ export interface SpriteProps
     VisibleProps {
   animations?: Phaser.Types.Animations.Animation[]
   animation?: string
-  instance?: Phaser.GameObjects.Sprite
   texture?: string
   x?: number
   y?: number
