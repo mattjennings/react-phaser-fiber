@@ -13,18 +13,18 @@ import GameObject, {
   MaskProps,
   TintProps,
   GameObjectProps,
-  ArcadeAccelerationProps,
-  ArcadeAngularProps,
-  ArcadeBounceProps,
-  ArcadeDebugProps,
-  ArcadeEnableProps,
-  ArcadeDragProps,
-  ArcadeFrictionProps,
-  ArcadeGravityProps,
-  ArcadeImmovableProps,
-  ArcadeMassProps,
-  ArcadeSizeProps,
-  ArcadeVelocityProps,
+  AccelerationProps,
+  AngularProps,
+  BounceProps,
+  DebugProps,
+  EnableProps,
+  DragProps,
+  FrictionProps,
+  GravityProps,
+  ImmovableProps,
+  MassProps,
+  SizeProps,
+  VelocityProps,
 } from './GameObject'
 import { useScene } from '../hooks'
 import React, { useImperativeHandle, useMemo } from 'react'
@@ -32,7 +32,7 @@ import React, { useImperativeHandle, useMemo } from 'react'
 export interface ArcadeImageProps
   extends Omit<
       GameObjectProps<Phaser.Physics.Arcade.Image>,
-      'instance' | 'ref'
+      'ref' | 'instance' | 'physics'
     >,
     AlphaProps,
     BlendModeProps,
@@ -46,18 +46,19 @@ export interface ArcadeImageProps
     TintProps,
     TransformProps,
     VisibleProps,
-    ArcadeAccelerationProps,
-    ArcadeAngularProps,
-    ArcadeBounceProps,
-    ArcadeDebugProps,
-    ArcadeEnableProps,
-    ArcadeDragProps,
-    ArcadeFrictionProps,
-    ArcadeGravityProps,
-    ArcadeImmovableProps,
-    ArcadeMassProps,
-    ArcadeSizeProps,
-    ArcadeVelocityProps {
+    AccelerationProps,
+    AngularProps,
+    BounceProps,
+    DebugProps,
+    EnableProps,
+    DragProps,
+    FrictionProps,
+    GravityProps,
+    ImmovableProps,
+    MassProps,
+    SizeProps,
+    VelocityProps {
+  instance?: Phaser.Physics.Arcade.Image
   texture?: string
   frame?: string | number
 }
@@ -69,6 +70,7 @@ function ArcadeImage(
   const scene = useScene()
   const instance = useMemo(
     () =>
+      props.instance ||
       new Phaser.Physics.Arcade.Image(
         scene,
         props.x,

@@ -38,7 +38,12 @@ export function createElement(
 
   // if this is a physics object we need to add the body before applyProps
   if (props.physics === 'arcade') {
-    root.physics.add.existing(instance)
+    root.physics.world.enable(
+      instance,
+      props.physicsType === 'static'
+        ? Phaser.Physics.Arcade.STATIC_BODY
+        : Phaser.Physics.Arcade.DYNAMIC_BODY
+    )
   }
 
   instance.applyProps = applyProps.bind(instance)

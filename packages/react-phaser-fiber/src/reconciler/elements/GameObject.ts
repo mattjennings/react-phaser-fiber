@@ -10,7 +10,6 @@ export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
   data?: any
   renderFlags?: integer
   cameraFilter?: number
-  body?: Phaser.Physics.Arcade.Body | Phaser.Physics.Impact.Body
   ignoreDestroy?: boolean
   input?: Phaser.Types.Input.InteractiveObject
   children?: React.ReactNode
@@ -21,6 +20,7 @@ export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
    * note: only 'arcade' is supported for now
    */
   physics?: 'arcade'
+  physicsType?: 'static' | 'dynamic'
 }
 
 export type AlphaProps = Partial<
@@ -110,6 +110,7 @@ export interface TransformProps
       | 'w'
     >
   > {
+  allowRotation?: boolean
   /**
    * Sets the X only on the first render
    */
@@ -125,56 +126,86 @@ export type VisibleProps = Partial<
   Pick<Phaser.GameObjects.Components.Visible, 'visible'>
 >
 
-// Arcade Physics
+export interface AnimationProps {
+  playingAnimation?: string
+  accumulator?: number
+  delay?: number
+  duration?: number
+  forward?: boolean
+  frameRate?: number
+  isPlaying?: boolean
+  msPerFrame?: number
+  skipMissedFrames?: boolean
+  progress?: boolean
+  stopOnFrame?: Phaser.Animations.AnimationFrame
+  stopAfterDelay?: number
+  repeat?: boolean
+  repeatDelay?: number
+  timeScale?: number
+  yoyo?: boolean
+}
 
-export interface ArcadeAccelerationProps {
+// Arcade Physics
+export interface AccelerationProps {
+  accelerationX?: number
+  accelerationY?: number
   acceleration?: number | { x: number; y: number }
 }
 
-export interface ArcadeAngularProps {
+export interface AngularProps {
   angularAcceleration?: number
   angularDrag?: number
   angularVelocity?: number
 }
 
-export interface ArcadeBounceProps {
+export interface BounceProps {
+  bounceX?: number
+  bounceY?: number
   bounce?: number | { x: number; y: number }
   collideWorldBounds?: boolean
 }
 
-export interface ArcadeDebugProps {
+export interface DebugProps {
   debugBodyColor?: number
   debugShowBody?: boolean
   debugShowVelocity?: boolean
 }
 
-export interface ArcadeDragProps {
+export interface DragProps {
   damping?: number
+  dragX?: number
+  dragY?: number
   drag?: number | { x: number; y: number }
+  allowDrag?: boolean
 }
 
-export interface ArcadeEnableProps {
+export interface EnableProps {
   disableBody?: boolean
   hideBody?: boolean
 }
 
-export interface ArcadeFrictionProps {
+export interface FrictionProps {
+  frictionX?: number
+  frictionY?: number
   friction?: number | { x: number; y: number }
 }
 
-export interface ArcadeGravityProps {
+export interface GravityProps {
+  allowGravity?: boolean
+  gravityX?: number
+  gravityY?: number
   gravity?: number | { x: number; y: number }
 }
 
-export interface ArcadeImmovableProps {
+export interface ImmovableProps {
   immovable?: boolean
 }
 
-export interface ArcadeMassProps {
+export interface MassProps {
   mass?: number
 }
 
-export interface ArcadeSizeProps {
+export interface SizeProps {
   circle?: {
     radius: number
     offsetX?: number
@@ -191,8 +222,10 @@ export interface ArcadeSizeProps {
   }
 }
 
-export interface ArcadeVelocityProps {
+export interface VelocityProps {
   velocity?: number | { x: number; y: number }
+  velocityX?: number
+  velocityY?: number
   maxVelocity?: number | { x: number; y: number }
 }
 
@@ -201,7 +234,7 @@ const GameObject: CreatePhaserComponentConfig<
   Phaser.GameObjects.GameObject,
   GameObjectProps<Phaser.GameObjects.GameObject>
 > = {
-  create: ({ instance }, scene) => {
+  create: ({ instance }) => {
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {

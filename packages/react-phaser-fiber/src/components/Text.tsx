@@ -33,6 +33,7 @@ export interface TextProps
     TintProps,
     TransformProps,
     VisibleProps {
+  instance?: Phaser.GameObjects.Text
   text?: string | string[]
   style: Phaser.Types.GameObjects.Text.TextStyle
 }
@@ -41,6 +42,7 @@ function Text(props: TextProps, ref: React.Ref<Phaser.GameObjects.Text>) {
   const scene = useScene()
   const instance = useMemo(
     () =>
+      props.instance ||
       new Phaser.GameObjects.Text(
         scene,
         props.x,

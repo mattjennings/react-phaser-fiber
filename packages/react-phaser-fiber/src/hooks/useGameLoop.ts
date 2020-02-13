@@ -1,6 +1,11 @@
 import { useGame } from './useGame'
 import { useEffect } from 'react'
 
+/**
+ * Runs the callback once every "step" event
+ *
+ * note: this is shorthand for useGameEvent("step", callback)
+ */
 export function useGameLoop(
   onLoop: ({ delta, time }: { delta: number; time: number }) => any
 ) {

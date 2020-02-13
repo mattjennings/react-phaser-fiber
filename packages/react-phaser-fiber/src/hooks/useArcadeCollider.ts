@@ -15,15 +15,19 @@ export function useArcadeCollider<
 >(
   obj1: T1 | T1[],
   obj2: T2 | T2[],
-  onCollide: (
-    obj1: T1 extends string ? any : T1,
-    obj2: T2 extends string ? any : T2
-  ) => any,
-  onProcess?: (
-    obj1: T1 extends string ? any : T1,
-    obj2: T2 extends string ? any : T2
-  ) => boolean
+  args: {
+    overlapOnly?: boolean
+    onCollide: (
+      obj1: T1 extends string ? any : T1,
+      obj2: T2 extends string ? any : T2
+    ) => any
+    onProcess?: (
+      obj1: T1 extends string ? any : T1,
+      obj2: T2 extends string ? any : T2
+    ) => boolean
+  }
 ) {
+  const { onCollide, onProcess, overlapOnly } = args
   const scene = useScene()
   const collider = useRef<Phaser.Physics.Arcade.Collider>(null)
 
@@ -34,6 +38,8 @@ export function useArcadeCollider<
       onCollide,
       onProcess
     )
+
+    collider.current.overlapOnly = overlapOnly
 
     return () => {
       if (collider.current) {
@@ -55,8 +61,9 @@ export function useArcadeCollider<
     if (collider.current) {
       collider.current.collideCallback = onCollide
       collider.current.processCallback = onProcess
+      collider.current.overlapOnly = overlapOnly
     }
-  }, [onCollide, onProcess])
+  }, [onCollide, onProcess, overlapOnly])
 }
 
 function createObjectsArray(

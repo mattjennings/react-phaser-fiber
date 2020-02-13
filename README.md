@@ -9,7 +9,10 @@ This is _very_ much a work in progress. The following components are provided (l
 - [Text](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Text.html)
 - [Image](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Image.html)
 - [Sprite](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html)
+- [Group](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Group.html)
 - [ArcadeImage](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Image.html)
+- [ArcadeSprite](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Sprite.html)
+- [ArcadeCollider](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Collider.html)
 
 The current goal is to support all GameObjects and Physics.Arcade objects. After that, I'll look at adding Matter and Impact components.
 
@@ -17,7 +20,9 @@ The current goal is to support all GameObjects and Physics.Arcade objects. After
 
 ## Games
 
-[Breakout](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/breakout) (recreated from [Phaser 3's official Breakout example](https://labs.phaser.io/edit.html?src=src\games\breakout\breakout.js))
+[Breakout](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/breakout) (recreated from [official Phaser example](https://labs.phaser.io/edit.html?src=src\games\breakout\breakout.js))
+
+[Basic Platformer](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/basic-platformer) (recreated from [official Phaser example](https://labs.phaser.io/edit.html?src=src/physics/arcade/basic%20platform.js&v=3.22.0))
 
 ## Other
 

@@ -31,6 +31,7 @@ export interface ImageProps
     TintProps,
     TransformProps,
     VisibleProps {
+  instance?: Phaser.GameObjects.Image
   texture?: string
   frame?: string | number
 }
@@ -39,6 +40,7 @@ function Image(props: ImageProps, ref: React.Ref<Phaser.GameObjects.Image>) {
   const scene = useScene()
   const instance = useMemo(
     () =>
+      props.instance ||
       new Phaser.GameObjects.Image(
         scene,
         props.x,

@@ -92,11 +92,22 @@ export default function applyProps(
               instance.setSize(
                 newProps.size.width,
                 newProps.size.height,
-
-                // @ts-ignore - a 3rd argument supposedly exists https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Components.Size.html#setSize__anchor
                 newProps.size.center
               )
             }
+          }
+          break
+        case 'allowGravity':
+        case 'allowDrag':
+        case 'allowAcceleration':
+          instance.body[key] = newProps[key]
+          break
+        case 'scale':
+          setProp(instance, key, newProps[key])
+
+          // if static, refresh body. there are probably other keys that need this
+          if (instance.body?.physicsType === 1) {
+            instance.body.updateFromGameObject()
           }
           break
         default:
@@ -113,7 +124,11 @@ function setProp(instance: any, key: string, ...value: any) {
   if (instance[methodName]) {
     instance[methodName](...value)
   } else {
-    instance[key] = value
+    if (typeof instance[key] === 'function') {
+      instance[key](...value)
+    } else {
+      instance[key] = value
+    }
   }
 }
 
