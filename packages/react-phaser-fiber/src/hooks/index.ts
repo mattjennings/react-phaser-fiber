@@ -1,4 +1,5 @@
 export * from './useScene'
+export * from './useGameEvent'
 export * from './useGameLoop'
 export * from './useGame'
 export * from './useInputEvent'

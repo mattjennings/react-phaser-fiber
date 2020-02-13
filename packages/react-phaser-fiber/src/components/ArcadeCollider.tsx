@@ -2,6 +2,7 @@ import { useArcadeCollider, useGameObject, ColliderObjectType } from '../hooks'
 
 export interface ArcadeColliderProps<With extends ColliderObjectType> {
   with: With
+  overlapOnly?: boolean
   onCollide?: (self: any, other: With extends string ? any : With) => any
   onProcess?: (self: any, other: With extends string ? any : With) => any
 }
@@ -29,7 +30,7 @@ export interface ArcadeColliderProps<With extends ColliderObjectType> {
 export default function ArcadeCollider<With extends ColliderObjectType = any>(
   props: ArcadeColliderProps<With>
 ): JSX.Element {
-  const { onCollide, onProcess } = props
+  const { onCollide, onProcess, overlapOnly } = props
 
   const gameObject = useGameObject()
 
@@ -37,7 +38,11 @@ export default function ArcadeCollider<With extends ColliderObjectType = any>(
     throw Error('ArcadeCollider must be used within a GameObject component')
   }
 
-  useArcadeCollider(gameObject, props.with, onCollide, onProcess)
+  useArcadeCollider(gameObject, props.with, {
+    overlapOnly,
+    onCollide,
+    onProcess,
+  })
 
   return null
 }

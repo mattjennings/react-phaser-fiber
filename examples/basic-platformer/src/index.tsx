@@ -1,4 +1,5 @@
 import 'react-app-polyfill/ie11'
+import './index.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Game, Scene, Text } from 'react-phaser-fiber'
@@ -15,11 +16,12 @@ const App = () => {
           gravity: {
             y: 300,
           },
-          debug: true,
+          // debug: true,
         },
       }}
       scale={{
         mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
       }}
     >
       <Scene
@@ -36,7 +38,7 @@ const App = () => {
         renderLoading={progress => (
           <Text
             x={300}
-            y={400}
+            y={300}
             text={`Loading... (${progress * 100}%)`}
             style={{ color: 'white' }}
           />

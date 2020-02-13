@@ -1,15 +1,15 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useRef } from 'react'
 import {
   ArcadeSprite,
   ArcadeCollider,
   useScene,
-  useKeyboardEvent,
+  useGameEvent,
   useGameLoop,
 } from 'react-phaser-fiber'
 
 export default function Player(props: { x: number; y: number }) {
   const scene = useScene()
-  const { keyboard } = scene.input
+  const ref = useRef<Phaser.Physics.Arcade.Sprite>(null)
 
   const keys = useMemo(
     () => ({
@@ -17,7 +17,7 @@ export default function Player(props: { x: number; y: number }) {
       right: scene.input.keyboard.addKey('right'),
       up: scene.input.keyboard.addKey('up'),
     }),
-    []
+    [scene.input.keyboard]
   )
 
   const [velocityX, setVelocityX] = useState(0)
@@ -44,10 +44,19 @@ export default function Player(props: { x: number; y: number }) {
         repeat: -1,
       },
     ],
-    []
+    [scene.anims]
   )
 
+  // keep our velocityX state in sync with the current velocityX of the instance
+  useGameEvent('prestep', () => {
+    if (ref.current?.body) {
+      setVelocityX(ref.current.body.velocity.x)
+      setVelocityY(ref.current.body.velocity.y)
+    }
+  })
+
   useGameLoop(() => {
+    // horizontal movement
     if (keys.left.isDown) {
       setVelocityX(-160)
       setAnimation('left')
@@ -58,24 +67,24 @@ export default function Player(props: { x: number; y: number }) {
       setVelocityX(0)
       setAnimation('turn')
     }
+
+    // jump if on ground
+    if (keys.up.isDown && ref.current?.body.touching.down) {
+      setVelocityY(-330)
+    }
   })
 
   return (
     <ArcadeSprite
       {...props}
-      ref={r => {
-        console.log(r)
-      }}
+      ref={ref}
       name="player"
       animations={animations}
       animation={animation}
       texture="dude"
-      bounce={0.2}
       collideWorldBounds
-      velocity={{
-        x: velocityX,
-        y: velocityY,
-      }}
+      velocityX={velocityX}
+      velocityY={velocityY}
     >
       <ArcadeCollider with="platform" />
     </ArcadeSprite>

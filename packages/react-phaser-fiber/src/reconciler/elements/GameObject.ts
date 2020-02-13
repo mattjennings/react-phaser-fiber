@@ -147,6 +147,8 @@ export interface AnimationProps {
 
 // Arcade Physics
 export interface ArcadeAccelerationProps {
+  accelerationX?: number
+  accelerationY?: number
   acceleration?: number | { x: number; y: number }
 }
 
@@ -157,6 +159,8 @@ export interface ArcadeAngularProps {
 }
 
 export interface ArcadeBounceProps {
+  bounceX?: number
+  bounceY?: number
   bounce?: number | { x: number; y: number }
   collideWorldBounds?: boolean
 }
@@ -169,6 +173,8 @@ export interface ArcadeDebugProps {
 
 export interface ArcadeDragProps {
   damping?: number
+  dragX?: number
+  dragY?: number
   drag?: number | { x: number; y: number }
   allowDrag?: boolean
 }
@@ -179,11 +185,15 @@ export interface ArcadeEnableProps {
 }
 
 export interface ArcadeFrictionProps {
+  frictionX?: number
+  frictionY?: number
   friction?: number | { x: number; y: number }
 }
 
 export interface ArcadeGravityProps {
   allowGravity?: boolean
+  gravityX?: number
+  gravityY?: number
   gravity?: number | { x: number; y: number }
 }
 
@@ -214,6 +224,8 @@ export interface ArcadeSizeProps {
 
 export interface ArcadeVelocityProps {
   velocity?: number | { x: number; y: number }
+  velocityX?: number
+  velocityY?: number
   maxVelocity?: number | { x: number; y: number }
 }
 
@@ -222,7 +234,7 @@ const GameObject: CreatePhaserComponentConfig<
   Phaser.GameObjects.GameObject,
   GameObjectProps<Phaser.GameObjects.GameObject>
 > = {
-  create: ({ instance }, scene) => {
+  create: ({ instance }) => {
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {
