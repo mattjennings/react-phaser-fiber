@@ -15,11 +15,13 @@ import GameObject, {
   GameObjectProps,
 } from './GameObject'
 import { useScene } from '../hooks'
-import React, { useImperativeHandle, useMemo } from 'react'
+import React, { useImperativeHandle, useMemo, useLayoutEffect } from 'react'
+import { AnimationProps } from '../reconciler/elements/GameObject'
 
 export interface SpriteProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Sprite>, 'instance' | 'ref'>,
+  extends Omit<GameObjectProps<Phaser.GameObjects.Sprite>, 'ref'>,
     AlphaProps,
+    AnimationProps,
     BlendModeProps,
     ComputedSizeProps,
     DepthProps,
@@ -31,16 +33,22 @@ export interface SpriteProps
     TintProps,
     TransformProps,
     VisibleProps {
+  animations?: Phaser.Types.Animations.Animation[]
+  animation?: string
   texture?: string
   x?: number
   y?: number
   frame?: number
 }
 
-function Sprite(props: SpriteProps, ref: React.Ref<Phaser.GameObjects.Sprite>) {
+function Sprite(
+  { animations, animation, ...props }: SpriteProps,
+  ref: React.Ref<Phaser.GameObjects.Sprite>
+) {
   const scene = useScene()
   const instance = useMemo(
     () =>
+      props.instance ||
       new Phaser.GameObjects.Sprite(
         scene,
         props.x,
@@ -50,7 +58,30 @@ function Sprite(props: SpriteProps, ref: React.Ref<Phaser.GameObjects.Sprite>) {
       ),
     []
   )
+
   useImperativeHandle(ref, () => instance)
+
+  useLayoutEffect(() => {
+    if (animations) {
+      animations.forEach(animation => {
+        scene.anims.create(animation)
+      })
+    }
+
+    return () => {
+      if (animations) {
+        animations.forEach(animation => {
+          scene.anims.remove(animation.key)
+        })
+      }
+    }
+  }, [animations])
+
+  useLayoutEffect(() => {
+    if (animation) {
+      instance.play(animation, true)
+    }
+  }, [animation])
 
   return <GameObject instance={instance} {...props} />
 }

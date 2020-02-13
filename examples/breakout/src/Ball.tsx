@@ -5,6 +5,7 @@ import {
   GameObject,
   useGameLoop,
   useScene,
+  ArcadeImage,
 } from 'react-phaser-fiber'
 
 export interface BallProps
@@ -42,12 +43,11 @@ function Ball(
   )
 
   return (
-    <GameObject
+    <ArcadeImage
       instance={ball}
       name="ball"
       bounce={1}
       collideWorldBounds
-      physics="arcade"
       {...props}
     >
       <ArcadeCollider
@@ -65,7 +65,7 @@ function Ball(
           }
         }}
       />
-    </GameObject>
+    </ArcadeImage>
   )
 }
 
