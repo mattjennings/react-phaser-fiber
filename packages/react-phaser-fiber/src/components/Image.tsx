@@ -14,7 +14,7 @@ import GameObject, {
   TintProps,
   GameObjectProps,
 } from './GameObject'
-import { useScene } from '../hooks'
+import { useScene } from '../hooks/useScene'
 import React, { useImperativeHandle, useMemo } from 'react'
 
 export interface ImageProps

@@ -42,9 +42,7 @@ export function useArcadeCollider<
     collider.current.overlapOnly = overlapOnly
 
     return () => {
-      if (collider.current) {
-        collider.current.destroy()
-      }
+      collider.current.destroy()
     }
   }, [])
 

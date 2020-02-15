@@ -1,44 +1,96 @@
 import * as Phaser from 'phaser'
 import React, { useMemo, useState, useEffect } from 'react'
 import GameContext from './GameContext'
+import { PhaserFiber } from '../../reconciler'
+import { VERSION, PACKAGE_NAME } from '../../reconciler'
+import { FiberRoot } from 'react-reconciler'
+import SceneContext from '../Scene/SceneContext'
 
 export interface GameProps extends Phaser.Types.Core.GameConfig {
   children?: JSX.Element | JSX.Element[]
 }
 
-function Game({ children, canvas, ...config }: GameProps): JSX.Element {
-  const [booting, setBooting] = useState(true)
+class Game extends React.Component<GameProps, { booting: boolean }> {
+  static displayName = 'Game'
+  mountNode: FiberRoot
+  game: Phaser.Game
 
-  const game = useMemo(() => {
-    const phaserGame = new Phaser.Game({ ...config })
+  state = {
+    booting: true,
+  }
+
+  componentDidMount() {
+    const { children, canvas, ...config } = this.props
+
+    this.game = new Phaser.Game({ ...config })
+
+    this.game.events.on('ready', () => {
+      this.setState({ booting: false })
+    })
+
+    this.mountNode = PhaserFiber.createContainer(this.game, false, false)
+
+    injectDevtools()
 
     if (process.env.NODE_ENV === 'development') {
       // @ts-ignore
-      window.game = phaserGame
+      window.game = this.game
     }
 
-    phaserGame.events.on('ready', () => {
-      setBooting(false)
-    })
-
-    return phaserGame
-  }, [JSON.stringify(config)]) // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    return () => game.destroy(true)
-  }, [])
-
-  // todo: loading screen? customizable?
-  if (booting) {
-    return null
+    PhaserFiber.updateContainer(
+      this.getChildren(),
+      this.mountNode,
+      this,
+      null as any
+    )
   }
 
-  return (
-    <GameContext.Provider value={game}>
-      {canvas}
-      {children}
-    </GameContext.Provider>
-  )
+  componentDidUpdate() {
+    // flush fiber
+    PhaserFiber.updateContainer(
+      this.getChildren(),
+      this.mountNode,
+      this,
+      null as any
+    )
+  }
+
+  getChildren() {
+    const children = this.state.booting ? null : this.props.children
+
+    // we're not in the render so we need to recreate the Game Context
+    // (can this be solved otherwise? it would be nice to preserve contexts above <Scene>)
+    return (
+      <GameContext.Provider value={this.game}>{children}</GameContext.Provider>
+    )
+  }
+
+  componentDidCatch(error: any, errorInfo: any) {
+    console.error(`Error occurred in \`Game\`.`)
+    console.error(error)
+    console.error(errorInfo)
+  }
+
+  componentWillUnmount() {
+    PhaserFiber.updateContainer(null, this.mountNode, this, null as any)
+    this.game.destroy(true)
+  }
+
+  render() {
+    return null as JSX.Element
+  }
 }
 
 export default Game
+
+/**
+ * Inject into React Devtools
+ */
+function injectDevtools() {
+  PhaserFiber.injectIntoDevTools({
+    bundleType: process.env.NODE_ENV !== 'production' ? 1 : 0,
+    version: VERSION,
+    rendererPackageName: PACKAGE_NAME,
+    findFiberByHostInstance: PhaserFiber.findHostInstance as any,
+  })
+}

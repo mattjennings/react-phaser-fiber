@@ -28,7 +28,6 @@ function Paddle(
       texture="assets"
       frame="paddle1"
       immovable
-      physics="arcade"
     />
   )
 }

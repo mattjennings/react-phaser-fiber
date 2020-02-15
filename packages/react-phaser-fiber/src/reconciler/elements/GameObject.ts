@@ -229,12 +229,25 @@ export interface VelocityProps {
   maxVelocity?: number | { x: number; y: number }
 }
 
-// this should only be imported by reconciler. elements/index.ts will export the renderable component GameObject
 const GameObject: CreatePhaserComponentConfig<
   Phaser.GameObjects.GameObject,
-  GameObjectProps<Phaser.GameObjects.GameObject>
+  GameObjectProps<Phaser.GameObjects.GameObject> & { scene: Phaser.Scene }
 > = {
-  create: ({ instance }) => {
+  create: ({ instance, scene, physics, physicsType }) => {
+    // @ts-ignore - we need to set the scene key so hostconfig knows which scene to add this instance to
+    instance.__reactPhaser = {
+      sceneKey: scene.scene.key,
+    }
+
+    // if this is a physics object we need to add the body before applyProps
+    if (physics === 'arcade' && scene) {
+      scene.physics.world.enable(
+        instance,
+        physicsType === 'static'
+          ? Phaser.Physics.Arcade.STATIC_BODY
+          : Phaser.Physics.Arcade.DYNAMIC_BODY
+      )
+    }
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {

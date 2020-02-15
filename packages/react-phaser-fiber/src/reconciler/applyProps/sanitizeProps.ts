@@ -8,6 +8,7 @@ export const PROPS_RESERVED = {
   physics: true,
   physicsType: true,
   instance: true,
+  scene: true,
 }
 
 /**

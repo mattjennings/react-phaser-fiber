@@ -2,9 +2,10 @@ import { TYPES } from '../reconciler/element'
 import { GameObjectProps } from '../reconciler/elements/GameObject'
 import React, { useLayoutEffect } from 'react'
 import { useGroup } from './Group'
+import { useScene } from '../hooks/useScene'
 
 const GameObjectElement = (TYPES.GameObject as unknown) as React.FC<
-  GameObjectProps<Phaser.GameObjects.GameObject>
+  GameObjectProps<Phaser.GameObjects.GameObject> & { scene: Phaser.Scene }
 >
 
 export * from '../reconciler/elements/GameObject'
@@ -16,6 +17,7 @@ export const GameObjectContext = React.createContext<
 export default function GameObject<T extends Phaser.GameObjects.GameObject>(
   props: GameObjectProps<T>
 ) {
+  const scene = useScene()
   const group = useGroup()
 
   useLayoutEffect(() => {
@@ -31,7 +33,7 @@ export default function GameObject<T extends Phaser.GameObjects.GameObject>(
   return (
     <GameObjectContext.Provider value={props.instance}>
       {props.children}
-      <GameObjectElement {...props} />
+      <GameObjectElement scene={scene} {...props} />
     </GameObjectContext.Provider>
   )
 }

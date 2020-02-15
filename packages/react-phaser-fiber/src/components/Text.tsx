@@ -16,7 +16,7 @@ import GameObject, {
   TransformProps,
   VisibleProps,
 } from './GameObject'
-import { useScene } from '../hooks'
+import { useScene } from '../hooks/useScene'
 
 export interface TextProps
   extends Omit<GameObjectProps<Phaser.GameObjects.Text>, 'instance' | 'ref'>,

@@ -1,5 +1,4 @@
 import * as Phaser from 'phaser'
-import invariant from 'fbjs/lib/invariant'
 import { applyProps as defaultApplyProps } from './applyProps'
 import GameObject from './elements/GameObject'
 
@@ -7,7 +6,7 @@ export interface CreatePhaserComponentConfig<
   T extends Phaser.GameObjects.GameObject,
   P
 > {
-  create: (props: P, scene: Phaser.Scene) => T
+  create: (props: P, game: Phaser.Game) => T
   applyProps?: (instance: T, oldProps: P, newProps: P) => any
 }
 
@@ -30,21 +29,11 @@ export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
 export function createElement(
   type: keyof typeof TYPES,
   props: any = {},
-  root: Phaser.Scene
+  root: Phaser.Game
 ) {
   const { create, applyProps = defaultApplyProps } = ELEMENTS[type]
 
   const instance = create(props, root)
-
-  // if this is a physics object we need to add the body before applyProps
-  if (props.physics === 'arcade') {
-    root.physics.world.enable(
-      instance,
-      props.physicsType === 'static'
-        ? Phaser.Physics.Arcade.STATIC_BODY
-        : Phaser.Physics.Arcade.DYNAMIC_BODY
-    )
-  }
 
   instance.applyProps = applyProps.bind(instance)
   applyProps(instance, {}, props)

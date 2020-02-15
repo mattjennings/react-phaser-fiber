@@ -1,11 +1,7 @@
 import * as Phaser from 'phaser'
-import * as React from 'react'
+import React, { useLayoutEffect, useMemo, useState } from 'react'
+import { useGame } from '../../hooks/useGame'
 import SceneContext from './SceneContext'
-import { PhaserFiber } from '../../reconciler'
-import withGame, { WithGameProps } from '../Game/withGame'
-import { FiberRoot } from 'react-reconciler'
-import GameContext from '../Game/GameContext'
-import { VERSION, PACKAGE_NAME } from '../../reconciler'
 
 export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
   sceneKey: string
@@ -13,145 +9,72 @@ export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
   onPreload?: (scene: Phaser.Scene) => any
   onCreate?: (scene: Phaser.Scene) => any
   onInit?: (scene: Phaser.Scene) => any
-  renderLoading?: (progress: number) => JSX.Element
+  renderLoading?: (progress: number) => React.ReactNode
 }
 
-export interface SceneState {
-  loading?: boolean
-  loadProgress?: number
-}
+function Scene({
+  sceneKey,
+  children,
+  renderLoading,
+  onPreload,
+  onCreate,
+  onInit,
+  ...options
+}: SceneProps) {
+  const game = useGame()
+  const [loading, setLoading] = useState(true)
+  const [loadProgress, setLoadProgress] = useState(0)
 
-class Scene extends React.Component<SceneProps & WithGameProps, SceneState> {
-  static displayName = 'Scene'
-
-  scene: Phaser.Scene
-  mountNode: FiberRoot
-  listeners: Phaser.Events.EventEmitter[] = []
-
-  constructor(props: SceneProps & WithGameProps) {
-    super(props)
-
-    this.state = {
-      loading: true,
-      loadProgress: 0,
-    }
-  }
-
-  componentDidMount() {
-    const {
-      sceneKey,
-      children,
-      game,
-      onPreload,
-      onCreate,
-      onInit,
-      ...options
-    } = this.props
-
-    this.scene = new Phaser.Scene({
+  const scene = useMemo(() => {
+    const instance = new Phaser.Scene({
       ...options,
       key: sceneKey,
     })
 
     // @ts-ignore
-    this.scene.preload = onPreload ? () => onPreload(this.scene) : null
+    instance.preload = onPreload ? () => onPreload(instance) : null
     // @ts-ignore
-    this.scene.create = onCreate ? () => onCreate(this.scene) : null
+    instance.create = onCreate ? () => onCreate(instance) : null
     // @ts-ignore
-    this.scene.init = onInit ? () => onInit(this.scene) : null
+    instance.init = onInit ? () => onInit(instance) : null
 
-    game.scene.add(sceneKey, this.scene, true)
+    game.scene.add(sceneKey, instance, true)
 
-    this.mountNode = PhaserFiber.createContainer(this.scene, false, false)
+    return instance
+  }, [])
 
-    injectDevtools()
+  useLayoutEffect(() => {
+    const listeners: Phaser.Events.EventEmitter[] = []
 
     // can we use suspense instead somehow?
-    this.listeners.push(
-      this.scene.load.on('start', () => {
-        this.setState({ loading: true })
+    listeners.push(
+      scene.load.on('start', () => {
+        setLoading(true)
       }),
 
-      this.scene.load.on('progress', (progress: number) => {
-        this.setState({
-          loadProgress: progress,
-        })
+      scene.load.on('progress', (progress: number) => {
+        setLoadProgress(progress)
       }),
 
-      this.scene.load.on('complete', () => {
-        this.setState({
-          loading: false,
-          loadProgress: 0,
-        })
+      scene.load.on('complete', () => {
+        setLoading(false)
+        setLoadProgress(0)
       })
     )
+    return () => {
+      game.scene.remove(sceneKey)
 
-    PhaserFiber.updateContainer(
-      this.getChildren(),
-      this.mountNode,
-      this,
-      null as any
-    )
-  }
+      listeners.forEach(listener => {
+        listener.eventNames().forEach(event => listener.off(event))
+      })
+    }
+  }, [])
 
-  componentDidUpdate() {
-    // flush fiber
-    PhaserFiber.updateContainer(
-      this.getChildren(),
-      this.mountNode,
-      this,
-      null as any
-    )
-  }
-
-  getChildren() {
-    const children =
-      this.state.loading && this.props.renderLoading
-        ? this.props.renderLoading(this.state.loadProgress)
-        : this.props.children
-
-    // we're not in the render so we need to recreate the Game Context
-    // (can this be solved otherwise? it would be nice to preserve contexts above <Scene>)
-    return (
-      <GameContext.Provider value={this.props.game}>
-        <SceneContext.Provider value={this.scene}>
-          {children}
-        </SceneContext.Provider>
-      </GameContext.Provider>
-    )
-  }
-
-  componentDidCatch(error: any, errorInfo: any) {
-    console.error(`Error occurred in \`Scene\`.`)
-    console.error(error)
-    console.error(errorInfo)
-  }
-
-  componentWillUnmount() {
-    PhaserFiber.updateContainer(null, this.mountNode, this, null as any)
-    this.props.game.scene.remove(this.props.sceneKey)
-
-    this.listeners.forEach(listener => {
-      listener.eventNames().forEach(event => listener.off(event))
-    })
-    this.listeners = []
-  }
-
-  render() {
-    return null as JSX.Element
-  }
+  return (
+    <SceneContext.Provider value={scene}>
+      {loading && renderLoading ? renderLoading(loadProgress) : children}
+    </SceneContext.Provider>
+  )
 }
 
-/**
- * Inject into React Devtools
- */
-function injectDevtools() {
-  PhaserFiber.injectIntoDevTools({
-    bundleType: process.env.NODE_ENV !== 'production' ? 1 : 0,
-    version: VERSION,
-    rendererPackageName: PACKAGE_NAME,
-    findFiberByHostInstance: PhaserFiber.findHostInstance as any,
-  })
-}
-
-export default withGame(Scene)
+export default Scene
