@@ -1,10 +1,8 @@
 import * as Phaser from 'phaser'
-import React, { useMemo, useState, useEffect } from 'react'
-import GameContext from './GameContext'
-import { PhaserFiber } from '../../reconciler'
-import { VERSION, PACKAGE_NAME } from '../../reconciler'
+import React from 'react'
 import { FiberRoot } from 'react-reconciler'
-import SceneContext from '../Scene/SceneContext'
+import { PACKAGE_NAME, PhaserFiber, VERSION } from '../../reconciler'
+import GameContext from './GameContext'
 
 export interface GameProps extends Phaser.Types.Core.GameConfig {
   children?: JSX.Element | JSX.Element[]
@@ -58,8 +56,6 @@ class Game extends React.Component<GameProps, { booting: boolean }> {
   getChildren() {
     const children = this.state.booting ? null : this.props.children
 
-    // we're not in the render so we need to recreate the Game Context
-    // (can this be solved otherwise? it would be nice to preserve contexts above <Scene>)
     return (
       <GameContext.Provider value={this.game}>{children}</GameContext.Provider>
     )

@@ -103,7 +103,12 @@ export default function applyProps(
           instance.body[key] = newProps[key]
           break
         case 'scale':
-          setProp(instance, key, newProps[key])
+          const val = newProps[key]
+          instance.setScale(
+            val.x,
+            val.y,
+            val.point ? [val.point.x, val.point.y] : undefined
+          )
 
           // if static, refresh body. there are probably other keys that need this
           if (instance.body?.physicsType === 1) {
@@ -120,7 +125,9 @@ export default function applyProps(
 function setProp(instance: any, key: string, ...value: any) {
   // get method name for property. ex: 'setStyle' for 'style'
   const methodName = `set${key.slice(0, 1).toUpperCase() + key.slice(1)}`
-
+  if (methodName === 'setScaleX') {
+    console.log(...value)
+  }
   if (instance[methodName]) {
     instance[methodName](...value)
   } else {

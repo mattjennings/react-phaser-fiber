@@ -32,8 +32,8 @@ export default function GameObject<T extends Phaser.GameObjects.GameObject>(
 
   return (
     <GameObjectContext.Provider value={props.instance}>
-      {props.children}
       <GameObjectElement scene={scene} {...props} />
+      {props.children}
     </GameObjectContext.Provider>
   )
 }

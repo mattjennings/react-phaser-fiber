@@ -6,6 +6,10 @@
     "packages/*",
     "examples/*"
   ],
+  "nohoist": [
+    "**/jest**",
+    "**/react**"
+  ],
   "scripts": {
     "build:react-phaser": "cd packages/react-phaser-fiber && yarn build",
     "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
@@ -16,8 +20,7 @@
     }
   },
   "resolutions": {
-    "react-phaser-fiber": "0.2.0",
-    "jest": "24.9.0"
+    "react-phaser-fiber": "0.2.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.19.0",

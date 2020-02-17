@@ -34,6 +34,11 @@ export type AlphaProps = Partial<
   >
 >
 
+export type Point = {
+  x: number
+  y: number
+}
+
 export type BlendModeProps = Partial<
   Pick<Phaser.GameObjects.Components.BlendMode, 'blendMode'>
 >
@@ -95,32 +100,15 @@ export type TintProps = Partial<
   >
 >
 
-export interface TransformProps
-  extends Partial<
-    Pick<
-      Phaser.GameObjects.Components.Transform,
-      | 'angle'
-      | 'rotation'
-      | 'scale'
-      | 'scaleX'
-      | 'scaleY'
-      | 'x'
-      | 'y'
-      | 'z'
-      | 'w'
-    >
-  > {
-  allowRotation?: boolean
-  /**
-   * Sets the X only on the first render
-   */
-  initialX?: number
-
-  /**
-   * Sets the Y only on the first render
-   */
-  initialY?: number
-}
+export type TransformProps = Partial<
+  Pick<
+    Phaser.GameObjects.Components.Transform,
+    'angle' | 'rotation' | 'x' | 'y' | 'z' | 'w'
+  > & {
+    scale?: number | { x: number; y: number; point?: Point }
+    allowRotation?: boolean
+  }
+>
 
 export type VisibleProps = Partial<
   Pick<Phaser.GameObjects.Components.Visible, 'visible'>
@@ -149,7 +137,7 @@ export interface AnimationProps {
 export interface AccelerationProps {
   accelerationX?: number
   accelerationY?: number
-  acceleration?: number | { x: number; y: number }
+  acceleration?: number | Point
 }
 
 export interface AngularProps {
@@ -161,7 +149,7 @@ export interface AngularProps {
 export interface BounceProps {
   bounceX?: number
   bounceY?: number
-  bounce?: number | { x: number; y: number }
+  bounce?: number | Point
   collideWorldBounds?: boolean
 }
 
@@ -175,7 +163,7 @@ export interface DragProps {
   damping?: number
   dragX?: number
   dragY?: number
-  drag?: number | { x: number; y: number }
+  drag?: number | Point
   allowDrag?: boolean
 }
 
@@ -187,14 +175,14 @@ export interface EnableProps {
 export interface FrictionProps {
   frictionX?: number
   frictionY?: number
-  friction?: number | { x: number; y: number }
+  friction?: number | Point
 }
 
 export interface GravityProps {
   allowGravity?: boolean
   gravityX?: number
   gravityY?: number
-  gravity?: number | { x: number; y: number }
+  gravity?: number | Point
 }
 
 export interface ImmovableProps {
@@ -223,10 +211,10 @@ export interface SizeProps {
 }
 
 export interface VelocityProps {
-  velocity?: number | { x: number; y: number }
+  velocity?: number | Point
   velocityX?: number
   velocityY?: number
-  maxVelocity?: number | { x: number; y: number }
+  maxVelocity?: number | Point
 }
 
 const GameObject: CreatePhaserComponentConfig<
