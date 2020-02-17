@@ -10,6 +10,9 @@ export default function applyProps(
       typeof newProps[key] !== 'undefined' &&
       oldProps[key] !== newProps[key]
     ) {
+      const newValue: any = newProps[key]
+      const oldValue: any = oldProps[key]
+
       switch (key) {
         case 'data':
           Object.keys(newProps.data).forEach(dataKey => {
@@ -17,23 +20,40 @@ export default function applyProps(
           })
           break
 
-        /** Point values */
+        /** Point values **/
         case 'acceleration':
         case 'bounce':
         case 'drag':
         case 'friction':
         case 'gravity':
         case 'velocity':
-        case 'maxVelocity':
-          const oldValue = convertToPoint(oldProps[key])
-          const newValue = convertToPoint(newProps[key])
-          if (!pointsAreEqual(oldValue, newValue)) {
-            // console.log(oldProps[key], newProps[key])
-            setProp(instance, key, newValue.x, newValue.y)
+        case 'maxVelocity': {
+          const oldPoint = convertToPoint(oldProps[key])
+          const newPoint = convertToPoint(newProps[key])
+          if (!pointsAreEqual(oldPoint, newPoint)) {
+            setProp(instance, key, newPoint.x, newPoint.y)
           }
           break
-
-        /** Physics */
+        }
+        /** Animation **/
+        case 'accumulator':
+        case 'delay':
+        case 'duration':
+        case 'forward':
+        case 'frameRate':
+        case 'isPlaying':
+        case 'msPerFrame':
+        case 'skipMissedFrames':
+        case 'progress':
+        case 'stopOnFrame':
+        case 'stopAfterDelay':
+        case 'repeat':
+        case 'repeatDelay':
+        case 'timeScale':
+        case 'yoyo':
+          setProp(instance.anims, key, newValue)
+          break
+        /** Physics **/
         case 'debug':
           if (
             oldProps.debugShowBody !== newProps.debugShowBody ||
@@ -103,12 +123,15 @@ export default function applyProps(
           instance.body[key] = newProps[key]
           break
         case 'scale':
-          const val = newProps[key]
-          instance.setScale(
-            val.x,
-            val.y,
-            val.point ? [val.point.x, val.point.y] : undefined
-          )
+          if (typeof newValue === 'number') {
+            instance.setScale(newValue)
+          } else {
+            instance.setScale(
+              newValue.x,
+              newValue.y,
+              newValue.point ? [newValue.point.x, newValue.point.y] : undefined
+            )
+          }
 
           // if static, refresh body. there are probably other keys that need this
           if (instance.body?.physicsType === 1) {
@@ -125,16 +148,15 @@ export default function applyProps(
 function setProp(instance: any, key: string, ...value: any) {
   // get method name for property. ex: 'setStyle' for 'style'
   const methodName = `set${key.slice(0, 1).toUpperCase() + key.slice(1)}`
-  if (methodName === 'setScaleX') {
-    console.log(...value)
-  }
+
   if (instance[methodName]) {
     instance[methodName](...value)
   } else {
     if (typeof instance[key] === 'function') {
       instance[key](...value)
     } else {
-      instance[key] = value
+      // ...value will always be an array, so we'll get the [0] value
+      instance[key] = value[0]
     }
   }
 }

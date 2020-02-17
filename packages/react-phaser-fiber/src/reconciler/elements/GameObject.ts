@@ -105,7 +105,7 @@ export type TransformProps = Partial<
     Phaser.GameObjects.Components.Transform,
     'angle' | 'rotation' | 'x' | 'y' | 'z' | 'w'
   > & {
-    scale?: number | { x: number; y: number; point?: Point }
+    scale?: number | (Point & { point?: Point })
     allowRotation?: boolean
   }
 >
@@ -124,10 +124,7 @@ export interface AnimationProps {
   isPlaying?: boolean
   msPerFrame?: number
   skipMissedFrames?: boolean
-  progress?: boolean
-  stopOnFrame?: Phaser.Animations.AnimationFrame
-  stopAfterDelay?: number
-  repeat?: boolean
+  repeat?: number
   repeatDelay?: number
   timeScale?: number
   yoyo?: boolean
