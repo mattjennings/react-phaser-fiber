@@ -1,6 +1,6 @@
 {
   "name": "react-phaser-fiber",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "ISC",
   "homepage": "https://github.com/mattjennings/react-phaser-fiber",
   "repository": {
@@ -47,8 +47,7 @@
     "tsdx": "^0.12.3",
     "tslib": "^1.10.0",
     "typescript": "^3.7.5",
-    "waait": "^1.0.5",
-    "xhr-mock": "^2.5.1"
+    "waait": "^1.0.5"
   },
   "dependencies": {
     "fbjs": "^1.0.0",

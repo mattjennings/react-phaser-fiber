@@ -1,7 +1,7 @@
 {
   "name": "monorepo",
   "private": true,
-  "version": "0.2.2",
+  "version": "0.2.3",
   "workspaces": [
     "packages/*",
     "examples/*"
@@ -18,9 +18,6 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
-  },
-  "resolutions": {
-    "react-phaser-fiber": "0.2.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.19.0",
