@@ -1,41 +1,12 @@
-import React from 'react'
-import { render, wait } from '@testing-library/react'
-import { waitForRef } from '../../test-utils/waitForRef'
-import Sprite from '../../components/Sprite'
-import Game from '../../components/Game'
-import Scene from '../../components/Scene'
-import Image from '../../components/Image'
-import { ArcadeImage } from '../../components'
-import waitTime from 'waait'
+import { wait } from '@testing-library/react'
 import applyProps from './applyProps'
-
-const wrapper = (props: any) => (
-  <Game banner={false} type={Phaser.HEADLESS} physics={{ default: 'arcade' }}>
-    {props.children}
-  </Game>
-)
-
-async function waitForGame(game: Phaser.Game) {
-  await wait(() => {
-    if (!game.isRunning) {
-      throw 'Game not ready'
-    }
-  })
-}
+import Phaser from 'phaser'
 
 // Phaser doesn't allow a pure GameObject instance to be added to a scene so
 // we'll be using the various Image, Sprite, etc. components to test out specific props
 describe('applyProps', () => {
   it('applies transform props', async () => {
-    const game = new Phaser.Game({
-      physics: {
-        default: 'arcade',
-      },
-      type: Phaser.HEADLESS,
-      banner: false,
-    })
-
-    await waitForGame(game)
+    const game = await createGame()
 
     const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
@@ -65,15 +36,7 @@ describe('applyProps', () => {
   })
 
   it('applies visible props', async () => {
-    const game = new Phaser.Game({
-      physics: {
-        default: 'arcade',
-      },
-      type: Phaser.HEADLESS,
-      banner: false,
-    })
-
-    await waitForGame(game)
+    const game = await createGame()
 
     const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
@@ -90,15 +53,7 @@ describe('applyProps', () => {
   })
 
   it('applies animation props', async () => {
-    const game = new Phaser.Game({
-      physics: {
-        default: 'arcade',
-      },
-      type: Phaser.HEADLESS,
-      banner: false,
-    })
-
-    await waitForGame(game)
+    const game = await createGame()
 
     const scene = game.scene.add('123', {})
     const instance = scene.add.sprite(0, 0, null)
@@ -135,15 +90,7 @@ describe('applyProps', () => {
   })
 
   it('applies acceleration props', async () => {
-    const game = new Phaser.Game({
-      physics: {
-        default: 'arcade',
-      },
-      type: Phaser.HEADLESS,
-      banner: false,
-    })
-
-    await waitForGame(game)
+    const game = await createGame()
 
     const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
@@ -164,15 +111,7 @@ describe('applyProps', () => {
   })
 
   it('applies angular props', async () => {
-    const game = new Phaser.Game({
-      physics: {
-        default: 'arcade',
-      },
-      type: Phaser.HEADLESS,
-      banner: false,
-    })
-
-    await waitForGame(game)
+    const game = await createGame()
 
     const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
@@ -199,15 +138,7 @@ describe('applyProps', () => {
   })
 
   it('applies bounce props', async () => {
-    const game = new Phaser.Game({
-      physics: {
-        default: 'arcade',
-      },
-      type: Phaser.HEADLESS,
-      banner: false,
-    })
-
-    await waitForGame(game)
+    const game = await createGame()
 
     const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
@@ -230,15 +161,7 @@ describe('applyProps', () => {
   })
 
   it('applies debug props', async () => {
-    const game = new Phaser.Game({
-      physics: {
-        default: 'arcade',
-      },
-      type: Phaser.HEADLESS,
-      banner: false,
-    })
-
-    await waitForGame(game)
+    const game = await createGame()
 
     const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
@@ -259,15 +182,7 @@ describe('applyProps', () => {
   })
 
   it('applies drag props', async () => {
-    const game = new Phaser.Game({
-      physics: {
-        default: 'arcade',
-      },
-      type: Phaser.HEADLESS,
-      banner: false,
-    })
-
-    await waitForGame(game)
+    const game = await createGame()
 
     const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
@@ -292,15 +207,7 @@ describe('applyProps', () => {
   })
 
   it('applies enable props', async () => {
-    const game = new Phaser.Game({
-      physics: {
-        default: 'arcade',
-      },
-      type: Phaser.HEADLESS,
-      banner: false,
-    })
-
-    await waitForGame(game)
+    const game = await createGame()
 
     const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
@@ -317,4 +224,173 @@ describe('applyProps', () => {
 
     expect(disableBody).toHaveBeenCalledWith(true, true)
   })
+
+  it('applies friction props', async () => {
+    const game = await createGame()
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const setFriction = jest.spyOn(instance, 'setFriction')
+
+    applyProps(
+      instance,
+      {},
+      {
+        friction: 1,
+      }
+    )
+
+    expect(setFriction).toHaveBeenCalledWith(1, 1)
+  })
+
+  it('applies gravity props', async () => {
+    const game = await createGame()
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const setGravity = jest.spyOn(instance, 'setGravity')
+    // @ts-ignore - not in type defs
+    const setAllowGravity = jest.spyOn(instance.body, 'setAllowGravity')
+
+    applyProps(
+      instance,
+      {},
+      {
+        gravity: 1,
+        allowGravity: true,
+      }
+    )
+
+    expect(setGravity).toHaveBeenCalledWith(1, 1)
+    expect(setAllowGravity).toHaveBeenCalledWith(true)
+  })
+
+  it('applies immovable props', async () => {
+    const game = await createGame()
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const setImmovable = jest.spyOn(instance, 'setImmovable')
+
+    applyProps(
+      instance,
+      {},
+      {
+        immovable: true,
+      }
+    )
+
+    expect(setImmovable).toHaveBeenCalledWith(true)
+  })
+
+  it('applies immovable props', async () => {
+    const game = await createGame()
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const setImmovable = jest.spyOn(instance, 'setImmovable')
+
+    applyProps(
+      instance,
+      {},
+      {
+        immovable: true,
+      }
+    )
+
+    expect(setImmovable).toHaveBeenCalledWith(true)
+  })
+
+  it('applies immovable props', async () => {
+    const game = await createGame()
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const setMass = jest.spyOn(instance, 'setMass')
+
+    applyProps(
+      instance,
+      {},
+      {
+        mass: 1,
+      }
+    )
+
+    expect(setMass).toHaveBeenCalledWith(1)
+  })
+
+  it('applies size props', async () => {
+    const game = await createGame()
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const setCircle = jest.spyOn(instance, 'setCircle')
+    const setOffset = jest.spyOn(instance, 'setOffset')
+    const setSize = jest.spyOn(instance, 'setSize')
+
+    applyProps(
+      instance,
+      {},
+      {
+        circle: {
+          radius: 1,
+          offsetX: 2,
+          offsetY: 3,
+        },
+        offset: {
+          x: 1,
+          y: 2,
+        },
+        size: {
+          width: 1,
+          height: 2,
+          center: 3,
+        },
+      }
+    )
+
+    expect(setCircle).toHaveBeenCalledWith(1, 2, 3)
+    expect(setOffset).toHaveBeenCalledWith(1, 2)
+    expect(setSize).toHaveBeenCalledWith(1, 2, 3)
+  })
+
+  it('applies velocity props', async () => {
+    const game = await createGame()
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const setVelocity = jest.spyOn(instance, 'setVelocity')
+    const setMaxVelocity = jest.spyOn(instance, 'setMaxVelocity')
+
+    applyProps(
+      instance,
+      {},
+      {
+        velocity: 1,
+        maxVelocity: 2,
+      }
+    )
+
+    expect(setVelocity).toHaveBeenCalledWith(1, 1)
+    expect(setMaxVelocity).toHaveBeenCalledWith(2, 2)
+  })
 })
+
+async function createGame(config: Phaser.Types.Core.GameConfig = {}) {
+  const game = new Phaser.Game({
+    physics: {
+      default: 'arcade',
+    },
+    type: Phaser.HEADLESS,
+    banner: false,
+    ...config,
+  })
+
+  await wait(() => {
+    if (!game.isRunning) {
+      throw 'Game not ready'
+    }
+  })
+
+  return game
+}
