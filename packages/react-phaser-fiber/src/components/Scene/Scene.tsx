@@ -21,7 +21,7 @@ function Scene(
   {
     sceneKey,
     children,
-    renderLoading,
+    renderLoading = () => null,
     onPreload,
     onCreate,
     onInit,
