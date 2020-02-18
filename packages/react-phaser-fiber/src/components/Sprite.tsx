@@ -14,12 +14,12 @@ import GameObject, {
   TintProps,
   GameObjectProps,
 } from './GameObject'
-import { useScene } from '../hooks'
+import { useScene } from '../hooks/useScene'
 import React, { useImperativeHandle, useMemo, useLayoutEffect } from 'react'
 import { AnimationProps } from '../reconciler/elements/GameObject'
 
 export interface SpriteProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Sprite>, 'ref'>,
+  extends Omit<GameObjectProps<Phaser.GameObjects.Sprite>, 'instance' | 'ref'>,
     AlphaProps,
     AnimationProps,
     BlendModeProps,
@@ -33,6 +33,7 @@ export interface SpriteProps
     TintProps,
     TransformProps,
     VisibleProps {
+  instance?: Phaser.GameObjects.Sprite
   animations?: Phaser.Types.Animations.Animation[]
   animation?: string
   texture?: string

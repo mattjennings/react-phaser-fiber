@@ -25,7 +25,7 @@ const App = () => {
       }}
     >
       <Scene
-        sceneKey="breakout"
+        sceneKey="main"
         onPreload={scene => {
           scene.load.image('sky', 'sky.png')
           scene.load.image('ground', 'platform.png')

@@ -58,14 +58,14 @@ export default function Breakout() {
           }
         }}
       />
-      {state.blocks.map((block, index) => (
+      {state.blocks.map(({ key, x, y, frame }) => (
         <Block
-          key={index}
-          x={block.x + 116}
-          y={block.y + 200}
-          frame={block.frame}
+          key={key}
+          x={x + 116}
+          y={y + 200}
+          frame={frame}
           onBallHit={() => {
-            dispatch({ type: 'BLOCK_HIT', payload: index })
+            dispatch({ type: 'BLOCK_HIT', payload: key })
           }}
         />
       ))}
@@ -75,7 +75,7 @@ export default function Breakout() {
 
 interface BreakoutState {
   isBallActive: boolean
-  blocks: Array<{ x: number; y: number; frame: string }>
+  blocks: Array<{ x: number; y: number; frame: string; key: number }>
 }
 
 const defaultState: BreakoutState = {
@@ -96,6 +96,7 @@ const defaultState: BreakoutState = {
       y: 10 * Math.floor(index / 10) * 3.2,
       // each row uses same sprite
       frame: blockFrames[Math.floor(index / 10)],
+      key: index,
     }
   }),
 }
@@ -123,7 +124,7 @@ function reducer(
     case 'BLOCK_HIT': {
       return {
         ...state,
-        blocks: state.blocks.filter((_, index) => index !== action.payload),
+        blocks: state.blocks.filter(block => block.key !== action.payload),
       }
     }
   }

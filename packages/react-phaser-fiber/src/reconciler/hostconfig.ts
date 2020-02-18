@@ -14,13 +14,19 @@ import performanceNow from 'performance-now'
 import { createElement } from './element'
 import { applyProps as defaultApplyProps } from './applyProps'
 
+interface InternalGameObjectProperties {
+  __reactPhaser: { sceneKey: string }
+}
+
 function appendChild(
-  parent: Phaser.Scene | Phaser.GameObjects.GameObject,
-  child: Phaser.GameObjects.GameObject
+  parent: Phaser.Game | Phaser.GameObjects.GameObject,
+  child: Phaser.GameObjects.GameObject & InternalGameObjectProperties
 ) {
-  if (parent instanceof Phaser.Scene) {
-    if (!parent.children.exists(child)) {
-      parent.add.existing(child)
+  // __reactPhaser.sceneKey comes from GameObject's element creator
+  if (parent instanceof Phaser.Game && child.__reactPhaser.sceneKey) {
+    const scene = parent.scene.getScene(child.__reactPhaser.sceneKey)
+    if (!scene.children.exists(child)) {
+      scene.add.existing(child)
     }
   }
 
@@ -29,25 +35,30 @@ function appendChild(
   }
 }
 
-function removeChild(parent: Phaser.Scene, child: any) {
+function removeChild(parent: Phaser.Game, child: any) {
   if (child.destroy) {
     child.destroy()
   }
 }
 
-function insertBefore(parent: Phaser.Scene, child: any, beforeChild: any) {
+function insertBefore(
+  parent: Phaser.Game,
+  child: Phaser.GameObjects.GameObject & InternalGameObjectProperties,
+  beforeChild: Phaser.GameObjects.GameObject & InternalGameObjectProperties
+) {
   invariant(
     child !== beforeChild,
     'PhaserFiber cannot insert node before itself'
   )
 
-  if (parent instanceof Phaser.Scene) {
-    const childExists = parent.children.exists(child)
-    const index = parent.children.getIndex(beforeChild)
+  if (parent instanceof Phaser.Game) {
+    const scene = parent.scene.getScene(child.__reactPhaser.sceneKey)
+    const childExists = scene.children.exists(child)
+    const index = scene.children.getIndex(beforeChild)
 
     childExists
-      ? parent.children.moveTo(child, index)
-      : parent.children.addAt(child, index)
+      ? scene.children.moveTo(child, index)
+      : scene.children.addAt(child, index)
   }
 }
 

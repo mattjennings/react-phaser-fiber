@@ -1,4 +1,9 @@
-import React, { useMemo, useContext, useLayoutEffect } from 'react'
+import React, {
+  useMemo,
+  useContext,
+  useLayoutEffect,
+  useImperativeHandle,
+} from 'react'
 import { useScene } from '../hooks/useScene'
 
 const GroupContext = React.createContext<Phaser.GameObjects.Group>(null)
@@ -12,7 +17,10 @@ export interface GroupProps {
   children?: React.ReactNode
 }
 
-export default function Group({ children, ...props }: GroupProps) {
+function Group(
+  { children, ...props }: GroupProps,
+  ref: React.Ref<Phaser.GameObjects.Group>
+) {
   const scene = useScene()
 
   const group = useMemo(() => scene.add.group([]), [])
@@ -22,6 +30,8 @@ export default function Group({ children, ...props }: GroupProps) {
       group.destroy()
     }
   }, [])
+
+  useImperativeHandle(ref, () => group)
 
   useLayoutEffect(() => {
     group.active = props.active
@@ -33,6 +43,8 @@ export default function Group({ children, ...props }: GroupProps) {
 
   return <GroupContext.Provider value={group}>{children}</GroupContext.Provider>
 }
+
+export default React.forwardRef(Group)
 
 export function useGroup<T extends Phaser.GameObjects.Group>() {
   return useContext(GroupContext) as T

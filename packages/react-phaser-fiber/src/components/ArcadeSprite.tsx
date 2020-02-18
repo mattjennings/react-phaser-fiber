@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser'
 import React, { useImperativeHandle, useLayoutEffect, useMemo } from 'react'
-import { useScene } from '../hooks'
+import { useScene } from '../hooks/useScene'
 import GameObject, {
   AccelerationProps,
   AlphaProps,

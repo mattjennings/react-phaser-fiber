@@ -34,6 +34,11 @@ export type AlphaProps = Partial<
   >
 >
 
+export type Point = {
+  x: number
+  y: number
+}
+
 export type BlendModeProps = Partial<
   Pick<Phaser.GameObjects.Components.BlendMode, 'blendMode'>
 >
@@ -95,32 +100,15 @@ export type TintProps = Partial<
   >
 >
 
-export interface TransformProps
-  extends Partial<
-    Pick<
-      Phaser.GameObjects.Components.Transform,
-      | 'angle'
-      | 'rotation'
-      | 'scale'
-      | 'scaleX'
-      | 'scaleY'
-      | 'x'
-      | 'y'
-      | 'z'
-      | 'w'
-    >
-  > {
-  allowRotation?: boolean
-  /**
-   * Sets the X only on the first render
-   */
-  initialX?: number
-
-  /**
-   * Sets the Y only on the first render
-   */
-  initialY?: number
-}
+export type TransformProps = Partial<
+  Pick<
+    Phaser.GameObjects.Components.Transform,
+    'angle' | 'rotation' | 'x' | 'y' | 'z' | 'w'
+  > & {
+    scale?: number | (Point & { point?: Point })
+    allowRotation?: boolean
+  }
+>
 
 export type VisibleProps = Partial<
   Pick<Phaser.GameObjects.Components.Visible, 'visible'>
@@ -136,10 +124,7 @@ export interface AnimationProps {
   isPlaying?: boolean
   msPerFrame?: number
   skipMissedFrames?: boolean
-  progress?: boolean
-  stopOnFrame?: Phaser.Animations.AnimationFrame
-  stopAfterDelay?: number
-  repeat?: boolean
+  repeat?: number
   repeatDelay?: number
   timeScale?: number
   yoyo?: boolean
@@ -149,7 +134,7 @@ export interface AnimationProps {
 export interface AccelerationProps {
   accelerationX?: number
   accelerationY?: number
-  acceleration?: number | { x: number; y: number }
+  acceleration?: number | Point
 }
 
 export interface AngularProps {
@@ -161,8 +146,9 @@ export interface AngularProps {
 export interface BounceProps {
   bounceX?: number
   bounceY?: number
-  bounce?: number | { x: number; y: number }
+  bounce?: number | Point
   collideWorldBounds?: boolean
+  onWorldBounds?: boolean
 }
 
 export interface DebugProps {
@@ -175,26 +161,30 @@ export interface DragProps {
   damping?: number
   dragX?: number
   dragY?: number
-  drag?: number | { x: number; y: number }
+  drag?: number | Point
   allowDrag?: boolean
 }
 
 export interface EnableProps {
   disableBody?: boolean
+
+  /**
+   * If disableBody is true, this will also hide the body
+   */
   hideBody?: boolean
 }
 
 export interface FrictionProps {
   frictionX?: number
   frictionY?: number
-  friction?: number | { x: number; y: number }
+  friction?: number | Point
 }
 
 export interface GravityProps {
   allowGravity?: boolean
   gravityX?: number
   gravityY?: number
-  gravity?: number | { x: number; y: number }
+  gravity?: number | Point
 }
 
 export interface ImmovableProps {
@@ -223,18 +213,31 @@ export interface SizeProps {
 }
 
 export interface VelocityProps {
-  velocity?: number | { x: number; y: number }
+  velocity?: number | Point
   velocityX?: number
   velocityY?: number
-  maxVelocity?: number | { x: number; y: number }
+  maxVelocity?: number | Point
 }
 
-// this should only be imported by reconciler. elements/index.ts will export the renderable component GameObject
 const GameObject: CreatePhaserComponentConfig<
   Phaser.GameObjects.GameObject,
-  GameObjectProps<Phaser.GameObjects.GameObject>
+  GameObjectProps<Phaser.GameObjects.GameObject> & { scene: Phaser.Scene }
 > = {
-  create: ({ instance }) => {
+  create: ({ instance, scene, physics, physicsType }) => {
+    // @ts-ignore - we need to set the scene key so hostconfig knows which scene to add this instance to
+    instance.__reactPhaser = {
+      sceneKey: scene.scene.key,
+    }
+
+    // if this is a physics object we need to add the body before applyProps
+    if (physics === 'arcade' && scene) {
+      scene.physics.world.enable(
+        instance,
+        physicsType === 'static'
+          ? Phaser.Physics.Arcade.STATIC_BODY
+          : Phaser.Physics.Arcade.DYNAMIC_BODY
+      )
+    }
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {
