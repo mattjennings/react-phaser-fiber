@@ -1,5 +1,10 @@
 import * as Phaser from 'phaser'
-import React, { useLayoutEffect, useMemo, useState } from 'react'
+import React, {
+  useLayoutEffect,
+  useMemo,
+  useState,
+  useImperativeHandle,
+} from 'react'
 import { useGame } from '../../hooks/useGame'
 import SceneContext from './SceneContext'
 
@@ -12,15 +17,18 @@ export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
   renderLoading?: (progress: number) => React.ReactNode
 }
 
-function Scene({
-  sceneKey,
-  children,
-  renderLoading,
-  onPreload,
-  onCreate,
-  onInit,
-  ...options
-}: SceneProps) {
+function Scene(
+  {
+    sceneKey,
+    children,
+    renderLoading,
+    onPreload,
+    onCreate,
+    onInit,
+    ...options
+  }: SceneProps,
+  ref: React.Ref<Phaser.Scene>
+) {
   const game = useGame()
   const [loading, setLoading] = useState(true)
   const [loadProgress, setLoadProgress] = useState(0)
@@ -42,6 +50,8 @@ function Scene({
 
     return instance
   }, [])
+
+  useImperativeHandle(ref, () => scene)
 
   useLayoutEffect(() => {
     const listeners: Phaser.Events.EventEmitter[] = []
@@ -77,4 +87,4 @@ function Scene({
   )
 }
 
-export default Scene
+export default React.forwardRef(Scene)
