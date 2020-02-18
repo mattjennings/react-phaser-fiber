@@ -35,6 +35,7 @@ export default function applyProps(
           }
           break
         }
+
         /** Animation **/
         case 'accumulator':
         case 'delay':
@@ -101,6 +102,9 @@ export default function applyProps(
             instance.setOffset(newProps.offset.x, newProps.offset.y)
           }
           break
+        case 'onWorldBounds':
+          setProp(instance.body, key, newValue)
+          break
         case 'size':
           if (newProps.size) {
             if (
@@ -120,7 +124,7 @@ export default function applyProps(
         case 'allowGravity':
         case 'allowDrag':
         case 'allowAcceleration':
-          instance.body[key] = newProps[key]
+          setProp(instance.body, key, newValue)
           break
         case 'scale':
           if (typeof newValue === 'number') {

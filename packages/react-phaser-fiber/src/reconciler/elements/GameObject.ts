@@ -148,6 +148,7 @@ export interface BounceProps {
   bounceY?: number
   bounce?: number | Point
   collideWorldBounds?: boolean
+  onWorldBounds?: boolean
 }
 
 export interface DebugProps {
@@ -166,6 +167,10 @@ export interface DragProps {
 
 export interface EnableProps {
   disableBody?: boolean
+
+  /**
+   * If disableBody is true, this will also hide the body
+   */
   hideBody?: boolean
 }
 

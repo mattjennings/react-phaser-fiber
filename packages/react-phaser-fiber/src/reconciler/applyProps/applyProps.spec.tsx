@@ -197,4 +197,124 @@ describe('applyProps', () => {
     expect(setAngularDrag).toHaveBeenCalledWith(1)
     expect(setAngularVelocity).toHaveBeenCalledWith(1)
   })
+
+  it('applies bounce props', async () => {
+    const game = new Phaser.Game({
+      physics: {
+        default: 'arcade',
+      },
+      type: Phaser.HEADLESS,
+      banner: false,
+    })
+
+    await waitForGame(game)
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const setBounce = jest.spyOn(instance, 'setBounce')
+    const setCollideWorldBounds = jest.spyOn(instance, 'setCollideWorldBounds')
+
+    applyProps(
+      instance,
+      {},
+      {
+        bounce: 1,
+        collideWorldBounds: true,
+        onWorldBounds: true,
+      }
+    )
+
+    expect(setBounce).toHaveBeenCalledWith(1, 1)
+    expect(setCollideWorldBounds).toHaveBeenCalledWith(true)
+    expect(instance.body.onWorldBounds).toEqual(true)
+  })
+
+  it('applies debug props', async () => {
+    const game = new Phaser.Game({
+      physics: {
+        default: 'arcade',
+      },
+      type: Phaser.HEADLESS,
+      banner: false,
+    })
+
+    await waitForGame(game)
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+
+    applyProps(
+      instance,
+      {},
+      {
+        debugBodyColor: 0x00,
+        debugShowBody: true,
+        debugShowVelocity: true,
+      }
+    )
+
+    expect(instance.debugBodyColor).toEqual(0x00)
+    expect(instance.debugShowBody).toEqual(true)
+    expect(instance.debugShowVelocity).toEqual(true)
+  })
+
+  it('applies drag props', async () => {
+    const game = new Phaser.Game({
+      physics: {
+        default: 'arcade',
+      },
+      type: Phaser.HEADLESS,
+      banner: false,
+    })
+
+    await waitForGame(game)
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const setDamping = jest.spyOn(instance, 'setDamping')
+    const setDrag = jest.spyOn(instance, 'setDrag')
+    // @ts-ignore - not in type defs, but is there
+    const setAllowDrag = jest.spyOn(instance.body, 'setAllowDrag')
+
+    applyProps(
+      instance,
+      {},
+      {
+        damping: 1,
+        drag: 1,
+        allowDrag: true,
+      }
+    )
+
+    expect(setDamping).toHaveBeenCalledWith(1)
+    expect(setDrag).toHaveBeenCalledWith(1, 1)
+    expect(setAllowDrag).toHaveBeenCalledWith(true)
+  })
+
+  it('applies enable props', async () => {
+    const game = new Phaser.Game({
+      physics: {
+        default: 'arcade',
+      },
+      type: Phaser.HEADLESS,
+      banner: false,
+    })
+
+    await waitForGame(game)
+
+    const scene = game.scene.add('123', {}, true)
+    const instance = scene.physics.add.sprite(0, 0, null)
+    const disableBody = jest.spyOn(instance, 'disableBody')
+
+    applyProps(
+      instance,
+      {},
+      {
+        disableBody: true,
+        hideBody: true,
+      }
+    )
+
+    expect(disableBody).toHaveBeenCalledWith(true, true)
+  })
 })
