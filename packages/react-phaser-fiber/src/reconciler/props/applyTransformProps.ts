@@ -1,41 +1,33 @@
 import { TransformProps, Point } from './types'
-
-import invariant from 'fbjs/lib/invariant'
 import { iterateProps } from './iterateProps'
 
-export function applyCommonProps(
-  instance: any,
-  oldProps: TransformProps,
-  newProps: TransformProps
-) {
+/**
+ * Applies props for Phaser.GameObjects.Components.Transform
+ */
+export function applyTransformProps<
+  T extends Phaser.GameObjects.Components.Transform & {
+    body?: any
+  }
+>(instance: T, oldProps: TransformProps, newProps: TransformProps) {
   iterateProps(oldProps, newProps, (key, newValue) => {
     switch (key) {
-      case 'allowRotation':
-        invariant(
-          !instance.body,
-          'Cannot set prop `allowRotation` on a GameObject without a Physics body'
-        )
-        if (instance.body) {
-          instance.body.allowRotation = newValue
-        }
-        break
       case 'angle':
-        instance.setAngle(newValue)
+        instance.setAngle(newValue as number)
         break
       case 'rotation':
-        instance.setRotation(newValue)
+        instance.setRotation(newValue as number)
         break
       case 'x':
-        instance.setX(newValue)
+        instance.setX(newValue as number)
         break
       case 'y':
-        instance.setY(newValue)
+        instance.setY(newValue as number)
         break
       case 'w':
-        instance.setW(newValue)
+        instance.setW(newValue as number)
         break
       case 'z':
-        instance.setZ(newValue)
+        instance.setZ(newValue as number)
         break
       case 'scale':
         if (typeof newValue === 'number') {
@@ -47,6 +39,7 @@ export function applyCommonProps(
           instance.setScale(
             asPoint.x,
             asPoint.y,
+            // @ts-ignore - point paramter (doesn't exist in typedefs) - https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Matter.Components.Transform.html#setScale__anchor
             asPoint.point ? [asPoint.point.x, asPoint.point.y] : undefined
           )
         }

@@ -1,11 +1,14 @@
 import { sanitizeProps } from '../sanitizeProps'
 
-export function iterateProps<T extends {}, K extends keyof T>(
+/**
+ * A helper function for iterating over props that should be applied
+ */
+export function iterateProps<T, K extends keyof T>(
   oldProps: T,
   newProps: T,
-  callback: (key: K, newValue: T[K], oldValue: T[K]) => any
+  callback: (key: K, newValue: T[K], oldValue: T[K]) => void
 ): void {
-  const keys = sanitizeProps(newProps) as Array<K>
+  const keys = Object.keys(sanitizeProps(newProps)) as Array<K>
 
   keys.forEach(key => {
     if (

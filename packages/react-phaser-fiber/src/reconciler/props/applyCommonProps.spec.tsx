@@ -5,53 +5,6 @@ import Phaser from 'phaser'
 // Phaser doesn't allow a pure GameObject instance to be added to a scene so
 // we'll be using the various Image, Sprite, etc. components to test out specific props
 describe('applyCommonProps', () => {
-  it('applies transform props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {})
-    const instance = scene.add.image(0, 0, null)
-
-    applyCommonProps(
-      instance,
-      {},
-      {
-        x: 100,
-        y: 100,
-        angle: 100,
-        scale: {
-          x: 2,
-          y: 4,
-        },
-        z: 2,
-        w: 2,
-      }
-    )
-
-    expect(instance.x).toEqual(100)
-    expect(instance.y).toEqual(100)
-    expect(instance.angle).toEqual(100)
-    expect(instance.scale).toEqual(3)
-    expect(instance.z).toEqual(2)
-    expect(instance.w).toEqual(2)
-  })
-
-  it('applies visible props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {})
-    const instance = scene.add.image(0, 0, null)
-
-    applyCommonProps(
-      instance,
-      {},
-      {
-        visible: false,
-      }
-    )
-
-    expect(instance.visible).toEqual(false)
-  })
-
   it('applies animation props', async () => {
     const game = await createGame()
 

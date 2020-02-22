@@ -117,6 +117,13 @@ export interface AngularProps {
   angularVelocity?: number
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface BodyProps {
+  allowRotation?: boolean
+  // todo
+  // https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Body.html#toc3__anchor
+}
+
 export interface BounceProps {
   bounceX?: number
   bounceY?: number
