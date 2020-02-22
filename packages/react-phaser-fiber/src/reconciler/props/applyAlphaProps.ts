@@ -2,7 +2,7 @@ import { AlphaProps } from './types'
 import { iterateProps } from './iterateProps'
 
 /**
- * Applies props for Phaser.GameObjects.Components.Transform
+ * Applies props for Phaser.GameObjects.Components.Alpha
  */
 export function applyAlphaProps<T extends Phaser.GameObjects.Components.Alpha>(
   instance: T,

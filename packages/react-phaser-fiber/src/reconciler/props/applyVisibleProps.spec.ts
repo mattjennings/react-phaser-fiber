@@ -1,5 +1,5 @@
-import { applyCommonProps } from './applyCommonProps'
 import { createGame } from '../../test-utils/createGame'
+import { applyVisibleProps } from './applyVisibleProps'
 
 it('applies visible props', async () => {
   const game = await createGame()
@@ -7,7 +7,7 @@ it('applies visible props', async () => {
   const scene = game.scene.add('123', {})
   const instance = scene.add.image(0, 0, null)
 
-  applyCommonProps(
+  applyVisibleProps(
     instance,
     {},
     {
