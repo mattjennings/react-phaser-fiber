@@ -1,4 +1,4 @@
-import { createGame } from '../../test-utils/createGame'
+import { createGame } from '../../../test-utils/createGame'
 import { applyAlphaProps } from './applyAlphaProps'
 
 describe('applyAlphaProps', () => {

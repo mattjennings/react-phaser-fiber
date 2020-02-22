@@ -1,2 +1,1 @@
-export * from './applyCommonProps'
-export * from './types'
+export * from './components'

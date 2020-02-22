@@ -1,4 +1,4 @@
-import { ComputedSizeProps } from './types'
+import { ComputedSizeProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.ComputedSize

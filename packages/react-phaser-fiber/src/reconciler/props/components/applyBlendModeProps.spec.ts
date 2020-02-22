@@ -1,4 +1,4 @@
-import { createGame } from '../../test-utils/createGame'
+import { createGame } from '../../../test-utils/createGame'
 import { applyBlendModeProps } from './applyBlendModeProps'
 
 it('applies Blend Mode props', async () => {

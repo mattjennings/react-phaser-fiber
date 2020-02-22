@@ -1,5 +1,5 @@
-import { iterateProps } from './iterateProps'
-import { CropProps } from './types'
+import { iterateProps } from '../iterateProps'
+import { CropProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Crop

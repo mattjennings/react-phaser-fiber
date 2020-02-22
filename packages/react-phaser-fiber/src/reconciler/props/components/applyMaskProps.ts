@@ -1,5 +1,5 @@
-import { iterateProps } from './iterateProps'
-import { MaskProps } from './types'
+import { iterateProps } from '../iterateProps'
+import { MaskProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Mask

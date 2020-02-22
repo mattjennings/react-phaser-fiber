@@ -1,4 +1,4 @@
-import { iterateProps } from './iterateProps'
+import { iterateProps } from '../iterateProps'
 
 export function applyCommonProps(
   instance: any,

@@ -1,5 +1,5 @@
-import { iterateProps } from './iterateProps'
-import { DepthProps } from './types'
+import { iterateProps } from '../iterateProps'
+import { DepthProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Depth

@@ -1,5 +1,5 @@
-import { iterateProps } from './iterateProps'
-import { VisibleProps } from './types'
+import { iterateProps } from '../iterateProps'
+import { VisibleProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Visible

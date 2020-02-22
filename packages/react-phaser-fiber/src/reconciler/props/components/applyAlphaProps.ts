@@ -1,5 +1,5 @@
-import { AlphaProps } from './types'
-import { iterateProps } from './iterateProps'
+import { AlphaProps } from '../types'
+import { iterateProps } from '../iterateProps'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Alpha
