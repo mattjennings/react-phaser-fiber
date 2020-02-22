@@ -2,13 +2,13 @@ import { iterateProps } from '../iterateProps'
 import { CropProps } from '../types'
 
 /**
- * Applies props for Phaser.GameObjects.Components.Crop
+ * Applies props for Phaser.GameObjects.Components.Crop or Phaser.GameObjects.Components.TextureCrop
  */
-export function applyCropProps<T extends Phaser.GameObjects.Components.Crop>(
-  instance: T,
-  oldProps: CropProps,
-  newProps: CropProps
-) {
+export function applyCropProps<
+  T extends
+    | Phaser.GameObjects.Components.Crop
+    | Phaser.GameObjects.Components.TextureCrop
+>(instance: T, oldProps: CropProps, newProps: CropProps) {
   iterateProps(oldProps, newProps, (key, newValue) => {
     switch (key) {
       case 'crop':

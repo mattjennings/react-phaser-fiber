@@ -29,10 +29,12 @@ describe('applyAlphaProps', () => {
       instance,
       {},
       {
-        alphaBottomLeft: 0.1,
-        alphaBottomRight: 0.2,
-        alphaTopLeft: 0.3,
-        alphaTopRight: 0.4,
+        alpha: {
+          bottomLeft: 0.1,
+          bottomRight: 0.2,
+          topLeft: 0.3,
+          topRight: 0.4,
+        },
       }
     )
 
@@ -40,27 +42,5 @@ describe('applyAlphaProps', () => {
     expect(instance.alphaBottomRight).toEqual(0.2)
     expect(instance.alphaTopLeft).toEqual(0.3)
     expect(instance.alphaTopRight).toEqual(0.4)
-  })
-
-  it('does not apply alpha corner props if a value is missing', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {})
-    const instance = scene.add.image(0, 0, null)
-
-    applyAlphaProps(
-      instance,
-      {},
-      {
-        alphaBottomLeft: 0.12,
-        alphaBottomRight: 0.2,
-        alphaTopLeft: 0.3,
-      }
-    )
-
-    expect(instance.alphaBottomLeft).toEqual(1)
-    expect(instance.alphaBottomRight).toEqual(1)
-    expect(instance.alphaTopLeft).toEqual(1)
-    expect(instance.alphaTopRight).toEqual(1)
   })
 })

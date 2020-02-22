@@ -1,13 +1,13 @@
-export type AlphaProps = Partial<
-  Pick<
-    Phaser.GameObjects.Components.Alpha,
-    | 'alpha'
-    | 'alphaBottomLeft'
-    | 'alphaBottomRight'
-    | 'alphaTopLeft'
-    | 'alphaTopRight'
-  >
->
+export interface CornerValues {
+  topLeft: number
+  topRight: number
+  bottomLeft: number
+  bottomRight: number
+}
+
+export interface AlphaProps {
+  alpha?: number | CornerValues
+}
 
 export type Point = {
   x: number
@@ -89,18 +89,11 @@ export type TextureProps = {
   frame?: string
 }
 
-export type TintProps = Partial<
-  Pick<
-    Phaser.GameObjects.Components.Tint,
-    | 'isTinted'
-    | 'tint'
-    | 'tintBottomLeft'
-    | 'tintBottomRight'
-    | 'tintFill'
-    | 'tintTopLeft'
-    | 'tintTopRight'
-  >
->
+export interface TintProps {
+  tint?: number | CornerValues
+
+  tintFill?: number | CornerValues
+}
 
 export type TransformProps = Partial<
   Pick<
