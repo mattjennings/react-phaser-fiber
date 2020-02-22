@@ -10,6 +10,7 @@ export default function Background() {
 
   return (
     <TileSprite
+      depth={-1}
       x={0}
       y={0}
       width={800}
