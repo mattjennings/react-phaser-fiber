@@ -18,12 +18,14 @@ export type BlendModeProps = Partial<
   Pick<Phaser.GameObjects.Components.BlendMode, 'blendMode'>
 >
 
-export type ComputedSizeProps = Partial<
+export type SizeProps = Partial<
   Pick<
-    Phaser.GameObjects.Components.ComputedSize,
+    Phaser.GameObjects.Components.Size,
     'displayHeight' | 'displayWidth' | 'height' | 'width'
   >
->
+> & {
+  setSizeToFrame?: Phaser.Textures.Frame
+}
 
 export interface CropProps {
   crop?: {
@@ -199,22 +201,22 @@ export interface MassProps {
   mass?: number
 }
 
-export interface SizeProps {
-  circle?: {
-    radius: number
-    offsetX?: number
-    offsetY?: number
-  }
-  offset?: {
-    x?: number
-    y?: number
-  }
-  size?: {
-    width: number
-    height: number
-    center?: number
-  }
-}
+// export interface SizeProps {
+//   circle?: {
+//     radius: number
+//     offsetX?: number
+//     offsetY?: number
+//   }
+//   offset?: {
+//     x?: number
+//     y?: number
+//   }
+//   size?: {
+//     width: number
+//     height: number
+//     center?: number
+//   }
+// }
 
 export interface VelocityProps {
   velocity?: number | Point
