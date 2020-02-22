@@ -25,9 +25,15 @@ export type ComputedSizeProps = Partial<
   >
 >
 
-export type CropProps = Partial<
-  Pick<Phaser.GameObjects.Components.Crop, 'frame' | 'isCropped' | 'texture'>
->
+export interface CropProps {
+  crop?: {
+    x?: number
+    y?: number
+    width?: number
+    height?: number
+  }
+  isCropped?: boolean
+}
 
 export type DepthProps = Partial<
   Pick<Phaser.GameObjects.Components.Depth, 'depth'>
