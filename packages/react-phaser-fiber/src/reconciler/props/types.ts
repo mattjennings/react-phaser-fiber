@@ -65,6 +65,23 @@ export type ScrollFactorProps = Partial<
   >
 >
 
+export interface PathFollowerProps {
+  path?: Phaser.Curves.Path
+
+  /**
+   * Starts this PathFollower following its given Path.
+   */
+  follow?:
+    | Phaser.Types.GameObjects.PathFollower.PathConfig
+    | Phaser.Types.Tweens.NumberTweenBuilderConfig
+
+  /**
+   * Pauses this PathFollower. It will still continue to render, but it will remain motionless at the
+   * point on the Path at which you paused it.
+   */
+  pauseFollow?: boolean
+}
+
 export type TextureCropProps = Partial<
   Pick<Phaser.GameObjects.Components.TextureCrop, 'texture' | 'frame'>
 >
