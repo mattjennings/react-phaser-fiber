@@ -84,9 +84,11 @@ export interface PipelineProps {
   pipeline?: string
 }
 
-export type TextureCropProps = Partial<
-  Pick<Phaser.GameObjects.Components.TextureCrop, 'texture' | 'frame'>
->
+export type TextureProps = {
+  texture?: string
+  frame?: string
+}
+
 export type TintProps = Partial<
   Pick<
     Phaser.GameObjects.Components.Tint,
