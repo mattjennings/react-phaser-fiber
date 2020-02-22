@@ -1,4 +1,5 @@
 import { ComputedSizeProps } from '../types'
+import { iterateProps } from '../iterateProps'
 
 /**
  * Applies props for Phaser.GameObjects.Components.ComputedSize
@@ -6,22 +7,20 @@ import { ComputedSizeProps } from '../types'
 export function applyComputedSizeProps<
   T extends Phaser.GameObjects.Components.ComputedSize
 >(instance: T, oldProps: ComputedSizeProps, newProps: ComputedSizeProps) {
-  const { width, height, displayWidth, displayHeight } = newProps
-
-  if (
-    width !== undefined &&
-    width !== oldProps.width &&
-    height !== undefined &&
-    height !== oldProps.height
-  ) {
-    instance.setSize(width, height)
-  }
-  if (
-    displayWidth !== undefined &&
-    displayWidth !== oldProps.displayWidth &&
-    displayHeight !== undefined &&
-    displayHeight !== oldProps.displayHeight
-  ) {
-    instance.setDisplaySize(displayWidth, displayHeight)
-  }
+  iterateProps(oldProps, newProps, (key, newValue) => {
+    switch (key) {
+      case 'width':
+        instance.width = newValue
+        break
+      case 'height':
+        instance.height = newValue
+        break
+      case 'displayWidth':
+        instance.displayWidth = newValue
+        break
+      case 'displayHeight':
+        instance.displayHeight = newValue
+        break
+    }
+  })
 }

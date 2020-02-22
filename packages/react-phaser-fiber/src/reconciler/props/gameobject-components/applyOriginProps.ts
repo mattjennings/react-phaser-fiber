@@ -1,4 +1,5 @@
 import { OriginProps } from '../types'
+import { iterateProps } from '../iterateProps'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Origin
@@ -6,23 +7,20 @@ import { OriginProps } from '../types'
 export function applyOriginProps<
   T extends Phaser.GameObjects.Components.Origin
 >(instance: T, oldProps: OriginProps, newProps: OriginProps) {
-  const { originX, originY, displayOriginX, displayOriginY } = newProps
-
-  if (
-    originX !== undefined &&
-    originX !== oldProps.originX &&
-    originY !== undefined &&
-    originY !== oldProps.originY
-  ) {
-    instance.setOrigin(originX, originY)
-  }
-
-  if (
-    displayOriginX !== undefined &&
-    displayOriginX !== oldProps.displayOriginX &&
-    displayOriginY !== undefined &&
-    displayOriginY !== oldProps.displayOriginY
-  ) {
-    instance.setDisplayOrigin(displayOriginX, displayOriginY)
-  }
+  iterateProps(oldProps, newProps, (key, newValue) => {
+    switch (key) {
+      case 'originX':
+        instance.originX = newValue
+        break
+      case 'displayOriginY':
+        instance.originY = newValue
+        break
+      case 'displayOriginX':
+        instance.displayOriginX = newValue
+        break
+      case 'displayOriginY':
+        instance.displayOriginY = newValue
+        break
+    }
+  })
 }
