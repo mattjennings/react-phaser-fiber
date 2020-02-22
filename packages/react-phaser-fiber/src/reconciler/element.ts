@@ -1,42 +1,46 @@
 import * as Phaser from 'phaser'
-import { applyProps as defaultApplyProps } from './applyProps'
 import GameObject from './elements/GameObject'
+import invariant from 'fbjs/lib/invariant'
+import Group from './elements/Group'
 
-export interface CreatePhaserComponentConfig<
-  T extends Phaser.GameObjects.GameObject,
-  P
-> {
+export interface CreatePhaserComponentConfig<T, P> {
   create: (props: P, game: Phaser.Game) => T
   applyProps?: (instance: T, oldProps: P, newProps: P) => any
 }
 
 export const TYPES: Record<string, string> = {
   GameObject: 'GameObject',
+  Group: 'Group',
 }
 
 export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
   GameObject,
+  Group,
 }
 
+/******************
+ *  External API  *
+ ******************/
+
 /**
- * Create an element based on tag type
- * Similar to react-dom's `React.createElement()`
- *
- * @param {string} type Element type
- * @param {Object} props Component props
- * @param {Object} root Root instance
+ * Creates a custom Phaser component
+ * @param type
+ * @param config
  */
-export function createElement(
-  type: keyof typeof TYPES,
-  props: any = {},
-  root: Phaser.Game
-) {
-  const { create, applyProps = defaultApplyProps } = ELEMENTS[type]
+export function createPhaserComponent<
+  T extends Phaser.GameObjects.GameObject,
+  P
+>(type: string, config: CreatePhaserComponentConfig<T, P>) {
+  invariant(!!type, `Expected type to be defined, got ${type}`)
+  invariant(
+    !TYPES[type as keyof typeof TYPES],
+    `Component ${type} already exists`
+  )
 
-  const instance = create(props, root)
+  TYPES[type as keyof typeof TYPES] = type
+  ELEMENTS[type] = config
 
-  instance.applyProps = applyProps.bind(instance)
-  applyProps(instance, {}, props)
-
-  return instance
+  // type needs to be returned as string for reconciler, but externally it will be typed
+  // as a component
+  return (type as unknown) as React.ComponentType<P>
 }

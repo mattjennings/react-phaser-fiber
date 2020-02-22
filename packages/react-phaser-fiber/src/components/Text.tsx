@@ -1,13 +1,14 @@
 import * as Phaser from 'phaser'
 import React, { useImperativeHandle, useMemo } from 'react'
-import GameObject, {
+import GameObject, { GameObjectProps } from './GameObject'
+import { useScene } from '../hooks/useScene'
+import {
   AlphaProps,
   BlendModeProps,
   ComputedSizeProps,
   CropProps,
   DepthProps,
   FlipProps,
-  GameObjectProps,
   MaskProps,
   OriginProps,
   PipelineProps,
@@ -15,8 +16,7 @@ import GameObject, {
   TintProps,
   TransformProps,
   VisibleProps,
-} from './GameObject'
-import { useScene } from '../hooks/useScene'
+} from '../reconciler'
 
 export interface TextProps
   extends Omit<GameObjectProps<Phaser.GameObjects.Text>, 'instance' | 'ref'>,

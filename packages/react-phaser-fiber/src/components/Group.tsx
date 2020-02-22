@@ -1,47 +1,25 @@
-import React, {
-  useMemo,
-  useContext,
-  useLayoutEffect,
-  useImperativeHandle,
-} from 'react'
+import React, { useMemo, useContext, useImperativeHandle } from 'react'
 import { useScene } from '../hooks/useScene'
+import { TYPES } from '../reconciler/element'
+import { GroupProps as GroupElementProps } from '../reconciler/elements/Group'
+
+const GroupElement = (TYPES.Group as unknown) as React.FC<GroupElementProps>
 
 const GroupContext = React.createContext<Phaser.GameObjects.Group>(null)
 
-export interface GroupProps {
-  active?: boolean
-  defaultFrame?: number
-  defaultKey?: string
-  isParent?: boolean
-  name?: string
-  children?: React.ReactNode
-}
+export type GroupProps = Omit<GroupElementProps, 'instance' | 'scene'>
 
-function Group(
-  { children, ...props }: GroupProps,
-  ref: React.Ref<Phaser.GameObjects.Group>
-) {
+function Group(props: GroupProps, ref: React.Ref<Phaser.GameObjects.Group>) {
   const scene = useScene()
+  const instance = useMemo(() => scene.add.group([]), [])
 
-  const group = useMemo(() => scene.add.group([]), [])
+  useImperativeHandle(ref, () => instance)
 
-  useLayoutEffect(() => {
-    return () => {
-      group.destroy()
-    }
-  }, [])
-
-  useImperativeHandle(ref, () => group)
-
-  useLayoutEffect(() => {
-    group.active = props.active
-    group.defaultFrame = props.defaultFrame
-    group.defaultKey = props.defaultKey
-    group.isParent = props.isParent
-    group.name = props.name
-  }, [props])
-
-  return <GroupContext.Provider value={group}>{children}</GroupContext.Provider>
+  return (
+    <GroupContext.Provider value={instance}>
+      <GroupElement instance={instance} scene={scene} {...props} />
+    </GroupContext.Provider>
+  )
 }
 
 export default React.forwardRef(Group)

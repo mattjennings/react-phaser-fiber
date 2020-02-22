@@ -1,18 +1,20 @@
 import * as Phaser from 'phaser'
-import GameObject, {
+import GameObject, { GameObjectProps } from './GameObject'
+import { useScene } from '../hooks/useScene'
+import React, { useImperativeHandle, useMemo } from 'react'
+import {
   AlphaProps,
   BlendModeProps,
   ComputedSizeProps,
   DepthProps,
   FlipProps,
+  MaskProps,
   OriginProps,
   PipelineProps,
   ScrollFactorProps,
+  TintProps,
   TransformProps,
   VisibleProps,
-  MaskProps,
-  TintProps,
-  GameObjectProps,
   AccelerationProps,
   AngularProps,
   BounceProps,
@@ -25,9 +27,7 @@ import GameObject, {
   MassProps,
   SizeProps,
   VelocityProps,
-} from './GameObject'
-import { useScene } from '../hooks/useScene'
-import React, { useImperativeHandle, useMemo } from 'react'
+} from '../reconciler'
 
 export interface ArcadeImageProps
   extends Omit<

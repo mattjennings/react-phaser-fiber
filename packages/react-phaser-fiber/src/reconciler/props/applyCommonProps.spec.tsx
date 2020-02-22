@@ -1,17 +1,17 @@
 import { wait } from '@testing-library/react'
-import applyProps from './applyProps'
+import { applyCommonProps } from './applyCommonProps'
 import Phaser from 'phaser'
 
 // Phaser doesn't allow a pure GameObject instance to be added to a scene so
 // we'll be using the various Image, Sprite, etc. components to test out specific props
-describe('applyProps', () => {
+describe('applyCommonProps', () => {
   it('applies transform props', async () => {
     const game = await createGame()
 
     const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -41,7 +41,7 @@ describe('applyProps', () => {
     const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -58,7 +58,7 @@ describe('applyProps', () => {
     const scene = game.scene.add('123', {})
     const instance = scene.add.sprite(0, 0, null)
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -96,7 +96,7 @@ describe('applyProps', () => {
     const instance = scene.physics.add.sprite(0, 0, null)
     const spy = jest.spyOn(instance, 'setAcceleration')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -122,7 +122,7 @@ describe('applyProps', () => {
     const setAngularDrag = jest.spyOn(instance, 'setAngularDrag')
     const setAngularVelocity = jest.spyOn(instance, 'setAngularVelocity')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -145,7 +145,7 @@ describe('applyProps', () => {
     const setBounce = jest.spyOn(instance, 'setBounce')
     const setCollideWorldBounds = jest.spyOn(instance, 'setCollideWorldBounds')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -166,7 +166,7 @@ describe('applyProps', () => {
     const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -191,7 +191,7 @@ describe('applyProps', () => {
     // @ts-ignore - not in type defs, but is there
     const setAllowDrag = jest.spyOn(instance.body, 'setAllowDrag')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -213,7 +213,7 @@ describe('applyProps', () => {
     const instance = scene.physics.add.sprite(0, 0, null)
     const disableBody = jest.spyOn(instance, 'disableBody')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -232,7 +232,7 @@ describe('applyProps', () => {
     const instance = scene.physics.add.sprite(0, 0, null)
     const setFriction = jest.spyOn(instance, 'setFriction')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -252,7 +252,7 @@ describe('applyProps', () => {
     // @ts-ignore - not in type defs
     const setAllowGravity = jest.spyOn(instance.body, 'setAllowGravity')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -272,7 +272,7 @@ describe('applyProps', () => {
     const instance = scene.physics.add.sprite(0, 0, null)
     const setImmovable = jest.spyOn(instance, 'setImmovable')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -290,7 +290,7 @@ describe('applyProps', () => {
     const instance = scene.physics.add.sprite(0, 0, null)
     const setImmovable = jest.spyOn(instance, 'setImmovable')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -308,7 +308,7 @@ describe('applyProps', () => {
     const instance = scene.physics.add.sprite(0, 0, null)
     const setMass = jest.spyOn(instance, 'setMass')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -328,7 +328,7 @@ describe('applyProps', () => {
     const setOffset = jest.spyOn(instance, 'setOffset')
     const setSize = jest.spyOn(instance, 'setSize')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {
@@ -362,7 +362,7 @@ describe('applyProps', () => {
     const setVelocity = jest.spyOn(instance, 'setVelocity')
     const setMaxVelocity = jest.spyOn(instance, 'setMaxVelocity')
 
-    applyProps(
+    applyCommonProps(
       instance,
       {},
       {

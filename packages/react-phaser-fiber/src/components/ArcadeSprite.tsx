@@ -1,35 +1,34 @@
 import * as Phaser from 'phaser'
 import React, { useImperativeHandle, useLayoutEffect, useMemo } from 'react'
 import { useScene } from '../hooks/useScene'
-import GameObject, {
-  AccelerationProps,
+import Sprite, { SpriteProps } from './Sprite'
+import {
   AlphaProps,
-  AngularProps,
   AnimationProps,
   BlendModeProps,
-  BounceProps,
   ComputedSizeProps,
-  DebugProps,
   DepthProps,
-  DragProps,
-  EnableProps,
   FlipProps,
-  FrictionProps,
-  GameObjectProps,
-  GravityProps,
-  ImmovableProps,
   MaskProps,
-  MassProps,
   OriginProps,
   PipelineProps,
   ScrollFactorProps,
-  SizeProps,
   TintProps,
   TransformProps,
-  VelocityProps,
   VisibleProps,
-} from './GameObject'
-import Sprite, { SpriteProps } from './Sprite'
+  AccelerationProps,
+  AngularProps,
+  BounceProps,
+  DebugProps,
+  EnableProps,
+  DragProps,
+  FrictionProps,
+  GravityProps,
+  ImmovableProps,
+  MassProps,
+  SizeProps,
+  VelocityProps,
+} from '../reconciler'
 
 export interface ArcadeSpriteProps
   extends Omit<SpriteProps, 'ref' | 'instance' | 'physics'>,

@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser'
-import React, { useImperativeHandle, useMemo, useLayoutEffect } from 'react'
+import React, { useImperativeHandle, useMemo } from 'react'
 import { useScene } from '../hooks/useScene'
+import Sprite, { SpriteProps } from './Sprite'
 import {
   AlphaProps,
   AnimationProps,
@@ -15,8 +16,7 @@ import {
   TintProps,
   TransformProps,
   VisibleProps,
-} from './GameObject'
-import Sprite, { SpriteProps } from './Sprite'
+} from '../reconciler'
 
 export interface TileSpriteProps
   extends Omit<SpriteProps, 'ref' | 'instance' | 'physics'>,

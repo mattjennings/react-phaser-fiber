@@ -11,27 +11,34 @@
 import invariant from 'fbjs/lib/invariant'
 import performanceNow from 'performance-now'
 
-import { createElement } from './element'
-import { applyProps as defaultApplyProps } from './applyProps'
+import { TYPES, ELEMENTS } from './element'
 
 interface InternalGameObjectProperties {
   __reactPhaser: { sceneKey: string }
 }
 
+type ParentType =
+  | Phaser.Game
+  | Phaser.GameObjects.GameObject
+  | Phaser.GameObjects.Group
+
 function appendChild(
-  parent: Phaser.Game | Phaser.GameObjects.GameObject,
+  parent: ParentType,
   child: Phaser.GameObjects.GameObject & InternalGameObjectProperties
 ) {
   // __reactPhaser.sceneKey comes from GameObject's element creator
   if (parent instanceof Phaser.Game && child.__reactPhaser.sceneKey) {
     const scene = parent.scene.getScene(child.__reactPhaser.sceneKey)
-    if (!scene.children.exists(child)) {
+    if (!(child instanceof Phaser.GameObjects.Group)) {
       scene.add.existing(child)
     }
-  }
-
-  if (parent instanceof Phaser.GameObjects.GameObject) {
-    // todo
+  } else if (parent instanceof Phaser.GameObjects.Group) {
+    parent.add(child, true)
+  } else {
+    invariant(
+      true,
+      `"${parent.constructor.name}" does not support child React components`
+    )
   }
 }
 
@@ -42,7 +49,7 @@ function removeChild(parent: Phaser.Game, child: any) {
 }
 
 function insertBefore(
-  parent: Phaser.Game,
+  parent: ParentType,
   child: Phaser.GameObjects.GameObject & InternalGameObjectProperties,
   beforeChild: Phaser.GameObjects.GameObject & InternalGameObjectProperties
 ) {
@@ -60,64 +67,6 @@ function insertBefore(
       ? scene.children.moveTo(child, index)
       : scene.children.addAt(child, index)
   }
-}
-
-// get diff between 2 objects
-// https://github.com/facebook/react/blob/97e2911/packages/react-dom/src/client/ReactDOMFiberComponent.js#L546
-function diffProperties(
-  phaserElement: any,
-  type: any,
-  lastProps: any,
-  nextProps: any,
-  rootContainerElement: any
-) {
-  let updatePayload: any = null
-
-  for (const propKey in lastProps) {
-    if (
-      nextProps.hasOwnProperty(propKey) ||
-      !lastProps.hasOwnProperty(propKey) ||
-      lastProps[propKey] == null
-    ) {
-      continue
-    }
-    if (propKey === 'children') {
-      // Noop. Text children not supported
-    } else {
-      // For all other deleted properties we add it to the queue. We use
-      // the whitelist in the commit phase instead.
-      if (!updatePayload) {
-        updatePayload = []
-      }
-      updatePayload.push(propKey, null)
-    }
-  }
-
-  for (const propKey in nextProps) {
-    const nextProp = nextProps[propKey]
-    const lastProp = lastProps != null ? lastProps[propKey] : undefined
-
-    if (
-      !nextProps.hasOwnProperty(propKey) ||
-      nextProp === lastProp ||
-      (nextProp == null && lastProp == null)
-    ) {
-      continue
-    }
-
-    if (propKey === 'children') {
-      // Noop. Text children not supported
-    } else {
-      // For any other property we always add it to the queue and then we
-      // filter it out using the whitelist during the commit.
-      if (!updatePayload) {
-        updatePayload = []
-      }
-      updatePayload.push(propKey, nextProp)
-    }
-  }
-
-  return updatePayload
 }
 
 export default {
@@ -145,8 +94,16 @@ export default {
     // noop
   },
 
-  createInstance: createElement,
+  createInstance(type: keyof typeof TYPES, props: any = {}, root: Phaser.Game) {
+    const { create, applyProps } = ELEMENTS[type]
 
+    const instance = create(props, root)
+
+    instance.applyProps = applyProps.bind(instance)
+    applyProps(instance, {}, props)
+
+    return instance
+  },
   hideInstance(instance: Phaser.GameObjects.GameObject) {
     if (instance.setActive) {
       instance.setActive(false)
@@ -168,6 +125,7 @@ export default {
     return false
   },
 
+  // https://github.com/facebook/react/blob/97e2911/packages/react-dom/src/client/ReactDOMFiberComponent.js#L546
   prepareUpdate(
     phaserElement: any,
     type: any,
@@ -176,13 +134,45 @@ export default {
     rootContainerInstance: any,
     hostContext: any
   ) {
-    return diffProperties(
-      phaserElement,
-      type,
-      oldProps,
-      newProps,
-      rootContainerInstance
-    )
+    let updatePayload: any = null
+
+    for (const propKey in oldProps) {
+      if (
+        newProps.hasOwnProperty(propKey) ||
+        !oldProps.hasOwnProperty(propKey) ||
+        oldProps[propKey] == null
+      ) {
+        continue
+      }
+      // For all other deleted properties we add it to the queue. We use
+      // the whitelist in the commit phase instead.
+      if (!updatePayload) {
+        updatePayload = []
+      }
+      updatePayload.push(propKey, null)
+    }
+
+    for (const propKey in newProps) {
+      const nextProp = newProps[propKey]
+      const lastProp = oldProps != null ? oldProps[propKey] : undefined
+
+      if (
+        !newProps.hasOwnProperty(propKey) ||
+        nextProp === lastProp ||
+        (nextProp == null && lastProp == null)
+      ) {
+        continue
+      }
+
+      // For any other property we always add it to the queue and then we
+      // filter it out using the whitelist during the commit.
+      if (!updatePayload) {
+        updatePayload = []
+      }
+      updatePayload.push(propKey, nextProp)
+    }
+
+    return updatePayload
   },
 
   shouldSetTextContent(type: any, props: any) {
@@ -265,12 +255,11 @@ export default {
     oldProps: any,
     newProps: any
   ) {
-    let applyProps = instance && instance.applyProps
+    const applyProps = instance?.applyProps
 
-    if (typeof applyProps !== 'function') {
-      applyProps = defaultApplyProps
+    if (typeof applyProps === 'function') {
+      applyProps(instance, oldProps, newProps)
     }
-    applyProps(instance, oldProps, newProps)
   },
 
   commitMount(

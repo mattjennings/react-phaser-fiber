@@ -1,21 +1,21 @@
 import * as Phaser from 'phaser'
-import GameObject, {
+import GameObject, { GameObjectProps } from './GameObject'
+import { useScene } from '../hooks/useScene'
+import React, { useImperativeHandle, useMemo } from 'react'
+import {
   AlphaProps,
   BlendModeProps,
   ComputedSizeProps,
   DepthProps,
   FlipProps,
+  MaskProps,
   OriginProps,
   PipelineProps,
   ScrollFactorProps,
+  TintProps,
   TransformProps,
   VisibleProps,
-  MaskProps,
-  TintProps,
-  GameObjectProps,
-} from './GameObject'
-import { useScene } from '../hooks/useScene'
-import React, { useImperativeHandle, useMemo } from 'react'
+} from '../reconciler'
 
 export interface ImageProps
   extends Omit<GameObjectProps<Phaser.GameObjects.Image>, 'instance' | 'ref'>,

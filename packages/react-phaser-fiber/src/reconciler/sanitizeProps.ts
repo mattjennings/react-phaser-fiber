@@ -15,9 +15,7 @@ export const PROPS_RESERVED = {
  * Removes any props that have reserved names
  * @param props
  */
-export default function sanitizeProps(
-  props: Record<string, any>
-): Record<string, any> {
+export function sanitizeProps(props: Record<string, any>): Record<string, any> {
   return Object.keys(props).reduce((filteredProps, key) => {
     if (Object.keys(PROPS_RESERVED).indexOf(key) === -1) {
       return {

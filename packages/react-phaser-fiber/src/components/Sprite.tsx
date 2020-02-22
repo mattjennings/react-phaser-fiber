@@ -1,22 +1,22 @@
 import * as Phaser from 'phaser'
-import GameObject, {
+import GameObject, { GameObjectProps } from './GameObject'
+import { useScene } from '../hooks/useScene'
+import React, { useImperativeHandle, useMemo, useLayoutEffect } from 'react'
+import {
   AlphaProps,
+  AnimationProps,
   BlendModeProps,
   ComputedSizeProps,
   DepthProps,
   FlipProps,
+  MaskProps,
   OriginProps,
   PipelineProps,
   ScrollFactorProps,
+  TintProps,
   TransformProps,
   VisibleProps,
-  MaskProps,
-  TintProps,
-  GameObjectProps,
-} from './GameObject'
-import { useScene } from '../hooks/useScene'
-import React, { useImperativeHandle, useMemo, useLayoutEffect } from 'react'
-import { AnimationProps } from '../reconciler/elements/GameObject'
+} from '../reconciler'
 
 export interface SpriteProps
   extends Omit<GameObjectProps<Phaser.GameObjects.Sprite>, 'instance' | 'ref'>,
@@ -64,23 +64,19 @@ function Sprite(
 
   useLayoutEffect(() => {
     if (animations) {
+      // doing this on every render may be a bad idea, although phaser does shortcircuit
+      // if anim.key exists
       animations.forEach(animation => {
         scene.anims.create(animation)
       })
-    }
-
-    return () => {
-      if (animations) {
-        animations.forEach(animation => {
-          scene.anims.remove(animation.key)
-        })
-      }
     }
   }, [animations])
 
   useLayoutEffect(() => {
     if (animation) {
-      instance.play(animation, true)
+      // phaser 3.22 throws an error if this is true and currentAnim does not exist
+      const ignoreIfPlaying = !!instance.anims.currentAnim
+      instance.play(animation, ignoreIfPlaying)
     }
   }, [animation])
 
