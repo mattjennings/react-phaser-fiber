@@ -54,10 +54,6 @@ export type OriginProps = Partial<
   >
 >
 
-export type PipelineProps = Partial<
-  Pick<Phaser.GameObjects.Components.Pipeline, 'defaultPipeline' | 'pipeline'>
->
-
 export type ScrollFactorProps = Partial<
   Pick<
     Phaser.GameObjects.Components.ScrollFactor,
@@ -80,6 +76,10 @@ export interface PathFollowerProps {
    * point on the Path at which you paused it.
    */
   pauseFollow?: boolean
+}
+
+export interface PipelineProps {
+  pipeline?: string
 }
 
 export type TextureCropProps = Partial<
