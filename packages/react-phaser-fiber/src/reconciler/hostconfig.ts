@@ -99,7 +99,14 @@ export default {
 
     const instance = create(props, root)
 
-    instance.applyProps = applyProps.bind(instance)
+    if (props.scene) {
+      // @ts-ignore - we need to set the scene key so hostconfig knows which scene to add this instance to
+      instance.__reactPhaser = {
+        sceneKey: props.scene.key,
+        applyProps: applyProps.bind(instance),
+      }
+    }
+
     applyProps(instance, {}, props)
 
     return instance
@@ -255,9 +262,9 @@ export default {
     oldProps: any,
     newProps: any
   ) {
-    const applyProps = instance?.applyProps
+    const applyProps = instance?.__reactPhaser?.applyProps
 
-    if (typeof applyProps === 'function') {
+    if (applyProps) {
       applyProps(instance, oldProps, newProps)
     }
   },

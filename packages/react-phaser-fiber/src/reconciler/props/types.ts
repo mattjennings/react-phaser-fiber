@@ -110,6 +110,11 @@ export type VisibleProps = Partial<
 >
 
 export interface AnimationProps {
+  /**
+   * Plays the animation by key
+   */
+  animation?: string
+
   accumulator?: number
   delay?: number
   duration?: number
@@ -122,6 +127,9 @@ export interface AnimationProps {
   repeatDelay?: number
   timeScale?: number
   yoyo?: boolean
+  progress?: number
+  stopOnFrame?: Phaser.Animations.AnimationFrame
+  stopAfterDelay?: number
 }
 
 // Arcade Physics

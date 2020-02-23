@@ -1,1 +1,1 @@
-export * from './gameobject-components'
+export * from './types'

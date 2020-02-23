@@ -1,4 +1,4 @@
-import { applyCommonProps } from '../props'
+import { applyGameObjectProps } from '../props/gameobjects'
 import { CreatePhaserComponentConfig } from '../element'
 
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
@@ -28,11 +28,6 @@ const GameObject: CreatePhaserComponentConfig<
   GameObjectProps<Phaser.GameObjects.GameObject> & { scene: Phaser.Scene }
 > = {
   create: ({ instance, scene, physics, physicsType }) => {
-    // @ts-ignore - we need to set the scene key so hostconfig knows which scene to add this instance to
-    instance.__reactPhaser = {
-      sceneKey: scene.scene.key,
-    }
-
     // if this is a physics object we need to add the body before applyProps
     if (physics === 'arcade' && scene) {
       if (!scene.physics) {
@@ -47,7 +42,7 @@ const GameObject: CreatePhaserComponentConfig<
     }
     return instance
   },
-  applyProps: applyCommonProps,
+  applyProps: applyGameObjectProps,
 }
 
 export default GameObject
