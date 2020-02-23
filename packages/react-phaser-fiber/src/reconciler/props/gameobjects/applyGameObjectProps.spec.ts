@@ -2,56 +2,6 @@ import { createGame } from '../../../test-utils/createGame'
 import { applyGameObjectProps } from './applyGameObjectProps'
 
 describe('applyGameObjectProps', () => {
-  it('applies angular props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {}, true)
-    const instance = scene.physics.add.sprite(0, 0, null)
-    const setAngularAcceleration = jest.spyOn(
-      instance,
-      'setAngularAcceleration'
-    )
-    const setAngularDrag = jest.spyOn(instance, 'setAngularDrag')
-    const setAngularVelocity = jest.spyOn(instance, 'setAngularVelocity')
-
-    applyGameObjectProps(
-      instance,
-      {},
-      {
-        angularAcceleration: 1,
-        angularDrag: 1,
-        angularVelocity: 1,
-      }
-    )
-
-    expect(setAngularAcceleration).toHaveBeenCalledWith(1)
-    expect(setAngularDrag).toHaveBeenCalledWith(1)
-    expect(setAngularVelocity).toHaveBeenCalledWith(1)
-  })
-
-  it('applies bounce props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {}, true)
-    const instance = scene.physics.add.sprite(0, 0, null)
-    const setBounce = jest.spyOn(instance, 'setBounce')
-    const setCollideWorldBounds = jest.spyOn(instance, 'setCollideWorldBounds')
-
-    applyGameObjectProps(
-      instance,
-      {},
-      {
-        bounce: 1,
-        collideWorldBounds: true,
-        onWorldBounds: true,
-      }
-    )
-
-    expect(setBounce).toHaveBeenCalledWith(1, 1)
-    expect(setCollideWorldBounds).toHaveBeenCalledWith(true)
-    expect(instance.body.onWorldBounds).toEqual(true)
-  })
-
   it('applies debug props', async () => {
     const game = await createGame()
 

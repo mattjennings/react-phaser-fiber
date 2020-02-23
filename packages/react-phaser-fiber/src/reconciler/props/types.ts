@@ -148,6 +148,7 @@ export interface AngularProps {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface BodyProps {
   allowRotation?: boolean
+  onWorldBounds?: boolean
   // todo
   // https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Body.html#toc3__anchor
 }
@@ -157,7 +158,6 @@ export interface BounceProps {
   bounceY?: number
   bounce?: number | Point
   collideWorldBounds?: boolean
-  onWorldBounds?: boolean
 }
 
 export interface DebugProps {

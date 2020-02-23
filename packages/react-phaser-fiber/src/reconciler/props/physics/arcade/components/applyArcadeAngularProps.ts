@@ -1,5 +1,5 @@
-import { AngularProps } from '../../types'
-import { iterateProps } from '../../iterateProps'
+import { AngularProps } from '../../../types'
+import { iterateProps } from '../../../iterateProps'
 
 /**
  * Applies props for Phaser.Physics.Arcade.Components.Angular

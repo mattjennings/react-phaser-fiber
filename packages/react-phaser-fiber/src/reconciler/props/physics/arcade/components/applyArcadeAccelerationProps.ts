@@ -1,5 +1,5 @@
-import { AccelerationProps } from '../../types'
-import { iterateProps } from '../../iterateProps'
+import { AccelerationProps } from '../../../types'
+import { iterateProps } from '../../../iterateProps'
 import isEqual from 'fast-deep-equal'
 
 /**

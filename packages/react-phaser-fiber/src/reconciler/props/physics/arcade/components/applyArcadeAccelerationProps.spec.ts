@@ -1,4 +1,4 @@
-import { createGame } from '../../../../test-utils/createGame'
+import { createGame } from '../../../../../test-utils/createGame'
 import { applyArcadeAccelerationProps } from './applyArcadeAccelerationProps'
 
 describe('applyArcadeAccelerationProps', () => {

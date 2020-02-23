@@ -1,2 +1,2 @@
 export * from './applyGameObjectProps'
-export * from './gameobject-components'
+export * from './components'
