@@ -28,9 +28,11 @@ export interface ArcadeBounceProps {
 }
 
 export interface ArcadeDebugProps {
-  debugBodyColor?: number
-  debugShowBody?: boolean
-  debugShowVelocity?: boolean
+  debug?: {
+    bodyColor?: number
+    showBody?: boolean
+    showVelocity?: boolean
+  }
 }
 
 export interface ArcadeDragProps {
