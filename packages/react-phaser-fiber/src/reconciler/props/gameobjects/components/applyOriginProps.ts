@@ -1,4 +1,4 @@
-import { OriginProps } from '../../types'
+import { OriginProps } from '../types'
 import { iterateProps } from '../../iterateProps'
 
 /**

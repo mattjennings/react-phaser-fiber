@@ -1,4 +1,4 @@
-import { TextureProps } from '../../types'
+import { TextureProps } from '../types'
 import { iterateProps } from '../../iterateProps'
 
 /**

@@ -1,4 +1,4 @@
-import { PathFollowerProps } from '../../types'
+import { PathFollowerProps } from '../types'
 import { iterateProps } from '../../iterateProps'
 import isEqual from 'fast-deep-equal'
 

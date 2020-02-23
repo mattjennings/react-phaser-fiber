@@ -1,5 +1,6 @@
-import { TransformProps, Point } from '../../types'
 import { iterateProps } from '../../iterateProps'
+import { TransformProps } from '../types'
+import { Point } from '../../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Transform

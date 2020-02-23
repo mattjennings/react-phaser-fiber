@@ -1,5 +1,5 @@
-import { ScrollFactorProps, Point } from '../../types'
 import { iterateProps } from '../../iterateProps'
+import { ScrollFactorProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.ScrollFactor

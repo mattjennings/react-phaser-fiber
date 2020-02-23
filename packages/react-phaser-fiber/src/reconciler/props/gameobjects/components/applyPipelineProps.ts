@@ -1,5 +1,5 @@
 import { iterateProps } from '../../iterateProps'
-import { PipelineProps } from '../../types'
+import { PipelineProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Pipeline

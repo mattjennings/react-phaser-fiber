@@ -1,13 +1,17 @@
-import { AccelerationProps } from '../../../types'
+import { ArcadeAccelerationProps } from '../types'
 import { iterateProps } from '../../../iterateProps'
 import isEqual from 'fast-deep-equal'
 
 /**
  * Applies props for Phaser.Physics.Arcade.Components.Acceleration
  */
-export function applyArcadeAccelerationProps<
+export function applyArcadeArcadeAccelerationProps<
   T extends Phaser.Physics.Arcade.Components.Acceleration
->(instance: T, oldProps: AccelerationProps, newProps: AccelerationProps) {
+>(
+  instance: T,
+  oldProps: ArcadeAccelerationProps,
+  newProps: ArcadeAccelerationProps
+) {
   iterateProps(oldProps, newProps, (key, newValue, oldValue) => {
     switch (key) {
       case 'acceleration':

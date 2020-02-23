@@ -1,12 +1,12 @@
-import { AngularProps } from '../../../types'
+import { ArcadeAngularProps } from '../types'
 import { iterateProps } from '../../../iterateProps'
 
 /**
  * Applies props for Phaser.Physics.Arcade.Components.Angular
  */
-export function applyArcadeAngularProps<
+export function applyArcadeArcadeAngularProps<
   T extends Phaser.Physics.Arcade.Components.Angular
->(instance: T, oldProps: AngularProps, newProps: AngularProps) {
+>(instance: T, oldProps: ArcadeAngularProps, newProps: ArcadeAngularProps) {
   iterateProps(oldProps, newProps, (key, newValue) => {
     switch (key) {
       case 'angularAcceleration':

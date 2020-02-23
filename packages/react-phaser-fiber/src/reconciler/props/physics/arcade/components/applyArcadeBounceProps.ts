@@ -1,13 +1,14 @@
-import { BounceProps, Point } from '../../../types'
+import { ArcadeBounceProps } from '../types'
+import { Point } from '../../../types'
 import { iterateProps } from '../../../iterateProps'
 import isEqual from 'fast-deep-equal'
 
 /**
  * Applies props for Phaser.Physics.Arcade.Components.Bounce
  */
-export function applyArcadeBounceProps<
+export function applyArcadeArcadeBounceProps<
   T extends Phaser.Physics.Arcade.Components.Bounce
->(instance: T, oldProps: BounceProps, newProps: BounceProps) {
+>(instance: T, oldProps: ArcadeBounceProps, newProps: ArcadeBounceProps) {
   iterateProps(oldProps, newProps, (key, newValue, oldValue) => {
     switch (key) {
       case 'bounce':

@@ -1,4 +1,4 @@
-import { SizeProps } from '../../types'
+import { SizeProps } from '../types'
 import { iterateProps } from '../../iterateProps'
 
 /**

@@ -1,5 +1,5 @@
 import { iterateProps } from '../../iterateProps'
-import { BlendModeProps } from '../../types'
+import { BlendModeProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.BlendMode
