@@ -2,27 +2,6 @@ import { createGame } from '../../../test-utils/createGame'
 import { applyGameObjectProps } from './applyGameObjectProps'
 
 describe('applyGameObjectProps', () => {
-  it('applies acceleration props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {}, true)
-    const instance = scene.physics.add.sprite(0, 0, null)
-    const spy = jest.spyOn(instance, 'setAcceleration')
-
-    applyGameObjectProps(
-      instance,
-      {},
-      {
-        acceleration: {
-          x: 1,
-          y: 1,
-        },
-      }
-    )
-
-    expect(spy).toHaveBeenCalledWith(1, 1)
-  })
-
   it('applies angular props', async () => {
     const game = await createGame()
 
