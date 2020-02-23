@@ -5,7 +5,7 @@ import isEqual from 'fast-deep-equal'
 /**
  * Applies props for Phaser.Physics.Arcade.Components.Acceleration
  */
-export function applyArcadeArcadeAccelerationProps<
+export function applyArcadeAccelerationProps<
   T extends Phaser.Physics.Arcade.Components.Acceleration
 >(
   instance: T,

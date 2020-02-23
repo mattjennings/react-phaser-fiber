@@ -6,7 +6,7 @@ import isEqual from 'fast-deep-equal'
 /**
  * Applies props for Phaser.Physics.Arcade.Components.Bounce
  */
-export function applyArcadeArcadeBounceProps<
+export function applyArcadeBounceProps<
   T extends Phaser.Physics.Arcade.Components.Bounce
 >(instance: T, oldProps: ArcadeBounceProps, newProps: ArcadeBounceProps) {
   iterateProps(oldProps, newProps, (key, newValue, oldValue) => {

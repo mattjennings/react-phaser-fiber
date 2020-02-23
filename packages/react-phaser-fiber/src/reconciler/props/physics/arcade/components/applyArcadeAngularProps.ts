@@ -4,7 +4,7 @@ import { iterateProps } from '../../../iterateProps'
 /**
  * Applies props for Phaser.Physics.Arcade.Components.Angular
  */
-export function applyArcadeArcadeAngularProps<
+export function applyArcadeAngularProps<
   T extends Phaser.Physics.Arcade.Components.Angular
 >(instance: T, oldProps: ArcadeAngularProps, newProps: ArcadeAngularProps) {
   iterateProps(oldProps, newProps, (key, newValue) => {
