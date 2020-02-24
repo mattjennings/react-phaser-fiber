@@ -3,6 +3,7 @@ import invariant from 'fbjs/lib/invariant'
 import { SpriteElement } from './elements/Sprite'
 import { GroupElement } from './elements/Group'
 import { TextElement } from './elements/Text'
+import { ImageElement } from './elements/Image'
 
 export interface CreatePhaserComponentConfig<T, P> {
   create: (props: P, game: Phaser.Game) => T
@@ -11,6 +12,7 @@ export interface CreatePhaserComponentConfig<T, P> {
 
 export const TYPES: Record<string, string> = {
   Text: 'Text',
+  Image: 'Image',
   Sprite: 'Sprite',
   Group: 'Group',
 }
@@ -18,6 +20,7 @@ export const TYPES: Record<string, string> = {
 export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
   Text: TextElement,
   Sprite: SpriteElement,
+  Image: ImageElement,
   Group: GroupElement,
 }
 
