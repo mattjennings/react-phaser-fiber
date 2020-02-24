@@ -44,12 +44,15 @@ export interface ArcadeDragProps {
 }
 
 export interface ArcadeEnableProps {
-  disableBody?: boolean
-
   /**
-   * If disableBody is true, this will also hide the body
+   * Disables the Body
    */
-  hideBody?: boolean
+  disableBody?:
+    | boolean
+    | {
+        disableGameObject?: boolean
+        hideGameObject?: boolean
+      }
 }
 
 export interface ArcadeFrictionProps {

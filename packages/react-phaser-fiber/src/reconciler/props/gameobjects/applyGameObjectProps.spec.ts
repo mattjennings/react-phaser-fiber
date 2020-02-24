@@ -2,50 +2,6 @@ import { createGame } from '../../../test-utils/createGame'
 import { applyGameObjectProps } from './applyGameObjectProps'
 
 describe('applyGameObjectProps', () => {
-  it('applies drag props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {}, true)
-    const instance = scene.physics.add.sprite(0, 0, null)
-    const setDamping = jest.spyOn(instance, 'setDamping')
-    const setDrag = jest.spyOn(instance, 'setDrag')
-    // @ts-ignore - not in type defs, but is there
-    const setAllowDrag = jest.spyOn(instance.body, 'setAllowDrag')
-
-    applyGameObjectProps(
-      instance,
-      {},
-      {
-        damping: 1,
-        drag: 1,
-        allowDrag: true,
-      }
-    )
-
-    expect(setDamping).toHaveBeenCalledWith(1)
-    expect(setDrag).toHaveBeenCalledWith(1, 1)
-    expect(setAllowDrag).toHaveBeenCalledWith(true)
-  })
-
-  it('applies enable props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {}, true)
-    const instance = scene.physics.add.sprite(0, 0, null)
-    const disableBody = jest.spyOn(instance, 'disableBody')
-
-    applyGameObjectProps(
-      instance,
-      {},
-      {
-        disableBody: true,
-        hideBody: true,
-      }
-    )
-
-    expect(disableBody).toHaveBeenCalledWith(true, true)
-  })
-
   it('applies friction props', async () => {
     const game = await createGame()
 
