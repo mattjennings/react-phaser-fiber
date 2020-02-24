@@ -1,6 +1,6 @@
 import { ArcadeVelocityProps } from '../types'
 import isEqual from 'fast-deep-equal'
-import { iterateProps } from '../../../iterateProps'
+import { iterateProps } from '../../../../util/iterateProps'
 import { Point } from '../../../types'
 
 /**

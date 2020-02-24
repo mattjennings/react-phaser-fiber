@@ -1,66 +1,17 @@
 import * as Phaser from 'phaser'
-import GameObject, { GameObjectProps } from './GameObject'
-import { useScene } from '../hooks/useScene'
 import React, { useImperativeHandle, useMemo } from 'react'
-import {
-  AlphaProps,
-  BlendModeProps,
-  ComputedSizeProps,
-  DepthProps,
-  FlipProps,
-  MaskProps,
-  OriginProps,
-  PipelineProps,
-  ScrollFactorProps,
-  TintProps,
-  TransformProps,
-  VisibleProps,
-  AccelerationProps,
-  AngularProps,
-  BounceProps,
-  DebugProps,
-  EnableProps,
-  DragProps,
-  FrictionProps,
-  GravityProps,
-  ImmovableProps,
-  MassProps,
-  SizeProps,
-  VelocityProps,
-} from '../reconciler'
+import { useScene } from '../hooks/useScene'
+import { TYPES } from '../reconciler/element'
+import { ArcadeImageElementProps } from '../reconciler/elements/ArcadeImage'
+import { GameObjectContext } from '../hooks/useGameObject'
+
+const ArcadeImageElement = (TYPES.ArcadeImage as unknown) as React.FC<
+  ArcadeImageElementProps
+>
 
 export interface ArcadeImageProps
-  extends Omit<
-      GameObjectProps<Phaser.Physics.Arcade.Image>,
-      'ref' | 'instance' | 'physics'
-    >,
-    AlphaProps,
-    BlendModeProps,
-    ComputedSizeProps,
-    DepthProps,
-    FlipProps,
-    MaskProps,
-    OriginProps,
-    PipelineProps,
-    ScrollFactorProps,
-    TintProps,
-    TransformProps,
-    VisibleProps,
-    AccelerationProps,
-    AngularProps,
-    BounceProps,
-    DebugProps,
-    EnableProps,
-    DragProps,
-    FrictionProps,
-    GravityProps,
-    ImmovableProps,
-    MassProps,
-    SizeProps,
-    VelocityProps {
+  extends Omit<ArcadeImageElementProps, 'instance' | 'scene'> {
   instance?: Phaser.Physics.Arcade.Image
-  texture?: string
-  frame?: string | number
 }
 
 function ArcadeImage(
@@ -83,7 +34,11 @@ function ArcadeImage(
 
   useImperativeHandle(ref, () => instance)
 
-  return <GameObject instance={instance} physics="arcade" {...props} />
+  return (
+    <GameObjectContext.Provider value={instance}>
+      <ArcadeImageElement scene={scene} instance={instance} {...props} />
+    </GameObjectContext.Provider>
+  )
 }
 
 export default React.forwardRef(ArcadeImage)

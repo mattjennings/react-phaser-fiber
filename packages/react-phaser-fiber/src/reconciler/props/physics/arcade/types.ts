@@ -12,11 +12,17 @@ export interface ArcadeAngularProps {
   angularVelocity?: number
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ArcadeBodyProps {
   allowDrag?: boolean
   allowGravity?: boolean
   allowRotation?: boolean
+
+  /**
+   * Determines whether or not the Arcade Body is static or dynamic
+   *
+   * (this is only used on mount - it cannot be changed)
+   */
+  physicsType?: 'static' | 'dynamic'
 }
 
 export interface ArcadeBounceProps {

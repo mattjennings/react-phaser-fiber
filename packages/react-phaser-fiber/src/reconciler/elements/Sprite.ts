@@ -31,8 +31,8 @@ import {
   TextureProps,
   applySizeProps,
   applyTextureProps,
+  applyAlphaProps,
 } from '../props'
-import { assignSceneKey } from '../assignSceneKey'
 
 export interface SpriteElementProps
   extends GameObjectProps<Phaser.GameObjects.Sprite>,
@@ -65,6 +65,7 @@ export const SpriteElement: CreatePhaserComponentConfig<
   applyProps: (instance, oldProps, newProps) => {
     applyGameObjectProps(instance, oldProps, newProps)
     applyAnimationProps(instance, oldProps, newProps)
+    applyAlphaProps(instance, oldProps, newProps)
     applyBlendModeProps(instance, oldProps, newProps)
     applyCropProps(instance, oldProps, newProps)
     applyDepthProps(instance, oldProps, newProps)

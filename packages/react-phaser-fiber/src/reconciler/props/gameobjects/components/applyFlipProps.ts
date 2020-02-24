@@ -1,4 +1,4 @@
-import { iterateProps } from '../../iterateProps'
+import { iterateProps } from '../../../util/iterateProps'
 import { FlipProps } from '../types'
 
 /**

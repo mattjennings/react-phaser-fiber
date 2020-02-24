@@ -1,5 +1,4 @@
 import React from 'react'
-import { assignSceneKey } from '../assignSceneKey'
 import { CreatePhaserComponentConfig } from '../element'
 import {
   AlphaProps,
@@ -13,7 +12,7 @@ import {
   TintProps,
   TransformProps,
 } from '../props'
-import { iterateProps } from '../props/iterateProps'
+import { iterateProps } from '../util/iterateProps'
 
 export interface GroupElementProps
   extends AlphaProps,

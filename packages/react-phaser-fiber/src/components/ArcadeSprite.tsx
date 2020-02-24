@@ -1,62 +1,16 @@
 import * as Phaser from 'phaser'
-import React, { useImperativeHandle, useLayoutEffect, useMemo } from 'react'
+import React, { useImperativeHandle, useMemo } from 'react'
 import { useScene } from '../hooks/useScene'
-import Sprite, { SpriteProps } from './Sprite'
-import {
-  AlphaProps,
-  AnimationProps,
-  BlendModeProps,
-  ComputedSizeProps,
-  DepthProps,
-  FlipProps,
-  MaskProps,
-  OriginProps,
-  PipelineProps,
-  ScrollFactorProps,
-  TintProps,
-  TransformProps,
-  VisibleProps,
-  AccelerationProps,
-  AngularProps,
-  BounceProps,
-  DebugProps,
-  EnableProps,
-  DragProps,
-  FrictionProps,
-  GravityProps,
-  ImmovableProps,
-  MassProps,
-  SizeProps,
-  VelocityProps,
-} from '../reconciler'
+import { TYPES } from '../reconciler/element'
+import { ArcadeSpriteElementProps } from '../reconciler/elements/ArcadeSprite'
+import { GameObjectContext } from '../hooks/useGameObject'
+
+const ArcadeSpriteElement = (TYPES.ArcadeSprite as unknown) as React.FC<
+  ArcadeSpriteElementProps
+>
 
 export interface ArcadeSpriteProps
-  extends Omit<SpriteProps, 'ref' | 'instance' | 'physics'>,
-    AlphaProps,
-    AnimationProps,
-    BlendModeProps,
-    ComputedSizeProps,
-    DepthProps,
-    FlipProps,
-    MaskProps,
-    OriginProps,
-    PipelineProps,
-    ScrollFactorProps,
-    TintProps,
-    TransformProps,
-    VisibleProps,
-    AccelerationProps,
-    AngularProps,
-    BounceProps,
-    DebugProps,
-    EnableProps,
-    DragProps,
-    FrictionProps,
-    GravityProps,
-    ImmovableProps,
-    MassProps,
-    SizeProps,
-    VelocityProps {
+  extends Omit<ArcadeSpriteElementProps, 'instance' | 'scene'> {
   instance?: Phaser.Physics.Arcade.Sprite
 }
 
@@ -80,10 +34,11 @@ function ArcadeSprite(
 
   useImperativeHandle(ref, () => instance)
 
-  // reuse the Sprite component because it does some Sprite prop things
-  // but we'll need to disguise the props as any. This is smelly, but does
-  // share the common Sprite logic
-  return <Sprite instance={instance} physics="arcade" {...(props as any)} />
+  return (
+    <GameObjectContext.Provider value={instance}>
+      <ArcadeSpriteElement scene={scene} instance={instance} {...props} />
+    </GameObjectContext.Provider>
+  )
 }
 
 export default React.forwardRef(ArcadeSprite)

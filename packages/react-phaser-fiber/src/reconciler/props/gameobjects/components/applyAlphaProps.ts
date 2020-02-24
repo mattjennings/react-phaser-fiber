@@ -1,4 +1,4 @@
-import { iterateProps } from '../../iterateProps'
+import { iterateProps } from '../../../util/iterateProps'
 import isEqual from 'fast-deep-equal'
 import { AlphaProps } from '../types'
 import { CornerValues } from '../../types'

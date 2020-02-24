@@ -1,4 +1,3 @@
-import { assignSceneKey } from '../assignSceneKey'
 import { CreatePhaserComponentConfig } from '../element'
 import {
   AlphaProps,
@@ -30,6 +29,7 @@ import {
   applySizeProps,
   TextureProps,
   applyTextureProps,
+  applyAlphaProps,
 } from '../props'
 
 export interface ImageElementProps
@@ -61,6 +61,7 @@ export const ImageElement: CreatePhaserComponentConfig<
   },
   applyProps: (instance, oldProps, newProps) => {
     applyGameObjectProps(instance, oldProps, newProps)
+    applyAlphaProps(instance, oldProps, newProps)
     applyBlendModeProps(instance, oldProps, newProps)
     applyCropProps(instance, oldProps, newProps)
     applyDepthProps(instance, oldProps, newProps)

@@ -1,4 +1,4 @@
-import { sanitizeProps } from '../sanitizeProps'
+import { sanitizeProps } from './sanitizeProps'
 
 /**
  * A helper function for iterating over props that should be applied

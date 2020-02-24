@@ -1,5 +1,5 @@
 import { ArcadeBodyProps } from './types'
-import { iterateProps } from '../../iterateProps'
+import { iterateProps } from '../../../util/iterateProps'
 
 /**
  * Applies props for Phaser.Physics.Arcade.Body and Phaser.Physics.Arcade.StaticBody

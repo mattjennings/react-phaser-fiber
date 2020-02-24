@@ -26,9 +26,9 @@ import {
   CropProps,
   applyGameObjectProps,
   GameObjectProps,
+  applyAlphaProps,
 } from '../props'
-import { iterateProps } from '../props/iterateProps'
-import { assignSceneKey } from '../assignSceneKey'
+import { iterateProps } from '../util/iterateProps'
 
 export interface TextElementProps
   extends GameObjectProps<Phaser.GameObjects.Text>,
@@ -72,6 +72,7 @@ export const TextElement: CreatePhaserComponentConfig<
     })
 
     applyGameObjectProps(instance, oldProps, newProps)
+    applyAlphaProps(instance, oldProps, newProps)
     applyBlendModeProps(instance, oldProps, newProps)
     applyCropProps(instance, oldProps, newProps)
     applyDepthProps(instance, oldProps, newProps)

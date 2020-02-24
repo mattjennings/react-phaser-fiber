@@ -1,5 +1,5 @@
 import { ArcadeAccelerationProps } from '../types'
-import { iterateProps } from '../../../iterateProps'
+import { iterateProps } from '../../../../util/iterateProps'
 import isEqual from 'fast-deep-equal'
 
 /**

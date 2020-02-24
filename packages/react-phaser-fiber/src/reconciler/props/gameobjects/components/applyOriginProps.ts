@@ -1,5 +1,5 @@
 import { OriginProps } from '../types'
-import { iterateProps } from '../../iterateProps'
+import { iterateProps } from '../../../util/iterateProps'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Origin

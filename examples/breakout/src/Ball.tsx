@@ -2,7 +2,6 @@ import React, { useCallback, useImperativeHandle, useMemo } from 'react'
 import {
   ArcadeCollider,
   ArcadeImageProps,
-  GameObject,
   useGameLoop,
   useScene,
   ArcadeImage,

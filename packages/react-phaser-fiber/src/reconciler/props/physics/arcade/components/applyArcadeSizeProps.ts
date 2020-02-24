@@ -1,6 +1,6 @@
 import { ArcadeSizeProps } from '../types'
 import isEqual from 'fast-deep-equal'
-import { iterateProps } from '../../../iterateProps'
+import { iterateProps } from '../../../../util/iterateProps'
 
 /**
  * Applies props for Phaser.Physics.Arcade.Components.Size

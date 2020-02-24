@@ -4,6 +4,8 @@ import { SpriteElement } from './elements/Sprite'
 import { GroupElement } from './elements/Group'
 import { TextElement } from './elements/Text'
 import { ImageElement } from './elements/Image'
+import { ArcadeImageElement } from './elements/ArcadeImage'
+import { ArcadeSpriteElement } from './elements/ArcadeSprite'
 
 export interface CreatePhaserComponentConfig<T, P> {
   create: (props: P, game: Phaser.Game) => T
@@ -15,6 +17,8 @@ export const TYPES: Record<string, string> = {
   Image: 'Image',
   Sprite: 'Sprite',
   Group: 'Group',
+  ArcadeImage: 'ArcadeImage',
+  ArcadeSprite: 'ArcadeSprite',
 }
 
 export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
@@ -22,6 +26,8 @@ export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
   Sprite: SpriteElement,
   Image: ImageElement,
   Group: GroupElement,
+  ArcadeImage: ArcadeImageElement,
+  ArcadeSprite: ArcadeSpriteElement,
 }
 
 /******************
