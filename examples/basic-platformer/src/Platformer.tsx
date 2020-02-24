@@ -7,13 +7,13 @@ import Star from './Star'
 export default function Platformer() {
   return (
     <>
-      <Image x={400} y={300} texture="sky" />
+      <Image x={400} y={300} texture="sky" depth={-1} />
       <Player x={100} y={450} />
-      <Group name="platforms">
-        <Platform x={400} y={568} scale={2} physicsType="static" />
+      <Group name="platforms" depth={1}>
+        <Platform x={400} y={568} scale={2} />
         <Platform moving x={400} y={400} />
       </Group>
-      <Group name="stars">
+      <Group name="stars" depth={1}>
         {Array.from({ length: 11 }).map((_, index) => (
           <Star key={index} x={12 + index * 70} y={200} />
         ))}

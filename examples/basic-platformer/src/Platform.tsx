@@ -40,12 +40,13 @@ export default function MovingPlatform({
   return (
     <ArcadeImage
       {...props}
+      physicsType={moving ? 'dynamic' : 'static'}
       ref={ref}
       name="platform"
       texture="ground"
       immovable
-      allowGravity={false}
-      velocity={velocity}
+      allowGravity={moving ? false : undefined}
+      velocity={moving ? velocity : undefined}
     />
   )
 }

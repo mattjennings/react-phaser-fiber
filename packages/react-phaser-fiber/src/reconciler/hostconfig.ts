@@ -29,9 +29,8 @@ function appendChild(
   // __reactPhaser.sceneKey comes from GameObject's element creator
   if (parent instanceof Phaser.Game && child.__reactPhaser.sceneKey) {
     const scene = parent.scene.getScene(child.__reactPhaser.sceneKey)
-    if (!(child instanceof Phaser.GameObjects.Group)) {
-      scene.add.existing(child)
-    }
+
+    scene.add.existing(child)
   } else if (parent instanceof Phaser.GameObjects.Group) {
     parent.add(child, true)
   } else {

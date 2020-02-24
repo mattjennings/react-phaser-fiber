@@ -24,29 +24,6 @@ export default function Player(props: { x: number; y: number }) {
   const [velocityY, setVelocityY] = useState(0)
   const [animation, setAnimation] = useState('turn')
 
-  const animations = useMemo<Phaser.Types.Animations.Animation[]>(
-    () => [
-      {
-        key: 'left',
-        frames: scene.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-        frameRate: 10,
-        repeat: -1,
-      },
-      {
-        key: 'turn',
-        frames: [{ key: 'dude', frame: 4 }],
-        frameRate: 20,
-      },
-      {
-        key: 'right',
-        frames: scene.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-        frameRate: 10,
-        repeat: -1,
-      },
-    ],
-    [scene.anims]
-  )
-
   // keep our velocityX state in sync with the current velocityX of the instance
   useGameEvent('prestep', () => {
     if (ref.current?.body) {
@@ -79,7 +56,6 @@ export default function Player(props: { x: number; y: number }) {
       {...props}
       ref={ref}
       name="player"
-      animations={animations}
       animation={animation}
       texture="dude"
       collideWorldBounds
