@@ -3,9 +3,8 @@ import { applyArcadeEnableProps } from './applyArcadeEnableProps'
 
 describe('applyArcadeEnableProps', () => {
   it('applies disableBody', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const disableBody = jest.spyOn(instance, 'disableBody')
 
@@ -21,9 +20,8 @@ describe('applyArcadeEnableProps', () => {
   })
 
   it('enables the body', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const enableBody = jest.spyOn(instance, 'enableBody')
 
@@ -41,9 +39,8 @@ describe('applyArcadeEnableProps', () => {
   })
 
   it('applies disableBody with disableGameObject', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const disableBody = jest.spyOn(instance, 'disableBody')
 
@@ -61,9 +58,8 @@ describe('applyArcadeEnableProps', () => {
   })
 
   it('applies disableBody with hideGameObject', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const disableBody = jest.spyOn(instance, 'disableBody')
 

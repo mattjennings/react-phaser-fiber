@@ -3,9 +3,8 @@ import { applyAlphaProps } from './applyAlphaProps'
 
 describe('applyAlphaProps', () => {
   it('applies alpha props', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     applyAlphaProps(
@@ -20,9 +19,8 @@ describe('applyAlphaProps', () => {
   })
 
   it('applies alpha corner props', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     applyAlphaProps(

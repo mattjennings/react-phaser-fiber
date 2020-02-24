@@ -3,9 +3,8 @@ import { applyArcadeFrictionProps } from './applyArcadeFrictionProps'
 
 describe('applyArcadeFrictionProps', () => {
   it('applies friction as number', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setFriction = jest.spyOn(instance, 'setFriction')
 
@@ -21,9 +20,8 @@ describe('applyArcadeFrictionProps', () => {
   })
 
   it('applies friction as point', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setFriction = jest.spyOn(instance, 'setFriction')
 
@@ -42,9 +40,8 @@ describe('applyArcadeFrictionProps', () => {
   })
 
   it('applies frictionX and frictionY', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setFrictionX = jest.spyOn(instance, 'setFrictionX')
     const setFrictionY = jest.spyOn(instance, 'setFrictionY')

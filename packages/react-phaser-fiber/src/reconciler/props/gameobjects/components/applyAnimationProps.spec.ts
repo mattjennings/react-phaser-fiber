@@ -5,9 +5,8 @@ import { applyAnimationProps } from './applyAnimationProps'
 
 describe('applyAnimationProps', () => {
   it('applies animation props', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.sprite(0, 0, null)
     jest.spyOn(instance.anims, 'play')
 

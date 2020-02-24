@@ -12,7 +12,7 @@ export function applyOriginProps<
       case 'originX':
         instance.originX = newValue
         break
-      case 'displayOriginY':
+      case 'originY':
         instance.originY = newValue
         break
       case 'displayOriginX':

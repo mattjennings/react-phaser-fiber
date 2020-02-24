@@ -3,9 +3,8 @@ import { applySizeProps } from './applySizeProps'
 
 describe('applySizeProps', () => {
   it('applies height and width props', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     applySizeProps(
@@ -22,9 +21,8 @@ describe('applySizeProps', () => {
   })
 
   it('applies displayHeight and displayWidth props', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     applySizeProps(
@@ -41,9 +39,8 @@ describe('applySizeProps', () => {
   })
 
   it('applies setSizeToFrame', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     // i'm not sure how to properly create a Frame in a test,

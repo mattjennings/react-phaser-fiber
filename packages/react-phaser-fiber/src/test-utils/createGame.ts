@@ -17,5 +17,7 @@ export async function createGame(config: Phaser.Types.Core.GameConfig = {}) {
     }
   })
 
-  return game
+  const scene = game.scene.add('main', {})
+
+  return { game, scene }
 }

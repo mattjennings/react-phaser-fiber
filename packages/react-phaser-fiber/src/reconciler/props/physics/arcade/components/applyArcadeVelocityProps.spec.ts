@@ -3,9 +3,8 @@ import { applyArcadeVelocityProps } from './applyArcadeVelocityProps'
 
 describe('applyArcadeVelocityProps', () => {
   it('applies velocity as number', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setVelocity = jest.spyOn(instance, 'setVelocity')
 
@@ -21,9 +20,8 @@ describe('applyArcadeVelocityProps', () => {
   })
 
   it('applies velocity as point', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setVelocity = jest.spyOn(instance, 'setVelocity')
 
@@ -42,9 +40,8 @@ describe('applyArcadeVelocityProps', () => {
   })
 
   it('applies maxVelocity as number', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setMaxVelocity = jest.spyOn(instance, 'setMaxVelocity')
 
@@ -60,9 +57,8 @@ describe('applyArcadeVelocityProps', () => {
   })
 
   it('applies maxVelocity as point', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setMaxVelocity = jest.spyOn(instance, 'setMaxVelocity')
 
@@ -81,9 +77,8 @@ describe('applyArcadeVelocityProps', () => {
   })
 
   it('applies velocityX and velocityY', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setVelocityX = jest.spyOn(instance, 'setVelocityX')
     const setVelocityY = jest.spyOn(instance, 'setVelocityY')

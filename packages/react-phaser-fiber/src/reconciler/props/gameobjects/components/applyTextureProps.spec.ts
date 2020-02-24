@@ -3,9 +3,8 @@ import { applyTextureProps } from './applyTextureProps'
 
 describe('applyTextureProps', () => {
   it('applies texture', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     const setTexture = jest.spyOn(instance, 'setTexture')
@@ -22,9 +21,8 @@ describe('applyTextureProps', () => {
   })
 
   it('applies frame', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     const setFrame = jest.spyOn(instance, 'setFrame')

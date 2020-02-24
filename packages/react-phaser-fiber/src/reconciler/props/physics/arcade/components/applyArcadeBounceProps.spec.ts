@@ -3,9 +3,8 @@ import { applyArcadeBounceProps } from './applyArcadeBounceProps'
 
 describe('applyArcadeBounceProps', () => {
   it('applies bounce', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setBounce = jest.spyOn(instance, 'setBounce')
 
@@ -21,9 +20,8 @@ describe('applyArcadeBounceProps', () => {
   })
 
   it('applies bounceX', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setBounceX = jest.spyOn(instance, 'setBounceX')
 
@@ -39,9 +37,8 @@ describe('applyArcadeBounceProps', () => {
   })
 
   it('applies bounceY', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setBounceY = jest.spyOn(instance, 'setBounceY')
 
@@ -57,9 +54,8 @@ describe('applyArcadeBounceProps', () => {
   })
 
   it('applies collideWorldBounds', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setCollideWorldBounds = jest.spyOn(instance, 'setCollideWorldBounds')
 

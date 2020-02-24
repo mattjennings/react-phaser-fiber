@@ -3,9 +3,8 @@ import { applyArcadeGravityProps } from './applyArcadeGravityProps'
 
 describe('applyArcadeGravityProps', () => {
   it('applies gravity as number', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setGravity = jest.spyOn(instance, 'setGravity')
 
@@ -21,9 +20,8 @@ describe('applyArcadeGravityProps', () => {
   })
 
   it('applies gravity as point', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setGravity = jest.spyOn(instance, 'setGravity')
 
@@ -42,9 +40,8 @@ describe('applyArcadeGravityProps', () => {
   })
 
   it('applies gravityX and gravityY', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setGravityX = jest.spyOn(instance, 'setGravityX')
     const setGravityY = jest.spyOn(instance, 'setGravityY')

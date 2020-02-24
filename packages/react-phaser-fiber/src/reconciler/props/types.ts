@@ -14,7 +14,7 @@ export type Point = {
  * Base props for any GameObject
  */
 export interface GameObjectProps<T extends Phaser.GameObjects.GameObject> {
-  instance: T
+  instance?: T
   ref?: React.Ref<T>
   name?: string
   active?: boolean

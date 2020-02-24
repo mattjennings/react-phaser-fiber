@@ -3,9 +3,8 @@ import { applyArcadeAccelerationProps } from './applyArcadeAccelerationProps'
 
 describe('applyArcadeAccelerationProps', () => {
   it('applies acceleration', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const spy = jest.spyOn(instance, 'setAcceleration')
 
@@ -24,9 +23,8 @@ describe('applyArcadeAccelerationProps', () => {
   })
 
   it('applies accelerationX', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const spy = jest.spyOn(instance, 'setAccelerationX')
 
@@ -42,9 +40,8 @@ describe('applyArcadeAccelerationProps', () => {
   })
 
   it('applies accelerationY', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const spy = jest.spyOn(instance, 'setAccelerationY')
 

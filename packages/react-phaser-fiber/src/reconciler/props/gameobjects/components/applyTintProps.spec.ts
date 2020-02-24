@@ -3,9 +3,8 @@ import { applyTintProps } from './applyTintProps'
 
 describe('applyTintProps', () => {
   it('applies tint props', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
     jest.spyOn(instance, 'setTint')
     applyTintProps(
@@ -20,9 +19,8 @@ describe('applyTintProps', () => {
   })
 
   it('applies tint corner props', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
     jest.spyOn(instance, 'setTint')
     applyTintProps(
@@ -41,9 +39,8 @@ describe('applyTintProps', () => {
     expect(instance.setTint).toHaveBeenCalledWith(0.1, 0.2, 0.3, 0.4)
   })
   it('applies tintFill props', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
     jest.spyOn(instance, 'setTintFill')
     applyTintProps(
@@ -58,9 +55,8 @@ describe('applyTintProps', () => {
   })
 
   it('applies tintFill corner props', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
     jest.spyOn(instance, 'setTintFill')
     applyTintProps(

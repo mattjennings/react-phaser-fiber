@@ -3,9 +3,8 @@ import { createGame } from '../../../../../test-utils/createGame'
 
 describe('applyArcadeSizeProps', () => {
   it('applies size', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setSize = jest.spyOn(instance, 'setSize')
 
@@ -25,9 +24,8 @@ describe('applyArcadeSizeProps', () => {
   })
 
   it('applies offset', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setOffset = jest.spyOn(instance, 'setOffset')
 
@@ -46,9 +44,8 @@ describe('applyArcadeSizeProps', () => {
   })
 
   it('applies circle', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {}, true)
     const instance = scene.physics.add.sprite(0, 0, null)
     const setCircle = jest.spyOn(instance, 'setCircle')
 

@@ -3,9 +3,8 @@ import { applyCropProps } from './applyCropProps'
 
 describe('applyCropProps', () => {
   it('applies crop', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     const spy = jest.spyOn(instance, 'setCrop')
@@ -26,9 +25,8 @@ describe('applyCropProps', () => {
   })
 
   it('resets crop', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     const spy = jest.spyOn(instance, 'setCrop')
@@ -51,9 +49,8 @@ describe('applyCropProps', () => {
   })
 
   it('applies isCropped', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     applyCropProps(

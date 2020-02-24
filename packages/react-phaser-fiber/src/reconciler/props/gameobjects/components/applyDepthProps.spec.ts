@@ -3,9 +3,8 @@ import { applyDepthProps } from './applyDepthProps'
 
 describe('applyDepthProps', () => {
   it('applies depth', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = scene.add.image(0, 0, null)
 
     applyDepthProps(

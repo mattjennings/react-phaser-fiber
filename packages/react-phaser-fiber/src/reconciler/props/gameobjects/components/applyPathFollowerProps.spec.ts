@@ -3,9 +3,8 @@ import { applyPathFollowerProps } from './applyPathFollowerProps'
 
 describe('applyPathFollowerProps', () => {
   it('applies folllow for path', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = new Phaser.GameObjects.PathFollower(
       scene,
       null,
@@ -32,9 +31,8 @@ describe('applyPathFollowerProps', () => {
   })
 
   it('stops the follow', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = new Phaser.GameObjects.PathFollower(
       scene,
       null,
@@ -64,9 +62,8 @@ describe('applyPathFollowerProps', () => {
   })
 
   it('applies pauseFollow', async () => {
-    const game = await createGame()
+    const { game, scene } = await createGame()
 
-    const scene = game.scene.add('123', {})
     const instance = new Phaser.GameObjects.PathFollower(
       scene,
       null,
