@@ -2,64 +2,6 @@ import { createGame } from '../../../test-utils/createGame'
 import { applyGameObjectProps } from './applyGameObjectProps'
 
 describe('applyGameObjectProps', () => {
-  it('applies friction props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {}, true)
-    const instance = scene.physics.add.sprite(0, 0, null)
-    const setFriction = jest.spyOn(instance, 'setFriction')
-
-    applyGameObjectProps(
-      instance,
-      {},
-      {
-        friction: 1,
-      }
-    )
-
-    expect(setFriction).toHaveBeenCalledWith(1, 1)
-  })
-
-  it('applies gravity props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {}, true)
-    const instance = scene.physics.add.sprite(0, 0, null)
-    const setGravity = jest.spyOn(instance, 'setGravity')
-    // @ts-ignore - not in type defs
-    const setAllowGravity = jest.spyOn(instance.body, 'setAllowGravity')
-
-    applyGameObjectProps(
-      instance,
-      {},
-      {
-        gravity: 1,
-        allowGravity: true,
-      }
-    )
-
-    expect(setGravity).toHaveBeenCalledWith(1, 1)
-    expect(setAllowGravity).toHaveBeenCalledWith(true)
-  })
-
-  it('applies immovable props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {}, true)
-    const instance = scene.physics.add.sprite(0, 0, null)
-    const setImmovable = jest.spyOn(instance, 'setImmovable')
-
-    applyGameObjectProps(
-      instance,
-      {},
-      {
-        immovable: true,
-      }
-    )
-
-    expect(setImmovable).toHaveBeenCalledWith(true)
-  })
-
   it('applies mass props', async () => {
     const game = await createGame()
 
