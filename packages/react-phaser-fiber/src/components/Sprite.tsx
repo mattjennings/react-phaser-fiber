@@ -3,8 +3,9 @@ import React, { useImperativeHandle, useMemo } from 'react'
 import { useScene } from '../hooks/useScene'
 import { TYPES } from '../reconciler/element'
 import { SpriteElementProps } from '../reconciler/elements/Sprite'
+import { GameObjectContext } from '../hooks/useGameObject'
 
-const SpriteElement = (TYPES.Group as unknown) as React.FC<SpriteElementProps>
+const SpriteElement = (TYPES.Sprite as unknown) as React.FC<SpriteElementProps>
 
 export interface SpriteProps
   extends Omit<SpriteElementProps, 'instance' | 'scene'> {
@@ -28,7 +29,11 @@ function Sprite(props: SpriteProps, ref: React.Ref<Phaser.GameObjects.Sprite>) {
 
   useImperativeHandle(ref, () => instance)
 
-  return <SpriteElement scene={scene} instance={instance} {...props} />
+  return (
+    <GameObjectContext.Provider value={instance}>
+      <SpriteElement scene={scene} instance={instance} {...props} />
+    </GameObjectContext.Provider>
+  )
 }
 
 export default React.forwardRef(Sprite)

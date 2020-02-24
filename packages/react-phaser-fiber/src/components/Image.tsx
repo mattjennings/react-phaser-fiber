@@ -1,39 +1,15 @@
 import * as Phaser from 'phaser'
-import GameObject, { GameObjectProps } from './GameObject'
-import { useScene } from '../hooks/useScene'
 import React, { useImperativeHandle, useMemo } from 'react'
-import {
-  AlphaProps,
-  BlendModeProps,
-  ComputedSizeProps,
-  DepthProps,
-  FlipProps,
-  MaskProps,
-  OriginProps,
-  PipelineProps,
-  ScrollFactorProps,
-  TintProps,
-  TransformProps,
-  VisibleProps,
-} from '../reconciler'
+import { useScene } from '../hooks/useScene'
+import { TYPES } from '../reconciler/element'
+import { ImageElementProps } from '../reconciler/elements/Image'
+import { GameObjectContext } from '../hooks/useGameObject'
+
+const ImageElement = (TYPES.Image as unknown) as React.FC<ImageElementProps>
 
 export interface ImageProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Image>, 'instance' | 'ref'>,
-    AlphaProps,
-    BlendModeProps,
-    ComputedSizeProps,
-    DepthProps,
-    FlipProps,
-    MaskProps,
-    OriginProps,
-    PipelineProps,
-    ScrollFactorProps,
-    TintProps,
-    TransformProps,
-    VisibleProps {
+  extends Omit<ImageElementProps, 'instance' | 'scene'> {
   instance?: Phaser.GameObjects.Image
-  texture?: string
-  frame?: string | number
 }
 
 function Image(props: ImageProps, ref: React.Ref<Phaser.GameObjects.Image>) {
@@ -50,9 +26,14 @@ function Image(props: ImageProps, ref: React.Ref<Phaser.GameObjects.Image>) {
       ),
     []
   )
+
   useImperativeHandle(ref, () => instance)
 
-  return <GameObject instance={instance} {...props} />
+  return (
+    <GameObjectContext.Provider value={instance}>
+      <ImageElement scene={scene} instance={instance} {...props} />
+    </GameObjectContext.Provider>
+  )
 }
 
 export default React.forwardRef(Image)

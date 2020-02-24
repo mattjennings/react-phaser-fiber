@@ -1,12 +1,12 @@
+import { assignSceneKey } from '../assignSceneKey'
 import { CreatePhaserComponentConfig } from '../element'
 import {
   AlphaProps,
-  AnimationProps,
-  applyAnimationProps,
   applyBlendModeProps,
   applyCropProps,
   applyDepthProps,
   applyFlipProps,
+  applyGameObjectProps,
   applyMaskProps,
   applyOriginProps,
   applyPipelineProps,
@@ -15,8 +15,10 @@ import {
   applyTransformProps,
   applyVisibleProps,
   BlendModeProps,
+  CropProps,
   DepthProps,
   FlipProps,
+  GameObjectProps,
   MaskProps,
   OriginProps,
   PipelineProps,
@@ -25,46 +27,40 @@ import {
   TintProps,
   TransformProps,
   VisibleProps,
-  CropProps,
-  applyGameObjectProps,
-  GameObjectProps,
-  TextureProps,
   applySizeProps,
+  TextureProps,
   applyTextureProps,
 } from '../props'
-import { assignSceneKey } from '../assignSceneKey'
 
-export interface SpriteElementProps
-  extends GameObjectProps<Phaser.GameObjects.Sprite>,
+export interface ImageElementProps
+  extends GameObjectProps<Phaser.GameObjects.Image>,
     AlphaProps,
-    AnimationProps,
     BlendModeProps,
     CropProps,
-    SizeProps,
     DepthProps,
     FlipProps,
     MaskProps,
     OriginProps,
     PipelineProps,
     ScrollFactorProps,
+    SizeProps,
     TextureProps,
     TintProps,
     TransformProps,
     VisibleProps {
-  instance: Phaser.GameObjects.Sprite
+  instance: Phaser.GameObjects.Image
   scene: Phaser.Scene
 }
 
-export const SpriteElement: CreatePhaserComponentConfig<
-  Phaser.GameObjects.Sprite,
-  SpriteElementProps
+export const ImageElement: CreatePhaserComponentConfig<
+  Phaser.GameObjects.Image,
+  ImageElementProps
 > = {
   create: ({ instance }) => {
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {
     applyGameObjectProps(instance, oldProps, newProps)
-    applyAnimationProps(instance, oldProps, newProps)
     applyBlendModeProps(instance, oldProps, newProps)
     applyCropProps(instance, oldProps, newProps)
     applyDepthProps(instance, oldProps, newProps)
@@ -72,8 +68,8 @@ export const SpriteElement: CreatePhaserComponentConfig<
     applyMaskProps(instance, oldProps, newProps)
     applyOriginProps(instance, oldProps, newProps)
     applyPipelineProps(instance, oldProps, newProps)
-    applyScrollFactorProps(instance, oldProps, newProps)
     applySizeProps(instance, oldProps, newProps)
+    applyScrollFactorProps(instance, oldProps, newProps)
     applyTextureProps(instance, oldProps, newProps)
     applyTintProps(instance, oldProps, newProps)
     applyTransformProps(instance, oldProps, newProps)

@@ -6,7 +6,6 @@ import {
   AlphaProps,
   AnimationProps,
   BlendModeProps,
-  ComputedSizeProps,
   DepthProps,
   FlipProps,
   MaskProps,
@@ -16,6 +15,7 @@ import {
   TintProps,
   TransformProps,
   VisibleProps,
+  SizeProps,
 } from '../reconciler'
 
 export interface TileSpriteProps
@@ -23,12 +23,12 @@ export interface TileSpriteProps
     AlphaProps,
     AnimationProps,
     BlendModeProps,
-    ComputedSizeProps,
     DepthProps,
     FlipProps,
     MaskProps,
     OriginProps,
     PipelineProps,
+    SizeProps,
     ScrollFactorProps,
     TintProps,
     TransformProps,

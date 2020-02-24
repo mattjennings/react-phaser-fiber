@@ -102,7 +102,7 @@ export default {
     if (props.scene) {
       // @ts-ignore - we need to set the scene key so hostconfig knows which scene to add this instance to
       instance.__reactPhaser = {
-        sceneKey: props.scene.key,
+        sceneKey: props.scene.scene.key,
         applyProps: applyProps.bind(instance),
       }
     }

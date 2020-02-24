@@ -44,7 +44,6 @@ describe('applyPathFollowerProps', () => {
     )
     scene.add.existing(instance)
 
-    const startFollow = jest.spyOn(instance, 'startFollow')
     const stopFollow = jest.spyOn(instance, 'stopFollow')
 
     applyPathFollowerProps(

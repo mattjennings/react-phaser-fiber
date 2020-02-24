@@ -3,8 +3,9 @@ import React, { useImperativeHandle, useMemo } from 'react'
 import { useScene } from '../hooks/useScene'
 import { TYPES } from '../reconciler/element'
 import { TextElementProps } from '../reconciler/elements/Text'
+import { GameObjectContext } from '../hooks/useGameObject'
 
-const TextElement = (TYPES.Group as unknown) as React.FC<TextElementProps>
+const TextElement = (TYPES.Text as unknown) as React.FC<TextElementProps>
 
 export interface TextProps
   extends Omit<TextElementProps, 'instance' | 'scene'> {
@@ -28,7 +29,11 @@ function Text(props: TextProps, ref: React.Ref<Phaser.GameObjects.Text>) {
 
   useImperativeHandle(ref, () => instance)
 
-  return <TextElement scene={scene} instance={instance} {...props} />
+  return (
+    <GameObjectContext.Provider value={instance}>
+      <TextElement scene={scene} instance={instance} {...props} />
+    </GameObjectContext.Provider>
+  )
 }
 
 export default React.forwardRef(Text)

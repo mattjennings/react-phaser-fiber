@@ -5,5 +5,6 @@ import hostconfig from './hostconfig'
 export const PhaserFiber = Reconciler(hostconfig as any)
 export const VERSION = pkg.version
 export const PACKAGE_NAME = pkg.name
-export { createPhaserComponent } from './element'
 export * from './props'
+
+// export { createPhaserComponent } from './element'

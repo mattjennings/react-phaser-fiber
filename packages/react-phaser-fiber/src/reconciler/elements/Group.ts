@@ -33,8 +33,7 @@ export const GroupElement: CreatePhaserComponentConfig<
   Phaser.GameObjects.Group,
   GroupElementProps
 > = {
-  create: ({ scene, instance }) => {
-    assignSceneKey(instance, scene)
+  create: ({ instance }) => {
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {

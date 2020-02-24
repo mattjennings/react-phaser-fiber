@@ -1,6 +1,7 @@
-import { TintProps, CornerValues } from '../../types'
+import { CornerValues } from '../../types'
 import { iterateProps } from '../../iterateProps'
 import isEqual from 'fast-deep-equal'
+import { TintProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Tint

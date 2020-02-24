@@ -1,8 +1,6 @@
 import { CreatePhaserComponentConfig } from '../element'
 import {
   AlphaProps,
-  AnimationProps,
-  applyAnimationProps,
   applyBlendModeProps,
   applyCropProps,
   applyDepthProps,
@@ -57,8 +55,7 @@ export const TextElement: CreatePhaserComponentConfig<
   Phaser.GameObjects.Text,
   TextElementProps
 > = {
-  create: ({ instance, scene }) => {
-    assignSceneKey(instance, scene)
+  create: ({ instance }) => {
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {
