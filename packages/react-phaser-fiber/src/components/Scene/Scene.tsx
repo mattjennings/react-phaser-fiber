@@ -30,7 +30,7 @@ function Scene(
   ref: React.Ref<Phaser.Scene>
 ) {
   const game = useGame()
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!!onPreload)
   const [loadProgress, setLoadProgress] = useState(0)
 
   const scene = useMemo(() => {
@@ -58,10 +58,6 @@ function Scene(
 
     // can we use suspense instead somehow?
     listeners.push(
-      scene.load.on('start', () => {
-        setLoading(true)
-      }),
-
       scene.load.on('progress', (progress: number) => {
         setLoadProgress(progress)
       }),
