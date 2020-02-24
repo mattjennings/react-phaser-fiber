@@ -3,8 +3,8 @@ import { render, wait } from '@testing-library/react'
 import Game from './Game'
 import Scene from './Scene'
 import Group from './Group'
+import Image from './Image'
 import { waitForRef } from '../test-utils/waitForRef'
-import nock from 'nock'
 
 const wrapper = (props: any) => (
   <Game banner={false} type={Phaser.HEADLESS}>
@@ -12,30 +12,18 @@ const wrapper = (props: any) => (
   </Game>
 )
 
-// todo: figure out how to mock textures
-
 describe('Group', () => {
   it('creates a group', async () => {
     const ref = React.createRef<Phaser.GameObjects.Group>()
     render(
       <Scene sceneKey="123">
-        <Group
-          ref={ref}
-          active={false}
-          defaultFrame={0}
-          defaultKey={'0'}
-          isParent
-          name="my-group"
-        />
+        <Group ref={ref} active={false} name="my-group" />
       </Scene>,
       { wrapper }
     )
     await waitForRef(ref)
 
     expect(ref.current.active).toEqual(false)
-    expect(ref.current.defaultFrame).toEqual(0)
-    expect(ref.current.defaultKey).toEqual('0')
-    expect(ref.current.isParent).toEqual(true)
     expect(ref.current.name).toEqual('my-group')
   })
 
@@ -43,14 +31,7 @@ describe('Group', () => {
     const ref = React.createRef<Phaser.GameObjects.Group>()
     const { unmount } = render(
       <Scene sceneKey="123">
-        <Group
-          ref={ref}
-          active={false}
-          defaultFrame={0}
-          defaultKey={'0'}
-          isParent
-          name="my-group"
-        />
+        <Group ref={ref} active={false} name="my-group" />
       </Scene>,
       { wrapper }
     )
@@ -61,5 +42,43 @@ describe('Group', () => {
     unmount()
 
     expect(destroy).toHaveBeenCalled()
+  })
+
+  it('adds the game object to the group', async () => {
+    const groupRef = React.createRef<Phaser.GameObjects.Group>()
+    render(
+      <Scene sceneKey="123">
+        <Group ref={groupRef}>
+          <Image x={100} y={100} texture="something" />
+        </Group>
+      </Scene>,
+      { wrapper }
+    )
+
+    await wait()
+
+    expect(groupRef.current.children.entries).toHaveLength(1)
+  })
+
+  it('removes the game object from the group', async () => {
+    const groupRef = React.createRef<Phaser.GameObjects.Group>()
+
+    const { rerender } = render(
+      <Scene sceneKey="123">
+        <Group ref={groupRef}>
+          <Image x={100} y={100} texture="something" />
+        </Group>
+      </Scene>,
+      { wrapper }
+    )
+
+    await wait()
+    rerender(
+      <Scene sceneKey="123">
+        <Group ref={groupRef}></Group>
+      </Scene>
+    )
+
+    expect(groupRef.current.children.entries).toHaveLength(0)
   })
 })
