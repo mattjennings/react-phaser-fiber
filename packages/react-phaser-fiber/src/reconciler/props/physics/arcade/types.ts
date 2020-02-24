@@ -15,6 +15,7 @@ export interface ArcadeAngularProps {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ArcadeBodyProps {
   allowRotation?: boolean
+  allowDrag?: boolean
   onWorldBounds?: boolean
   // todo
   // https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Body.html#toc3__anchor
@@ -36,11 +37,10 @@ export interface ArcadeDebugProps {
 }
 
 export interface ArcadeDragProps {
-  damping?: number
+  damping?: boolean
   dragX?: number
   dragY?: number
   drag?: number | Point
-  allowDrag?: boolean
 }
 
 export interface ArcadeEnableProps {

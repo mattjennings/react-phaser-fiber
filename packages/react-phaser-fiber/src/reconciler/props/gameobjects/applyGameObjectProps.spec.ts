@@ -2,27 +2,6 @@ import { createGame } from '../../../test-utils/createGame'
 import { applyGameObjectProps } from './applyGameObjectProps'
 
 describe('applyGameObjectProps', () => {
-  it('applies debug props', async () => {
-    const game = await createGame()
-
-    const scene = game.scene.add('123', {}, true)
-    const instance = scene.physics.add.sprite(0, 0, null)
-
-    applyGameObjectProps(
-      instance,
-      {},
-      {
-        debugBodyColor: 0x00,
-        debugShowBody: true,
-        debugShowVelocity: true,
-      }
-    )
-
-    expect(instance.debugBodyColor).toEqual(0x00)
-    expect(instance.debugShowBody).toEqual(true)
-    expect(instance.debugShowVelocity).toEqual(true)
-  })
-
   it('applies drag props', async () => {
     const game = await createGame()
 
