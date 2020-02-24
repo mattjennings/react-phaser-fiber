@@ -82,10 +82,7 @@ export interface ArcadeSizeProps {
     offsetX?: number
     offsetY?: number
   }
-  offset?: {
-    x?: number
-    y?: number
-  }
+  offset?: Point
   size?: {
     width: number
     height: number
