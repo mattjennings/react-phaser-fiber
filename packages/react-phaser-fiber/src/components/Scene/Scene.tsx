@@ -1,4 +1,4 @@
-import * as Phaser from 'phaser'
+import Phaser from 'phaser'
 import React, {
   useLayoutEffect,
   useMemo,
@@ -34,16 +34,19 @@ function Scene(
   const [loadProgress, setLoadProgress] = useState(0)
 
   const scene = useMemo(() => {
-    const instance = game.scene.add(
-      sceneKey,
-      {
-        ...options,
-        preload: onPreload ? () => onPreload(instance) : null,
-        create: onCreate ? () => onCreate(instance) : null,
-        init: onInit ? () => onInit(instance) : null,
-      },
-      true
-    )
+    const instance = new Phaser.Scene({
+      ...options,
+      key: sceneKey,
+    })
+
+    // @ts-ignore
+    instance.preload = onPreload ? () => onPreload(instance) : null
+    // @ts-ignore
+    instance.create = onCreate ? () => onCreate(instance) : null
+    // @ts-ignore
+    instance.init = onInit ? () => onInit(instance) : null
+
+    game.scene.add(sceneKey, instance, true)
 
     return instance
   }, [])
@@ -62,10 +65,6 @@ function Scene(
       scene.load.on('complete', () => {
         setLoading(false)
         setLoadProgress(0)
-      }),
-
-      scene.events.on('start', () => {
-        setLoading(false)
       })
     )
 

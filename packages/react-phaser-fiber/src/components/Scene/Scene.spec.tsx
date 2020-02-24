@@ -3,7 +3,6 @@ import React from 'react'
 import Game from '../Game'
 import Scene from './Scene'
 import nock from 'nock'
-import waitTime from 'waait'
 
 describe('Scene', () => {
   it('adds a scene to the game', async () => {
@@ -79,19 +78,18 @@ describe('Scene', () => {
       .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
       .get('/json')
       .reply(200, { blah: '123' })
-      .get('/json')
+      .get('/json2')
       .reply(200, { blah: '123' })
-      .get('/json')
+      .get('/json3')
       .reply(200, { blah: '123' })
 
     const sceneRef = React.createRef<Phaser.Scene>()
-
     const renderLoading = jest.fn()
 
     render(
       <Game banner={false} type={Phaser.HEADLESS}>
         <Scene
-          sceneKey="123"
+          sceneKey="main"
           ref={sceneRef}
           renderLoading={renderLoading}
           onPreload={scene => {
@@ -101,11 +99,11 @@ describe('Scene', () => {
             })
             scene.load.json({
               key: 'json2',
-              url: 'http://fake-url.com/json',
+              url: 'http://fake-url.com/json2',
             })
             scene.load.json({
               key: 'json3',
-              url: 'http://fake-url.com/json',
+              url: 'http://fake-url.com/json3',
             })
           }}
         />
