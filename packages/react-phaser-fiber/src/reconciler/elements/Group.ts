@@ -1,29 +1,59 @@
-import { applyCommonProps, TransformProps } from '../props'
-import { CreatePhaserComponentConfig } from '../element'
+import React from 'react'
 import { assignSceneKey } from '../assignSceneKey'
+import { CreatePhaserComponentConfig } from '../element'
+import {
+  AlphaProps,
+  applyAlphaProps,
+  applyDepthProps,
+  applyOriginProps,
+  applyTintProps,
+  applyTransformProps,
+  DepthProps,
+  OriginProps,
+  TintProps,
+  TransformProps,
+} from '../props'
+import { iterateProps } from '../props/iterateProps'
 
-export interface GroupProps extends TransformProps {
-  scene: Phaser.Scene
+export interface GroupElementProps
+  extends AlphaProps,
+    DepthProps,
+    OriginProps,
+    TintProps,
+    TransformProps {
   instance: Phaser.GameObjects.Group
+  scene: Phaser.Scene
+  ref?: React.Ref<Phaser.GameObjects.Group>
   active?: boolean
-  defaultFrame?: number
-  defaultKey?: string
-  isParent?: boolean
   name?: string
   children?: React.ReactNode
 }
 
-const Group: CreatePhaserComponentConfig<
+export const GroupElement: CreatePhaserComponentConfig<
   Phaser.GameObjects.Group,
-  GroupProps
+  GroupElementProps
 > = {
-  create: ({ instance, scene }) => {
+  create: ({ scene, instance }) => {
     assignSceneKey(instance, scene)
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {
-    applyCommonProps(instance, oldProps, newProps)
+    // apply group props
+    iterateProps(oldProps, newProps, (key, newValue) => {
+      switch (key) {
+        case 'active':
+          instance.active = newValue as boolean
+          break
+        case 'name':
+          instance.name = newValue as string
+          break
+      }
+    })
+
+    applyAlphaProps(instance as any, oldProps, newProps)
+    applyDepthProps(instance as any, oldProps, newProps)
+    applyOriginProps(instance as any, oldProps, newProps)
+    applyTintProps(instance as any, oldProps, newProps)
+    applyTransformProps(instance as any, oldProps, newProps)
   },
 }
-
-export default Group

@@ -1,5 +1,5 @@
-import { AnimationProps } from '../../types'
 import { iterateProps } from '../../iterateProps'
+import { AnimationProps } from '../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Animation

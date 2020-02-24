@@ -1,41 +1,14 @@
 import * as Phaser from 'phaser'
 import React, { useImperativeHandle, useMemo } from 'react'
-import GameObject, { GameObjectProps } from './GameObject'
 import { useScene } from '../hooks/useScene'
-import {
-  AlphaProps,
-  BlendModeProps,
-  ComputedSizeProps,
-  CropProps,
-  DepthProps,
-  FlipProps,
-  MaskProps,
-  OriginProps,
-  PipelineProps,
-  ScrollFactorProps,
-  TintProps,
-  TransformProps,
-  VisibleProps,
-} from '../reconciler'
+import { TYPES } from '../reconciler/element'
+import { TextElementProps } from '../reconciler/elements/Text'
+
+const TextElement = (TYPES.Group as unknown) as React.FC<TextElementProps>
 
 export interface TextProps
-  extends Omit<GameObjectProps<Phaser.GameObjects.Text>, 'instance' | 'ref'>,
-    AlphaProps,
-    BlendModeProps,
-    ComputedSizeProps,
-    CropProps,
-    DepthProps,
-    FlipProps,
-    MaskProps,
-    OriginProps,
-    PipelineProps,
-    ScrollFactorProps,
-    TintProps,
-    TransformProps,
-    VisibleProps {
+  extends Omit<TextElementProps, 'instance' | 'scene'> {
   instance?: Phaser.GameObjects.Text
-  text?: string | string[]
-  style: Phaser.Types.GameObjects.Text.TextStyle
 }
 
 function Text(props: TextProps, ref: React.Ref<Phaser.GameObjects.Text>) {
@@ -55,7 +28,7 @@ function Text(props: TextProps, ref: React.Ref<Phaser.GameObjects.Text>) {
 
   useImperativeHandle(ref, () => instance)
 
-  return <GameObject instance={instance} {...props} />
+  return <TextElement scene={scene} instance={instance} {...props} />
 }
 
 export default React.forwardRef(Text)

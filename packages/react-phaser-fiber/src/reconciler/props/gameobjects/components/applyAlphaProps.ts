@@ -1,6 +1,7 @@
-import { AlphaProps, CornerValues } from '../../types'
 import { iterateProps } from '../../iterateProps'
 import isEqual from 'fast-deep-equal'
+import { AlphaProps } from '../types'
+import { CornerValues } from '../../types'
 
 /**
  * Applies props for Phaser.GameObjects.Components.Alpha

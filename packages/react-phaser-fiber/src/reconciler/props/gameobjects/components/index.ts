@@ -1,5 +1,5 @@
 export * from './applyAlphaProps'
-export * from './applyAnimationProps.ts'
+export * from './applyAnimationProps'
 export * from './applyBlendModeProps'
 export * from './applyCropProps'
 export * from './applyDepthProps'

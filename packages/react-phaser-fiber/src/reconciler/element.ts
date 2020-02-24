@@ -1,7 +1,8 @@
 import * as Phaser from 'phaser'
-import GameObject from './elements/GameObject'
 import invariant from 'fbjs/lib/invariant'
-import Group from './elements/Group'
+import { SpriteElement } from './elements/Sprite'
+import { GroupElement } from './elements/Group'
+import { TextElement } from './elements/Text'
 
 export interface CreatePhaserComponentConfig<T, P> {
   create: (props: P, game: Phaser.Game) => T
@@ -9,13 +10,15 @@ export interface CreatePhaserComponentConfig<T, P> {
 }
 
 export const TYPES: Record<string, string> = {
-  GameObject: 'GameObject',
+  Text: 'Text',
+  Sprite: 'Sprite',
   Group: 'Group',
 }
 
 export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
-  GameObject,
-  Group,
+  Text: TextElement,
+  Sprite: SpriteElement,
+  Group: GroupElement,
 }
 
 /******************
@@ -27,20 +30,21 @@ export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
  * @param type
  * @param config
  */
-export function createPhaserComponent<
-  T extends Phaser.GameObjects.GameObject,
-  P
->(type: string, config: CreatePhaserComponentConfig<T, P>) {
-  invariant(!!type, `Expected type to be defined, got ${type}`)
-  invariant(
-    !TYPES[type as keyof typeof TYPES],
-    `Component ${type} already exists`
-  )
+// not sure if we want to allow this or not
+// export function createPhaserComponent<
+//   T extends Phaser.GameObjects.GameObject,
+//   P
+// >(type: string, config: CreatePhaserComponentConfig<T, P>) {
+//   invariant(!!type, `Expected type to be defined, got ${type}`)
+//   invariant(
+//     !TYPES[type as keyof typeof TYPES],
+//     `Component ${type} already exists`
+//   )
 
-  TYPES[type as keyof typeof TYPES] = type
-  ELEMENTS[type] = config
+//   TYPES[type as keyof typeof TYPES] = type
+//   ELEMENTS[type] = config
 
-  // type needs to be returned as string for reconciler, but externally it will be typed
-  // as a component
-  return (type as unknown) as React.ComponentType<P>
-}
+//   // type needs to be returned as string for reconciler, but externally it will be typed
+//   // as a component
+//   return (type as unknown) as React.ComponentType<P>
+// }
