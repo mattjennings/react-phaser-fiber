@@ -34,6 +34,17 @@ const App = () => {
           scene.load.image('ship', 'player.png')
           scene.load.image('starfield', 'starfield.png')
         }}
+        onCreate={scene => {
+          scene.anims.create({
+            key: 'enemy/fly',
+            frames: scene.anims.generateFrameNumbers('invader', {
+              start: 0,
+              end: 4,
+            }),
+            frameRate: 10,
+            repeat: -1,
+          })
+        }}
       >
         <Spawner>
           <Enemies />
