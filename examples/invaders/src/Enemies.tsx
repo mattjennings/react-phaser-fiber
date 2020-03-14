@@ -1,43 +1,28 @@
-import React, {
-  useReducer,
-  useState,
-  useRef,
-  useLayoutEffect,
-  useEffect,
-} from 'react'
+import React, { useReducer, useState } from 'react'
+import { ArcadeGroup, useTimer } from 'react-phaser-fiber'
 import Enemy from './Enemy'
-import { useGameLoop, Group, useScene, ArcadeGroup } from 'react-phaser-fiber'
 
 export default function Enemies() {
-  const groupRef = useRef<Phaser.Physics.Arcade.Group>(null)
   const [state, dispatch] = useReducer(reducer, defaultState)
+  const [velocityX, setVelocityX] = useState(40)
+  const [y, setY] = useState(70)
 
-  const scene = useScene()
-  const [xDirection, setXDirection] = useState(1)
-  const [y, setY] = useState(20)
+  useTimer(
+    () => {
+      setVelocityX(prev => -prev)
+      setY(y => y + 16)
+    },
+    4500,
+    { loop: true }
+  )
 
-  useGameLoop(() => {
-    if (groupRef.current) {
-      // if (groupRef.current > 400 || groupRef.current.x < 200) {
-      // setXDirection(xDirection * -1)
-      // setY(y => y + 32)
-      // }
-    }
-  })
-
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setXDirection(xDirection * -1)
-  //     // setY(y => y + 32)
-  //   }, 3000)
-  // }, [xDirection])
   return (
-    <ArcadeGroup name="enemies" ref={groupRef} velocityX={40 * xDirection}>
+    <ArcadeGroup velocityX={velocityX}>
       {state.enemies.map(enemy => (
         <Enemy
           key={enemy.key}
-          x={enemy.x}
-          y={enemy.y + y}
+          x={100 + enemy.x}
+          y={y + enemy.y}
           onDestroy={() => dispatch({ type: 'DESTROY', payload: enemy.key })}
         />
       ))}
@@ -55,12 +40,13 @@ function reducer(state: EnemiesState, action: { payload: any; type: string }) {
 
 const defaultState: EnemiesState = {
   enemies: Array.from({ length: 40 }).map((_, index) => {
-    const rows = 4
     const columns = 10
+    const column = index % columns
+    const row = Math.floor(index / columns)
 
     return {
-      x: 100 + (index % columns) * 48,
-      y: 70 + rows * Math.floor(index / columns) * 8,
+      x: column * 48,
+      y: row * 24,
       key: index,
     }
   }),
