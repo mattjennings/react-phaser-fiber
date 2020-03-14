@@ -1,7 +1,8 @@
 import { useArcadeCollider, useGameObject, ColliderObjectType } from '../hooks'
+import { useGroup } from '../hooks/useGroup'
 
 export interface ArcadeColliderProps<With extends ColliderObjectType> {
-  with: With
+  with: With | With[]
   overlapOnly?: boolean
   onCollide?: (self: any, other: With extends string ? any : With) => any
   onProcess?: (self: any, other: With extends string ? any : With) => any
@@ -33,12 +34,16 @@ export default function ArcadeCollider<With extends ColliderObjectType = any>(
   const { onCollide, onProcess, overlapOnly } = props
 
   const gameObject = useGameObject()
+  const group = useGroup() as Phaser.Physics.Arcade.Group
 
-  if (!gameObject) {
-    throw Error('ArcadeCollider must be used within a GameObject component')
+  if (!gameObject && !group) {
+    // todo: check if it's actually an arcade component/group
+    throw Error(
+      'ArcadeCollider must be used within an game object or group component'
+    )
   }
 
-  useArcadeCollider(gameObject, props.with, {
+  useArcadeCollider(gameObject || group, props.with, {
     overlapOnly,
     onCollide,
     onProcess,

@@ -45,7 +45,9 @@ function ArcadeGroup(
         scene={scene}
         instance={instance}
         {...(shouldSetProps ? props : {})}
-      />
+      >
+        {props.children}
+      </ArcadeGroupElement>
     </GroupContext.Provider>
   )
 }
