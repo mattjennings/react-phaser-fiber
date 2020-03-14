@@ -65,6 +65,7 @@ export interface ArcadeGroupElementProps
   ref?: React.Ref<Phaser.Physics.Arcade.Group>
   active?: boolean
   name?: string
+  runChildUpdate?: boolean
   children?: React.ReactNode
 }
 
@@ -86,6 +87,9 @@ export const ArcadeGroupElement: CreatePhaserComponentConfig<
           break
         case 'name':
           instance.name = newValue as string
+          break
+        case 'runChildUpdate':
+          instance.runChildUpdate = newValue as boolean
           break
       }
     })

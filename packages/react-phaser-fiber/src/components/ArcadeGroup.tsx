@@ -50,4 +50,6 @@ function ArcadeGroup(
   )
 }
 
-export default React.forwardRef(ArcadeGroup)
+export default React.forwardRef<Phaser.Physics.Arcade.Group, ArcadeGroupProps>(
+  ArcadeGroup
+)
