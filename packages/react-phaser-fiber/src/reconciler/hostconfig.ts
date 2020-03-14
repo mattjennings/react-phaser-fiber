@@ -62,9 +62,10 @@ function insertBefore(
     const childExists = scene.children.exists(child)
     const index = scene.children.getIndex(beforeChild)
 
-    childExists
-      ? scene.children.moveTo(child, index)
-      : scene.children.addAt(child, index)
+    if (!childExists) {
+      scene.add.existing(child)
+    }
+    scene.children.moveTo(child, index)
   }
 }
 
