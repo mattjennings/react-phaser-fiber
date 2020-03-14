@@ -3,7 +3,10 @@ import { useScene } from './useScene'
 import { Scene } from 'phaser'
 import { findGameObjectsByName } from '../utils'
 
-export type ColliderObjectType = Phaser.GameObjects.GameObject | string
+export type ColliderObjectType =
+  | Phaser.GameObjects.GameObject
+  | Phaser.Physics.Arcade.Group
+  | string
 
 /**
  * Creates a collider between objects or arrays of objects. If provided values are strings, it will

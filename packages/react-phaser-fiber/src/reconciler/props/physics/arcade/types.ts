@@ -16,6 +16,8 @@ export interface ArcadeBodyProps {
   allowDrag?: boolean
   allowGravity?: boolean
   allowRotation?: boolean
+  collideWorldBounds?: boolean
+  onWorldBounds?: boolean
 
   /**
    * Determines whether or not the Arcade Body is static or dynamic

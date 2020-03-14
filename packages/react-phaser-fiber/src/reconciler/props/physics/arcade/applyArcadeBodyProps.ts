@@ -23,6 +23,14 @@ export function applyArcadeBodyProps<
         // @ts-ignore - doesn't exist in type defs
         instance.body.allowRotation(newValue as boolean)
         break
+      case 'onWorldBounds':
+        ;(instance.body as Phaser.Physics.Arcade.Body).onWorldBounds = newValue as boolean
+        break
+      case 'collideWorldBounds':
+        ;(instance.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(
+          newValue as boolean
+        )
+        break
     }
   })
 }
