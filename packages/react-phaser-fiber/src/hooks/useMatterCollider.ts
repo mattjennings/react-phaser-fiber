@@ -1,35 +1,77 @@
 import React, { useLayoutEffect, useRef, useEffect } from 'react'
 import { useScene } from './useScene'
 import { Scene } from 'phaser'
+import { findGameObjectsByName } from '../utils'
 
-export default function useMatterCollider(
-  obj1: React.RefObject<any> | React.RefObject<any>[],
-  obj2: React.RefObject<any> | React.RefObject<any>[],
-  onCollide: (obj1: any, obj2: any) => any
-  // onProcess?: (obj1: any, obj2: any) => boolean
+export type MatterColliderObjectType = Phaser.GameObjects.GameObject | string
+export type MatterCollisionStoreType = {
+  object1: Phaser.GameObjects.GameObject[]
+  object2: Phaser.GameObjects.GameObject[]
+}
+export type MatterCollisionCallback<T1, T2> = (
+  obj1: T1 extends string ? any : T1,
+  obj2: T2 extends string ? any : T2
+) => any
+
+export function useMatterCollider<
+  T1 extends MatterColliderObjectType,
+  T2 extends MatterColliderObjectType
+>(
+  obj1: T1 | T1[],
+  obj2: T2 | T2[],
+  args: {
+    onCollide?: MatterCollisionCallback<T1, T2>
+    onCollideActive?: MatterCollisionCallback<T1, T2>
+    onCollideEnd?: MatterCollisionCallback<T1, T2>
+  }
 ) {
-  const scene: Scene = useScene()
+  const { onCollide, onCollideActive, onCollideEnd } = args
+  const scene = useScene()
+  const collider = useRef<MatterCollisionStoreType>(null)
 
   useLayoutEffect(() => {
-    const onCollisionStart = (
-      event: Phaser.Physics.Matter.Events.CollisionStartEvent
+    collider.current = {
+      object1: createObjectsArray(scene, obj1),
+      object2: createObjectsArray(scene, obj2),
+    }
+    return () => {}
+  }, [])
+
+  // it is much more performant to update the collider via mutations
+  // rather than destroy() and recreate in the above useLayoutEffect
+  useLayoutEffect(() => {
+    if (collider.current) {
+      collider.current.object1 = createObjectsArray(scene, obj1)
+      collider.current.object2 = createObjectsArray(scene, obj2)
+    }
+  }, [obj1, obj2])
+
+  useLayoutEffect(() => {
+    const createCollisionCallback = (
+      event: string,
+      callback: MatterCollisionCallback<T1, T2>
     ) => {
-      event.pairs.forEach(pair => {
-        const { bodyA, bodyB } = pair
-        const gameObjectA = bodyA.gameObject
-        const gameObjectB = bodyB.gameObject
-
-        const isInA = Array.isArray(obj1)
-          ? obj1.map(ref => ref.current)
-          : [obj1.current]
-        const isInB = Array.isArray(obj2)
-          ? obj2.map(ref => ref.current)
-          : [obj2.current]
-
-        if (isInA.includes(gameObjectA) && isInB.includes(gameObjectB)) {
-          onCollide(gameObjectA, gameObjectB)
-        }
-      })
+      const fn = (event: Phaser.Physics.Matter.Events.CollisionStartEvent) => {
+        event.pairs.forEach(pair => {
+          const { bodyA, bodyB } = pair
+          const gameObjectA = bodyA.gameObject
+          const gameObjectB = bodyB.gameObject
+          const { object1, object2 } = collider.current
+          if (object1.includes(gameObjectA) && object2.includes(gameObjectB)) {
+            callback(gameObjectA, gameObjectB)
+          } else if (
+            object1.includes(gameObjectB) &&
+            object2.includes(gameObjectA)
+          ) {
+            callback(gameObjectB, gameObjectA)
+          }
+        })
+      }
+      if (event && callback) {
+        matter.world.on(event, fn)
+        return () => matter.world.off(event, fn)
+      }
+      return () => false
     }
 
     // Subscribe to Matter Events
@@ -38,16 +80,40 @@ export default function useMatterCollider(
       console.warn('Hook requires matter!')
       return
     }
-    matter.world.on('collisionstart', onCollisionStart)
-    // matter.world.on('collisionactive', onCollisionActive)
-    // matter.world.on('collisionend', onCollisionEnd)
+
+    const collideCallback = createCollisionCallback('collisionstart', onCollide)
+    const activeCallback = createCollisionCallback(
+      'collisionactive',
+      onCollideActive
+    )
+    const endCallback = createCollisionCallback('collisionend', onCollideEnd)
 
     return () => {
       // Don't unsub if matter next existing or if the game is destroyed
       if (!matter || !matter.world) return
-      matter.world.off('collisionstart', onCollisionStart)
-      // matter.world.off('collisionactive', onCollisionActive)
-      // matter.world.off('collisionend', onCollisionEnd)
+      collideCallback()
+      activeCallback()
+      endCallback()
     }
-  })
+  }, [onCollide, onCollideActive, onCollideEnd])
+}
+
+export function createObjectsArray(
+  scene: Scene,
+  objects: MatterColliderObjectType | MatterColliderObjectType[]
+) {
+  return toArray(objects).reduce(
+    (total: Phaser.GameObjects.GameObject[], object) => {
+      if (typeof object === 'string') {
+        return [...total, ...findGameObjectsByName(scene, object)]
+      }
+
+      return [...total, object]
+    },
+    []
+  ) as Phaser.GameObjects.GameObject[]
+}
+
+function toArray<T>(obj: T): T[] {
+  return Array.isArray(obj) ? obj : [obj]
 }

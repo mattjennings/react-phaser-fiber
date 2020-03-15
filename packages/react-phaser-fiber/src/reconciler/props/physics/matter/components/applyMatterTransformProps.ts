@@ -25,7 +25,6 @@ export function applyMatterTransformProps<
         break
       case 'x':
         if (!isEqual(newValue, oldValue)) {
-          console.log('changed', newValue, oldValue)
           instance.setX(newValue as number)
         }
         break
