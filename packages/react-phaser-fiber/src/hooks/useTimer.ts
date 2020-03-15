@@ -11,7 +11,7 @@ export function useTimer(
   config: Pick<
     Phaser.Types.Time.TimerEventConfig,
     'loop' | 'repeat' | 'timeScale' | 'startAt' | 'paused'
-  >
+  > = {}
 ) {
   const scene = useScene()
   const callbackRef = useRef(callback)
