@@ -27,6 +27,7 @@ import {
   applyGameObjectProps,
   GameObjectProps,
   applyAlphaProps,
+  applySizeProps,
 } from '../props'
 import { iterateProps } from '../util/iterateProps'
 
@@ -80,6 +81,7 @@ export const TextElement: CreatePhaserComponentConfig<
     applyMaskProps(instance, oldProps, newProps)
     applyOriginProps(instance, oldProps, newProps)
     applyPipelineProps(instance, oldProps, newProps)
+    applySizeProps(instance, oldProps, newProps)
     applyScrollFactorProps(instance, oldProps, newProps)
     applyTintProps(instance, oldProps, newProps)
     applyTransformProps(instance, oldProps, newProps)
