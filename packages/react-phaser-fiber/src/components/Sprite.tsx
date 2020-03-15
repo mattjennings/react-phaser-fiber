@@ -7,9 +7,15 @@ import { GameObjectContext } from '../hooks/useGameObject'
 
 const SpriteElement = (TYPES.Sprite as unknown) as React.FC<SpriteElementProps>
 
-export interface SpriteProps
-  extends Omit<SpriteElementProps, 'instance' | 'scene'> {
-  instance?: Phaser.GameObjects.Sprite
+export interface SpriteProps<
+  T extends Phaser.GameObjects.Sprite = Phaser.GameObjects.Sprite
+> extends Omit<SpriteElementProps, 'instance' | 'scene'> {
+  instance?: T
+  onAnimationComplete?: (
+    animation: Phaser.Animations.Animation,
+    frame: Phaser.Animations.AnimationFrame,
+    instance: T
+  ) => any
 }
 
 function Sprite(props: SpriteProps, ref: React.Ref<Phaser.GameObjects.Sprite>) {

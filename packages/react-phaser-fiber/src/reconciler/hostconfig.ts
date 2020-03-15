@@ -66,6 +66,9 @@ function insertBefore(
       scene.add.existing(child)
     }
     scene.children.moveTo(child, index)
+  } else if (parent instanceof Phaser.GameObjects.Group) {
+    // untested
+    parent.add(child, true)
   }
 }
 

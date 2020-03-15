@@ -77,6 +77,7 @@ function Scene(
     }
   }, [])
 
+  // emit custom events when children are added or removed
   useLayoutEffect(() => {
     if (!loading) {
       const origAdd = scene.children.addCallback

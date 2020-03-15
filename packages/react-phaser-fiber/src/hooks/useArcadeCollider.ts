@@ -1,5 +1,5 @@
 import { Scene } from 'phaser'
-import { useEffect, useLayoutEffect, useMemo, useCallback } from 'react'
+import { useLayoutEffect, useMemo, useCallback } from 'react'
 import { findGameObjectsByName } from '../utils'
 import { useScene } from './useScene'
 import { useSceneEvent } from './useSceneEvent'
@@ -82,11 +82,11 @@ export function useArcadeCollider<
           ) as string[]
 
           if (obj1Strings.includes(object.name)) {
-            collider.object1 = createObjectsArray(scene, obj1)
+            collider.object1 = [...(collider.object1 as any[]), object]
           }
 
           if (obj2Strings.includes(object.name)) {
-            collider.object2 = createObjectsArray(scene, obj2)
+            collider.object2 = [...(collider.object2 as any[]), object]
           }
         }
       },
