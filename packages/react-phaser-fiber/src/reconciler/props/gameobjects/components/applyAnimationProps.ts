@@ -13,8 +13,8 @@ export function applyAnimationProps<
         instance.anims.accumulator = newValue as number
         break
       case 'animation':
-        const ignoreIfPlaying = !!instance.anims.currentAnim
-        instance.anims.play(newValue as string, ignoreIfPlaying)
+        const ignoreIfPlaying = instance.anims.currentAnim?.key === newValue
+        instance.anims.play(newValue as string, ignoreIfPlaying, 0)
         break
       case 'delay':
         instance.anims.setDelay(newValue as number)

@@ -60,9 +60,12 @@ import {
   AnimationProps,
 } from '../props'
 import { initArcadePhysicsObject } from '../util/initArcadePhysicsObject'
+import { applySpriteProps } from '../props/gameobjects/applySpriteProps'
+import { SpriteProps } from '../../components/Sprite'
 
 export interface ArcadeSpriteElementProps
   extends GameObjectProps<Phaser.Physics.Arcade.Sprite>,
+    Pick<SpriteProps<Phaser.Physics.Arcade.Sprite>, 'onAnimationComplete'>,
     AlphaProps,
     AnimationProps,
     BlendModeProps,
@@ -105,6 +108,7 @@ export const ArcadeSpriteElement: CreatePhaserComponentConfig<
   },
   applyProps: (instance, oldProps, newProps) => {
     applyGameObjectProps(instance, oldProps, newProps)
+    applySpriteProps(instance, oldProps, newProps)
     applyAlphaProps(instance, oldProps, newProps)
     applyAnimationProps(instance, oldProps, newProps)
     applyBlendModeProps(instance, oldProps, newProps)
