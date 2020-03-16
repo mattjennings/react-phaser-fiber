@@ -1,28 +1,40 @@
-import React, { useReducer, useRef, useState } from 'react'
-import { ArcadeGroup, useTimer, useSpawner, useScene } from 'react-phaser-fiber'
+import React, { useRef, useState, useEffect } from 'react'
+import { ArcadeGroup, useScene, useSpawner, useTimer } from 'react-phaser-fiber'
 import Enemy from './Enemy'
 import EnemyBullet from './EnemyBullet'
+import { useGameState } from './GameState'
 
-export default function Enemies({
-  onExitedWorld,
-}: {
-  onExitedWorld: () => any
-}) {
+export default function Enemies() {
   const ref = useRef<Phaser.Physics.Arcade.Group>(null)
-  const [state, dispatch] = useReducer(reducer, defaultState)
-  const [velocityX, setVelocityX] = useState(40)
-  const [y, setY] = useState(70)
-  const { spawn } = useSpawner()
   const scene = useScene()
+  const { spawn } = useSpawner()
+  const { addScore, gameOver, state, win } = useGameState()
+  const [velocityX, setVelocityX] = useState(40)
+
+  const [y, setY] = useState(70)
+  const [enemies, setEnemies] = useState(
+    Array.from({ length: 10 }).map((_, index) => {
+      const columns = 10
+      const column = index % columns
+      const row = Math.floor(index / columns)
+
+      return {
+        x: column * 52,
+        y: row * 32,
+        key: index,
+      }
+    })
+  )
 
   // move enemies left & right
   useTimer(
     () => {
       setVelocityX(prev => -prev)
+
       setY(y => y + 16)
     },
     3500,
-    { loop: true }
+    { loop: true, paused: state !== 'playing' }
   )
 
   // shoot bullets from a random enemy
@@ -56,55 +68,33 @@ export default function Enemies({
       }
     },
     2000,
-    { loop: true }
+    { loop: true, paused: state !== 'playing' }
   )
 
+  useEffect(() => {
+    if (enemies.length === 0 && state !== 'win') {
+      win()
+    }
+  }, [enemies, state, win])
+
   return (
-    <ArcadeGroup ref={ref} name="enemies" velocityX={velocityX}>
-      {state.enemies.map(enemy => (
+    <ArcadeGroup
+      ref={ref}
+      name="enemies"
+      velocityX={state === 'playing' ? velocityX : 0}
+    >
+      {enemies.map(enemy => (
         <Enemy
           key={enemy.key}
           x={100 + enemy.x}
           y={y + enemy.y}
-          onDestroy={() => dispatch({ type: 'ENEMY_HIT', payload: enemy.key })}
-          onExitedWorld={onExitedWorld}
+          onDestroy={() => {
+            addScore(100)
+            setEnemies(enemies => enemies.filter(e => e !== enemy))
+          }}
+          onExitedWorld={gameOver}
         />
       ))}
     </ArcadeGroup>
   )
-}
-
-interface EnemiesState {
-  enemies: Array<{ x: number; y: number; key: number }>
-}
-
-function reducer(
-  state: EnemiesState,
-  action: { payload?: any; type: string }
-): EnemiesState {
-  switch (action.type) {
-    case 'ENEMY_HIT': {
-      return {
-        ...state,
-        enemies: state.enemies.filter(({ key }) => key !== action.payload),
-      }
-    }
-
-    default:
-      return state
-  }
-}
-
-const defaultState: EnemiesState = {
-  enemies: Array.from({ length: 40 }).map((_, index) => {
-    const columns = 10
-    const column = index % columns
-    const row = Math.floor(index / columns)
-
-    return {
-      x: column * 52,
-      y: row * 32,
-      key: index,
-    }
-  }),
 }

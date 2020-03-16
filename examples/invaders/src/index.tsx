@@ -4,6 +4,8 @@ import { Game, Scene, Spawner } from 'react-phaser-fiber'
 import Background from './Background'
 import Enemies from './Enemies'
 import Player from './Player'
+import UI from './UI'
+import GameState from './GameState'
 
 const App = () => {
   return (
@@ -57,11 +59,14 @@ const App = () => {
           })
         }}
       >
-        <Spawner>
-          <Background />
-          <Enemies onExitedWorld={() => {}} />
-          <Player x={100} y={500} onDie={() => {}} />
-        </Spawner>
+        <GameState>
+          <Spawner>
+            <Background />
+            <UI />
+            <Enemies />
+            <Player x={300} y={500} />
+          </Spawner>
+        </GameState>
       </Scene>
     </Game>
   )

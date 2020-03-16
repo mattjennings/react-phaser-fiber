@@ -5,22 +5,23 @@ import {
   useGameLoop,
   useSpawner,
 } from 'react-phaser-fiber'
-import React, { useMemo, useState, useRef } from 'react'
+import React, { useMemo, useState, useRef, useEffect } from 'react'
 import PlayerBullet from './PlayerBullet'
+import { useGameState } from './GameState'
 
 export interface PlayerProps {
   x: number
   y: number
-  onDie: () => any
 }
 
 const X_SPEED = 200
 
-export default function Player({ onDie, x, y }: PlayerProps) {
+export default function Player({ x, y }: PlayerProps) {
   const ref = useRef<Phaser.Physics.Arcade.Image>(null)
-  const { spawn } = useSpawner()
   const scene = useScene()
+  const { spawn } = useSpawner()
   const [velocityX, setVelocityX] = useState(0)
+  const { loseLife, lives, gameOver, state } = useGameState()
 
   const keys = useMemo(
     () => ({
@@ -59,6 +60,12 @@ export default function Player({ onDie, x, y }: PlayerProps) {
     }
   })
 
+  useEffect(() => {
+    if (lives < 0) {
+      gameOver()
+    }
+  }, [gameOver, lives])
+
   return (
     <ArcadeImage
       ref={ref}
@@ -74,7 +81,9 @@ export default function Player({ onDie, x, y }: PlayerProps) {
         with={['enemies', 'enemyBullet']}
         overlapOnly
         onCollide={() => {
-          onDie()
+          if (state === 'playing') {
+            loseLife()
+          }
         }}
       />
     </ArcadeImage>
