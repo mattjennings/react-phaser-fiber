@@ -27,8 +27,6 @@ The current goal is to support all GameObjects and Physics.Arcade objects. After
 
 ## Other
 
-[Custom Phaser Component](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/custom-component)
-
 [Spawning Components](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/spawner)
 
 # Getting Started
