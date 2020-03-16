@@ -10,7 +10,9 @@ export function applyTextureProps<
   iterateProps(oldProps, newProps, (key, newValue) => {
     switch (key) {
       case 'texture':
-        instance.setTexture(newValue as string)
+        if (newValue !== instance.texture.key) {
+          instance.setTexture(newValue as string)
+        }
         break
       case 'frame':
         instance.setFrame(newValue as string, true, true)
