@@ -1,6 +1,10 @@
-import { useMatterCollider, useGameObject, ColliderObjectType } from '../hooks'
+import {
+  useMatterCollider,
+  useGameObject,
+  MatterColliderObject,
+} from '../hooks'
 
-export interface MatterColliderProps<With extends ColliderObjectType> {
+export interface MatterColliderProps<With extends MatterColliderObject> {
   with: With
   onCollide?: (self: any, other: With extends string ? any : With) => any
   onCollideActive?: (self: any, other: With extends string ? any : With) => any
@@ -27,7 +31,7 @@ export interface MatterColliderProps<With extends ColliderObjectType> {
  * ```
  *
  */
-export default function MatterCollider<With extends ColliderObjectType = any>(
+export default function MatterCollider<With extends MatterColliderObject = any>(
   props: MatterColliderProps<With>
 ): JSX.Element {
   const { onCollide, onCollideActive, onCollideEnd } = props

@@ -4,7 +4,7 @@ import { findGameObjectsByName } from '../utils'
 import { useScene } from './useScene'
 import { useSceneEvent } from './useSceneEvent'
 
-export type ColliderObjectType =
+export type ArcadeColliderObject =
   | Phaser.GameObjects.GameObject
   | Phaser.Physics.Arcade.Group
   | string
@@ -14,8 +14,8 @@ export type ColliderObjectType =
  * search for all objects by that name in the scene.
  */
 export function useArcadeCollider<
-  T1 extends ColliderObjectType,
-  T2 extends ColliderObjectType
+  T1 extends ArcadeColliderObject,
+  T2 extends ArcadeColliderObject
 >(
   obj1: T1 | T1[],
   obj2: T2 | T2[],
@@ -97,7 +97,7 @@ export function useArcadeCollider<
 
 function createObjectsArray(
   scene: Scene,
-  objects: ColliderObjectType | ColliderObjectType[]
+  objects: ArcadeColliderObject | ArcadeColliderObject[]
 ) {
   return toArray(objects).reduce(
     (total: Phaser.GameObjects.GameObject[], object) => {

@@ -1,7 +1,11 @@
-import { useArcadeCollider, useGameObject, ColliderObjectType } from '../hooks'
+import {
+  useArcadeCollider,
+  useGameObject,
+  ArcadeColliderObject,
+} from '../hooks'
 import { useGroup } from '../hooks/useGroup'
 
-export interface ArcadeColliderProps<With extends ColliderObjectType> {
+export interface ArcadeColliderProps<With extends ArcadeColliderObject> {
   with: With | With[]
   overlapOnly?: boolean
   onCollide?: (self: any, other: With extends string ? any : With) => any
@@ -28,7 +32,7 @@ export interface ArcadeColliderProps<With extends ColliderObjectType> {
  * ```
  *
  */
-export default function ArcadeCollider<With extends ColliderObjectType = any>(
+export default function ArcadeCollider<With extends ArcadeColliderObject = any>(
   props: ArcadeColliderProps<With>
 ): JSX.Element {
   const { onCollide, onProcess, overlapOnly } = props

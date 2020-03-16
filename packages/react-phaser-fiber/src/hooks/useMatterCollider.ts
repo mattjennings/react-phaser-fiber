@@ -3,7 +3,7 @@ import { useScene } from './useScene'
 import { Scene } from 'phaser'
 import { findGameObjectsByName } from '../utils'
 
-export type MatterColliderObjectType = Phaser.GameObjects.GameObject | string
+export type MatterColliderObject = Phaser.GameObjects.GameObject | string
 export type MatterCollisionStoreType = {
   object1: Phaser.GameObjects.GameObject[]
   object2: Phaser.GameObjects.GameObject[]
@@ -14,8 +14,8 @@ export type MatterCollisionCallback<T1, T2> = (
 ) => any
 
 export function useMatterCollider<
-  T1 extends MatterColliderObjectType,
-  T2 extends MatterColliderObjectType
+  T1 extends MatterColliderObject,
+  T2 extends MatterColliderObject
 >(
   obj1: T1 | T1[],
   obj2: T2 | T2[],
@@ -34,7 +34,6 @@ export function useMatterCollider<
       object1: createObjectsArray(scene, obj1),
       object2: createObjectsArray(scene, obj2),
     }
-    return () => {}
   }, [])
 
   // it is much more performant to update the collider via mutations
@@ -100,7 +99,7 @@ export function useMatterCollider<
 
 export function createObjectsArray(
   scene: Scene,
-  objects: MatterColliderObjectType | MatterColliderObjectType[]
+  objects: MatterColliderObject | MatterColliderObject[]
 ) {
   return toArray(objects).reduce(
     (total: Phaser.GameObjects.GameObject[], object) => {
