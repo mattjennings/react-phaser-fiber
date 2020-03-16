@@ -13,7 +13,7 @@ export default function Enemies() {
 
   const [y, setY] = useState(70)
   const [enemies, setEnemies] = useState(
-    Array.from({ length: 10 }).map((_, index) => {
+    Array.from({ length: 40 }).map((_, index) => {
       const columns = 10
       const column = index % columns
       const row = Math.floor(index / columns)
