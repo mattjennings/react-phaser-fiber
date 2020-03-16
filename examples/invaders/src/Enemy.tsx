@@ -48,7 +48,9 @@ export default function Enemy({
         overlapOnly
         onCollide={() => {
           // this setTimeout is so that we don't destroy the enemy before the PlayerBullet collider is run
-          setTimeout(() => onDestroy())
+          setTimeout(() => {
+            onDestroy()
+          })
         }}
       />
     </ArcadeSprite>

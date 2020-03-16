@@ -30,7 +30,6 @@ export default function Enemies() {
   useTimer(
     () => {
       setVelocityX(prev => -prev)
-
       setY(y => y + 16)
     },
     3500,

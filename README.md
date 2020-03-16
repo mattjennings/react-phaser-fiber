@@ -13,6 +13,7 @@ This is _very_ much a work in progress. The following components are provided (l
 - [ArcadeImage](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Image.html)
 - [ArcadeSprite](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Sprite.html)
 - [ArcadeCollider](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Collider.html)
+- [ArcadeGroup](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Group.html)
 - [TileSprite](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.TileSprite.html)
 
 The current goal is to support all GameObjects and Physics.Arcade objects. After that, I'll look at adding Matter and Impact components.
