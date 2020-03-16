@@ -41,8 +41,10 @@ function appendChild(
   }
 }
 
-function removeChild(parent: Phaser.Game, child: any) {
-  if (child.destroy) {
+function removeChild(parent: ParentType, child: any) {
+  if (child instanceof Phaser.GameObjects.Group) {
+    child.destroy(true)
+  } else if (child.destroy) {
     child.destroy()
   }
 }
@@ -62,9 +64,13 @@ function insertBefore(
     const childExists = scene.children.exists(child)
     const index = scene.children.getIndex(beforeChild)
 
-    childExists
-      ? scene.children.moveTo(child, index)
-      : scene.children.addAt(child, index)
+    if (!childExists) {
+      scene.add.existing(child)
+    }
+    scene.children.moveTo(child, index)
+  } else if (parent instanceof Phaser.GameObjects.Group) {
+    // untested
+    parent.add(child, true)
   }
 }
 

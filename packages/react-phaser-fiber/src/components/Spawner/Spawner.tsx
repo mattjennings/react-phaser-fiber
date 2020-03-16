@@ -27,11 +27,12 @@ export default function Spawner({ children }: SpawnerProps) {
         return key
       },
     }),
-    [state]
+    []
   )
 
   return (
     <SpawnerContext.Provider value={value}>
+      {children}
       {state.children.map(child => {
         return (
           <child.component
@@ -46,7 +47,6 @@ export default function Spawner({ children }: SpawnerProps) {
           />
         )
       })}
-      {children}
     </SpawnerContext.Provider>
   )
 }

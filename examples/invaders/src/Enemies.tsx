@@ -1,67 +1,99 @@
-import React, {
-  useReducer,
-  useState,
-  useRef,
-  useLayoutEffect,
-  useEffect,
-} from 'react'
+import React, { useRef, useState, useEffect } from 'react'
+import { ArcadeGroup, useScene, useSpawner, useTimer } from 'react-phaser-fiber'
 import Enemy from './Enemy'
-import { useGameLoop, Group, useScene, ArcadeGroup } from 'react-phaser-fiber'
+import EnemyBullet from './EnemyBullet'
+import { useGameState } from './GameState'
 
 export default function Enemies() {
-  const groupRef = useRef<Phaser.Physics.Arcade.Group>(null)
-  const [state, dispatch] = useReducer(reducer, defaultState)
-
+  const ref = useRef<Phaser.Physics.Arcade.Group>(null)
   const scene = useScene()
-  const [xDirection, setXDirection] = useState(1)
-  const [y, setY] = useState(20)
+  const { spawn } = useSpawner()
+  const { addScore, gameOver, state, win } = useGameState()
+  const [velocityX, setVelocityX] = useState(40)
 
-  useGameLoop(() => {
-    if (groupRef.current) {
-      // if (groupRef.current > 400 || groupRef.current.x < 200) {
-      // setXDirection(xDirection * -1)
-      // setY(y => y + 32)
-      // }
+  const [y, setY] = useState(70)
+  const [enemies, setEnemies] = useState(
+    Array.from({ length: 40 }).map((_, index) => {
+      const columns = 10
+      const column = index % columns
+      const row = Math.floor(index / columns)
+
+      return {
+        x: column * 52,
+        y: row * 32,
+        key: index,
+      }
+    })
+  )
+
+  // move enemies left & right
+  useTimer(
+    () => {
+      setVelocityX(prev => -prev)
+      setY(y => y + 16)
+    },
+    3500,
+    { loop: true, paused: state !== 'playing' }
+  )
+
+  // shoot bullets from a random enemy
+  useTimer(
+    () => {
+      const player = scene.children.getByName(
+        'player'
+      ) as Phaser.Physics.Arcade.Sprite
+      const enemies = scene.children.list.filter(
+        child => child.name === 'enemy'
+      )
+
+      // get the gameobject reference of a random enemy
+      const enemy = enemies[
+        Phaser.Math.RND.integerInRange(0, enemies.length - 1)
+      ] as Phaser.Physics.Arcade.Sprite
+
+      if (player && enemy) {
+        // get angle from enemy to player
+        const angle =
+          (Math.atan2(player.y - enemy.y, player.x - enemy.x) * 180) / Math.PI
+
+        const velocity = scene.physics.velocityFromAngle(angle, 180)
+
+        spawn(EnemyBullet, {
+          x: enemy.x,
+          y: enemy.y,
+          angle,
+          velocity,
+        })
+      }
+    },
+    2000,
+    { loop: true, paused: state !== 'playing' }
+  )
+
+  useEffect(() => {
+    if (enemies.length === 0 && state !== 'win') {
+      win()
     }
-  })
+  }, [enemies, state, win])
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setXDirection(xDirection * -1)
-  //     // setY(y => y + 32)
-  //   }, 3000)
-  // }, [xDirection])
   return (
-    <ArcadeGroup name="enemies" ref={groupRef} velocityX={40 * xDirection}>
-      {state.enemies.map(enemy => (
+    <ArcadeGroup
+      ref={ref}
+      name="enemies"
+      velocityX={state === 'playing' ? velocityX : 0}
+    >
+      {enemies.map(enemy => (
         <Enemy
           key={enemy.key}
-          x={enemy.x}
-          y={enemy.y + y}
-          onDestroy={() => dispatch({ type: 'DESTROY', payload: enemy.key })}
+          x={100 + enemy.x}
+          y={y + enemy.y}
+          onDestroy={() => {
+            addScore(100)
+            setEnemies(enemies => enemies.filter(e => e !== enemy))
+          }}
+          onExitedWorld={gameOver}
         />
       ))}
     </ArcadeGroup>
   )
-}
-
-interface EnemiesState {
-  enemies: Array<{ x: number; y: number; key: number }>
-}
-
-function reducer(state: EnemiesState, action: { payload: any; type: string }) {
-  return state
-}
-
-const defaultState: EnemiesState = {
-  enemies: Array.from({ length: 40 }).map((_, index) => {
-    const rows = 4
-    const columns = 10
-
-    return {
-      x: 100 + (index % columns) * 48,
-      y: 70 + rows * Math.floor(index / columns) * 8,
-      key: index,
-    }
-  }),
 }

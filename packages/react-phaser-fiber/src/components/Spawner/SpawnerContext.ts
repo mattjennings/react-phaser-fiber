@@ -7,13 +7,18 @@ export interface SpawnerContextValue {
    * `component` will be passed an `onDestroy` prop from the spawner. This should
    * be called when the component needs to be unmounted.
    */
-  spawn: <P>(component: React.ComponentType<P>, props: P & SpawnProps) => string
+  spawn: <T extends SpawnProps>(
+    component: React.ComponentType<T>,
+    props: Omit<T, keyof SpawnProps>
+  ) => string
 }
 
 export interface SpawnProps {
-  onDestroy?: () => any
+  onDestroy: () => any
 }
 
-const SpawnerContext = React.createContext<SpawnerContextValue>(null)
+const SpawnerContext = React.createContext<SpawnerContextValue>({
+  spawn: (() => null as any) as any,
+})
 
 export default SpawnerContext

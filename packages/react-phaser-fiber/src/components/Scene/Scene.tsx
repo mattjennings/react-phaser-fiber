@@ -77,6 +77,27 @@ function Scene(
     }
   }, [])
 
+  // emit custom events when children are added or removed
+  useLayoutEffect(() => {
+    if (!loading) {
+      const origAdd = scene.children.addCallback
+      scene.children.addCallback = (...args: any[]) => {
+        if (origAdd) {
+          origAdd(...args)
+        }
+        scene.events.emit('CHILD_ADDED', ...args)
+      }
+
+      const origRemove = scene.children.removeCallback
+      scene.children.removeCallback = (...args: any[]) => {
+        if (origRemove) {
+          origRemove(...args)
+        }
+        scene.events.emit('CHILD_REMOVED', ...args)
+      }
+    }
+  }, [loading])
+
   return (
     <SceneContext.Provider value={scene}>
       {loading && renderLoading ? renderLoading(loadProgress) : children}

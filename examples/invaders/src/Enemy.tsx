@@ -1,48 +1,56 @@
+import React, { useLayoutEffect } from 'react'
 import {
-  ArcadeSprite,
   ArcadeCollider,
+  ArcadeSprite,
   ArcadeSpriteProps,
   useScene,
-  useGameLoop,
 } from 'react-phaser-fiber'
-import React, { useRef } from 'react'
 
 export interface EnemyProps
   extends Omit<ArcadeSpriteProps, 'texture' | 'frame'> {
   x: number
   y: number
   onDestroy: () => any
+  onExitedWorld: () => any
 }
 
-export default function Enemy({ onDestroy, ...props }: EnemyProps) {
-  const ref = useRef<Phaser.Physics.Arcade.Sprite>(null)
-  // const scene = useScene()
-  // const [xDirection, setXDirection] = useState(1)
-  // const [y, setY] = useState(props.y)
+export default function Enemy({
+  onDestroy,
+  onExitedWorld,
+  ...props
+}: EnemyProps) {
+  const scene = useScene()
 
-  // useGameLoop(() => {
-  //   if (ref.current) {
-  //     if (ref.current.x > props.x + 200 || ref.current.x < props.x) {
-  //       setXDirection(xDirection * -1)
-  //       setY(y => y + 32)
-  //     }
-  //   }
-  // })
+  useLayoutEffect(() => {
+    function checkOutOfBounds(body: any, up: boolean, down: boolean) {
+      // enemy has hit bottom of screen
+      if (down) {
+        onExitedWorld()
+      }
+    }
+    scene.physics.world.on('worldbounds', checkOutOfBounds)
+
+    return () => {
+      scene.physics.world.off('worldbounds', checkOutOfBounds)
+    }
+  }, [onExitedWorld, scene.physics.world])
 
   return (
     <ArcadeSprite
-      ref={ref}
       name="enemy"
-      texture="invader"
-      animation="enemy/fly"
-      isPlaying
-      // velocityX={40 * xDirection}
+      animation="anims/enemy/fly"
+      collideWorldBounds
+      onWorldBounds
       {...props}
     >
       <ArcadeCollider
-        with="player-bullet"
+        with="playerBullet"
+        overlapOnly
         onCollide={() => {
-          onDestroy()
+          // this setTimeout is so that we don't destroy the enemy before the PlayerBullet collider is run
+          setTimeout(() => {
+            onDestroy()
+          })
         }}
       />
     </ArcadeSprite>

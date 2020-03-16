@@ -2,35 +2,11 @@ import { CreatePhaserComponentConfig } from '../element'
 import {
   AlphaProps,
   applyAlphaProps,
-  applyArcadeAccelerationProps,
-  applyArcadeAngularProps,
-  applyArcadeBodyProps,
-  applyArcadeBounceProps,
-  applyArcadeDebugProps,
-  applyArcadeDragProps,
-  applyArcadeEnableProps,
-  applyArcadeFrictionProps,
-  applyArcadeGravityProps,
-  applyArcadeImmovableProps,
-  applyArcadeMassProps,
-  applyArcadeSizeProps,
   applyArcadeVelocityProps,
   applyDepthProps,
   applyOriginProps,
   applyTintProps,
   applyTransformProps,
-  ArcadeAccelerationProps,
-  ArcadeAngularProps,
-  ArcadeBodyProps,
-  ArcadeBounceProps,
-  ArcadeDebugProps,
-  ArcadeDragProps,
-  ArcadeEnableProps,
-  ArcadeFrictionProps,
-  ArcadeGravityProps,
-  ArcadeImmovableProps,
-  ArcadeMassProps,
-  ArcadeSizeProps,
   ArcadeVelocityProps,
   DepthProps,
   OriginProps,
@@ -46,18 +22,6 @@ export interface ArcadeGroupElementProps
     OriginProps,
     TintProps,
     TransformProps,
-    ArcadeAccelerationProps,
-    ArcadeAngularProps,
-    ArcadeBodyProps,
-    ArcadeBounceProps,
-    ArcadeDebugProps,
-    ArcadeEnableProps,
-    ArcadeDragProps,
-    ArcadeFrictionProps,
-    ArcadeGravityProps,
-    ArcadeImmovableProps,
-    ArcadeMassProps,
-    ArcadeSizeProps,
     ArcadeVelocityProps {
   instance: Phaser.Physics.Arcade.Group
   scene: Phaser.Scene
@@ -65,6 +29,7 @@ export interface ArcadeGroupElementProps
   ref?: React.Ref<Phaser.Physics.Arcade.Group>
   active?: boolean
   name?: string
+  runChildUpdate?: boolean
   children?: React.ReactNode
 }
 
@@ -72,8 +37,8 @@ export const ArcadeGroupElement: CreatePhaserComponentConfig<
   Phaser.Physics.Arcade.Group,
   ArcadeGroupElementProps
 > = {
-  create: ({ instance, scene, physicsType }) => {
-    initArcadePhysicsObject(instance, scene, physicsType)
+  create: ({ instance, scene }) => {
+    initArcadePhysicsObject(instance, scene, 'dynamic')
 
     return instance
   },
@@ -87,6 +52,9 @@ export const ArcadeGroupElement: CreatePhaserComponentConfig<
         case 'name':
           instance.name = newValue as string
           break
+        case 'runChildUpdate':
+          instance.runChildUpdate = newValue as boolean
+          break
       }
     })
 
@@ -97,18 +65,6 @@ export const ArcadeGroupElement: CreatePhaserComponentConfig<
     applyTransformProps(instance as any, oldProps, newProps)
 
     // arcade physics
-    applyArcadeAccelerationProps(instance as any, oldProps, newProps)
-    applyArcadeAngularProps(instance as any, oldProps, newProps)
-    applyArcadeBounceProps(instance as any, oldProps, newProps)
-    applyArcadeDebugProps(instance as any, oldProps, newProps)
-    applyArcadeEnableProps(instance as any, oldProps, newProps)
-    applyArcadeDragProps(instance as any, oldProps, newProps)
-    applyArcadeFrictionProps(instance as any, oldProps, newProps)
-    applyArcadeGravityProps(instance as any, oldProps, newProps)
-    applyArcadeImmovableProps(instance as any, oldProps, newProps)
-    applyArcadeMassProps(instance as any, oldProps, newProps)
-    applyArcadeSizeProps(instance as any, oldProps, newProps)
     applyArcadeVelocityProps(instance as any, oldProps, newProps)
-    applyArcadeBodyProps(instance as any, oldProps, newProps)
   },
 }

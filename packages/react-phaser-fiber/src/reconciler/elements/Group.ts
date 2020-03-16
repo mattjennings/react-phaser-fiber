@@ -25,6 +25,7 @@ export interface GroupElementProps
   ref?: React.Ref<Phaser.GameObjects.Group>
   active?: boolean
   name?: string
+  runChildUpdate?: boolean
   children?: React.ReactNode
 }
 
@@ -44,6 +45,9 @@ export const GroupElement: CreatePhaserComponentConfig<
           break
         case 'name':
           instance.name = newValue as string
+          break
+        case 'runChildUpdate':
+          instance.runChildUpdate = newValue as boolean
           break
       }
     })

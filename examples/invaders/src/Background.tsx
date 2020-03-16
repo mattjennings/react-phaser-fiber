@@ -17,7 +17,7 @@ export default function Background() {
       height={600}
       originX={0}
       originY={0}
-      texture="starfield"
+      texture="textures/starfield"
       tilePositionY={yOffset}
     />
   )

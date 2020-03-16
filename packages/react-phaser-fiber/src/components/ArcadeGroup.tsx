@@ -45,9 +45,13 @@ function ArcadeGroup(
         scene={scene}
         instance={instance}
         {...(shouldSetProps ? props : {})}
-      />
+      >
+        {props.children}
+      </ArcadeGroupElement>
     </GroupContext.Provider>
   )
 }
 
-export default React.forwardRef(ArcadeGroup)
+export default React.forwardRef<Phaser.Physics.Arcade.Group, ArcadeGroupProps>(
+  ArcadeGroup
+)
