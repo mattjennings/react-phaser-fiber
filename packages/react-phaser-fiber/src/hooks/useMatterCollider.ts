@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef, useEffect } from 'react'
 import { useScene } from './useScene'
 import { Scene } from 'phaser'
 import { findGameObjectsByName } from '../utils'
+import { toArray } from '../utils/toArray'
 
 export type MatterColliderObject = Phaser.GameObjects.GameObject | string
 export type MatterCollisionStoreType = {
@@ -97,7 +98,7 @@ export function useMatterCollider<
   }, [onCollide, onCollideActive, onCollideEnd])
 }
 
-export function createObjectsArray(
+function createObjectsArray(
   scene: Scene,
   objects: MatterColliderObject | MatterColliderObject[]
 ) {
@@ -111,8 +112,4 @@ export function createObjectsArray(
     },
     []
   ) as Phaser.GameObjects.GameObject[]
-}
-
-function toArray<T>(obj: T): T[] {
-  return Array.isArray(obj) ? obj : [obj]
 }

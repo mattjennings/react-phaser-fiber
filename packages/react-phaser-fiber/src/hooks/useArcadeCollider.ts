@@ -3,6 +3,7 @@ import { useLayoutEffect, useMemo, useCallback } from 'react'
 import { findGameObjectsByName } from '../utils'
 import { useScene } from './useScene'
 import { useSceneEvent } from './useSceneEvent'
+import { toArray } from '../utils/toArray'
 
 export type ArcadeColliderObject =
   | Phaser.GameObjects.GameObject
@@ -109,8 +110,4 @@ function createObjectsArray(
     },
     []
   ) as Phaser.GameObjects.GameObject[]
-}
-
-function toArray<T>(obj: T): T[] {
-  return Array.isArray(obj) ? obj : [obj]
 }
