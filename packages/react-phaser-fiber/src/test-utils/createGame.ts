@@ -26,5 +26,5 @@ export async function createGame(config: Phaser.Types.Core.GameConfig = {}) {
     }
   })
 
-  return { game, scene: game.scene.scenes[0] }
+  return { game, scene: game.scene.scenes[0] as Phaser.Scene }
 }

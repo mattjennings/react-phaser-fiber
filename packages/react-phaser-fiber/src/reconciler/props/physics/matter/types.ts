@@ -127,8 +127,6 @@ export interface MatterSleepProps {
 
 export interface MatterStaticProps {
   static?: boolean
-  immovable?: boolean
-  physicsType?: 'static' | 'dynamic'
 }
 
 export interface MatterVelocityProps {

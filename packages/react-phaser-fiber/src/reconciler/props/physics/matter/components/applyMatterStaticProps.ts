@@ -12,9 +12,6 @@ export function applyMatterStaticProps<
       case 'static':
         instance.setStatic(newValue as boolean)
         break
-      case 'immovable':
-        instance.setStatic(newValue as boolean)
-        break
     }
   })
 }
