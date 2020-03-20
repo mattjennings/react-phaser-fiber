@@ -67,8 +67,7 @@ export function useArcadeCollider<
     collider.overlapOnly = overlapOnly
   }, [onCollide, onProcess, overlapOnly])
 
-  // if obj1 or obj2 contains strings, we'll want to include any new objects that are created with
-  // a name that matches the string
+  // update string references in obj1/obj2 when a child is added to the scene
   useSceneEvent(
     'CHILD_ADDED',
     useCallback(
@@ -96,6 +95,9 @@ export function useArcadeCollider<
   )
 }
 
+/**
+ * Returns the gameobject instances for any objects that are string references
+ */
 function createObjectsArray(
   scene: Scene,
   objects: ArcadeColliderObject | ArcadeColliderObject[]
