@@ -8,6 +8,8 @@ import { ArcadeImageElement } from './elements/ArcadeImage'
 import { ArcadeSpriteElement } from './elements/ArcadeSprite'
 import { TileSpriteElement } from './elements/TileSprite'
 import { ArcadeGroupElement } from './elements/ArcadeGroup'
+import { MatterImageElement } from './elements/MatterImage'
+import { MatterSpriteElement } from './elements/MatterSprite'
 
 export interface CreatePhaserComponentConfig<T, P> {
   create: (props: P, game: Phaser.Game) => T
@@ -22,6 +24,8 @@ export const TYPES: Record<string, string> = {
   ArcadeImage: 'ArcadeImage',
   ArcadeGroup: 'ArcadeGroup',
   ArcadeSprite: 'ArcadeSprite',
+  MatterImage: 'MatterImage',
+  MatterSprite: 'MatterSprite',
   TileSprite: 'TileSprite',
 }
 
@@ -34,6 +38,8 @@ export const ELEMENTS: Record<string, CreatePhaserComponentConfig<any, any>> = {
   ArcadeGroup: ArcadeGroupElement,
   ArcadeImage: ArcadeImageElement,
   ArcadeSprite: ArcadeSpriteElement,
+  MatterImage: MatterImageElement,
+  MatterSprite: MatterSpriteElement,
 }
 
 /******************

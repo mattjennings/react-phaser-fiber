@@ -3,8 +3,9 @@ import { useLayoutEffect, useMemo, useCallback } from 'react'
 import { findGameObjectsByName } from '../utils'
 import { useScene } from './useScene'
 import { useSceneEvent } from './useSceneEvent'
+import { toArray } from '../utils/toArray'
 
-export type ColliderObjectType =
+export type ArcadeColliderObject =
   | Phaser.GameObjects.GameObject
   | Phaser.Physics.Arcade.Group
   | string
@@ -14,8 +15,8 @@ export type ColliderObjectType =
  * search for all objects by that name in the scene.
  */
 export function useArcadeCollider<
-  T1 extends ColliderObjectType,
-  T2 extends ColliderObjectType
+  T1 extends ArcadeColliderObject,
+  T2 extends ArcadeColliderObject
 >(
   obj1: T1 | T1[],
   obj2: T2 | T2[],
@@ -66,8 +67,7 @@ export function useArcadeCollider<
     collider.overlapOnly = overlapOnly
   }, [onCollide, onProcess, overlapOnly])
 
-  // if obj1 or obj2 contains strings, we'll want to include any new objects that are created with
-  // a name that matches the string
+  // update string references in obj1/obj2 when a child is added to the scene
   useSceneEvent(
     'CHILD_ADDED',
     useCallback(
@@ -95,9 +95,12 @@ export function useArcadeCollider<
   )
 }
 
+/**
+ * Returns the gameobject instances for any objects that are string references
+ */
 function createObjectsArray(
   scene: Scene,
-  objects: ColliderObjectType | ColliderObjectType[]
+  objects: ArcadeColliderObject | ArcadeColliderObject[]
 ) {
   return toArray(objects).reduce(
     (total: Phaser.GameObjects.GameObject[], object) => {
@@ -109,8 +112,4 @@ function createObjectsArray(
     },
     []
   ) as Phaser.GameObjects.GameObject[]
-}
-
-function toArray<T>(obj: T): T[] {
-  return Array.isArray(obj) ? obj : [obj]
 }
