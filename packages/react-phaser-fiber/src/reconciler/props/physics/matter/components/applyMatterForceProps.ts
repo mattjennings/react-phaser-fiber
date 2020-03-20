@@ -16,7 +16,13 @@ export function applyMatterForceProps<
         }
         break
       case 'forceFrom':
-        // TODO
+        if (!isEqual(oldValue, newValue)) {
+          const config = newValue as MatterForceProps['forceFrom']
+          instance.applyForceFrom(
+            new Phaser.Math.Vector2(config.position),
+            new Phaser.Math.Vector2(config.force)
+          )
+        }
         break
       case 'thrust':
         instance.thrust(newValue as number)

@@ -6,7 +6,7 @@ describe('applyMatterBounceProps', () => {
     const { scene } = await createGame({ physics: { default: 'matter' } })
     const instance = scene.matter.add.sprite(0, 0, null)
 
-    const setBounce = jest.spyOn(instance, 'setBounce')
+    jest.spyOn(instance, 'setBounce')
 
     applyMatterBounceProps(
       instance,
@@ -16,6 +16,6 @@ describe('applyMatterBounceProps', () => {
       }
     )
 
-    expect(setBounce).toHaveBeenCalledWith(1)
+    expect(instance.setBounce).toHaveBeenCalledWith(1)
   })
 })

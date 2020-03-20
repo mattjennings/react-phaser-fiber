@@ -6,7 +6,7 @@ describe('applyMatterCollisionProps', () => {
     const { scene } = await createGame({ physics: { default: 'matter' } })
     const instance = scene.matter.add.sprite(0, 0, null)
 
-    const setCollidesWith = jest.spyOn(instance, 'setCollidesWith')
+    jest.spyOn(instance, 'setCollidesWith')
 
     applyMatterCollisionProps(
       instance,
@@ -16,14 +16,14 @@ describe('applyMatterCollisionProps', () => {
       }
     )
 
-    expect(setCollidesWith).toHaveBeenCalledWith([1])
+    expect(instance.setCollidesWith).toHaveBeenCalledWith([1])
   })
 
   it('applies collisionCategory', async () => {
     const { scene } = await createGame({ physics: { default: 'matter' } })
     const instance = scene.matter.add.sprite(0, 0, null)
 
-    const setCollisionCategory = jest.spyOn(instance, 'setCollisionCategory')
+    jest.spyOn(instance, 'setCollisionCategory')
 
     applyMatterCollisionProps(
       instance,
@@ -33,14 +33,14 @@ describe('applyMatterCollisionProps', () => {
       }
     )
 
-    expect(setCollisionCategory).toHaveBeenCalledWith(2)
+    expect(instance.setCollisionCategory).toHaveBeenCalledWith(2)
   })
 
   it('applies collisionGroup', async () => {
     const { scene } = await createGame({ physics: { default: 'matter' } })
     const instance = scene.matter.add.sprite(0, 0, null)
 
-    const setCollisionGroup = jest.spyOn(instance, 'setCollisionGroup')
+    jest.spyOn(instance, 'setCollisionGroup')
 
     applyMatterCollisionProps(
       instance,
@@ -50,6 +50,6 @@ describe('applyMatterCollisionProps', () => {
       }
     )
 
-    expect(setCollisionGroup).toHaveBeenCalledWith(2)
+    expect(instance.setCollisionGroup).toHaveBeenCalledWith(2)
   })
 })
