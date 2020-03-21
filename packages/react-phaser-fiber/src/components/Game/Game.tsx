@@ -1,14 +1,19 @@
-import * as Phaser from 'phaser'
+import Phaser from 'phaser'
 import React from 'react'
 import { FiberRoot } from 'react-reconciler'
 import { PACKAGE_NAME, PhaserFiber, VERSION } from '../../reconciler'
 import GameContext from './GameContext'
+import { withCanvas, WithCanvas } from '../Canvas/Canvas'
 
-export interface GameProps extends Phaser.Types.Core.GameConfig {
+export interface GameProps
+  extends Omit<Phaser.Types.Core.GameConfig, 'canvas'> {
   children?: JSX.Element | JSX.Element[]
 }
 
-class Game extends React.Component<GameProps, { booting: boolean }> {
+class Game extends React.Component<
+  GameProps & WithCanvas,
+  { booting: boolean }
+> {
   static displayName = 'Game'
   mountNode: FiberRoot
   game: Phaser.Game
@@ -20,7 +25,11 @@ class Game extends React.Component<GameProps, { booting: boolean }> {
   componentDidMount() {
     const { children, canvas, ...config } = this.props
 
-    this.game = new Phaser.Game({ ...config })
+    this.game = new Phaser.Game({
+      canvas,
+      type: canvas ? Phaser.CANVAS : Phaser.AUTO,
+      ...config,
+    })
 
     this.game.events.on('ready', () => {
       this.setState({ booting: false })
@@ -77,7 +86,7 @@ class Game extends React.Component<GameProps, { booting: boolean }> {
   }
 }
 
-export default Game
+export default withCanvas(Game)
 
 /**
  * Inject into React Devtools
