@@ -1,4 +1,5 @@
 import { Point } from '../../types'
+import { TransformProps } from '../../gameobjects'
 
 /*********************
  * Common Prop Types *
@@ -94,12 +95,6 @@ export interface MatterVelocityProps {
   angularVelocity?: number
 }
 
-export type MatterTransformProps = Partial<
-  Pick<
-    Phaser.GameObjects.Components.Transform,
-    'angle' | 'rotation' | 'x' | 'y' | 'z' | 'w'
-  > & {
-    scale?: number | (Point & { point?: Point })
-    allowRotation?: boolean
-  }
->
+export interface MatterTransformProps extends TransformProps {
+  fixedRotation?: boolean
+}

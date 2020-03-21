@@ -14,7 +14,6 @@ import {
   applyPipelineProps,
   applyScrollFactorProps,
   applyTintProps,
-  // applyTransformProps,
   applyVisibleProps,
   BlendModeProps,
   CropProps,
@@ -27,7 +26,7 @@ import {
   ScrollFactorProps,
   SizeProps,
   TintProps,
-  // TransformProps,
+  TransformProps,
   VisibleProps,
   applySizeProps,
   TextureProps,
@@ -56,6 +55,7 @@ import {
   applyMatterStaticProps,
   applyMatterVelocityProps,
   applyMatterTransformProps,
+  applyTransformProps,
 } from '../props'
 import { initMatterPhysicsObject } from '../util/initMatterPhysicsObject'
 
@@ -74,7 +74,7 @@ export interface MatterSpriteElementProps
     ScrollFactorProps,
     TextureProps,
     TintProps,
-    // TransformProps,
+    TransformProps,
     VisibleProps,
     MatterBounceProps,
     MatterCollisionProps,
@@ -118,7 +118,7 @@ export const MatterSpriteElement: CreatePhaserComponentConfig<
     applyScrollFactorProps(instance, oldProps, newProps)
     applyTextureProps(instance, oldProps, newProps)
     applyTintProps(instance, oldProps, newProps)
-    // applyTransformProps(instance, oldProps, newProps)
+    applyTransformProps(instance, oldProps, newProps)
     applyVisibleProps(instance, oldProps, newProps)
 
     // arcade physics

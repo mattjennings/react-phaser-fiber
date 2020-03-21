@@ -114,7 +114,6 @@ export type TransformProps = Partial<
     'angle' | 'rotation' | 'x' | 'y' | 'z' | 'w'
   > & {
     scale?: number | (Point & { point?: Point })
-    allowRotation?: boolean
   }
 >
 

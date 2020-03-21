@@ -53,6 +53,8 @@ import {
   applyMatterStaticProps,
   applyMatterVelocityProps,
   applyMatterTransformProps,
+  applyTransformProps,
+  TransformProps,
 } from '../props'
 import { initMatterPhysicsObject } from '../util/initMatterPhysicsObject'
 
@@ -70,7 +72,7 @@ export interface MatterImageElementProps
     ScrollFactorProps,
     TextureProps,
     TintProps,
-    // TransformProps,
+    TransformProps,
     VisibleProps,
     MatterBounceProps,
     MatterCollisionProps,
@@ -113,7 +115,7 @@ export const MatterImageElement: CreatePhaserComponentConfig<
     applyScrollFactorProps(instance, oldProps, newProps)
     applyTextureProps(instance, oldProps, newProps)
     applyTintProps(instance, oldProps, newProps)
-    // applyTransformProps(instance, oldProps, newProps)
+    applyTransformProps(instance, oldProps, newProps)
     applyVisibleProps(instance, oldProps, newProps)
 
     // matter physics
