@@ -29,7 +29,7 @@ describe('applyAnimationProps', () => {
       }
     )
 
-    expect(instance.anims.play).toHaveBeenCalledWith('run', false)
+    expect(instance.anims.play).toHaveBeenCalledWith('run', false, 0)
     expect(instance.anims.accumulator).toEqual(2)
     expect(instance.anims.getDelay()).toEqual(2)
     expect(instance.anims.duration).toEqual(10)
