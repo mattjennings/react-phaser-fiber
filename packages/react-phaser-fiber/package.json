@@ -24,8 +24,7 @@
     "test": "tsdx test --env=jsdom",
     "update-readme": "cp ../../README.md README.md",
     "prepare": "yarn update-readme && yarn build",
-    "publish": "npm publish",
-    "publish:next": "npm publish --tag next"
+    "publish:next": "yarn publish --tag next"
   },
   "peerDependencies": {
     "react": ">=16"
