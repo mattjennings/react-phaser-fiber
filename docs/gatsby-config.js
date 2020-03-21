@@ -1,39 +1,65 @@
 module.exports = {
   siteMetadata: {
-    siteTitle: `@rocketseat/gatsby-theme-docs`,
-    defaultTitle: `@rocketseat/gatsby-theme-docs`,
-    siteTitleShort: `gatsby-theme-docs`,
-    siteDescription: `Out of the box Gatsby Theme for creating documentation websites easily and quickly`,
-    siteUrl: `https://rocketdocs.netlify.com`,
-    siteAuthor: `@rocketseat`,
-    siteImage: `/banner.png`,
-    siteLanguage: `en`,
-    themeColor: `#7159c1`,
-    basePath: `/`,
-    footer: `Theme by Rocketseat`,
+    title: `react-phaser-fiber`,
+    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    author: `@gatsbyjs`,
   },
   plugins: [
     {
-      resolve: `@rocketseat/gatsby-theme-docs`,
+      resolve: 'gatsby-plugin-page-creator',
       options: {
-        configPath: `src/config`,
-        docsPath: `src/docs`,
-        githubUrl: `https://github.com/rocketseat/gatsby-themes`,
-        baseDir: `examples/gatsby-theme-docs`,
+        path: `${__dirname}/src/docs`,
       },
     },
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        name: `Rocketseat Gatsby Themes`,
-        short_name: `RS Gatsby Themes`,
-        start_url: `/`,
-        background_color: `#ffffff`,
-        display: `standalone`,
-        icon: `static/favicon.png`,
+        name: `docs`,
+        path: `${__dirname}/src/docs/`,
       },
     },
-    `gatsby-plugin-sitemap`,
-    // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        defaultLayouts: {
+          // docs: require.resolve("./src/components/posts-layout.js"),
+          default: require.resolve(
+            './src/components/Layout.js'
+          ),
+        },
+      },
+    },
+    `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `gatsby-starter-default`,
+        short_name: `starter`,
+        start_url: `/`,
+        background_color: `#663399`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Fira Mono'],
+        },
+      },
+    },
+    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-offline`,
   ],
 }
