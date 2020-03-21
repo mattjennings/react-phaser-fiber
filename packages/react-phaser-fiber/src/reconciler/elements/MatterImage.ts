@@ -11,7 +11,7 @@ import {
   applyPipelineProps,
   applyScrollFactorProps,
   applyTintProps,
-  // applyTransformProps,
+  applyTransformProps,
   applyVisibleProps,
   BlendModeProps,
   CropProps,
@@ -24,7 +24,7 @@ import {
   ScrollFactorProps,
   SizeProps,
   TintProps,
-  // TransformProps,
+  TransformProps,
   VisibleProps,
   applySizeProps,
   TextureProps,
@@ -53,8 +53,6 @@ import {
   applyMatterStaticProps,
   applyMatterVelocityProps,
   applyMatterTransformProps,
-  applyTransformProps,
-  TransformProps,
 } from '../props'
 import { initMatterPhysicsObject } from '../util/initMatterPhysicsObject'
 
@@ -94,14 +92,15 @@ export const MatterImageElement: CreatePhaserComponentConfig<
   Phaser.Physics.Matter.Image,
   MatterImageElementProps
 > = {
-  create: ({ instance, scene, physicsType }) => {
-    initMatterPhysicsObject(instance, scene, physicsType)
+  create: ({ instance, scene }) => {
+    initMatterPhysicsObject(instance, scene)
 
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {
     // !IMPORTANT must create body first or options will overwrite properties
     applyMatterSetBodyProps(instance, oldProps, newProps)
+
     // GameObject Props
     applyGameObjectProps(instance, oldProps, newProps)
     applyBlendModeProps(instance, oldProps, newProps)

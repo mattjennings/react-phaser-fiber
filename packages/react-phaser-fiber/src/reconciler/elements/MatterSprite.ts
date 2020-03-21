@@ -96,13 +96,14 @@ export const MatterSpriteElement: CreatePhaserComponentConfig<
   Phaser.Physics.Matter.Sprite,
   MatterSpriteElementProps
 > = {
-  create: ({ instance, scene, physicsType }) => {
-    initMatterPhysicsObject(instance, scene, physicsType)
+  create: ({ instance, scene }) => {
+    initMatterPhysicsObject(instance, scene)
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {
     // !IMPORTANT must create body first or options will overwrite properties
     applyMatterSetBodyProps(instance, oldProps, newProps)
+
     // GameObject Props
     applyGameObjectProps(instance, oldProps, newProps)
     applyAlphaProps(instance, oldProps, newProps)
