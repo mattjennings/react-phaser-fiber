@@ -3,48 +3,6 @@ import { Point } from '../../types'
 /*********************
  * Common Prop Types *
  *********************/
-export interface MatterBodyProps {
-  id: number
-  type: string
-  label: string
-  gameObject: Phaser.GameObjects.GameObject
-  parts: any[]
-  plugin: object
-  angle: number
-  vertices: any[]
-  position: Point
-  force: Point
-  torque: number
-  positionImpulse: Point
-  previousPositionImpulse: Point
-  constraintImpulse: { x: number; y: number; angle: number }
-  speed: number
-  angularSpeed: number
-  velocity: Point
-  angularVelocity: number
-  isSensor: boolean
-  isStatic: boolean
-  isSleeping: boolean
-  ignoreGravity: boolean
-  ignorePointer: boolean
-  motion: number
-  sleepThreshold: number
-  density: number
-  restitution: number
-  friction: number
-  frictionStatic: number
-  frictionAir: number
-  collisionFilter: {
-    category: number
-    mask: number
-    group: number
-  }
-  bounds: any
-  circleRadius: number
-  mass: number
-  inertia: number
-}
-
 export interface MatterBounceProps {
   bounce?: number
 }
@@ -88,23 +46,23 @@ export interface MatterSensorProps {
 
 export interface MatterCircleProps {
   radius: number
-  options?: object
+  options?: Phaser.Types.Physics.Matter.MatterBodyConfig
 }
 export interface MatterRectangleProps {
   width: number
   height: number
-  options?: object
+  options?: Phaser.Types.Physics.Matter.MatterBodyConfig
 }
 export interface MatterPolygonProps {
   radius: number
   sides: number
-  options?: object
+  options?: Phaser.Types.Physics.Matter.MatterBodyConfig
 }
 export interface MatterTrapezoidProps {
   width: number
   height: number
   slope: number
-  options?: object
+  options?: Phaser.Types.Physics.Matter.MatterBodyConfig
 }
 export interface MatterSetBodyProps {
   // body?: {

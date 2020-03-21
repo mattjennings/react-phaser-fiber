@@ -20,19 +20,27 @@ export function applyMatterSetBodyProps<
       switch (key) {
         case 'circle':
           {
-            const { radius, options } = newValue as MatterCircleProps
+            const { radius, options } = newValue as MatterSetBodyProps['circle']
             instance.setCircle(radius, options)
           }
           break
         case 'rectangle':
           {
-            const { width, height, options } = newValue as MatterRectangleProps
+            const {
+              width,
+              height,
+              options,
+            } = newValue as MatterSetBodyProps['rectangle']
             instance.setRectangle(width, height, options)
           }
           break
         case 'polygon':
           {
-            const { radius, sides, options } = newValue as MatterPolygonProps
+            const {
+              radius,
+              sides,
+              options,
+            } = newValue as MatterSetBodyProps['polygon']
             instance.setPolygon(radius, sides, options)
           }
           break
