@@ -13,8 +13,12 @@ export function applyMatterSleepProps<
       case 'sleep':
         if (!isEqual(oldValue, newValue)) {
           const { start, end, threshold } = newValue
-          instance.setSleepEvents(start, end)
-          instance.setSleepThreshold(threshold)
+          if (start || end) {
+            instance.setSleepEvents(start, end)
+          }
+          if (threshold) {
+            instance.setSleepThreshold(threshold)
+          }
         }
         break
     }
