@@ -1,5 +1,4 @@
 import { MatterFrictionProps } from '../types'
-import isEqual from 'fast-deep-equal'
 import { iterateProps } from '../../../../util/iterateProps'
 
 /**
@@ -11,18 +10,13 @@ export function applyMatterFrictionProps<
   iterateProps(oldProps, newProps, (key, newValue, oldValue) => {
     switch (key) {
       case 'friction':
-        if (typeof newValue === 'number') {
-          instance.setFriction(newValue)
-        } else if (!isEqual(newValue, oldValue)) {
-          const { value, air, fstatic } = newValue
-          instance.setFriction(value, air, fstatic)
-        }
+        instance.setFriction(newValue)
         break
       case 'frictionAir':
-        instance.setFrictionAir(newValue as number)
+        instance.setFrictionAir(newValue)
         break
       case 'frictionStatic':
-        instance.setFrictionStatic(newValue as number)
+        instance.setFrictionStatic(newValue)
         break
     }
   })
