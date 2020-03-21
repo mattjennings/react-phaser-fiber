@@ -9,13 +9,15 @@ This is _very_ much a work in progress. The following components are provided (l
 - [Text](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Text.html)
 - [Image](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Image.html)
 - [Sprite](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html)
+- [TileSprite](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.TileSprite.html)
 - [Group](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Group.html)
 - [ArcadeImage](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Image.html)
 - [ArcadeSprite](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Sprite.html)
 - [ArcadeCollider](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Collider.html)
-- [TileSprite](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.TileSprite.html)
-
-The current goal is to support all GameObjects and Physics.Arcade objects. After that, I'll look at adding Matter and Impact components.
+- [ArcadeGroup](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.Group.html)
+- [MatterImage](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Matter.Image.html)
+- [MatterSprite](https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Matter.Sprite.html)
+- MatterCollider
 
 # Examples
 
@@ -25,9 +27,12 @@ The current goal is to support all GameObjects and Physics.Arcade objects. After
 
 [Basic Platformer](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/basic-platformer) (recreated from [official Phaser example](https://labs.phaser.io/edit.html?src=src/physics/arcade/basic%20platform.js&v=3.22.0))
 
+[Invaders](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/invaders) (recreated from [Phaser 2 example](https://phaser.io/examples/v2/games/invaders)
+
 ## Other
 
 [Spawning Components](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/spawner)
+[With Matter Physics](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/with-matter)
 
 # Getting Started
 
