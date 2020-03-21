@@ -19,6 +19,9 @@
       "pre-commit": "pretty-quick --staged"
     }
   },
+  "resolutions": {
+    "phaser": "3.21"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
