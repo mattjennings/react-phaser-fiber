@@ -22,11 +22,16 @@
     "@typescript-eslint/array-type": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/no-var-requires": 0,
-    "react-hooks/rules-of-hooks": "error"
+    "react-hooks/rules-of-hooks": "error",
+    "no-undef": 2
   },
   "settings": {
     "react": {
       "version": "detect"
     }
+  },
+  "env": {
+    "browser": true,
+    "node": true
   }
 }

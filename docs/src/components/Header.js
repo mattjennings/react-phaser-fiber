@@ -1,42 +1,42 @@
 import { Link } from 'gatsby'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useIsMobile } from '../hooks'
+import { css, jsx } from '@emotion/core'
+import { IconButton, Box, Text } from '@chakra-ui/core'
+import { IoIosMenu } from 'react-icons/io'
+import styled from '@emotion/styled'
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
+const Header = ({ title, onSidebarOpen }) => {
+  const isMobile = useIsMobile()
+
+  return (
+    <header
+      css={theme => css`
+        /* background: ${theme.colors.brand[700]}; */
+        display: flex;
+        align-items: center;
+        padding: ${theme.space[2]};
+        margin-bottom: 1.45rem;
+        height: 60px;
+      `}
     >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
+      {isMobile && (
+        <IconButton
+          variant="ghost"
+          aria-label="Open Menu"
+          icon={() => <Box as={IoIosMenu} size="32px" />}
+          onClick={onSidebarOpen}
+        />
+      )}
+      <Title fontSize="2xl">{title}</Title>
+    </header>
+  )
 }
 
-Header.defaultProps = {
-  siteTitle: ``,
-}
+const Title = styled(Text)`
+  margin: 0;
+  margin-left: ${({ theme }) => theme.space[2]};
+`
 
 export default Header

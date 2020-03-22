@@ -22,9 +22,11 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         defaultLayouts: {
-          // docs: require.resolve("./src/components/posts-layout.js"),
+          docs: require.resolve(
+            './src/layouts/DocsLayout.js'
+          ),
           default: require.resolve(
-            './src/components/Layout.js'
+            './src/layouts/Layout.js'
           ),
         },
       },
@@ -51,15 +53,7 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    {
-      resolve: 'gatsby-plugin-web-font-loader',
-      options: {
-        google: {
-          families: ['Fira Mono'],
-        },
-      },
-    },
-    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-emotion`,
     `gatsby-plugin-offline`,
   ],
 }

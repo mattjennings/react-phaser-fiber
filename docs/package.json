@@ -3,11 +3,16 @@
   "private": true,
   "version": "0.1.0",
   "dependencies": {
+    "@chakra-ui/core": "^0.6.1",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/react": "^1.5.7",
     "babel-plugin-styled-components": "^1.10.7",
+    "emotion-theming": "^10.0.27",
     "gatsby": "^2.19.45",
     "gatsby-image": "^2.2.44",
+    "gatsby-plugin-emotion": "^4.2.0",
     "gatsby-plugin-manifest": "^2.2.48",
     "gatsby-plugin-mdx": "^1.1.0",
     "gatsby-plugin-offline": "^3.0.41",
@@ -15,8 +20,6 @@
     "gatsby-plugin-react-helmet": "^3.1.24",
     "gatsby-plugin-sharp": "^2.4.13",
     "gatsby-plugin-sitemap": "^2.2.26",
-    "gatsby-plugin-styled-components": "^3.2.0",
-    "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-filesystem": "^2.1.56",
     "gatsby-transformer-sharp": "^2.3.19",
     "phaser": "^3.22.0",
@@ -27,7 +30,8 @@
     "react-live": "^2.2.2",
     "react-phaser-fiber": "0.3.0-beta.1",
     "react-spaces": "^0.1.24",
-    "styled-components": "^5.0.1"
+    "react-responsive": "^8.0.3",
+    "react-icons": "^3.9.0"
   },
   "keywords": [
     "gatsby"
