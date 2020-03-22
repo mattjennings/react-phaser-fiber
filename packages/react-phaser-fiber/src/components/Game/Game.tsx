@@ -1,9 +1,9 @@
 import Phaser from 'phaser'
 import React from 'react'
 import { FiberRoot } from 'react-reconciler'
-import { PACKAGE_NAME, PhaserFiber, VERSION } from '../../reconciler'
 import GameContext from './GameContext'
 import { withCanvas, WithCanvas } from '../Canvas/Canvas'
+import { PhaserFiber, injectDevtools } from '../../reconciler/reconciler'
 
 export interface GameProps
   extends Omit<Phaser.Types.Core.GameConfig, 'canvas'> {
@@ -18,12 +18,9 @@ class Game extends React.Component<
   mountNode: FiberRoot
   game: Phaser.Game
 
-  state = {
-    booting: true,
-  }
-
-  componentDidMount() {
-    const { children, canvas, ...config } = this.props
+  constructor(props: GameProps & WithCanvas) {
+    super(props)
+    const { children, canvas, ...config } = props
 
     this.game = new Phaser.Game({
       canvas,
@@ -31,18 +28,26 @@ class Game extends React.Component<
       ...config,
     })
 
+    this.state = {
+      booting: true,
+    }
+
     this.game.events.on('ready', () => {
       this.setState({ booting: false })
     })
 
-    this.mountNode = PhaserFiber.createContainer(this.game, false, false)
-
-    injectDevtools()
-
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' && window) {
       // @ts-ignore
       window.game = this.game
     }
+  }
+
+  componentDidMount() {
+    const { children, canvas, ...config } = this.props
+
+    this.mountNode = PhaserFiber.createContainer(this.game, false, false)
+
+    injectDevtools()
 
     PhaserFiber.updateContainer(
       this.getChildren(),
@@ -78,7 +83,7 @@ class Game extends React.Component<
 
   componentWillUnmount() {
     PhaserFiber.updateContainer(null, this.mountNode, this, null as any)
-    this.game.destroy(true)
+    this.game.destroy(!this.props.canvas)
   }
 
   render() {
@@ -87,15 +92,3 @@ class Game extends React.Component<
 }
 
 export default withCanvas(Game)
-
-/**
- * Inject into React Devtools
- */
-function injectDevtools() {
-  PhaserFiber.injectIntoDevTools({
-    bundleType: process.env.NODE_ENV !== 'production' ? 1 : 0,
-    version: VERSION,
-    rendererPackageName: PACKAGE_NAME,
-    findFiberByHostInstance: PhaserFiber.findHostInstance as any,
-  })
-}
