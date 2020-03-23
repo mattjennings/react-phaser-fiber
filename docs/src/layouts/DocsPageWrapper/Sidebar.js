@@ -1,26 +1,25 @@
 import {
   Box,
+  Button,
   Collapse,
-  Divider,
   Drawer,
   DrawerCloseButton,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
   Text,
-  Button,
+  useColorMode,
 } from '@chakra-ui/core'
-import { css } from '@emotion/core'
+import humanize from 'humanize-string'
 import React, { useMemo, useState } from 'react'
 import Link from '../../components/Link'
 import { useSidebar } from '../../components/SidebarProvider'
 import { useIsMobile } from '../../hooks'
-import humanize from 'humanize-string'
 
 function Sidebar({ docs, path }) {
   const isMobile = useIsMobile()
+  const { colorMode } = useColorMode()
   const { isSidebarOpen, closeSidebar } = useSidebar()
-
   const isOpen = isMobile && isSidebarOpen
 
   const links = useMemo(
@@ -69,7 +68,7 @@ function Sidebar({ docs, path }) {
   ) : (
     <Box
       as="nav"
-      backgroundColor="gray.900"
+      backgroundColor={'gray.900'}
       borderRight="1px solid"
       borderRightColor="gray.700"
       color="gray.100"

@@ -19,16 +19,13 @@ const Header = ({ title }) => {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <header
-      css={theme => css`
-        /* background: ${theme.colors.brand[700]}; */
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: ${theme.space[2]};
-        margin-bottom: 1.45rem;
-        height: 60px;
-      `}
+    <Box
+      as="header"
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+      padding={2}
+      height={60}
     >
       <Box display="flex">
         {isMobile && (
@@ -47,7 +44,7 @@ const Header = ({ title }) => {
         icon={colorMode === 'dark' ? 'sun' : 'moon'}
         onClick={toggleColorMode}
       />
-    </header>
+    </Box>
   )
 }
 
