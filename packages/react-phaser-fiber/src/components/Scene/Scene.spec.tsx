@@ -1,12 +1,12 @@
 import { render, wait } from '@testing-library/react'
 import React from 'react'
-import Game from '../Game'
+import Game, { GameProps, GameRefType } from '../Game'
 import Scene from './Scene'
 import nock from 'nock'
 
 describe('Scene', () => {
   it('adds a scene to the game', async () => {
-    const gameRef = React.createRef<Game>()
+    const gameRef = React.createRef<GameRefType>()
     const sceneRef = React.createRef<Phaser.Scene>()
 
     render(
@@ -21,7 +21,7 @@ describe('Scene', () => {
   })
 
   it('removes the scene from the game', async () => {
-    const gameRef = React.createRef<Game>()
+    const gameRef = React.createRef<GameRefType>()
     const sceneRef = React.createRef<Phaser.Scene>()
 
     const { rerender } = render(

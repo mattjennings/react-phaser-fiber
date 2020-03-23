@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import React from 'react'
 import { FiberRoot } from 'react-reconciler'
 import GameContext from './GameContext'
-import { withCanvas, WithCanvas } from '../Canvas/Canvas'
+import { WithCanvas, CanvasContext } from '../Canvas/Canvas'
 import { PhaserFiber, injectDevtools } from '../../reconciler/reconciler'
 
 export interface GameProps
@@ -10,10 +10,16 @@ export interface GameProps
   children?: JSX.Element | JSX.Element[]
 }
 
-class Game extends React.Component<
-  GameProps & WithCanvas,
-  { booting: boolean }
-> {
+/**
+ * Helper type for correctly typing a game ref
+ */
+export type GameRefType = Game
+
+interface GameState {
+  booting: boolean
+}
+
+class Game extends React.Component<GameProps & WithCanvas, GameState> {
   static displayName = 'Game'
   mountNode: FiberRoot
   game: Phaser.Game
@@ -91,4 +97,12 @@ class Game extends React.Component<
   }
 }
 
-export default withCanvas(Game)
+const ForwardedWithCanvas = React.forwardRef<Game, GameProps>((props, ref) => (
+  <CanvasContext.Consumer>
+    {canvas => <Game {...props} ref={ref} canvas={canvas} />}
+  </CanvasContext.Consumer>
+))
+
+ForwardedWithCanvas.displayName = 'Game'
+
+export default ForwardedWithCanvas
