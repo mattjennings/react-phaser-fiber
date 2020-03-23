@@ -26,7 +26,9 @@ function Sidebar({ docs, path }) {
   const links = useMemo(
     () =>
       getPageTree(
-        docs.filter(doc => !!doc.context.frontmatter)
+        docs.filter(
+          doc => doc.context && !!doc.context.frontmatter
+        )
       ),
     [docs]
   )
