@@ -4,6 +4,6 @@ import { useTheme } from '@chakra-ui/core'
 export function useIsMobile() {
   const theme = useTheme()
   return useMediaQuery({
-    query: `(max-width: ${theme.breakpoints.sm})`,
+    query: `(max-width: ${theme.breakpoints.md})`,
   })
 }
