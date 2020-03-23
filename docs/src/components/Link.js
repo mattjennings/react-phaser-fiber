@@ -2,18 +2,23 @@ import React from 'react'
 import { Link as ChakraLink } from '@chakra-ui/core'
 import { Link as GatsbyLink } from 'gatsby'
 import { css, jsx } from '@emotion/core'
+import { motion } from 'framer-motion'
+
+const MotionChakraLink = motion.custom(ChakraLink)
 
 export default function Link(props) {
   return (
-    <ChakraLink
+    <MotionChakraLink
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 1 }}
       as={GatsbyLink}
+      textAlign="center"
+      _hover={{
+        textDecoration: 'none',
+      }}
       {...props}
-      css={theme => css`
-        &:hover {
-          font-weight: ${theme.fontWeights.medium};
-          text-decoration: none;
-        }
-      `}
-    />
+    >
+      {props.children}
+    </MotionChakraLink>
   )
 }

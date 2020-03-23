@@ -92,7 +92,6 @@ const scope = {
 const components = {
   pre: React.memo(props => {
     const theme = useTheme()
-
     const codeTheme = useMemo(
       () => ({
         plain: {

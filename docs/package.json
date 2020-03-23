@@ -10,6 +10,7 @@
     "@mdx-js/react": "^1.5.7",
     "babel-plugin-styled-components": "^1.10.7",
     "emotion-theming": "^10.0.27",
+    "framer-motion": "^1.10.0",
     "gatsby": "^2.19.45",
     "gatsby-image": "^2.2.44",
     "gatsby-plugin-emotion": "^4.2.0",
@@ -27,11 +28,11 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
+    "react-icons": "^3.9.0",
     "react-live": "^2.2.2",
     "react-phaser-fiber": "0.3.0-beta.1",
-    "react-spaces": "^0.1.24",
     "react-responsive": "^8.0.3",
-    "react-icons": "^3.9.0"
+    "react-spaces": "^0.1.24"
   },
   "keywords": [
     "gatsby"

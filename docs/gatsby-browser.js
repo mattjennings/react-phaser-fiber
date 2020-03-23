@@ -1,7 +1,15 @@
-/**
- * Implement Gatsby's Browser APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/browser-apis/
- */
+const React = require('react')
+const DocsPageWrapper = require('./src/layouts/DocsPageWrapper')
+  .default
 
-// You can delete this file if you're not using it
+export const wrapPageElement = ({ element, props }) => {
+  if (props.path !== '/') {
+    return (
+      <DocsPageWrapper {...props}>
+        {element}
+      </DocsPageWrapper>
+    )
+  } else {
+    return element
+  }
+}

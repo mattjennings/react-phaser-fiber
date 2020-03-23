@@ -6,8 +6,10 @@ import { css, jsx } from '@emotion/core'
 import { IconButton, Box, Text } from '@chakra-ui/core'
 import { IoIosMenu } from 'react-icons/io'
 import styled from '@emotion/styled'
+import { useSidebar } from './SidebarProvider'
 
-const Header = ({ title, onSidebarOpen }) => {
+const Header = ({ title }) => {
+  const { openSidebar } = useSidebar()
   const isMobile = useIsMobile()
 
   return (
@@ -26,7 +28,7 @@ const Header = ({ title, onSidebarOpen }) => {
           variant="ghost"
           aria-label="Open Menu"
           icon={() => <Box as={IoIosMenu} size="32px" />}
-          onClick={onSidebarOpen}
+          onClick={openSidebar}
         />
       )}
       <Title fontSize="2xl">{title}</Title>
