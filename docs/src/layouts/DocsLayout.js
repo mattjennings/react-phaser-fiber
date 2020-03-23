@@ -7,7 +7,7 @@ const DocsLayout = ({ children, ...props }) => {
 
   return (
     <Box
-      bg={colorMode === 'dark' ? 'gray.800' : 'gray.100'}
+      bg={colorMode === 'dark' ? 'gray.800' : 'gray.50'}
       height="100%"
     >
       <Header title={props.pageContext.frontmatter.title} />
