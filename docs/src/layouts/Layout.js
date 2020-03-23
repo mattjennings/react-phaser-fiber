@@ -1,6 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import Base from './Base'
 import Header from '../components/Header'
 
 const Layout = ({ children }) => {
@@ -15,7 +14,7 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <Base>
+    <>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
@@ -26,7 +25,7 @@ const Layout = ({ children }) => {
       >
         <main>{children}</main>
       </div>
-    </Base>
+    </>
   )
 }
 

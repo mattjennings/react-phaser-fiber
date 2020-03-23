@@ -54,6 +54,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-emotion`,
+    `gatsby-plugin-chakra-ui`,
     `gatsby-plugin-offline`,
   ],
 }

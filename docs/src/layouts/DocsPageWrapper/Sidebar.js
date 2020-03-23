@@ -15,6 +15,7 @@ import React, { useMemo, useState } from 'react'
 import Link from '../../components/Link'
 import { useSidebar } from '../../components/SidebarProvider'
 import { useIsMobile } from '../../hooks'
+import humanize from 'humanize-string'
 
 function Sidebar({ docs, path }) {
   const isMobile = useIsMobile()
@@ -36,13 +37,13 @@ function Sidebar({ docs, path }) {
       <Links
         links={links}
         path={path}
-        include={['Getting Started']}
+        include={['getting-started']}
       />
       <SectionLabel>API</SectionLabel>
       <Links
         links={links}
         path={path}
-        include={['Game Objects', 'Arcade Physics']}
+        include={['game-objects', 'arcade-physics']}
       />
     </Box>
   )
@@ -68,7 +69,7 @@ function Sidebar({ docs, path }) {
       as="nav"
       backgroundColor="gray.900"
       borderRight="1px solid"
-      borderRightColor="gray.200"
+      borderRightColor="gray.700"
       color="gray.100"
       width={250}
       height="100vh"
@@ -144,7 +145,7 @@ function LinkGroup({ link, collapsable, path }) {
           paddingBottom={1}
           paddingLeft={6}
         >
-          {link.key}
+          {humanize(link.key)}
         </Text>
       </Button>
       <Box paddingLeft={6}>
