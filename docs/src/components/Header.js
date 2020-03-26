@@ -36,14 +36,19 @@ const Header = ({ title }) => {
             onClick={openSidebar}
           />
         )}
-        <Title fontSize="2xl">{title}</Title>
+        {title && (
+          <Title fontSize="2xl" fontWeight={500}>
+            {title}
+          </Title>
+        )}
       </Box>
-      <IconButton
+      {/* disabled until https://github.com/chakra-ui/chakra-ui/issues/511 is fixed */}
+      {/* <IconButton
         variant="ghost"
         aria-label="Open Menu"
         icon={colorMode === 'dark' ? 'sun' : 'moon'}
         onClick={toggleColorMode}
-      />
+      /> */}
     </Box>
   )
 }

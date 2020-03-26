@@ -1,15 +1,18 @@
-const React = require('react')
-const DocsPageWrapper = require('./src/layouts/DocsPageWrapper')
-  .default
+import {
+  CSSReset,
+  theme,
+  ThemeProvider,
+} from '@chakra-ui/core'
+import React from 'react'
+import Root from './src/layouts/Root'
+
+export const wrapRootElement = ({ element }) => (
+  <ThemeProvider theme={theme}>
+    <CSSReset theme={theme} />
+    {element}
+  </ThemeProvider>
+)
 
 export const wrapPageElement = ({ element, props }) => {
-  if (props.path !== '/') {
-    return (
-      <DocsPageWrapper {...props}>
-        {element}
-      </DocsPageWrapper>
-    )
-  } else {
-    return element
-  }
+  return <Root {...props}>{element}</Root>
 }

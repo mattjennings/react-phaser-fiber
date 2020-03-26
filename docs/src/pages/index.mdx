@@ -1,0 +1,33 @@
+import { Text, Box, Stack, Button } from '@chakra-ui/core'
+import { Link } from 'gatsby'
+import { FaGithub } from 'react-icons/fa'
+
+<Stack align="center" spacing={2}>
+  <Text
+    fontWeight={500}
+    fontSize={['3xl', '5xl', '5xl', '5xl']}
+    marginBottom={0}
+  >
+    react-phaser-fiber
+  </Text>
+  <Stack direction="row" spacing={2}>
+    <Button
+      as={Link}
+      variantColor="teal"
+      to="/getting-started/installation"
+      marginTop={2}
+    >
+      Get Started
+    </Button>
+    <Button
+      as="a"
+      leftIcon={() => (
+        <Box as={FaGithub} marginRight={3} size="1.2em" />
+      )}
+      href="https://github.com/mattjennings/react-phaser-fiber"
+      marginTop={2}
+    >
+      GitHub
+    </Button>
+  </Stack>
+</Stack>

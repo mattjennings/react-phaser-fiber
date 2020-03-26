@@ -22,9 +22,6 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         defaultLayouts: {
-          docs: require.resolve(
-            './src/layouts/DocsLayout.js'
-          ),
           default: require.resolve(
             './src/layouts/Layout.js'
           ),
@@ -54,7 +51,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-emotion`,
-    `gatsby-plugin-chakra-ui`,
-    `gatsby-plugin-offline`,
+    // `gatsby-plugin-chakra-ui`,
+    // `gatsby-plugin-offline`,
   ],
 }

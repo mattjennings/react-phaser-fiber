@@ -1,31 +1,29 @@
-import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 import Header from '../components/Header'
+import { Box, useColorMode } from '@chakra-ui/core'
+import Helmet from 'react-helmet'
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query LayoutQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+const Layout = ({ children, ...props }) => {
+  const { colorMode } = useColorMode()
 
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-      </div>
-    </>
+    <Box
+      bg={colorMode === 'dark' ? 'gray.800' : 'gray.50'}
+      height="100%"
+    >
+      <Helmet>
+        <title>
+          {props.pageContext.frontmatter.title
+            ? `${props.pageContext.frontmatter.title} | `
+            : ''}
+          react-phaser-fiber
+        </title>
+      </Helmet>
+
+      <Header title={props.pageContext.frontmatter.title} />
+
+      <Box paddingX={4}>{children}</Box>
+    </Box>
   )
 }
 

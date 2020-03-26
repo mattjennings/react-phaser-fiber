@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { MDXProvider } from '@mdx-js/react'
+import { MDXProvider as BaseMDXProvider } from '@mdx-js/react'
 import {
   LiveProvider,
   LiveEditor,
@@ -10,7 +10,12 @@ import * as ReactPhaserFiber from 'react-phaser-fiber'
 import * as Space from 'react-spaces'
 import styled from '@emotion/styled'
 import { useTheme } from 'emotion-theming'
-import { useColorMode, Box, Button } from '@chakra-ui/core'
+import {
+  useColorMode,
+  Box,
+  Button,
+  Text,
+} from '@chakra-ui/core'
 import { css } from '@emotion/core'
 import { useIsMobile } from '../hooks'
 
@@ -93,7 +98,7 @@ const StyledLiveError = styled(LiveError)`
 const scope = {
   ...ReactPhaserFiber,
   // wrap in a <Canvas> so we don't have to do it in examples
-  Game: props => (
+  Game: (props) => (
     <ReactPhaserFiber.Canvas>
       <ReactPhaserFiber.Game {...props} />
     </ReactPhaserFiber.Canvas>
@@ -222,7 +227,7 @@ function Example(props) {
         colorMode === 'dark' ? 'gray.700' : 'gray.400'
       }
       overflow="hidden"
-      css={theme => css`
+      css={(theme) => css`
         .spaces-resize-handle {
           z-index: 1;
           background: #555555;
@@ -238,7 +243,7 @@ function Example(props) {
         theme={codeTheme}
         code={props.children.props.children}
         scope={scope}
-        transformCode={code => {
+        transformCode={(code) => {
           // remove import statements from examples so we can still show them but ignore
           // parsing them
           const sanitized = code.replace(
@@ -302,8 +307,22 @@ function DesktopEditor() {
 
 const components = {
   pre: Example,
+  h1: (props) => (
+    <Text fontSize="3xl" fontWeight={500} {...props} />
+  ),
+  h2: (props) => (
+    <Text fontSize="2xl" fontWeight={500} {...props} />
+  ),
+  h3: (props) => (
+    <Text fontSize="xl" fontWeight={500} {...props} />
+  ),
+  h4: (props) => <Text fontSize="lg" {...props} />,
+  h5: (props) => <Text fontSize="md" {...props} />,
+  h6: (props) => <Text fontSize="sm" {...props} />,
 }
 
 export default function GameMDXProvider(props) {
-  return <MDXProvider components={components} {...props} />
+  return (
+    <BaseMDXProvider components={components} {...props} />
+  )
 }

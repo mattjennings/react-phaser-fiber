@@ -12,13 +12,13 @@ import {
 } from '@chakra-ui/core'
 import humanize from 'humanize-string'
 import React, { useMemo, useState } from 'react'
-import Link from '../../components/Link'
-import { useSidebar } from '../../components/SidebarProvider'
-import { useIsMobile } from '../../hooks'
+import Link from '../components/Link'
+import { useSidebar } from '../components/SidebarProvider'
+import { useIsMobile } from '../hooks'
+import { motion } from 'framer-motion'
 
 function Sidebar({ docs, path }) {
   const isMobile = useIsMobile()
-  const { colorMode } = useColorMode()
   const { isSidebarOpen, closeSidebar } = useSidebar()
   const isOpen = isMobile && isSidebarOpen
 
@@ -26,7 +26,7 @@ function Sidebar({ docs, path }) {
     () =>
       getPageTree(
         docs.filter(
-          doc => doc.context && !!doc.context.frontmatter
+          (doc) => doc.context && !!doc.context.frontmatter
         )
       ),
     [docs]
@@ -61,7 +61,11 @@ function Sidebar({ docs, path }) {
         color="gray.100"
       >
         <DrawerCloseButton marginTop={2} />
-        <DrawerHeader>react-phaser-fiber</DrawerHeader>
+        <DrawerHeader>
+          <Link to="/" display="inline-block">
+            react-phaser-fiber
+          </Link>
+        </DrawerHeader>
         {content}
       </DrawerContent>
     </Drawer>
@@ -76,14 +80,18 @@ function Sidebar({ docs, path }) {
       height="100vh"
       overflowY="scroll"
     >
-      <DrawerHeader>react-phaser-fiber</DrawerHeader>
+      <DrawerHeader>
+        <Link to="/" display="inline-block">
+          react-phaser-fiber
+        </Link>
+      </DrawerHeader>
       {content}
     </Box>
   )
 }
 
 function Links({ links, path, include }) {
-  const filteredLinks = links.filter(link =>
+  const filteredLinks = links.filter((link) =>
     include.includes(link.key)
   )
   return (
@@ -135,6 +143,9 @@ function LinkGroup({ link, collapsable, path }) {
         borderRadius={0}
         _focus={{
           outline: 'none',
+          background: 'rgba(255,255,255,0.1)',
+        }}
+        _hover={{
           background: 'rgba(255,255,255,0.1)',
         }}
       >
@@ -196,6 +207,7 @@ function ChildLinks({ links, path }) {
               {link.path ? (
                 <Link
                   display="inline-block"
+                  padding="2px"
                   to={link.path}
                   whileHover={{
                     x: 5,
@@ -233,7 +245,7 @@ function getPageTree(docs) {
         : pathObject.children
 
       const existing = parent.find(
-        child => child.key === pathname
+        (child) => child.key === pathname
       )
 
       if (!existing) {
@@ -260,7 +272,7 @@ function isLinkActive(link, path) {
   return link.path === decodeURIComponent(path)
     ? true
     : !!link.children &&
-        link.children.find(child =>
+        link.children.find((child) =>
           isLinkActive(child, path)
         )
 }

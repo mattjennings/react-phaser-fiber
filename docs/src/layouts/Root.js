@@ -1,9 +1,9 @@
-import { Box } from '@chakra-ui/core'
+import { Box, Text } from '@chakra-ui/core'
 import styled from '@emotion/styled'
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import MDXProvider from '../../components/GameMDXProvider'
-import { SidebarProvider } from '../../components/SidebarProvider'
+import MDXProvider from '../components/MDXProvider'
+import { SidebarProvider } from '../components/SidebarProvider'
 import Sidebar from './Sidebar'
 
 const Main = styled.main`
@@ -15,9 +15,9 @@ const Main = styled.main`
 /**
  * Used by wrapPageElement in gatsby-browser for doc pages
  */
-const DocsPageWrapper = ({ children, path }) => {
+const Root = ({ children, path }) => {
   const data = useStaticQuery(graphql`
-    query DocsPageWrapperQuery {
+    query RootQuery {
       allSitePage(sort: { order: ASC, fields: path }) {
         nodes {
           path
@@ -46,4 +46,4 @@ const DocsPageWrapper = ({ children, path }) => {
   )
 }
 
-export default DocsPageWrapper
+export default Root
