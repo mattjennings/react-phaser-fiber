@@ -4,13 +4,8 @@ import { Box, useColorMode } from '@chakra-ui/core'
 import Helmet from 'react-helmet'
 
 const Layout = ({ children, ...props }) => {
-  const { colorMode } = useColorMode()
-
   return (
-    <Box
-      bg={colorMode === 'dark' ? 'gray.800' : 'gray.50'}
-      height="100%"
-    >
+    <Box height="100%">
       <Helmet>
         <title>
           {props.pageContext.frontmatter.title

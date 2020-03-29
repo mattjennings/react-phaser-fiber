@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/core'
+import { Box, Text, useColorMode } from '@chakra-ui/core'
 import styled from '@emotion/styled'
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
@@ -6,16 +6,12 @@ import MDXProvider from '../components/MDXProvider'
 import { SidebarProvider } from '../components/SidebarProvider'
 import Sidebar from './Sidebar'
 
-const Main = styled.main`
-  height: 100vh;
-  flex-grow: 1;
-  overflow: scroll;
-`
-
 /**
  * Used by wrapPageElement in gatsby-browser for doc pages
  */
 const Root = ({ children, path }) => {
+  const { colorMode } = useColorMode()
+
   const data = useStaticQuery(graphql`
     query RootQuery {
       allSitePage(sort: { order: ASC, fields: path }) {
@@ -39,7 +35,18 @@ const Root = ({ children, path }) => {
             docs={data.allSitePage.nodes}
             path={path}
           />
-          <Main>{children}</Main>
+          <Box
+            as="main"
+            height="100vh"
+            flexGrow={1}
+            overflow="scroll"
+            paddingX={[0, 0, 2]}
+            bg={
+              colorMode === 'dark' ? 'gray.900' : 'gray.50'
+            }
+          >
+            {children}
+          </Box>
         </Box>
       </SidebarProvider>
     </MDXProvider>
