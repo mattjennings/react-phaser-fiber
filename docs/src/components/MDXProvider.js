@@ -16,7 +16,7 @@ import {
   Button,
   Text,
 } from '@chakra-ui/core'
-import { css } from '@emotion/core'
+import { css, jsx } from '@emotion/core'
 import { useIsMobile } from '../hooks'
 
 const StyledLiveEditor = styled(LiveEditor)`

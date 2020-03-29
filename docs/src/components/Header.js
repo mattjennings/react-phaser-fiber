@@ -1,16 +1,9 @@
-import { Link } from 'gatsby'
-import PropTypes from 'prop-types'
-import React from 'react'
-import { useIsMobile } from '../hooks'
-import { css, jsx } from '@emotion/core'
-import {
-  IconButton,
-  Box,
-  Text,
-  useColorMode,
-} from '@chakra-ui/core'
-import { IoIosMenu } from 'react-icons/io'
+import { Box, IconButton, Text } from '@chakra-ui/core'
 import styled from '@emotion/styled'
+import React from 'react'
+import { IoIosMenu } from 'react-icons/io'
+import { useIsMobile } from '../hooks'
+import { useColorMode } from './ColorModeProvider'
 import { useSidebar } from './SidebarProvider'
 
 const Header = ({ title }) => {
@@ -43,12 +36,12 @@ const Header = ({ title }) => {
         )}
       </Box>
       {/* disabled until https://github.com/chakra-ui/chakra-ui/issues/511 is fixed */}
-      {/* <IconButton
+      <IconButton
         variant="ghost"
         aria-label="Open Menu"
         icon={colorMode === 'dark' ? 'sun' : 'moon'}
         onClick={toggleColorMode}
-      /> */}
+      />
     </Box>
   )
 }
