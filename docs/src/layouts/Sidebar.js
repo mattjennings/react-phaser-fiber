@@ -185,7 +185,7 @@ function ChildLinks({ links, path }) {
             <Text
               as="li"
               textTransform={
-                link.path ? 'capitalize' : 'uppercase'
+                link.title ? 'none' : 'uppercase'
               }
               fontSize={link.path ? 'sm' : 'xs'}
               fontWeight={
@@ -213,8 +213,10 @@ function ChildLinks({ links, path }) {
                     x: 5,
                   }}
                 >
-                  {link.key}
+                  {link.title ? link.title : link.key}
                 </Link>
+              ) : link.title ? (
+                link.title
               ) : (
                 link.key
               )}
@@ -249,14 +251,15 @@ function getPageTree(docs) {
       )
 
       if (!existing) {
+        const isPage = index === array.length - 1
         parent.push({
           key: pathname,
-          path:
-            index === array.length - 1
-              ? doc.path
-              : undefined,
+          path: isPage ? doc.path : undefined,
           isRoot: Array.isArray(pathObject) && index === 0,
           section: doc.section,
+          title: isPage
+            ? doc.context?.frontmatter?.title
+            : null,
           children: [],
         })
       }
