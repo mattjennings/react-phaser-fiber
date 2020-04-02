@@ -3,7 +3,10 @@ import './index.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Game, Scene, Text } from 'react-phaser-fiber'
-import Platformer from './Platformer'
+import { Group, Image } from 'react-phaser-fiber'
+import Platform from './Platform'
+import Player from './Player'
+import Star from './Star'
 
 const App = () => {
   return (
@@ -44,7 +47,17 @@ const App = () => {
           />
         )}
       >
-        <Platformer />
+        <Image x={400} y={300} texture="sky" />
+        <Player x={100} y={450} />
+        <Group name="platforms">
+          <Platform x={400} y={568} scale={2} physicsType="static" />
+          <Platform moving x={400} y={400} />
+        </Group>
+        <Group name="stars">
+          {Array.from({ length: 11 }).map((_, index) => (
+            <Star key={index} x={12 + index * 70} y={200} />
+          ))}
+        </Group>
       </Scene>
     </Game>
   )
