@@ -2,7 +2,7 @@
 title: With React DOM
 ---
 
-If you're using React DOM, you can simply use the Game component within your React app
+If you're using React DOM, you can simply use the Game component within your React app.
 
 ```jsx live=true noInline=true
 import { Game, Scene, Text } from 'react-phaser-fiber'
@@ -12,12 +12,7 @@ function MyGame() {
   return (
     <Game width={400} height={400}>
       <Scene sceneKey="main">
-        <Text
-          x={140}
-          y={150}
-          text="Hello World"
-          style={{ color: 'white' }}
-        />
+        <Text x={140} y={150} text="Hello World" style={{ color: 'white' }} />
       </Scene>
     </Game>
   )
@@ -31,12 +26,7 @@ render(<MyGame />, document.getElementById('root'))
 You can also customize the canvas that Phaser renders into
 
 ```jsx live=true customCanvas=true
-import {
-  Game,
-  Scene,
-  Text,
-  Canvas,
-} from 'react-phaser-fiber'
+import { Game, Scene, Text, Canvas } from 'react-phaser-fiber'
 
 function MyGame() {
   return (
@@ -48,12 +38,7 @@ function MyGame() {
     >
       <Game width={400} height={400}>
         <Scene sceneKey="main">
-          <Text
-            x={140}
-            y={150}
-            text="Hello World"
-            style={{ color: 'white' }}
-          />
+          <Text x={140} y={150} text="Hello World" style={{ color: 'white' }} />
         </Scene>
       </Game>
     </Canvas>

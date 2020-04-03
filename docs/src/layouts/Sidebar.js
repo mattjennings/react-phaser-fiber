@@ -25,9 +25,7 @@ function Sidebar({ docs, path }) {
   const links = useMemo(
     () =>
       getPageTree(
-        docs.filter(
-          (doc) => doc.context && !!doc.context.frontmatter
-        )
+        docs.filter((doc) => doc.context && !!doc.context.frontmatter)
       ),
     [docs]
   )
@@ -35,11 +33,7 @@ function Sidebar({ docs, path }) {
   const content = (
     <Box>
       <SectionLabel>Intro</SectionLabel>
-      <Links
-        links={links}
-        path={path}
-        include={['getting-started']}
-      />
+      <Links links={links} path={path} include={['getting-started']} />
       <SectionLabel>API</SectionLabel>
       <Links
         links={links}
@@ -50,16 +44,9 @@ function Sidebar({ docs, path }) {
   )
 
   return isMobile ? (
-    <Drawer
-      isOpen={isOpen}
-      placement="left"
-      onClose={closeSidebar}
-    >
+    <Drawer isOpen={isOpen} placement="left" onClose={closeSidebar}>
       <DrawerOverlay />
-      <DrawerContent
-        backgroundColor="gray.900"
-        color="gray.100"
-      >
+      <DrawerContent backgroundColor="gray.900" color="gray.100">
         <DrawerCloseButton marginTop={2} />
         <DrawerHeader>
           <Link to="/" display="inline-block">
@@ -91,9 +78,7 @@ function Sidebar({ docs, path }) {
 }
 
 function Links({ links, path, include }) {
-  const filteredLinks = links.filter((link) =>
-    include.includes(link.key)
-  )
+  const filteredLinks = links.filter((link) => include.includes(link.key))
   return (
     <Box paddingBottom={1}>
       {filteredLinks.map((link, index) => (
@@ -124,9 +109,7 @@ function SectionLabel(props) {
 
 function LinkGroup({ link, collapsable, path }) {
   const isActive = isLinkActive(link, path)
-  const [collapsed, setCollapsed] = useState(
-    collapsable ? !isActive : false
-  )
+  const [collapsed, setCollapsed] = useState(collapsable ? !isActive : false)
 
   return (
     <>
@@ -136,8 +119,8 @@ function LinkGroup({ link, collapsable, path }) {
         textAlign="start"
         onClick={() => setCollapsed(!collapsed)}
         width="100%"
-        paddingTop={2}
-        paddingBottom={2}
+        paddingY={2}
+        marginY={2}
         overflowX="hidden"
         height="auto"
         borderRadius={0}
@@ -154,7 +137,6 @@ function LinkGroup({ link, collapsable, path }) {
           fontSize={'md'}
           fontWeight={700}
           color={'gray.200'}
-          paddingBottom={1}
           paddingLeft={6}
         >
           {humanize(link.key)}
@@ -173,59 +155,41 @@ function LinkGroup({ link, collapsable, path }) {
 
 function ChildLinks({ links, path }) {
   return (
-    <Box
-      as="ul"
-      listStyleType="none"
-      paddingLeft={2}
-      paddingBottom={1}
-    >
+    <Box as="ul" listStyleType="none" paddingLeft={2} paddingBottom={1}>
       {links.map((link, index) => {
+        const isPage = !!link.path
+        const isActive = isLinkActive(link, path)
+
         return (
           <React.Fragment key={index}>
             <Text
               as="li"
-              textTransform={
-                link.title ? 'none' : 'uppercase'
-              }
-              fontSize={link.path ? 'sm' : 'xs'}
-              fontWeight={
-                link.path
-                  ? isLinkActive(link, path)
-                    ? 500
-                    : 400
-                  : 500
-              }
-              color={
-                link.path
-                  ? isLinkActive(link, path)
-                    ? 'teal.300'
-                    : 'gray.200'
-                  : 'gray.400'
-              }
+              textTransform={isPage ? 'none' : 'uppercase'}
+              fontSize={isPage ? 'sm' : 'xs'}
+              fontWeight={isPage ? (isActive ? 500 : 400) : 500}
+              color={isPage ? (isActive ? 'teal.300' : 'gray.200') : 'gray.500'}
               paddingBottom={2}
             >
-              {link.path ? (
+              {isPage ? (
                 <Link
                   display="inline-block"
                   padding="2px"
+                  marginLeft="-2px"
                   to={link.path}
                   whileHover={{
                     x: 5,
                   }}
                 >
-                  {link.title ? link.title : link.key}
+                  {isPage ? link.title : link.key}
                 </Link>
-              ) : link.title ? (
+              ) : isPage ? (
                 link.title
               ) : (
                 link.key
               )}
             </Text>
             {link.children.length > 0 && (
-              <ChildLinks
-                links={link.children}
-                path={path}
-              />
+              <ChildLinks links={link.children} path={path} />
             )}
           </React.Fragment>
         )
@@ -246,22 +210,28 @@ function getPageTree(docs) {
         ? pathObject
         : pathObject.children
 
-      const existing = parent.find(
-        (child) => child.key === pathname
-      )
+      const existing = parent.find((child) => child.key === pathname)
 
       if (!existing) {
         const isPage = index === array.length - 1
         parent.push({
           key: pathname,
+          order: doc.order,
           path: isPage ? doc.path : undefined,
           isRoot: Array.isArray(pathObject) && index === 0,
           section: doc.section,
-          title: isPage
-            ? doc.context?.frontmatter?.title
-            : null,
+          title: isPage ? doc.context?.frontmatter?.title : null,
           children: [],
         })
+
+        if (isPage) {
+          parent.sort((a, b) => {
+            const aOrder = a.order ?? 999
+            const bOrder = b.order ?? 999
+
+            return aOrder > bOrder ? 1 : -1
+          })
+        }
       }
 
       return parent[parent.length - 1]
@@ -275,9 +245,7 @@ function isLinkActive(link, path) {
   return link.path === decodeURIComponent(path)
     ? true
     : !!link.children &&
-        link.children.find((child) =>
-          isLinkActive(child, path)
-        )
+        link.children.find((child) => isLinkActive(child, path))
 }
 
 export default Sidebar
