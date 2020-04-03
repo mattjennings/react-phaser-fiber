@@ -4,13 +4,14 @@ import React, {
   useMemo,
   useState,
   useImperativeHandle,
+  useRef,
 } from 'react'
 import { useGame } from '../../hooks/useGame'
 import SceneContext from './SceneContext'
 
 export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
   sceneKey: string
-  children?: JSX.Element | JSX.Element[]
+  children?: JSX.Element | JSX.Element[] | React.ReactNode
   onPreload?: (scene: Phaser.Scene) => any
   onCreate?: (scene: Phaser.Scene) => any
   onInit?: (scene: Phaser.Scene) => any
@@ -33,6 +34,8 @@ function Scene(
   const [loading, setLoading] = useState(!!onPreload)
   const [loadProgress, setLoadProgress] = useState(0)
 
+  const listeners = useRef<Phaser.Events.EventEmitter[]>([])
+
   const scene = useMemo(() => {
     const instance = new Phaser.Scene({
       ...options,
@@ -40,7 +43,19 @@ function Scene(
     })
 
     // @ts-ignore
-    instance.preload = onPreload ? () => onPreload(instance) : null
+    instance.preload = onPreload
+      ? () => {
+          onPreload(instance)
+          listeners.current.push(
+            instance.load.once('complete', () => {
+              setLoading(false)
+              setLoadProgress(0)
+            })
+          )
+          instance.load.start()
+        }
+      : null
+
     // @ts-ignore
     instance.create = onCreate ? () => onCreate(instance) : null
     // @ts-ignore
@@ -54,24 +69,17 @@ function Scene(
   useImperativeHandle(ref, () => scene)
 
   useLayoutEffect(() => {
-    const listeners: Phaser.Events.EventEmitter[] = []
-
     // can we use suspense instead somehow?
-    listeners.push(
+    listeners.current.push(
       scene.load.on('progress', (progress: number) => {
         setLoadProgress(progress)
-      }),
-
-      scene.load.on('complete', () => {
-        setLoading(false)
-        setLoadProgress(0)
       })
     )
 
     return () => {
       game.scene.remove(sceneKey)
 
-      listeners.forEach(listener => {
+      listeners.current.forEach(listener => {
         listener.eventNames().forEach(event => listener.off(event))
       })
     }

@@ -5,7 +5,7 @@ import { PACKAGE_NAME, PhaserFiber, VERSION } from '../../reconciler'
 import GameContext from './GameContext'
 
 export interface GameProps extends Phaser.Types.Core.GameConfig {
-  children?: JSX.Element | JSX.Element[]
+  children?: JSX.Element | JSX.Element[] | React.ReactNode
 }
 
 class Game extends React.Component<GameProps, { booting: boolean }> {
