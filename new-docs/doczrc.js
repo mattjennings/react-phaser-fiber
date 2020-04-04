@@ -1,6 +1,6 @@
 export default {
   title: 'react-phaser-fiber',
-  menu: ['Home', 'Components'],
+  menu: ['Getting Started', 'Components'],
   typescript: true,
   docgenConfig: {
     searchPath: '../packages/react-phaser-fiber/src',

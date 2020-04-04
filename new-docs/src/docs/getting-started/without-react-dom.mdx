@@ -1,0 +1,22 @@
+---
+name: Without React DOM
+menu: Getting Started
+route: /getting-started/without-react-dom
+---
+
+If you don't want to include React DOM in your bundle, you can use the provided render function
+
+```jsx
+import Phaser from 'phaser'
+import { render, Game, Scene, Text } from 'react-phaser-fiber'
+
+function MyGame() {
+  return (
+    <Scene sceneKey="main">
+      <Text x={140} y={150} text="Hello World" style={{ color: 'white' }} />
+    </Scene>
+  )
+}
+
+render(<MyGame />, new Phaser.Game({ width: 400, height: 400 }))
+```

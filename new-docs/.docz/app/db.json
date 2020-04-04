@@ -2,7 +2,7 @@
   "config": {
     "title": "react-phaser-fiber",
     "description": "Example of how to integrate docz with gatsby as a theme",
-    "menu": ["Home", "Components"],
+    "menu": ["Getting Started", "Components"],
     "version": "0.1.0",
     "repository": "https://github.com/mattjennings/react-phaser-fiber",
     "native": false,
@@ -13,6 +13,95 @@
       "searchPath": "../packages/react-phaser-fiber/src"
     }
   },
+  "entries": [
+    {
+      "key": "src/pages/index.mdx",
+      "value": {
+        "name": "Home",
+        "route": "/",
+        "id": "522b7407e210088f3588b943aec44115",
+        "filepath": "src/pages/index.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/pages/index.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/pages/index.mdx",
+        "hidden": false,
+        "slug": "src-pages-index",
+        "menu": "",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/components/Game.mdx",
+      "value": {
+        "name": "Game",
+        "menu": "Components",
+        "route": "/components/game",
+        "id": "a5495f9d75f3f9b9d4341b93959dbf9d",
+        "filepath": "src/docs/components/Game.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/components/Game.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/components/Game.mdx",
+        "hidden": false,
+        "slug": "src-docs-components-game",
+        "headings": [
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic usage"
+          },
+          {
+            "slug": "properties",
+            "depth": 2,
+            "value": "Properties"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/docs/getting-started/installation.mdx",
+      "value": {
+        "name": "Installation",
+        "menu": "Getting Started",
+        "route": "/getting-started/installation",
+        "next": "/getting-started/with-react-dom",
+        "id": "af652c2fbb8907afb3fd35d42ff464b2",
+        "filepath": "src/docs/getting-started/installation.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/installation.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/installation.mdx",
+        "hidden": false,
+        "slug": "src-docs-getting-started-installation",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/getting-started/with-react-dom.mdx",
+      "value": {
+        "name": "With React DOM",
+        "menu": "Getting Started",
+        "route": "/getting-started/with-react-dom",
+        "id": "e6db82ae565367e9514d1cc3d2e09dfd",
+        "filepath": "src/docs/getting-started/with-react-dom.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/with-react-dom.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/with-react-dom.mdx",
+        "hidden": false,
+        "slug": "src-docs-getting-started-with-react-dom",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/getting-started/without-react-dom.mdx",
+      "value": {
+        "name": "Without React DOM",
+        "menu": "Getting Started",
+        "route": "/getting-started/without-react-dom",
+        "id": "d2766099ac8a7df94d475ae906bfbea9",
+        "filepath": "src/docs/getting-started/without-react-dom.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/without-react-dom.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/without-react-dom.mdx",
+        "hidden": false,
+        "slug": "src-docs-getting-started-without-react-dom",
+        "headings": []
+      }
+    }
+  ],
   "props": [
     {
       "key": "../packages/react-phaser-fiber/src/components/ArcadeCollider.tsx",
@@ -5425,13 +5514,13 @@
                 "name": "((game: Game) => any) | undefined"
               }
             },
-            "width": {
+            "scale": {
               "defaultValue": null,
-              "description": "The width of the game, in game pixels.",
-              "name": "width",
+              "description": "The Scale Manager configuration.",
+              "name": "scale",
               "required": false,
               "type": {
-                "name": "string | number | undefined"
+                "name": "ScaleConfig | undefined"
               }
             },
             "height": {
@@ -5441,6 +5530,24 @@
               "required": false,
               "type": {
                 "name": "string | number | undefined"
+              }
+            },
+            "width": {
+              "defaultValue": null,
+              "description": "The width of the game, in game pixels.",
+              "name": "width",
+              "required": false,
+              "type": {
+                "name": "string | number | undefined"
+              }
+            },
+            "title": {
+              "defaultValue": null,
+              "description": "The title of the game. Shown in the browser console.",
+              "name": "title",
+              "required": false,
+              "type": {
+                "name": "string | undefined"
               }
             },
             "zoom": {
@@ -5495,15 +5602,6 @@
               "required": false,
               "type": {
                 "name": "string[] | undefined"
-              }
-            },
-            "title": {
-              "defaultValue": null,
-              "description": "The title of the game. Shown in the browser console.",
-              "name": "title",
-              "required": false,
-              "type": {
-                "name": "string | undefined"
               }
             },
             "url": {
@@ -5639,15 +5737,6 @@
               "required": false,
               "type": {
                 "name": "PluginObject | PluginObjectItem[] | undefined"
-              }
-            },
-            "scale": {
-              "defaultValue": null,
-              "description": "The Scale Manager configuration.",
-              "name": "scale",
-              "required": false,
-              "type": {
-                "name": "ScaleConfig | undefined"
               }
             },
             "audio": {
@@ -5899,198 +5988,6 @@
     {
       "key": "../packages/react-phaser-fiber/src/reconciler/elements/TileSprite.ts",
       "value": []
-    }
-  ],
-  "entries": [
-    {
-      "key": "README.md",
-      "value": {
-        "id": "04c6e90faac2675aa89e2176d2eec7d8",
-        "filepath": "README.md",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/README.md",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/README.md",
-        "hidden": false,
-        "slug": "readme",
-        "route": "/readme",
-        "name": "Readme",
-        "menu": "",
-        "headings": [
-          {
-            "slug": "docz-gatsby-example",
-            "depth": 1,
-            "value": "Docz Gatsby Example"
-          },
-          {
-            "slug": "using-create-docz-app",
-            "depth": 2,
-            "value": "Using  create-docz-app"
-          },
-          {
-            "slug": "download",
-            "depth": 2,
-            "value": "Download"
-          },
-          {
-            "slug": "setup",
-            "depth": 2,
-            "value": "Setup"
-          },
-          {
-            "slug": "start-developing",
-            "depth": 2,
-            "value": "Start developing"
-          },
-          {
-            "slug": "build",
-            "depth": 2,
-            "value": "Build"
-          },
-          {
-            "slug": "serve-built-app",
-            "depth": 2,
-            "value": "Serve built app"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/components/Alert.mdx",
-      "value": {
-        "name": "Alert",
-        "menu": "Components",
-        "id": "411d2842c3d65e6ee7d3ec119ed4c5a0",
-        "filepath": "src/components/Alert.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/components/Alert.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/components/Alert.mdx",
-        "hidden": false,
-        "slug": "src-components-alert",
-        "route": "/src-components-alert",
-        "headings": [
-          {
-            "slug": "alert",
-            "depth": 1,
-            "value": "Alert"
-          },
-          {
-            "slug": "properties",
-            "depth": 2,
-            "value": "Properties"
-          },
-          {
-            "slug": "basic-usage",
-            "depth": 2,
-            "value": "Basic usage"
-          },
-          {
-            "slug": "using-different-kinds",
-            "depth": 2,
-            "value": "Using different kinds"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/components/Button.mdx",
-      "value": {
-        "name": "Button",
-        "menu": "Components",
-        "id": "94c04b4e4bd29ffbdeec8755c1a4c04f",
-        "filepath": "src/components/Button.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/components/Button.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/components/Button.mdx",
-        "hidden": false,
-        "slug": "src-components-button",
-        "route": "/src-components-button",
-        "headings": [
-          {
-            "slug": "button",
-            "depth": 1,
-            "value": "Button"
-          },
-          {
-            "slug": "best-practices",
-            "depth": 3,
-            "value": "Best practices"
-          },
-          {
-            "slug": "properties",
-            "depth": 2,
-            "value": "Properties"
-          },
-          {
-            "slug": "basic-usage",
-            "depth": 2,
-            "value": "Basic usage"
-          },
-          {
-            "slug": "with-different-sizes",
-            "depth": 2,
-            "value": "With different sizes"
-          },
-          {
-            "slug": "with-different-colors",
-            "depth": 2,
-            "value": "With different colors"
-          },
-          {
-            "slug": "outlined",
-            "depth": 2,
-            "value": "Outlined"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/pages/Game.mdx",
-      "value": {
-        "name": "Game",
-        "menu": "Components",
-        "id": "65c89eff68fa9116f86168ccf36ff1dd",
-        "filepath": "src/pages/Game.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/pages/Game.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/pages/Game.mdx",
-        "hidden": false,
-        "slug": "src-pages-game",
-        "route": "/src-pages-game",
-        "headings": [
-          {
-            "slug": "basic-usage",
-            "depth": 2,
-            "value": "Basic usage"
-          },
-          {
-            "slug": "properties",
-            "depth": 2,
-            "value": "Properties"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/pages/index.mdx",
-      "value": {
-        "name": "Home",
-        "route": "/",
-        "id": "522b7407e210088f3588b943aec44115",
-        "filepath": "src/pages/index.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/pages/index.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/pages/index.mdx",
-        "hidden": false,
-        "slug": "src-pages-index",
-        "menu": "",
-        "headings": [
-          {
-            "slug": "home",
-            "depth": 1,
-            "value": "Home"
-          },
-          {
-            "slug": "consistency",
-            "depth": 2,
-            "value": "Consistency"
-          }
-        ]
-      }
     }
   ]
 }
