@@ -21,15 +21,8 @@ export const Playground = ({ scope, ...props }) => {
     [scope]
   )
   return (
-    <OriginalPlayground
-      styles={{
-        previewWrapper: {
-          display: 'flex',
-          overflowX: 'scroll',
-        },
-      }}
-      scope={modifiedScope}
-      {...props}
-    />
+    <Box marginBottom={3}>
+      <OriginalPlayground scope={modifiedScope} {...props} />
+    </Box>
   )
 }

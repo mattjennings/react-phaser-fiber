@@ -1,4 +1,5 @@
 export default {
+  title: 'react-phaser-fiber',
   menu: ['Home', 'Components'],
   typescript: true,
   docgenConfig: {
