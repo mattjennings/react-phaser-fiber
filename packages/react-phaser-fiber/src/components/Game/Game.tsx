@@ -6,8 +6,13 @@ import { WithCanvas, CanvasContext } from '../Canvas/Canvas'
 import { PhaserFiber, injectDevtools } from '../../reconciler/reconciler'
 
 export interface GameProps
-  extends Omit<Phaser.Types.Core.GameConfig, 'canvas' | 'key' | 'scene'> {
+  extends Omit<
+    Phaser.Types.Core.GameConfig,
+    'canvas' | 'key' | 'scene' | 'parent' | 'canvasStyle' | 'callbacks'
+  > {
   children?: JSX.Element | JSX.Element[]
+  onPostBoot?: (game: Phaser.Game) => any
+  onPreBoot?: (game: Phaser.Game) => any
 }
 
 /**
@@ -26,12 +31,16 @@ class Game extends React.Component<GameProps & WithCanvas, GameState> {
 
   constructor(props: GameProps & WithCanvas) {
     super(props)
-    const { children, canvas, ...config } = props
+    const { children, canvas, onPostBoot, onPreBoot, ...config } = props
 
     this.game = new Phaser.Game({
       canvas,
       type: canvas ? Phaser.CANVAS : Phaser.AUTO,
       ...config,
+      callbacks: {
+        postBoot: onPostBoot ?? (() => null),
+        preBoot: onPreBoot ?? (() => null),
+      },
     })
 
     this.state = {
