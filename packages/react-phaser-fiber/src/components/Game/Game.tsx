@@ -6,7 +6,7 @@ import { WithCanvas, CanvasContext } from '../Canvas/Canvas'
 import { PhaserFiber, injectDevtools } from '../../reconciler/reconciler'
 
 export interface GameProps
-  extends Omit<Phaser.Types.Core.GameConfig, 'canvas'> {
+  extends Omit<Phaser.Types.Core.GameConfig, 'canvas' | 'key'> {
   children?: JSX.Element | JSX.Element[]
 }
 
@@ -99,7 +99,7 @@ class Game extends React.Component<GameProps & WithCanvas, GameState> {
 
 const ForwardedWithCanvas = React.forwardRef<Game, GameProps>((props, ref) => (
   <CanvasContext.Consumer>
-    {canvas => <Game {...props} ref={ref} canvas={canvas} />}
+    {(canvas) => <Game {...props} ref={ref} canvas={canvas} />}
   </CanvasContext.Consumer>
 ))
 

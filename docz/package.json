@@ -1,0 +1,49 @@
+{
+  "name": "docz",
+  "private": true,
+  "description": "Example of how to integrate docz with gatsby as a theme",
+  "version": "0.1.0",
+  "keywords": [
+    "gatsby",
+    "docz"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pedronauck/docz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pedronauck/docz.git"
+  },
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean && rm -rf .docz"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.6.1",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "@mdx-js/mdx": "^1.5.7",
+    "@mdx-js/react": "^1.5.7",
+    "docz": "^2.3.0",
+    "framer-motion": "^1.10.0",
+    "gatsby": "^2.19.45",
+    "gatsby-plugin-chakra-ui": "^0.1.4",
+    "gatsby-plugin-dark-mode": "^1.1.1",
+    "gatsby-plugin-emotion": "^4.2.0",
+    "gatsby-plugin-mdx": "^1.1.4",
+    "gatsby-plugin-offline": "^2.2.7",
+    "gatsby-plugin-sharp": "^2.2.18",
+    "gatsby-theme-docz": "latest",
+    "gatsby-plugin-typescript": "^2.3.1",
+    "gatsby-transformer-sharp": "^2.2.7",
+    "phaser": "^3.22.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-helmet-async": "^1.0.4",
+    "react-phaser-fiber": "0.3.0-beta.1"
+  }
+}
