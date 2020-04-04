@@ -8,6 +8,10 @@
     "esModuleInterop": true,
     "skipLibCheck": false,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "react-phaser-fiber": ["../packages/react-phaser-fiber/src/index.ts"]
+    }
   }
 }

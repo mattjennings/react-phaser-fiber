@@ -4,8 +4,7 @@
   "workspaces": [
     "packages/*",
     "examples/*",
-    "docs",
-    "docz"
+    "new-docs"
   ],
   "nohoist": [
     "**/jest**",

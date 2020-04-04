@@ -1,6 +1,6 @@
 {
   "config": {
-    "title": "Docz",
+    "title": "New Docs",
     "description": "Example of how to integrate docz with gatsby as a theme",
     "menu": ["Home", "Components"],
     "version": "0.1.0",
@@ -13,198 +13,6 @@
       "searchPath": "../packages/react-phaser-fiber/src"
     }
   },
-  "entries": [
-    {
-      "key": "README.md",
-      "value": {
-        "id": "04c6e90faac2675aa89e2176d2eec7d8",
-        "filepath": "README.md",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docz/README.md",
-        "link": "https://github.com/pedronauck/docz/edit/master/docz/README.md",
-        "hidden": false,
-        "slug": "readme",
-        "route": "/readme",
-        "name": "Readme",
-        "menu": "",
-        "headings": [
-          {
-            "slug": "docz-gatsby-example",
-            "depth": 1,
-            "value": "Docz Gatsby Example"
-          },
-          {
-            "slug": "using-create-docz-app",
-            "depth": 2,
-            "value": "Using  create-docz-app"
-          },
-          {
-            "slug": "download",
-            "depth": 2,
-            "value": "Download"
-          },
-          {
-            "slug": "setup",
-            "depth": 2,
-            "value": "Setup"
-          },
-          {
-            "slug": "start-developing",
-            "depth": 2,
-            "value": "Start developing"
-          },
-          {
-            "slug": "build",
-            "depth": 2,
-            "value": "Build"
-          },
-          {
-            "slug": "serve-built-app",
-            "depth": 2,
-            "value": "Serve built app"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/components/Alert.mdx",
-      "value": {
-        "name": "Alert",
-        "menu": "Components",
-        "id": "411d2842c3d65e6ee7d3ec119ed4c5a0",
-        "filepath": "src/components/Alert.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docz/src/components/Alert.mdx",
-        "link": "https://github.com/pedronauck/docz/edit/master/docz/src/components/Alert.mdx",
-        "hidden": false,
-        "slug": "src-components-alert",
-        "route": "/src-components-alert",
-        "headings": [
-          {
-            "slug": "alert",
-            "depth": 1,
-            "value": "Alert"
-          },
-          {
-            "slug": "properties",
-            "depth": 2,
-            "value": "Properties"
-          },
-          {
-            "slug": "basic-usage",
-            "depth": 2,
-            "value": "Basic usage"
-          },
-          {
-            "slug": "using-different-kinds",
-            "depth": 2,
-            "value": "Using different kinds"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/components/Button.mdx",
-      "value": {
-        "name": "Button",
-        "menu": "Components",
-        "id": "94c04b4e4bd29ffbdeec8755c1a4c04f",
-        "filepath": "src/components/Button.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docz/src/components/Button.mdx",
-        "link": "https://github.com/pedronauck/docz/edit/master/docz/src/components/Button.mdx",
-        "hidden": false,
-        "slug": "src-components-button",
-        "route": "/src-components-button",
-        "headings": [
-          {
-            "slug": "button",
-            "depth": 1,
-            "value": "Button"
-          },
-          {
-            "slug": "best-practices",
-            "depth": 3,
-            "value": "Best practices"
-          },
-          {
-            "slug": "properties",
-            "depth": 2,
-            "value": "Properties"
-          },
-          {
-            "slug": "basic-usage",
-            "depth": 2,
-            "value": "Basic usage"
-          },
-          {
-            "slug": "with-different-sizes",
-            "depth": 2,
-            "value": "With different sizes"
-          },
-          {
-            "slug": "with-different-colors",
-            "depth": 2,
-            "value": "With different colors"
-          },
-          {
-            "slug": "outlined",
-            "depth": 2,
-            "value": "Outlined"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/components/Game.mdx",
-      "value": {
-        "name": "Game",
-        "menu": "Components",
-        "id": "039f09242ff2be56c66d170501ab541e",
-        "filepath": "src/components/Game.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docz/src/components/Game.mdx",
-        "link": "https://github.com/pedronauck/docz/edit/master/docz/src/components/Game.mdx",
-        "hidden": false,
-        "slug": "src-components-game",
-        "route": "/src-components-game",
-        "headings": [
-          {
-            "slug": "properties",
-            "depth": 2,
-            "value": "Properties"
-          },
-          {
-            "slug": "basic-usage",
-            "depth": 2,
-            "value": "Basic usage"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/pages/index.mdx",
-      "value": {
-        "name": "Home",
-        "route": "/",
-        "id": "522b7407e210088f3588b943aec44115",
-        "filepath": "src/pages/index.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docz/src/pages/index.mdx",
-        "link": "https://github.com/pedronauck/docz/edit/master/docz/src/pages/index.mdx",
-        "hidden": false,
-        "slug": "src-pages-index",
-        "menu": "",
-        "headings": [
-          {
-            "slug": "home",
-            "depth": 1,
-            "value": "Home"
-          },
-          {
-            "slug": "consistency",
-            "depth": 2,
-            "value": "Consistency"
-          }
-        ]
-      }
-    }
-  ],
   "props": [
     {
       "key": "../packages/react-phaser-fiber/src/components/ArcadeCollider.tsx",
@@ -5599,33 +5407,6 @@
           "displayName": "ForwardRefExoticComponent",
           "methods": [],
           "props": {
-            "scene": {
-              "defaultValue": null,
-              "description": "A scene or scenes to add to the game. If several are given, the first is started; the remainder are started only if they have `{ active: true }`. See the `sceneConfig` argument in `Phaser.Scenes.SceneManager#add`.",
-              "name": "scene",
-              "required": false,
-              "type": {
-                "name": "Function | Scene | Scene[] | SettingsConfig | SettingsConfig[] | CreateSceneFromObjectConfig | CreateSceneFromObjectConfig[] | Function[] | undefined"
-              }
-            },
-            "scale": {
-              "defaultValue": null,
-              "description": "The Scale Manager configuration.",
-              "name": "scale",
-              "required": false,
-              "type": {
-                "name": "ScaleConfig | undefined"
-              }
-            },
-            "height": {
-              "defaultValue": null,
-              "description": "The height of the game, in game pixels.",
-              "name": "height",
-              "required": false,
-              "type": {
-                "name": "string | number | undefined"
-              }
-            },
             "width": {
               "defaultValue": null,
               "description": "The width of the game, in game pixels.",
@@ -5635,13 +5416,13 @@
                 "name": "string | number | undefined"
               }
             },
-            "title": {
+            "height": {
               "defaultValue": null,
-              "description": "The title of the game. Shown in the browser console.",
-              "name": "title",
+              "description": "The height of the game, in game pixels.",
+              "name": "height",
               "required": false,
               "type": {
-                "name": "string | undefined"
+                "name": "string | number | undefined"
               }
             },
             "zoom": {
@@ -5714,6 +5495,15 @@
               "required": false,
               "type": {
                 "name": "string[] | undefined"
+              }
+            },
+            "title": {
+              "defaultValue": null,
+              "description": "The title of the game. Shown in the browser console.",
+              "name": "title",
+              "required": false,
+              "type": {
+                "name": "string | undefined"
               }
             },
             "url": {
@@ -5858,6 +5648,15 @@
               "required": false,
               "type": {
                 "name": "PluginObject | PluginObjectItem[] | undefined"
+              }
+            },
+            "scale": {
+              "defaultValue": null,
+              "description": "The Scale Manager configuration.",
+              "name": "scale",
+              "required": false,
+              "type": {
+                "name": "ScaleConfig | undefined"
               }
             },
             "audio": {
@@ -6109,6 +5908,198 @@
     {
       "key": "../packages/react-phaser-fiber/src/reconciler/elements/TileSprite.ts",
       "value": []
+    }
+  ],
+  "entries": [
+    {
+      "key": "README.md",
+      "value": {
+        "id": "04c6e90faac2675aa89e2176d2eec7d8",
+        "filepath": "README.md",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/README.md",
+        "link": "https://github.com/pedronauck/docz/edit/master/new-docs/README.md",
+        "hidden": false,
+        "slug": "readme",
+        "route": "/readme",
+        "name": "Readme",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "docz-gatsby-example",
+            "depth": 1,
+            "value": "Docz Gatsby Example"
+          },
+          {
+            "slug": "using-create-docz-app",
+            "depth": 2,
+            "value": "Using  create-docz-app"
+          },
+          {
+            "slug": "download",
+            "depth": 2,
+            "value": "Download"
+          },
+          {
+            "slug": "setup",
+            "depth": 2,
+            "value": "Setup"
+          },
+          {
+            "slug": "start-developing",
+            "depth": 2,
+            "value": "Start developing"
+          },
+          {
+            "slug": "build",
+            "depth": 2,
+            "value": "Build"
+          },
+          {
+            "slug": "serve-built-app",
+            "depth": 2,
+            "value": "Serve built app"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Alert.mdx",
+      "value": {
+        "name": "Alert",
+        "menu": "Components",
+        "id": "411d2842c3d65e6ee7d3ec119ed4c5a0",
+        "filepath": "src/components/Alert.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/components/Alert.mdx",
+        "link": "https://github.com/pedronauck/docz/edit/master/new-docs/src/components/Alert.mdx",
+        "hidden": false,
+        "slug": "src-components-alert",
+        "route": "/src-components-alert",
+        "headings": [
+          {
+            "slug": "alert",
+            "depth": 1,
+            "value": "Alert"
+          },
+          {
+            "slug": "properties",
+            "depth": 2,
+            "value": "Properties"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic usage"
+          },
+          {
+            "slug": "using-different-kinds",
+            "depth": 2,
+            "value": "Using different kinds"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Button.mdx",
+      "value": {
+        "name": "Button",
+        "menu": "Components",
+        "id": "94c04b4e4bd29ffbdeec8755c1a4c04f",
+        "filepath": "src/components/Button.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/components/Button.mdx",
+        "link": "https://github.com/pedronauck/docz/edit/master/new-docs/src/components/Button.mdx",
+        "hidden": false,
+        "slug": "src-components-button",
+        "route": "/src-components-button",
+        "headings": [
+          {
+            "slug": "button",
+            "depth": 1,
+            "value": "Button"
+          },
+          {
+            "slug": "best-practices",
+            "depth": 3,
+            "value": "Best practices"
+          },
+          {
+            "slug": "properties",
+            "depth": 2,
+            "value": "Properties"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic usage"
+          },
+          {
+            "slug": "with-different-sizes",
+            "depth": 2,
+            "value": "With different sizes"
+          },
+          {
+            "slug": "with-different-colors",
+            "depth": 2,
+            "value": "With different colors"
+          },
+          {
+            "slug": "outlined",
+            "depth": 2,
+            "value": "Outlined"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/Game.mdx",
+      "value": {
+        "name": "Game",
+        "menu": "Components",
+        "id": "65c89eff68fa9116f86168ccf36ff1dd",
+        "filepath": "src/pages/Game.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/pages/Game.mdx",
+        "link": "https://github.com/pedronauck/docz/edit/master/new-docs/src/pages/Game.mdx",
+        "hidden": false,
+        "slug": "src-pages-game",
+        "route": "/src-pages-game",
+        "headings": [
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic usage"
+          },
+          {
+            "slug": "properties",
+            "depth": 2,
+            "value": "Properties"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/index.mdx",
+      "value": {
+        "name": "Home",
+        "route": "/",
+        "id": "522b7407e210088f3588b943aec44115",
+        "filepath": "src/pages/index.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/pages/index.mdx",
+        "link": "https://github.com/pedronauck/docz/edit/master/new-docs/src/pages/index.mdx",
+        "hidden": false,
+        "slug": "src-pages-index",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "home",
+            "depth": 1,
+            "value": "Home"
+          },
+          {
+            "slug": "consistency",
+            "depth": 2,
+            "value": "Consistency"
+          }
+        ]
+      }
     }
   ]
 }

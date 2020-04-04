@@ -6,7 +6,7 @@ import { WithCanvas, CanvasContext } from '../Canvas/Canvas'
 import { PhaserFiber, injectDevtools } from '../../reconciler/reconciler'
 
 export interface GameProps
-  extends Omit<Phaser.Types.Core.GameConfig, 'canvas' | 'key'> {
+  extends Omit<Phaser.Types.Core.GameConfig, 'canvas' | 'key' | 'scene'> {
   children?: JSX.Element | JSX.Element[]
 }
 
@@ -75,7 +75,6 @@ class Game extends React.Component<GameProps & WithCanvas, GameState> {
 
   getChildren() {
     const children = this.state.booting ? null : this.props.children
-
     return (
       <GameContext.Provider value={this.game}>{children}</GameContext.Provider>
     )
