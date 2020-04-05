@@ -18,7 +18,8 @@
     "clean": "gatsby clean && rm -rf .docz"
   },
   "dependencies": {
-    "docz": "^2.3.0",
+    "@chakra-ui/core": "^0.7.0",
+    "docz": "2.2.0",
     "framer-motion": "^1.10.0",
     "gatsby": "^2.20.12",
     "gatsby-plugin-chakra-ui": "^0.1.4",
@@ -36,6 +37,10 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-helmet-async": "^1.0.4",
+    "react-responsive": "^8.0.3",
     "typedoc": "^0.17.3"
+  },
+  "devDependencies": {
+    "@types/react-responsive": "^8.0.2"
   }
 }

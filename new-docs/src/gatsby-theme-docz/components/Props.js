@@ -1,7 +1,5 @@
 /** @jsx jsx */
-import { useState } from 'react'
-import { jsx } from 'theme-ui'
-import { Box } from '@chakra-ui/core'
+import { Box, jsx } from 'theme-ui'
 import { useConfig } from 'docz'
 
 export const getDefaultValue = ({ defaultValue, type }) => {
