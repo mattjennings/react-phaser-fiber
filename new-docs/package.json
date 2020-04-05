@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "@chakra-ui/core": "^0.7.0",
+    "@types/react-icons": "^3.0.0",
+    "@types/theme-ui": "^0.3.1",
     "docz": "2.2.0",
     "framer-motion": "^1.10.0",
     "gatsby": "^2.20.12",
@@ -37,6 +39,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-helmet-async": "^1.0.4",
+    "react-icons": "^3.9.0",
     "react-responsive": "^8.0.3",
     "typedoc": "^0.17.3"
   },

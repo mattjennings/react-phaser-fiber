@@ -8,6 +8,7 @@
     "native": false,
     "themeConfig": {},
     "separator": "-",
+    "initialColorMode": "dark",
     "typescript": true,
     "docgenConfig": {
       "searchPath": "../packages/react-phaser-fiber/src"

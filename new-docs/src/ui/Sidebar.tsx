@@ -7,19 +7,14 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Text,
-  useTheme,
-  jsx,
-  css,
   PseudoBox,
+  Text,
 } from '@chakra-ui/core'
-import humanize from 'humanize-string'
-import React, { useMemo, useState } from 'react'
+import { MenuItem, useCurrentDoc, useMenus } from 'docz'
+import React, { useState } from 'react'
 import Link from '../components/Link'
 import { useSidebar } from '../components/SidebarProvider'
 import { useIsMobile } from '../hooks'
-import { motion } from 'framer-motion'
-import { useMenus, useCurrentDoc, MenuItem, useDocs } from 'docz'
 
 function Sidebar() {
   const isMobile = useIsMobile()
@@ -68,7 +63,7 @@ function Links() {
     <Box paddingBottom={1}>
       {menus
         .filter((menu) => menu.route !== '/')
-        .map((menu, index) => {
+        .map((menu) => {
           if (!menu.route) {
             return <MenuGroup key={menu.id} menu={menu} />
           }
@@ -95,7 +90,6 @@ function MenuGroup({ menu }: { menu: MenuItem }) {
         onClick={() => setCollapsed(!collapsed)}
         width="100%"
         paddingY={2}
-        marginY={2}
         overflowX="hidden"
         height="auto"
         borderRadius={0}
@@ -118,7 +112,7 @@ function MenuGroup({ menu }: { menu: MenuItem }) {
         </Text>
       </Button>
       <Collapse isOpen={!collapsed}>
-        <Box paddingLeft={8}>
+        <Box paddingLeft={8} paddingTop={1}>
           {menu.menu.map((childMenu) => (
             <MenuLink key={childMenu.id} item={childMenu} />
           ))}

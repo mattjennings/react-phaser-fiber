@@ -1,7 +1,13 @@
 import React from 'react'
 import { theme, useConfig, ComponentsProvider } from 'docz'
-import { Styled, ThemeProvider } from 'theme-ui'
-import { theme as chakraTheme, CSSReset, Text } from '@chakra-ui/core'
+import { Styled, ThemeProvider, useColorMode } from 'theme-ui'
+import {
+  theme as chakraTheme,
+  CSSReset,
+  Text,
+  ColorModeProvider,
+  ThemeProvider as ChakraThemeProvider,
+} from '@chakra-ui/core'
 import baseComponents from 'gatsby-theme-docz/src/components'
 import baseTheme from 'gatsby-theme-docz/src/theme'
 import Page from '../ui/Page'
@@ -16,10 +22,23 @@ const Theme = ({ children }) => {
   return (
     <ThemeProvider theme={config.themeConfig} components={components}>
       <ComponentsProvider components={components}>
-        <CSSReset />
-        <Styled.root>{children}</Styled.root>
+        <Content>{children}</Content>
       </ComponentsProvider>
     </ThemeProvider>
+  )
+}
+
+function Content({ children }) {
+  const [colorMode] = useColorMode('dark')
+  const value = colorMode === 'default' ? 'dark' : colorMode
+
+  return (
+    // ColorModeProvider doesn't re-render when value changes, so a temp fix is to use the key prop as well
+    // (but not ideal because it does remount everything)
+    <ColorModeProvider key={value} value={value}>
+      <CSSReset />
+      {children}
+    </ColorModeProvider>
   )
 }
 
@@ -27,14 +46,13 @@ const themeConfig = {
   ...baseTheme,
   ...chakraTheme,
   colors: {
-    ...baseTheme.colors,
     ...chakraTheme.colors,
+    playground: baseTheme.colors.playground,
+    prism: baseTheme.colors.prism,
   },
   styles: {
     ...baseTheme.styles,
-    root: {
-      fontSize: 'base',
-    },
+    root: {},
     h1: {
       ...baseTheme.styles.h1,
       fontSize: '2xl',
