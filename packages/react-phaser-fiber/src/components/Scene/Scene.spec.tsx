@@ -112,6 +112,7 @@ describe('Scene', () => {
 
     await wait()
     await wait()
+    await wait()
 
     expect(renderLoading).toHaveBeenCalledWith(0)
     expect(renderLoading).toHaveBeenCalledWith(0.33333333333333337)

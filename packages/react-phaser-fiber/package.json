@@ -1,6 +1,6 @@
 {
   "name": "react-phaser-fiber",
-  "version": "0.3.0-beta.1",
+  "version": "0.3.0-beta.2",
   "license": "ISC",
   "homepage": "https://github.com/mattjennings/react-phaser-fiber",
   "repository": {
@@ -23,7 +23,7 @@
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
     "update-readme": "cp ../../README.md README.md",
-    "prepare": "yarn update-readme && yarn build",
+    "prepare": "yarn update-readme && yarn test && yarn build",
     "publish:next": "yarn publish --tag next"
   },
   "peerDependencies": {
