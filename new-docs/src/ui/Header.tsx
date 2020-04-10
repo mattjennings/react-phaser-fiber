@@ -1,14 +1,13 @@
-import { Box, IconButton, Text } from '@chakra-ui/core'
+import { Box, IconButton, Text, useColorMode } from '@chakra-ui/core'
 import React from 'react'
 import { IoIosMenu } from 'react-icons/io'
 import { useIsMobile } from '../hooks'
 import { useSidebar } from '../components/SidebarProvider'
-import { useColorMode } from 'theme-ui'
 
-const Header = ({ title }) => {
+const Header = ({ title }: { title: string }) => {
   const { openSidebar } = useSidebar()
   const isMobile = useIsMobile()
-  const [colorMode, setColorMode] = useColorMode()
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <Box
@@ -30,7 +29,7 @@ const Header = ({ title }) => {
             marginLeft="-8px"
           />
         )}
-        <Text as="h1" fontSize="2xl" fontWeight={500}>
+        <Text as="h1" fontSize="2xl">
           {title}
         </Text>
       </Box>
@@ -38,7 +37,7 @@ const Header = ({ title }) => {
         variant="ghost"
         aria-label="Toggle Color Theme"
         icon={colorMode === 'dark' ? 'sun' : 'moon'}
-        onClick={() => setColorMode(colorMode === 'dark' ? 'light' : 'dark')}
+        onClick={() => toggleColorMode()}
       />
     </Box>
   )

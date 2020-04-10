@@ -1,5 +1,3 @@
-const path = require('path')
-
 module.exports = {
   plugins: [
     'gatsby-theme-docz',
@@ -7,5 +5,13 @@ module.exports = {
     `gatsby-plugin-emotion`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-tsconfig-paths`,
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Fira Mono'],
+        },
+      },
+    },
   ],
 }

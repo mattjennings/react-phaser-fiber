@@ -8,8 +8,8 @@ import copy from 'copy-text-to-clipboard'
 import { Game, Canvas } from 'react-phaser-fiber'
 
 import { Wrapper } from './Wrapper'
-import { usePrismTheme } from '~utils/theme'
 import { IconButton, Box, useColorMode } from '@chakra-ui/core'
+import { usePrismTheme } from '../../../hooks/usePrismTheme'
 
 const getResizableProps = (width, setWidth) => ({
   minWidth: 260,
@@ -42,14 +42,7 @@ const transformCode = (code) => {
   return `<React.Fragment>${code}</React.Fragment>`
 }
 
-const styles = {
-  editor: () => ({}),
-}
 export const Playground = ({ code, scope, language, useScoping = false }) => {
-  const {
-    themeConfig: { showPlaygroundEditor, showLiveError, showLivePreview },
-  } = useConfig()
-
   const modifiedScope = useMemo(
     () => ({
       ...scope,
@@ -64,10 +57,12 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
     [scope]
   )
 
-  const theme = usePrismTheme()
+  const { colorMode } = useColorMode()
+
+  const prismTheme = usePrismTheme()
+
   const [width, setWidth] = useState('100%')
   const resizableProps = getResizableProps(width, setWidth)
-  const { colorMode } = useColorMode()
   const copyCode = () => copy(code)
 
   return (
@@ -78,7 +73,7 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
           scope={modifiedScope}
           transformCode={transformCode}
           language={language}
-          theme={theme}
+          theme={prismTheme}
         >
           <Box position="relative">
             <Wrapper content="preview" useScoping={useScoping}>
@@ -94,7 +89,7 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
                   --checkerboard-color: ${colorMode === 'dark'
                     ? '#606060'
                     : '#bfbfbf'};
-                  background-color: ${theme.plain.backgroundColor};
+                  background-color: ${prismTheme.plain.backgroundColor};
                   background-image: linear-gradient(
                       45deg,
                       var(--checkerboard-color) 25%,
@@ -119,24 +114,23 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
                   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
                 `}
               >
-                {showLivePreview && <Box as={LivePreview} margin={0} />}
+                <Box as={LivePreview} margin={0} />
               </Box>
-              {showLiveError && (
-                <Box
-                  as={LiveError}
-                  position="absolute"
-                  top={0}
-                  right={0}
-                  left={0}
-                  bottom={0}
-                  margin={0}
-                  paddingY={2}
-                  paddingX={3}
-                  color="#FF4757"
-                  backgroundColor="rgba(255,255,255, 0.85)"
-                  whiteSpace="pre-wrap"
-                />
-              )}
+
+              <Box
+                as={LiveError}
+                position="absolute"
+                top={0}
+                right={0}
+                left={0}
+                bottom={0}
+                margin={0}
+                paddingY={2}
+                paddingX={3}
+                color="#FF4757"
+                backgroundColor="rgba(255,255,255, 0.85)"
+                whiteSpace="pre-wrap"
+              />
             </Wrapper>
             <Box position="relative" zIndex={5}>
               <IconButton
@@ -151,14 +145,14 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
           <Wrapper content="editor" useScoping={useScoping}>
             <Box
               p={2}
-              background={theme.plain.backgroundColor}
+              background={prismTheme.plain.backgroundColor}
               border="1px solid"
               borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.300'}
               borderTop={0}
               borderBottomLeftRadius={5}
               borderBottomRightRadius={5}
               fontFamily="monospace"
-              fontSize={18}
+              fontSize={16}
               css={css`
                 * > textarea:focus {
                   outline: none;

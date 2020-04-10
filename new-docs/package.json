@@ -32,6 +32,7 @@
     "gatsby-plugin-sharp": "^2.2.18",
     "gatsby-plugin-tsconfig-paths": "^1.0.2",
     "gatsby-plugin-typescript": "^2.3.1",
+    "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-theme-docz": "latest",
     "gatsby-transformer-sharp": "^2.2.7",
     "phaser": "^3.22.0",

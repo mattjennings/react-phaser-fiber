@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { Box, useTheme } from '@chakra-ui/core'
-import { jsx, useColorMode } from 'theme-ui'
+import { Box, useTheme, useColorMode } from '@chakra-ui/core'
+import { jsx } from 'theme-ui'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import { useConfig } from 'docz'
 
-export default function Page({ children, doc }) {
-  const [colorMode] = useColorMode()
+export default function Page({ children, doc }: any) {
+  const { colorMode } = useColorMode()
 
   return (
     <Box display="flex">

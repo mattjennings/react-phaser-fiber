@@ -14,6 +14,95 @@
       "searchPath": "../packages/react-phaser-fiber/src"
     }
   },
+  "entries": [
+    {
+      "key": "src/pages/index.mdx",
+      "value": {
+        "name": "Home",
+        "route": "/",
+        "id": "522b7407e210088f3588b943aec44115",
+        "filepath": "src/pages/index.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/pages/index.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/pages/index.mdx",
+        "hidden": false,
+        "slug": "src-pages-index",
+        "menu": "",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/components/Game.mdx",
+      "value": {
+        "name": "Game",
+        "menu": "Components",
+        "route": "/components/game",
+        "id": "a5495f9d75f3f9b9d4341b93959dbf9d",
+        "filepath": "src/docs/components/Game.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/components/Game.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/components/Game.mdx",
+        "hidden": false,
+        "slug": "src-docs-components-game",
+        "headings": [
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic usage"
+          },
+          {
+            "slug": "properties",
+            "depth": 2,
+            "value": "Properties"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/docs/getting-started/installation.mdx",
+      "value": {
+        "name": "Installation",
+        "menu": "Getting Started",
+        "route": "/getting-started/installation",
+        "next": "/getting-started/with-react-dom",
+        "id": "af652c2fbb8907afb3fd35d42ff464b2",
+        "filepath": "src/docs/getting-started/installation.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/installation.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/installation.mdx",
+        "hidden": false,
+        "slug": "src-docs-getting-started-installation",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/getting-started/with-react-dom.mdx",
+      "value": {
+        "name": "With React DOM",
+        "menu": "Getting Started",
+        "route": "/getting-started/with-react-dom",
+        "id": "e6db82ae565367e9514d1cc3d2e09dfd",
+        "filepath": "src/docs/getting-started/with-react-dom.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/with-react-dom.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/with-react-dom.mdx",
+        "hidden": false,
+        "slug": "src-docs-getting-started-with-react-dom",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/getting-started/without-react-dom.mdx",
+      "value": {
+        "name": "Without React DOM",
+        "menu": "Getting Started",
+        "route": "/getting-started/without-react-dom",
+        "id": "d2766099ac8a7df94d475ae906bfbea9",
+        "filepath": "src/docs/getting-started/without-react-dom.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/without-react-dom.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/without-react-dom.mdx",
+        "hidden": false,
+        "slug": "src-docs-getting-started-without-react-dom",
+        "headings": []
+      }
+    }
+  ],
   "props": [
     {
       "key": "../packages/react-phaser-fiber/src/components/ArcadeCollider.tsx",
@@ -5900,95 +5989,6 @@
     {
       "key": "../packages/react-phaser-fiber/src/reconciler/elements/TileSprite.ts",
       "value": []
-    }
-  ],
-  "entries": [
-    {
-      "key": "src/pages/index.mdx",
-      "value": {
-        "name": "Home",
-        "route": "/",
-        "id": "522b7407e210088f3588b943aec44115",
-        "filepath": "src/pages/index.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/pages/index.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/pages/index.mdx",
-        "hidden": false,
-        "slug": "src-pages-index",
-        "menu": "",
-        "headings": []
-      }
-    },
-    {
-      "key": "src/docs/components/Game.mdx",
-      "value": {
-        "name": "Game",
-        "menu": "Components",
-        "route": "/components/game",
-        "id": "a5495f9d75f3f9b9d4341b93959dbf9d",
-        "filepath": "src/docs/components/Game.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/components/Game.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/components/Game.mdx",
-        "hidden": false,
-        "slug": "src-docs-components-game",
-        "headings": [
-          {
-            "slug": "basic-usage",
-            "depth": 2,
-            "value": "Basic usage"
-          },
-          {
-            "slug": "properties",
-            "depth": 2,
-            "value": "Properties"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/docs/getting-started/installation.mdx",
-      "value": {
-        "name": "Installation",
-        "menu": "Getting Started",
-        "route": "/getting-started/installation",
-        "next": "/getting-started/with-react-dom",
-        "id": "af652c2fbb8907afb3fd35d42ff464b2",
-        "filepath": "src/docs/getting-started/installation.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/installation.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/installation.mdx",
-        "hidden": false,
-        "slug": "src-docs-getting-started-installation",
-        "headings": []
-      }
-    },
-    {
-      "key": "src/docs/getting-started/with-react-dom.mdx",
-      "value": {
-        "name": "With React DOM",
-        "menu": "Getting Started",
-        "route": "/getting-started/with-react-dom",
-        "id": "e6db82ae565367e9514d1cc3d2e09dfd",
-        "filepath": "src/docs/getting-started/with-react-dom.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/with-react-dom.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/with-react-dom.mdx",
-        "hidden": false,
-        "slug": "src-docs-getting-started-with-react-dom",
-        "headings": []
-      }
-    },
-    {
-      "key": "src/docs/getting-started/without-react-dom.mdx",
-      "value": {
-        "name": "Without React DOM",
-        "menu": "Getting Started",
-        "route": "/getting-started/without-react-dom",
-        "id": "d2766099ac8a7df94d475ae906bfbea9",
-        "filepath": "src/docs/getting-started/without-react-dom.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/without-react-dom.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/without-react-dom.mdx",
-        "hidden": false,
-        "slug": "src-docs-getting-started-without-react-dom",
-        "headings": []
-      }
     }
   ]
 }

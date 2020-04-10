@@ -1,5 +1,5 @@
 {
-  "include": ["../packages/react-phaser-fiber/src"],
+  "include": ["../packages/react-phaser-fiber/src", "src/**/*"],
   "compilerOptions": {
     "target": "es2015",
     "moduleResolution": "node",
