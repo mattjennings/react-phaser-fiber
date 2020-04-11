@@ -1,5 +1,5 @@
-import { ColorModeProvider as ChakraColorModeProvider } from '@chakra-ui/core'
 import React, { useContext, useMemo } from 'react'
+import { ColorModeProvider as ChakraColorModeProvider } from '@chakra-ui/core'
 import { ThemeToggler } from 'gatsby-plugin-dark-mode'
 
 const ColorModeContext = React.createContext({
@@ -17,9 +17,7 @@ export default function ColorModeProvider({ children }) {
       {({ theme, toggleTheme }) => {
         const colorMode = theme || 'light'
         const toggleColorMode = () =>
-          toggleTheme(
-            colorMode === 'dark' ? 'light' : 'dark'
-          )
+          toggleTheme(colorMode === 'dark' ? 'light' : 'dark')
         return (
           <ColorModeContext.Provider
             value={{
@@ -27,10 +25,7 @@ export default function ColorModeProvider({ children }) {
               toggleColorMode,
             }}
           >
-            <ChakraColorModeProvider
-              key={colorMode}
-              value={colorMode}
-            >
+            <ChakraColorModeProvider key={colorMode} value={colorMode}>
               {children}
             </ChakraColorModeProvider>
           </ColorModeContext.Provider>

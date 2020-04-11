@@ -1,12 +1,11 @@
 import { Box, IconButton, Text } from '@chakra-ui/core'
-import styled from '@emotion/styled'
 import React from 'react'
 import { IoIosMenu } from 'react-icons/io'
 import { useIsMobile } from '../hooks'
-import { useColorMode } from './ColorModeProvider'
-import { useSidebar } from './SidebarProvider'
+import { useSidebar } from '../components/SidebarProvider'
+import { useColorMode } from '../components/ColorModeProvider'
 
-const Header = ({ title }) => {
+const Header = ({ title }: { title: string }) => {
   const { openSidebar } = useSidebar()
   const isMobile = useIsMobile()
   const { colorMode, toggleColorMode } = useColorMode()
@@ -17,7 +16,7 @@ const Header = ({ title }) => {
       display="flex"
       alignItems="center"
       justifyContent="space-between"
-      padding={2}
+      paddingY={2}
       height={60}
     >
       <Box display="flex">
@@ -27,28 +26,22 @@ const Header = ({ title }) => {
             aria-label="Open Menu"
             icon={() => <Box as={IoIosMenu} size="32px" />}
             onClick={openSidebar}
+            marginRight={2}
+            marginLeft="-8px"
           />
         )}
-        {title && (
-          <Title fontSize="2xl" fontWeight={500}>
-            {title}
-          </Title>
-        )}
+        <Text as="h1" fontSize="2xl">
+          {title}
+        </Text>
       </Box>
-      {/* disabled until https://github.com/chakra-ui/chakra-ui/issues/511 is fixed */}
       <IconButton
         variant="ghost"
-        aria-label="Open Menu"
+        aria-label="Toggle Color Theme"
         icon={colorMode === 'dark' ? 'sun' : 'moon'}
-        onClick={toggleColorMode}
+        onClick={() => toggleColorMode()}
       />
     </Box>
   )
 }
-
-const Title = styled(Text)`
-  margin: 0;
-  margin-left: ${({ theme }) => theme.space[2]};
-`
 
 export default Header

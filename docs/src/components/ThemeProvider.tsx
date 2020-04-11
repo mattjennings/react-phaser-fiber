@@ -1,12 +1,12 @@
+//@ts-ignore
+import baseTheme from 'gatsby-theme-docz/src/theme'
 import React from 'react'
 import {
   ThemeProvider as ChakraThemeProvider,
   CSSReset,
-  ColorModeProvider,
   theme as chakraTheme,
 } from '@chakra-ui/core'
-//@ts-ignore
-import baseTheme from 'gatsby-theme-docz/src/theme'
+import ColorModeProvider from './ColorModeProvider'
 
 const theme = {
   ...chakraTheme,

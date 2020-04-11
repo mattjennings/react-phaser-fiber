@@ -1,60 +1,50 @@
 {
   "name": "docs",
   "private": true,
+  "description": "Example of how to integrate docz with gatsby as a theme",
   "version": "0.1.0",
-  "dependencies": {
-    "@chakra-ui/core": "^0.6.1",
-    "@emotion/core": "^10.0.28",
-    "@emotion/styled": "^10.0.27",
-    "@mdx-js/mdx": "^1.5.7",
-    "@mdx-js/react": "^1.5.7",
-    "babel-plugin-styled-components": "^1.10.7",
-    "emotion-theming": "^10.0.27",
-    "framer-motion": "^1.10.0",
-    "gatsby": "^2.19.45",
-    "gatsby-image": "^2.2.44",
-    "gatsby-plugin-chakra-ui": "^0.1.4",
-    "gatsby-plugin-emotion": "^4.2.0",
-    "gatsby-plugin-dark-mode": "^1.1.1",
-    "gatsby-plugin-manifest": "^2.2.48",
-    "gatsby-plugin-mdx": "^1.1.0",
-    "gatsby-plugin-offline": "^3.0.41",
-    "gatsby-plugin-page-creator": "^2.2.0",
-    "gatsby-plugin-react-helmet": "^3.1.24",
-    "gatsby-plugin-sharp": "^2.4.13",
-    "gatsby-plugin-sitemap": "^2.2.26",
-    "gatsby-plugin-use-dark-mode": "^1.1.2",
-    "gatsby-source-filesystem": "^2.1.56",
-    "gatsby-transformer-sharp": "^2.3.19",
-    "humanize-string": "^2.1.0",
-    "phaser": "^3.22.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1",
-    "react-icons": "^3.9.0",
-    "react-live": "^2.2.2",
-    "react-phaser-fiber": "0.3.0-beta.1",
-    "react-responsive": "^8.0.3",
-    "react-spaces": "^0.1.24",
-    "use-dark-mode": "^2.3.1"
-  },
-  "keywords": [
-    "gatsby"
-  ],
   "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean"
+  "bugs": {
+    "url": "https://github.com/mattjennings/react-phaser-fiber/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/mattjennings/react-phaser-fiber.git"
   },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean && rm -rf .docz"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.7.0",
+    "@types/react-icons": "^3.0.0",
+    "@types/theme-ui": "^0.3.1",
+    "docz": "2.2.0",
+    "framer-motion": "^1.10.0",
+    "gatsby": "^2.20.12",
+    "gatsby-plugin-chakra-ui": "^0.1.4",
+    "gatsby-plugin-dark-mode": "^1.1.1",
+    "gatsby-plugin-emotion": "^4.2.0",
+    "gatsby-plugin-mdx": "^1.1.4",
+    "gatsby-plugin-offline": "^2.2.7",
+    "gatsby-plugin-sharp": "^2.2.18",
+    "gatsby-plugin-tsconfig-paths": "^1.0.2",
+    "gatsby-plugin-typescript": "^2.3.1",
+    "gatsby-plugin-web-font-loader": "^1.0.4",
+    "gatsby-theme-docz": "latest",
+    "gatsby-transformer-sharp": "^2.2.7",
+    "phaser": "^3.22.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-helmet-async": "^1.0.4",
+    "react-icons": "^3.9.0",
+    "react-responsive": "^8.0.3",
+    "typedoc": "^0.17.3"
+  },
+  "devDependencies": {
+    "@types/react-responsive": "^8.0.2"
   }
 }
