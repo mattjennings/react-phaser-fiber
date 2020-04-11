@@ -5,7 +5,7 @@ import { useIsMobile } from '../hooks'
 import { useSidebar } from '../components/SidebarProvider'
 import { useColorMode } from '../components/ColorModeProvider'
 
-const Header = ({ title }: { title: string }) => {
+const Header = ({ doc }: { doc: any }) => {
   const { openSidebar } = useSidebar()
   const isMobile = useIsMobile()
   const { colorMode, toggleColorMode } = useColorMode()
@@ -30,9 +30,11 @@ const Header = ({ title }: { title: string }) => {
             marginLeft="-8px"
           />
         )}
-        <Text as="h1" fontSize="2xl">
-          {title}
-        </Text>
+        <Box display="flex" flexDirection="column">
+          <Text as="h1" fontSize="2xl">
+            {doc.value.name}
+          </Text>
+        </Box>
       </Box>
       <IconButton
         variant="ghost"

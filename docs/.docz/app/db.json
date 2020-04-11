@@ -1,7 +1,7 @@
 {
   "config": {
     "title": "react-phaser-fiber",
-    "description": "Example of how to integrate docz with gatsby as a theme",
+    "description": "My awesome app using docz",
     "menu": ["Getting Started", "Components"],
     "version": "0.1.0",
     "repository": "https://github.com/mattjennings/react-phaser-fiber",
@@ -5910,8 +5910,8 @@
         "route": "/",
         "id": "522b7407e210088f3588b943aec44115",
         "filepath": "src/pages/index.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/pages/index.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/pages/index.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/pages/index.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/pages/index.mdx",
         "hidden": false,
         "slug": "src-pages-index",
         "menu": "",
@@ -5926,16 +5926,11 @@
         "route": "/components/game",
         "id": "a5495f9d75f3f9b9d4341b93959dbf9d",
         "filepath": "src/docs/components/Game.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/components/Game.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/components/Game.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/components/Game.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/components/Game.mdx",
         "hidden": false,
         "slug": "src-docs-components-game",
         "headings": [
-          {
-            "slug": "basic-usage",
-            "depth": 2,
-            "value": "Basic usage"
-          },
           {
             "slug": "properties",
             "depth": 2,
@@ -5953,8 +5948,8 @@
         "next": "/getting-started/with-react-dom",
         "id": "af652c2fbb8907afb3fd35d42ff464b2",
         "filepath": "src/docs/getting-started/installation.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/installation.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/installation.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/getting-started/installation.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/getting-started/installation.mdx",
         "hidden": false,
         "slug": "src-docs-getting-started-installation",
         "headings": []
@@ -5968,8 +5963,8 @@
         "route": "/getting-started/with-react-dom",
         "id": "e6db82ae565367e9514d1cc3d2e09dfd",
         "filepath": "src/docs/getting-started/with-react-dom.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/with-react-dom.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/with-react-dom.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/getting-started/with-react-dom.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/getting-started/with-react-dom.mdx",
         "hidden": false,
         "slug": "src-docs-getting-started-with-react-dom",
         "headings": []
@@ -5983,8 +5978,8 @@
         "route": "/getting-started/without-react-dom",
         "id": "d2766099ac8a7df94d475ae906bfbea9",
         "filepath": "src/docs/getting-started/without-react-dom.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/new-docs/src/docs/getting-started/without-react-dom.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/new-docs/src/docs/getting-started/without-react-dom.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/getting-started/without-react-dom.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/getting-started/without-react-dom.mdx",
         "hidden": false,
         "slug": "src-docs-getting-started-without-react-dom",
         "headings": []

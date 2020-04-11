@@ -3,7 +3,6 @@ import { Box, useTheme, useColorMode } from '@chakra-ui/core'
 import { jsx } from 'theme-ui'
 import Sidebar from './Sidebar'
 import Header from './Header'
-import { useConfig } from 'docz'
 
 export default function Page({ children, doc }: any) {
   const { colorMode } = useColorMode()
@@ -17,9 +16,10 @@ export default function Page({ children, doc }: any) {
         flexGrow={1}
         overflow="scroll"
         paddingX={[2, 4]}
-        bg={colorMode === 'dark' ? 'gray.900' : 'gray.50'}
+        paddingBottom={4}
+        bg={colorMode === 'dark' ? 'gray.900' : 'white'}
       >
-        <Header title={doc.value.name} />
+        <Header doc={doc} />
         {children}
       </Box>
     </Box>

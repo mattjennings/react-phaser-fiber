@@ -48,11 +48,11 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
       ...scope,
       // we need the canvas to render inside the preview, but we don't want to pollute every example
       // with a wrapped canvas
-      Game: (gameProps) => (
+      Game: React.memo((gameProps) => (
         <Canvas>
           <Game {...gameProps} />
         </Canvas>
-      ),
+      )),
     }),
     [scope]
   )

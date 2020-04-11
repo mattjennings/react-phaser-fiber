@@ -11,6 +11,7 @@
     "jsx": "react",
     "baseUrl": "./",
     "paths": {
+      "src/*": ["./src/*"],
       "react-phaser-fiber": ["../packages/react-phaser-fiber/src/index.ts"]
     }
   }

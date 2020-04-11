@@ -1,6 +1,7 @@
-/** @jsx jsx */
-import { Box, jsx } from 'theme-ui'
-import { useConfig } from 'docz'
+import React from 'react'
+import { Box } from '@chakra-ui/core'
+import { useColorMode } from '../../components/ColorModeProvider'
+import { css } from '@emotion/core'
 
 export const getDefaultValue = ({ defaultValue, type }) => {
   if (!defaultValue || !defaultValue.value) return null
@@ -17,38 +18,30 @@ export const getDefaultValue = ({ defaultValue, type }) => {
 }
 
 export const Prop = ({ propName, prop, getPropType }) => {
+  const { colorMode } = useColorMode()
+
   if (!prop.type) return null
 
   const type = getPropType(prop).replace('| undefined', '')
 
   return (
-    <Box as="tr">
-      <Box as="td" paddingX={2}>
+    <TableRow>
+      <TableCell
+        fontWeight="medium"
+        color={colorMode === 'dark' ? 'blue.400' : 'blue.500'}
+      >
         {propName} {prop.required ? '*' : ''}
-      </Box>
-      <Box as="td" paddingX={2}>
-        {type}
-      </Box>
-      <Box as="td" paddingX={2}>
-        {prop.description}
-      </Box>
-      {/* {prop.defaultValue && (
-        <div sx={styles.defaultValue} data-testid="prop-default-value">
-          <em>{getDefaultValue(prop)}</em>
-        </div>
-      )}
-      <div sx={styles.right}>
-        {prop.required && (
-          <div sx={styles.propRequired} data-testid="prop-required">
-            <strong>required</strong>
-          </div>
-        )} */}
-    </Box>
+      </TableCell>
+      <TableCell>{type}</TableCell>
+      <TableCell>
+        {prop.defaultValue && <code>{getDefaultValue(prop)}</code>}
+      </TableCell>
+      <TableCell>{prop.description}</TableCell>
+    </TableRow>
   )
 }
 
 export const Props = ({ props, getPropType }) => {
-  const theme = useConfig()
   const entries = Object.entries(props).sort(([, aProp], [, bProp]) => {
     // sort required first
     if (aProp.required || bProp.required) {
@@ -60,21 +53,16 @@ export const Props = ({ props, getPropType }) => {
   })
 
   return (
-    <Box as="table" fontSize="0.9em">
-      <Box as="thead">
-        <Box as="tr">
-          <Box as="td" paddingX={2}>
-            Name
-          </Box>
-          <Box as="td" paddingX={2}>
-            Type
-          </Box>
-          <Box as="td" paddingX={2}>
-            Description
-          </Box>
-        </Box>
-      </Box>
-      <Box as="tbody">
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Name</TableCell>
+          <TableCell>Type</TableCell>
+          <TableCell>Default</TableCell>
+          <TableCell>Description</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {entries.map(([key, prop]) => (
           <Prop
             key={key}
@@ -83,7 +71,99 @@ export const Props = ({ props, getPropType }) => {
             getPropType={getPropType}
           />
         ))}
-      </Box>
+      </TableBody>
+    </Table>
+  )
+}
+
+const Table = (props) => {
+  const { colorMode } = useColorMode()
+
+  return (
+    <Box overflow="hidden" overflowX="scroll">
+      <Box
+        as="table"
+        overflow="hidden"
+        borderRadius={5}
+        fontSize={['0.7em', '0.7em', '0.9em']}
+        css={(theme) => css`
+          code {
+            background-color: ${colorMode === 'dark'
+              ? theme.colors.gray[700]
+              : theme.colors.gray[100]};
+            padding: 4px;
+            border-radius: 5px;
+            font-size: 0.9em;
+          }
+        `}
+        {...props}
+      />
     </Box>
   )
+}
+
+const TableHead = (props) => {
+  const { colorMode } = useColorMode()
+
+  return (
+    <Box
+      as="thead"
+      fontWeight="medium"
+      css={(theme) => css`
+        & td {
+          background-color: ${colorMode === 'dark'
+            ? theme.colors.gray[700]
+            : theme.colors.gray[100]};
+        }
+      `}
+      {...props}
+    />
+  )
+}
+
+const TableBody = (props) => {
+  const { colorMode } = useColorMode()
+
+  return (
+    <Box
+      as="tbody"
+      css={(theme) => css`
+        & td {
+          background-color: ${colorMode === 'dark'
+            ? theme.colors.gray[800]
+            : theme.colors.gray[50]};
+          border-bottom: 1px solid
+            ${colorMode === 'dark'
+              ? theme.colors.gray[700]
+              : theme.colors.gray[200]};
+        }
+      `}
+      {...props}
+    />
+  )
+}
+
+const TableRow = (props) => {
+  return <Box as="tr" {...props} />
+}
+
+const TableCell = (props) => {
+  const { colorMode } = useColorMode()
+
+  return <Box as="td" paddingX={[2, 4, 6]} paddingY={2} {...props} />
+}
+
+const useTableTheme = () => {
+  const { colorMode } = useColorMode()
+
+  return {
+    colors: {
+      borderColor: colorMode === 'dark' ? 'gray.600' : 'gray.300',
+    },
+    header: {
+      background: colorMode === 'dark' ? 'teal.900' : 'teal.100',
+      fontWeight: 'medium',
+    },
+    body: {},
+  }
 }

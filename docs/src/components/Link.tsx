@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link as ChakraLink, PseudoBoxProps } from '@chakra-ui/core'
+import React, { HTMLAttributes, HTMLProps } from 'react'
+import { Link as ChakraLink, PseudoBoxProps, PseudoBox } from '@chakra-ui/core'
 import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby'
 
 export default function Link(props: GatsbyLinkProps<{}> & PseudoBoxProps) {
