@@ -11,7 +11,7 @@ export default function Page({ children, doc }: any) {
 
   // scroll to anchor hash
   useLayoutEffect(() => {
-    if (window.location.hash) {
+    if (typeof window !== 'undefined' && window.location.hash) {
       const el = document.querySelector(window.location.hash)
 
       if (el) {

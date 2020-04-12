@@ -1,9 +1,8 @@
-import { Box, IconButton, Text } from '@chakra-ui/core'
+import { Box, IconButton, Text, useColorMode } from '@chakra-ui/core'
 import React from 'react'
 import { IoIosMenu } from 'react-icons/io'
 import { useIsMobile } from '../hooks'
 import { useSidebar } from '../components/SidebarProvider'
-import { useColorMode } from '../components/ColorModeProvider'
 
 const Header = ({ doc }: { doc: any }) => {
   const { openSidebar } = useSidebar()

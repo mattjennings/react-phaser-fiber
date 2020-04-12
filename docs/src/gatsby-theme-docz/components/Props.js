@@ -1,6 +1,5 @@
 import React from 'react'
-import { Box, useTheme } from '@chakra-ui/core'
-import { useColorMode } from '../../components/ColorModeProvider'
+import { Box, useTheme, useColorMode } from '@chakra-ui/core'
 import { css } from '@emotion/core'
 
 export const getDefaultValue = ({ defaultValue, type }) => {
