@@ -4,15 +4,10 @@ import React from 'react'
 import { ThemeProvider as ThemeUIProvider } from 'theme-ui'
 import ThemeProvider from '../components/ThemeProvider'
 import Page from '../ui/Page'
-import Link from '../components/Link'
 
 const components = {
   ...baseComponents,
   layout: Page,
-  a: (props) => {
-    debugger
-    return <Link as="a" {...props} />
-  },
 }
 
 const Root = ({ children }) => {

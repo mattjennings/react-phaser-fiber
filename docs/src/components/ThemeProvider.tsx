@@ -31,43 +31,6 @@ const theme = {
       },
     },
   },
-  styles: {
-    ...baseTheme.styles,
-    root: {},
-    h1: {
-      ...baseTheme.styles.h1,
-      fontSize: '2xl',
-      fontFamily: 'heading',
-      marginBottom: 1,
-    },
-    h2: {
-      ...baseTheme.styles.h2,
-      fontSize: 'xl',
-      fontFamily: 'heading',
-      marginBottom: 1,
-    },
-    h3: {
-      ...baseTheme.styles.h3,
-      fontSize: 'lg',
-      fontFamily: 'heading',
-      marginBottom: 1,
-    },
-    h4: {
-      ...baseTheme.styles.h4,
-      fontSize: 'md',
-      marginBottom: 1,
-    },
-    h5: {
-      ...baseTheme.styles.h5,
-      fontSize: 'base',
-      marginBottom: 1,
-    },
-    h6: {
-      ...baseTheme.styles.h6,
-      fontSize: 'base',
-      marginBottom: 1,
-    },
-  },
 }
 
 // console.log(theme)

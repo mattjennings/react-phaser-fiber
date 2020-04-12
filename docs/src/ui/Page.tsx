@@ -3,9 +3,22 @@ import { Box, useTheme, useColorMode } from '@chakra-ui/core'
 import { jsx } from 'theme-ui'
 import Sidebar from './Sidebar'
 import Header from './Header'
+import { useMenus } from 'docz'
+import { useLayoutEffect } from 'react'
 
 export default function Page({ children, doc }: any) {
   const { colorMode } = useColorMode()
+
+  // scroll to anchor hash
+  useLayoutEffect(() => {
+    if (window.location.hash) {
+      const el = document.querySelector(window.location.hash)
+
+      if (el) {
+        el.scrollIntoView()
+      }
+    }
+  }, [])
 
   return (
     <Box display="flex">

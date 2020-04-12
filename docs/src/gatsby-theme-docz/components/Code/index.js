@@ -24,13 +24,14 @@ export const Code = ({ children, className: outerClassName }) => {
         <Box
           as="pre"
           padding={2}
-          marginBottom={2}
+          marginY={2}
           className={`${outerClassName || ''} ${className}`}
           overflowX="auto"
           style={style}
           border="1px solid"
           borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.300'}
           borderRadius={5}
+          fontSize="sm"
         >
           {tokens.map((line, i) => (
             <div {...getLineProps({ line, key: i })}>

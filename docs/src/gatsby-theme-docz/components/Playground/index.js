@@ -66,7 +66,7 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
   const copyCode = () => copy(code)
 
   return (
-    <Box paddingBottom={4}>
+    <Box paddingBottom={4} maxWidth={800} marginX="auto">
       <Resizable {...resizableProps} data-testid="playground">
         <LiveProvider
           code={code}
@@ -85,34 +85,7 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
                 borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.300'}
                 borderTopLeftRadius={5}
                 borderTopRightRadius={5}
-                css={css`
-                  --checkerboard-color: ${colorMode === 'dark'
-                    ? '#606060'
-                    : '#bfbfbf'};
-                  background-color: ${prismTheme.plain.backgroundColor};
-                  background-image: linear-gradient(
-                      45deg,
-                      var(--checkerboard-color) 25%,
-                      transparent 25%
-                    ),
-                    linear-gradient(
-                      -45deg,
-                      var(--checkerboard-color) 25%,
-                      transparent 25%
-                    ),
-                    linear-gradient(
-                      45deg,
-                      transparent 75%,
-                      var(--checkerboard-color) 75%
-                    ),
-                    linear-gradient(
-                      -45deg,
-                      transparent 75%,
-                      var(--checkerboard-color) 75%
-                    );
-                  background-size: 20px 20px;
-                  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-                `}
+                background={prismTheme.plain.backgroundColor}
               >
                 <Box as={LivePreview} margin={0} />
               </Box>

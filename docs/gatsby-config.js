@@ -6,6 +6,7 @@ module.exports = {
     `gatsby-plugin-typescript`,
     `gatsby-plugin-tsconfig-paths`,
     'gatsby-plugin-dark-mode',
+    `gatsby-plugin-lodash`,
     {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {

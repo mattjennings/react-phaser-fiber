@@ -42,15 +42,18 @@ export const Prop = ({ propName, prop, getPropType }) => {
 }
 
 export const Props = ({ props, getPropType }) => {
-  const entries = Object.entries(props).sort(([, aProp], [, bProp]) => {
-    // sort required first
-    if (aProp.required || bProp.required) {
-      return -1
-    }
+  const entries = Object.entries(props)
+    .sort(([, aProp], [, bProp]) => {
+      // sort required first
+      if (aProp.required || bProp.required) {
+        return -1
+      }
 
-    // then sort alphabetically
-    return aProp.name < bProp.name ? -1 : 1
-  })
+      // then sort alphabetically
+      return aProp.name < bProp.name ? -1 : 1
+    })
+    // remove any prop of name "key" (not a valid prop for react, prop may come from extending Phaser interface)
+    .filter(([key]) => key !== 'key')
 
   return (
     <Table>

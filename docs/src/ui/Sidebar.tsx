@@ -9,12 +9,18 @@ import {
   DrawerOverlay,
   PseudoBox,
   Text,
+  Link as ChakraLink,
+  useTheme,
 } from '@chakra-ui/core'
 import { MenuItem, useCurrentDoc, useMenus } from 'docz'
-import React, { useState } from 'react'
-import Link from '../components/Link'
+import React, { useState, useLayoutEffect } from 'react'
+import HeaderLink from '../components/HeaderLink'
 import { useSidebar } from '../components/SidebarProvider'
 import { useIsMobile } from '../hooks'
+import { debounce, throttle } from 'lodash'
+import { AnimatePresence, motion } from 'framer-motion'
+
+const MotionChakraLink = motion.custom(ChakraLink)
 
 function Sidebar() {
   const isMobile = useIsMobile()
@@ -27,9 +33,9 @@ function Sidebar() {
       <DrawerContent backgroundColor="gray.900" color="gray.100">
         <DrawerCloseButton marginTop={2} />
         <DrawerHeader>
-          <Link to="/" display="inline-block">
+          <HeaderLink to="/" display="inline-block">
             react-phaser-fiber
-          </Link>
+          </HeaderLink>
         </DrawerHeader>
         <Links />
       </DrawerContent>
@@ -47,9 +53,9 @@ function Sidebar() {
       flexShrink={0}
     >
       <DrawerHeader>
-        <Link to="/" display="inline-block">
+        <HeaderLink to="/" display="inline-block">
           react-phaser-fiber
-        </Link>
+        </HeaderLink>
       </DrawerHeader>
       <Links />
     </Box>
@@ -57,7 +63,7 @@ function Sidebar() {
 }
 
 function Links() {
-  const menus = useMenus()
+  const menus = useMenus() ?? []
 
   return (
     <Box paddingBottom={1}>
@@ -78,7 +84,7 @@ function MenuGroup({ menu }: { menu: MenuItem }) {
   const currentDoc = useCurrentDoc()
   const isActive = currentDoc.menu === menu.name
   const [collapsed, setCollapsed] = useState(
-    menu.menu?.length > 0 ? !isActive : false
+    menu.menu?.length ?? 0 > 0 ? !isActive : false
   )
 
   return (
@@ -113,7 +119,7 @@ function MenuGroup({ menu }: { menu: MenuItem }) {
       </Button>
       <Collapse isOpen={!collapsed}>
         <Box paddingLeft={8} paddingTop={1}>
-          {menu.menu.map((childMenu) => (
+          {menu.menu?.map((childMenu) => (
             <MenuLink key={childMenu.id} item={childMenu} />
           ))}
         </Box>
@@ -125,20 +131,94 @@ function MenuGroup({ menu }: { menu: MenuItem }) {
 function MenuLink({ item }: { item: MenuItem }) {
   const currentDoc = useCurrentDoc()
   const isActive = currentDoc.route === item.route
+  const theme = useTheme()
+
+  const [activeHeading, setActiveHeading] = useState(
+    currentDoc?.headings.find(
+      (heading: any) => heading.slug === window.location.hash?.replace('#', '')
+    )
+  )
+
+  // check current heading on scroll
+  useLayoutEffect(() => {
+    const el = document.querySelector('main')
+
+    const onScroll = throttle((ev: any) => {
+      if (el && currentDoc.headings) {
+        let currentHeading = null
+        for (const heading of currentDoc.headings) {
+          const headingEl = document.querySelector(`#${heading.slug}`)
+
+          if (
+            headingEl &&
+            headingEl.getBoundingClientRect().top <= ev.target.scrollTop
+          ) {
+            currentHeading = heading
+          }
+        }
+        setActiveHeading(currentHeading)
+      }
+    }, 100)
+
+    if (el) {
+      el.addEventListener('scroll', onScroll)
+
+      return () => {
+        el.removeEventListener('scroll', onScroll)
+      }
+    }
+  }, [])
 
   return (
     <Box paddingBottom={2}>
       <PseudoBox
-        as={(props) => <Link {...props} to={item.route} whileHover={{}} />}
+        as={(props) => (
+          <HeaderLink {...props} to={item.route} whileHover={{}} />
+        )}
         padding="2px"
         marginLeft="-2px"
         display="inline-block"
-        fontSize={'sm'}
+        fontSize={'md'}
         fontWeight={isActive ? 500 : 400}
         color={isActive ? 'teal.300' : 'gray.200'}
       >
         {item.name}
       </PseudoBox>
+      {/* headings */}
+      {isActive && currentDoc.headings.length > 0 && (
+        <Box paddingLeft={4}>
+          {currentDoc.headings.map((heading: any) => {
+            const isHeadingActive = activeHeading === heading
+
+            return (
+              <Box key={heading.slug} display="flex" alignItems="center">
+                {/* active heading indicator */}
+                <motion.div
+                  initial={isHeadingActive ? { width: 2 } : { width: 0 }}
+                  animate={isHeadingActive ? { width: 2 } : { width: 0 }}
+                  style={{
+                    height: '0.8em',
+                    marginRight: 4,
+                    background: theme.colors.teal[300],
+                  }}
+                />
+                <MotionChakraLink
+                  href={`#${heading.slug}`}
+                  layoutTransition
+                  padding="2px"
+                  marginLeft="-2px"
+                  fontSize="sm"
+                  _hover={{
+                    textDecoration: 'none',
+                  }}
+                >
+                  {heading.value}
+                </MotionChakraLink>
+              </Box>
+            )
+          })}
+        </Box>
+      )}
     </Box>
   )
 }

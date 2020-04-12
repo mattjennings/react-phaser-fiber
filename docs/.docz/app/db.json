@@ -5932,9 +5932,9 @@
         "slug": "src-docs-components-game",
         "headings": [
           {
-            "slug": "properties",
+            "slug": "props",
             "depth": 2,
-            "value": "Properties"
+            "value": "Props"
           }
         ]
       }
