@@ -11,8 +11,16 @@ export interface GameProps
     'canvas' | 'key' | 'scene' | 'parent' | 'canvasStyle' | 'callbacks'
   > {
   children?: JSX.Element | JSX.Element[]
-  onPostBoot?: (game: Phaser.Game) => any
-  onPreBoot?: (game: Phaser.Game) => any
+
+  /**
+   * Called at the start of the boot sequence.
+   */
+  onPostBoot?: Phaser.Types.Core.BootCallback
+
+  /**
+   * Called at the end of the boot sequence. At this point, all the game systems have started and plugins have been loaded.
+   */
+  onPreBoot?: Phaser.Types.Core.BootCallback
 }
 
 /**

@@ -82,7 +82,7 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
                 overflowX="hidden"
                 justifyContent="center"
                 border="1px solid"
-                borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.300'}
+                borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.300'}
                 borderTopLeftRadius={5}
                 borderTopRightRadius={5}
                 background={prismTheme.plain.backgroundColor}
@@ -120,7 +120,7 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
               p={2}
               background={prismTheme.plain.backgroundColor}
               border="1px solid"
-              borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.300'}
+              borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.300'}
               borderTop={0}
               borderBottomLeftRadius={5}
               borderBottomRightRadius={5}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@chakra-ui/core'
+import { Box, useTheme } from '@chakra-ui/core'
 import { useColorMode } from '../../components/ColorModeProvider'
 import { css } from '@emotion/core'
 
@@ -22,7 +22,9 @@ export const Prop = ({ propName, prop, getPropType }) => {
 
   if (!prop.type) return null
 
-  const type = getPropType(prop).replace('| undefined', '')
+  const type = getPropType(prop)
+    .replace(/\| (undefined|null)/gi, '')
+    .trim()
 
   return (
     <TableRow>
@@ -81,20 +83,29 @@ export const Props = ({ props, getPropType }) => {
 
 const Table = (props) => {
   const { colorMode } = useColorMode()
+  const theme = useTheme()
 
   return (
-    <Box overflow="hidden" overflowX="scroll">
+    <Box
+      overflow="hidden"
+      overflowX="scroll"
+      borderRadius={5}
+      border={`1px solid ${
+        colorMode === 'dark' ? theme.colors.gray[700] : theme.colors.gray[200]
+      }`}
+    >
       <Box
         as="table"
         overflow="hidden"
-        borderRadius={5}
         fontSize={['0.7em', '0.7em', '0.9em']}
         css={(theme) => css`
           code {
             background-color: ${colorMode === 'dark'
               ? theme.colors.gray[700]
-              : theme.colors.gray[100]};
+              : theme.colors.gray[200]};
             padding: 4px;
+            margin-left: 2px;
+            margin-right: 2px;
             border-radius: 5px;
             font-size: 0.9em;
           }
@@ -116,7 +127,7 @@ const TableHead = (props) => {
         & td {
           background-color: ${colorMode === 'dark'
             ? theme.colors.gray[700]
-            : theme.colors.gray[100]};
+            : theme.colors.gray[200]};
         }
       `}
       {...props}
@@ -135,6 +146,9 @@ const TableBody = (props) => {
           background-color: ${colorMode === 'dark'
             ? theme.colors.gray[800]
             : theme.colors.gray[50]};
+        }
+
+        & tr:not(:last-child) td {
           border-bottom: 1px solid
             ${colorMode === 'dark'
               ? theme.colors.gray[700]
@@ -151,22 +165,5 @@ const TableRow = (props) => {
 }
 
 const TableCell = (props) => {
-  const { colorMode } = useColorMode()
-
   return <Box as="td" paddingX={[2, 4, 6]} paddingY={2} {...props} />
-}
-
-const useTableTheme = () => {
-  const { colorMode } = useColorMode()
-
-  return {
-    colors: {
-      borderColor: colorMode === 'dark' ? 'gray.600' : 'gray.300',
-    },
-    header: {
-      background: colorMode === 'dark' ? 'teal.900' : 'teal.100',
-      fontWeight: 'medium',
-    },
-    body: {},
-  }
 }

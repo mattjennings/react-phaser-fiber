@@ -5401,288 +5401,6 @@
       ]
     },
     {
-      "key": "../packages/react-phaser-fiber/src/components/Game/Game.tsx",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ForwardRefExoticComponent",
-          "methods": [],
-          "props": {
-            "onPostBoot": {
-              "defaultValue": null,
-              "description": "",
-              "name": "onPostBoot",
-              "required": false,
-              "type": {
-                "name": "((game: Game) => any) | undefined"
-              }
-            },
-            "onPreBoot": {
-              "defaultValue": null,
-              "description": "",
-              "name": "onPreBoot",
-              "required": false,
-              "type": {
-                "name": "((game: Game) => any) | undefined"
-              }
-            },
-            "scale": {
-              "defaultValue": null,
-              "description": "The Scale Manager configuration.",
-              "name": "scale",
-              "required": false,
-              "type": {
-                "name": "ScaleConfig | undefined"
-              }
-            },
-            "height": {
-              "defaultValue": null,
-              "description": "The height of the game, in game pixels.",
-              "name": "height",
-              "required": false,
-              "type": {
-                "name": "string | number | undefined"
-              }
-            },
-            "width": {
-              "defaultValue": null,
-              "description": "The width of the game, in game pixels.",
-              "name": "width",
-              "required": false,
-              "type": {
-                "name": "string | number | undefined"
-              }
-            },
-            "title": {
-              "defaultValue": null,
-              "description": "The title of the game. Shown in the browser console.",
-              "name": "title",
-              "required": false,
-              "type": {
-                "name": "string | undefined"
-              }
-            },
-            "zoom": {
-              "defaultValue": null,
-              "description": "Simple scale applied to the game canvas. 2 is double size, 0.5 is half size, etc.",
-              "name": "zoom",
-              "required": false,
-              "type": {
-                "name": "number | undefined"
-              }
-            },
-            "resolution": {
-              "defaultValue": null,
-              "description": "The size of each game pixel, in canvas pixels. Values larger than 1 are \"high\" resolution.",
-              "name": "resolution",
-              "required": false,
-              "type": {
-                "name": "number | undefined"
-              }
-            },
-            "type": {
-              "defaultValue": null,
-              "description": "Which renderer to use. Phaser.AUTO, Phaser.CANVAS, Phaser.HEADLESS, or Phaser.WEBGL. AUTO picks WEBGL if available, otherwise CANVAS.",
-              "name": "type",
-              "required": false,
-              "type": {
-                "name": "number | undefined"
-              }
-            },
-            "customEnvironment": {
-              "defaultValue": null,
-              "description": "Is Phaser running under a custom (non-native web) environment? If so, set this to `true` to skip internal Feature detection. If `true` the `renderType` cannot be left as `AUTO`.",
-              "name": "customEnvironment",
-              "required": false,
-              "type": {
-                "name": "boolean | undefined"
-              }
-            },
-            "context": {
-              "defaultValue": null,
-              "description": "Provide your own Canvas Context for Phaser to use, instead of creating one.",
-              "name": "context",
-              "required": false,
-              "type": {
-                "name": "CanvasRenderingContext2D | undefined"
-              }
-            },
-            "seed": {
-              "defaultValue": null,
-              "description": "Seed for the random number generator.",
-              "name": "seed",
-              "required": false,
-              "type": {
-                "name": "string[] | undefined"
-              }
-            },
-            "url": {
-              "defaultValue": null,
-              "description": "The URL of the game. Shown in the browser console.",
-              "name": "url",
-              "required": false,
-              "type": {
-                "name": "string | undefined"
-              }
-            },
-            "version": {
-              "defaultValue": null,
-              "description": "The version of the game. Shown in the browser console.",
-              "name": "version",
-              "required": false,
-              "type": {
-                "name": "string | undefined"
-              }
-            },
-            "autoFocus": {
-              "defaultValue": null,
-              "description": "Automatically call window.focus() when the game boots. Usually necessary to capture input events if the game is in a separate frame.",
-              "name": "autoFocus",
-              "required": false,
-              "type": {
-                "name": "boolean | undefined"
-              }
-            },
-            "input": {
-              "defaultValue": null,
-              "description": "Input configuration, or `false` to disable all game input.",
-              "name": "input",
-              "required": false,
-              "type": {
-                "name": "boolean | InputConfig | undefined"
-              }
-            },
-            "disableContextMenu": {
-              "defaultValue": null,
-              "description": "Disable the browser's default 'contextmenu' event (usually triggered by a right-button mouse click).",
-              "name": "disableContextMenu",
-              "required": false,
-              "type": {
-                "name": "boolean | undefined"
-              }
-            },
-            "transparent": {
-              "defaultValue": null,
-              "description": "Whether the game canvas will have a transparent background.",
-              "name": "transparent",
-              "required": false,
-              "type": {
-                "name": "boolean | undefined"
-              }
-            },
-            "banner": {
-              "defaultValue": null,
-              "description": "Configuration for the banner printed in the browser console when the game starts.",
-              "name": "banner",
-              "required": false,
-              "type": {
-                "name": "boolean | BannerConfig | undefined"
-              }
-            },
-            "dom": {
-              "defaultValue": null,
-              "description": "The DOM Container configuration object.",
-              "name": "dom",
-              "required": false,
-              "type": {
-                "name": "DOMContainerConfig | undefined"
-              }
-            },
-            "fps": {
-              "defaultValue": null,
-              "description": "Game loop configuration.",
-              "name": "fps",
-              "required": false,
-              "type": {
-                "name": "FPSConfig | undefined"
-              }
-            },
-            "render": {
-              "defaultValue": null,
-              "description": "Game renderer configuration.",
-              "name": "render",
-              "required": false,
-              "type": {
-                "name": "RenderConfig | undefined"
-              }
-            },
-            "backgroundColor": {
-              "defaultValue": null,
-              "description": "The background color of the game canvas. The default is black.",
-              "name": "backgroundColor",
-              "required": false,
-              "type": {
-                "name": "string | number | undefined"
-              }
-            },
-            "loader": {
-              "defaultValue": null,
-              "description": "Loader configuration.",
-              "name": "loader",
-              "required": false,
-              "type": {
-                "name": "LoaderConfig | undefined"
-              }
-            },
-            "images": {
-              "defaultValue": null,
-              "description": "Images configuration.",
-              "name": "images",
-              "required": false,
-              "type": {
-                "name": "ImagesConfig | undefined"
-              }
-            },
-            "physics": {
-              "defaultValue": null,
-              "description": "Physics configuration.",
-              "name": "physics",
-              "required": false,
-              "type": {
-                "name": "PhysicsConfig | undefined"
-              }
-            },
-            "plugins": {
-              "defaultValue": null,
-              "description": "Plugins to install.",
-              "name": "plugins",
-              "required": false,
-              "type": {
-                "name": "PluginObject | PluginObjectItem[] | undefined"
-              }
-            },
-            "audio": {
-              "defaultValue": null,
-              "description": "The Audio Configuration object.",
-              "name": "audio",
-              "required": false,
-              "type": {
-                "name": "AudioConfig | undefined"
-              }
-            },
-            "ref": {
-              "defaultValue": null,
-              "description": "",
-              "name": "ref",
-              "required": false,
-              "type": {
-                "name": "((instance: Game | null) => void) | RefObject<Game> | null | undefined"
-              }
-            },
-            "key": {
-              "defaultValue": null,
-              "description": "",
-              "name": "key",
-              "required": false,
-              "type": {
-                "name": "string | number | undefined"
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "../packages/react-phaser-fiber/src/components/Game/GameContext.ts",
       "value": []
     },
@@ -5900,6 +5618,288 @@
     {
       "key": "../packages/react-phaser-fiber/src/reconciler/elements/TileSprite.ts",
       "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/components/Game/Game.tsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ForwardRefExoticComponent",
+          "methods": [],
+          "props": {
+            "onPostBoot": {
+              "defaultValue": null,
+              "description": "Called at the start of the boot sequence.",
+              "name": "onPostBoot",
+              "required": false,
+              "type": {
+                "name": "BootCallback | undefined"
+              }
+            },
+            "onPreBoot": {
+              "defaultValue": null,
+              "description": "Called at the end of the boot sequence. At this point, all the game systems have started and plugins have been loaded.",
+              "name": "onPreBoot",
+              "required": false,
+              "type": {
+                "name": "BootCallback | undefined"
+              }
+            },
+            "width": {
+              "defaultValue": null,
+              "description": "The width of the game, in game pixels.",
+              "name": "width",
+              "required": false,
+              "type": {
+                "name": "string | number | undefined"
+              }
+            },
+            "height": {
+              "defaultValue": null,
+              "description": "The height of the game, in game pixels.",
+              "name": "height",
+              "required": false,
+              "type": {
+                "name": "string | number | undefined"
+              }
+            },
+            "zoom": {
+              "defaultValue": null,
+              "description": "Simple scale applied to the game canvas. 2 is double size, 0.5 is half size, etc.",
+              "name": "zoom",
+              "required": false,
+              "type": {
+                "name": "number | undefined"
+              }
+            },
+            "resolution": {
+              "defaultValue": null,
+              "description": "The size of each game pixel, in canvas pixels. Values larger than 1 are \"high\" resolution.",
+              "name": "resolution",
+              "required": false,
+              "type": {
+                "name": "number | undefined"
+              }
+            },
+            "type": {
+              "defaultValue": null,
+              "description": "Which renderer to use. Phaser.AUTO, Phaser.CANVAS, Phaser.HEADLESS, or Phaser.WEBGL. AUTO picks WEBGL if available, otherwise CANVAS.",
+              "name": "type",
+              "required": false,
+              "type": {
+                "name": "number | undefined"
+              }
+            },
+            "customEnvironment": {
+              "defaultValue": null,
+              "description": "Is Phaser running under a custom (non-native web) environment? If so, set this to `true` to skip internal Feature detection. If `true` the `renderType` cannot be left as `AUTO`.",
+              "name": "customEnvironment",
+              "required": false,
+              "type": {
+                "name": "boolean | undefined"
+              }
+            },
+            "context": {
+              "defaultValue": null,
+              "description": "Provide your own Canvas Context for Phaser to use, instead of creating one.",
+              "name": "context",
+              "required": false,
+              "type": {
+                "name": "CanvasRenderingContext2D | undefined"
+              }
+            },
+            "seed": {
+              "defaultValue": null,
+              "description": "Seed for the random number generator.",
+              "name": "seed",
+              "required": false,
+              "type": {
+                "name": "string[] | undefined"
+              }
+            },
+            "title": {
+              "defaultValue": null,
+              "description": "The title of the game. Shown in the browser console.",
+              "name": "title",
+              "required": false,
+              "type": {
+                "name": "string | undefined"
+              }
+            },
+            "url": {
+              "defaultValue": null,
+              "description": "The URL of the game. Shown in the browser console.",
+              "name": "url",
+              "required": false,
+              "type": {
+                "name": "string | undefined"
+              }
+            },
+            "version": {
+              "defaultValue": null,
+              "description": "The version of the game. Shown in the browser console.",
+              "name": "version",
+              "required": false,
+              "type": {
+                "name": "string | undefined"
+              }
+            },
+            "autoFocus": {
+              "defaultValue": null,
+              "description": "Automatically call window.focus() when the game boots. Usually necessary to capture input events if the game is in a separate frame.",
+              "name": "autoFocus",
+              "required": false,
+              "type": {
+                "name": "boolean | undefined"
+              }
+            },
+            "input": {
+              "defaultValue": null,
+              "description": "Input configuration, or `false` to disable all game input.",
+              "name": "input",
+              "required": false,
+              "type": {
+                "name": "boolean | InputConfig | undefined"
+              }
+            },
+            "disableContextMenu": {
+              "defaultValue": null,
+              "description": "Disable the browser's default 'contextmenu' event (usually triggered by a right-button mouse click).",
+              "name": "disableContextMenu",
+              "required": false,
+              "type": {
+                "name": "boolean | undefined"
+              }
+            },
+            "transparent": {
+              "defaultValue": null,
+              "description": "Whether the game canvas will have a transparent background.",
+              "name": "transparent",
+              "required": false,
+              "type": {
+                "name": "boolean | undefined"
+              }
+            },
+            "banner": {
+              "defaultValue": null,
+              "description": "Configuration for the banner printed in the browser console when the game starts.",
+              "name": "banner",
+              "required": false,
+              "type": {
+                "name": "boolean | BannerConfig | undefined"
+              }
+            },
+            "dom": {
+              "defaultValue": null,
+              "description": "The DOM Container configuration object.",
+              "name": "dom",
+              "required": false,
+              "type": {
+                "name": "DOMContainerConfig | undefined"
+              }
+            },
+            "fps": {
+              "defaultValue": null,
+              "description": "Game loop configuration.",
+              "name": "fps",
+              "required": false,
+              "type": {
+                "name": "FPSConfig | undefined"
+              }
+            },
+            "render": {
+              "defaultValue": null,
+              "description": "Game renderer configuration.",
+              "name": "render",
+              "required": false,
+              "type": {
+                "name": "RenderConfig | undefined"
+              }
+            },
+            "backgroundColor": {
+              "defaultValue": null,
+              "description": "The background color of the game canvas. The default is black.",
+              "name": "backgroundColor",
+              "required": false,
+              "type": {
+                "name": "string | number | undefined"
+              }
+            },
+            "loader": {
+              "defaultValue": null,
+              "description": "Loader configuration.",
+              "name": "loader",
+              "required": false,
+              "type": {
+                "name": "LoaderConfig | undefined"
+              }
+            },
+            "images": {
+              "defaultValue": null,
+              "description": "Images configuration.",
+              "name": "images",
+              "required": false,
+              "type": {
+                "name": "ImagesConfig | undefined"
+              }
+            },
+            "physics": {
+              "defaultValue": null,
+              "description": "Physics configuration.",
+              "name": "physics",
+              "required": false,
+              "type": {
+                "name": "PhysicsConfig | undefined"
+              }
+            },
+            "plugins": {
+              "defaultValue": null,
+              "description": "Plugins to install.",
+              "name": "plugins",
+              "required": false,
+              "type": {
+                "name": "PluginObject | PluginObjectItem[] | undefined"
+              }
+            },
+            "scale": {
+              "defaultValue": null,
+              "description": "The Scale Manager configuration.",
+              "name": "scale",
+              "required": false,
+              "type": {
+                "name": "ScaleConfig | undefined"
+              }
+            },
+            "audio": {
+              "defaultValue": null,
+              "description": "The Audio Configuration object.",
+              "name": "audio",
+              "required": false,
+              "type": {
+                "name": "AudioConfig | undefined"
+              }
+            },
+            "ref": {
+              "defaultValue": null,
+              "description": "",
+              "name": "ref",
+              "required": false,
+              "type": {
+                "name": "((instance: Game | null) => void) | RefObject<Game> | null | undefined"
+              }
+            },
+            "key": {
+              "defaultValue": null,
+              "description": "",
+              "name": "key",
+              "required": false,
+              "type": {
+                "name": "string | number | undefined"
+              }
+            }
+          }
+        }
+      ]
     }
   ],
   "entries": [
