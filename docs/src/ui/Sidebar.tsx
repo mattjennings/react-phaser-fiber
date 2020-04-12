@@ -65,6 +65,7 @@ function Sidebar() {
 function Links() {
   const menus = useMenus() ?? []
 
+  // console.log(menus)
   return (
     <Box paddingBottom={1}>
       {menus
@@ -133,11 +134,18 @@ function MenuLink({ item }: { item: MenuItem }) {
   const isActive = currentDoc.route === item.route
   const theme = useTheme()
 
-  const [activeHeading, setActiveHeading] = useState(
-    currentDoc?.headings.find(
-      (heading: any) => heading.slug === window.location.hash?.replace('#', '')
-    )
-  )
+  const [activeHeading, setActiveHeading] = useState(null)
+
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      setActiveHeading(
+        currentDoc?.headings.find(
+          (heading: any) =>
+            heading.slug === window.location.hash?.replace('#', '')
+        )
+      )
+    }
+  }, [])
 
   // check current heading on scroll
   useLayoutEffect(() => {
