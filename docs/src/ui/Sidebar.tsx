@@ -11,13 +11,14 @@ import {
   Text,
   Link as ChakraLink,
   useTheme,
+  BoxProps,
 } from '@chakra-ui/core'
 import { MenuItem, useCurrentDoc, useMenus } from 'docz'
 import React, { useState, useLayoutEffect } from 'react'
 import HeaderLink from '../components/HeaderLink'
 import { useSidebar } from '../components/SidebarProvider'
 import { useIsMobile } from '../hooks'
-import { debounce, throttle } from 'lodash'
+import { debounce, throttle, uniq } from 'lodash'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const MotionChakraLink = motion.custom(ChakraLink)
@@ -65,18 +66,24 @@ function Sidebar() {
 function Links() {
   const menus = useMenus() ?? []
 
-  // console.log(menus)
+  const withSubmenus = getMenus(menus.filter((menu) => menu.route !== '/'))
+
   return (
     <Box paddingBottom={1}>
-      {menus
-        .filter((menu) => menu.route !== '/')
-        .map((menu) => {
-          if (!menu.route) {
-            return <MenuGroup key={menu.id} menu={menu} />
-          }
+      {withSubmenus.map((menu) => {
+        const isRootMenu = !menu.route
+        const isLink = !!menu.route
 
+        if (isRootMenu) {
+          return <MenuGroup key={menu.id} menu={menu} />
+        }
+
+        if (isLink) {
           return <MenuLink key={menu.id} item={menu} />
-        })}
+        }
+
+        return null
+      })}
     </Box>
   )
 }
@@ -119,13 +126,36 @@ function MenuGroup({ menu }: { menu: MenuItem }) {
         </Text>
       </Button>
       <Collapse isOpen={!collapsed}>
-        <Box paddingLeft={8} paddingTop={1}>
-          {menu.menu?.map((childMenu) => (
-            <MenuLink key={childMenu.id} item={childMenu} />
-          ))}
-        </Box>
+        <ChildLinks item={menu} />
       </Collapse>
     </>
+  )
+}
+
+function ChildLinks({ item, ...props }: { item: MenuItem } & BoxProps) {
+  return (
+    <Box paddingLeft={8} {...props}>
+      {item.menu?.map((childMenu) => {
+        if (childMenu.route) {
+          return <MenuLink key={childMenu.id} item={childMenu} />
+        }
+
+        return (
+          <>
+            <Text
+              color="gray.500"
+              paddingBottom={1}
+              fontWeight="normal"
+              textTransform="uppercase"
+              fontSize="sm"
+            >
+              {childMenu.name}
+            </Text>
+            <ChildLinks item={childMenu} paddingLeft={2} />
+          </>
+        )
+      })}
+    </Box>
   )
 }
 
@@ -194,7 +224,7 @@ function MenuLink({ item }: { item: MenuItem }) {
       </PseudoBox>
       {/* headings */}
       {isActive && currentDoc.headings.length > 0 && (
-        <Box paddingLeft={4}>
+        <Box paddingLeft={2}>
           {currentDoc.headings.map((heading: any) => {
             const isHeadingActive = activeHeading === heading
 
@@ -216,8 +246,10 @@ function MenuLink({ item }: { item: MenuItem }) {
                   padding="2px"
                   marginLeft="-2px"
                   fontSize="sm"
+                  // color={isHeadingActive ? 'inherit' : 'gray.500'}
                   _hover={{
                     textDecoration: 'none',
+                    // color: 'inherit',
                   }}
                 >
                   {heading.value}
@@ -229,6 +261,48 @@ function MenuLink({ item }: { item: MenuItem }) {
       )}
     </Box>
   )
+}
+
+const getMenus = (menus: MenuItem[]): MenuItem[] => {
+  return menus.reduce((total: MenuItem[], menu) => {
+    // is a menu at the highest level
+    const isRootMenu = !menu.route && menu.menu?.length
+
+    if (isRootMenu) {
+      // get child menu with parent properties
+      const subMenus = menu.menu?.filter((subMenu) => !!subMenu.parent) ?? []
+
+      // get all sub menu names
+      const subMenuParents = uniq(
+        subMenus.map((subMenu) => subMenu.parent) ?? []
+      )
+
+      // normal links under root menu
+      const linkMenus =
+        menu.menu?.filter((subMenu) => !subMenu.parent && subMenu.route) ?? []
+
+      return [
+        ...total,
+        {
+          ...menu,
+          menu: [
+            ...linkMenus,
+
+            // get all the sub menus for the sub menu parent
+            ...subMenuParents.map((name) => {
+              return {
+                ...(menu.menu?.find((m) => m.name === name) as MenuItem),
+                parent: menu.name,
+                menu: subMenus.filter((m) => m.parent === name),
+              }
+            }),
+          ],
+        },
+      ]
+    }
+
+    return [...total, menu]
+  }, [])
 }
 
 export default Sidebar

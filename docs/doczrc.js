@@ -1,6 +1,12 @@
 export default {
   title: 'react-phaser-fiber',
-  menu: ['Getting Started', 'Components'],
+  menu: [
+    'Getting Started',
+    {
+      name: 'Components',
+      menu: ['Game Objects'],
+    },
+  ],
   initialColorMode: 'dark',
   typescript: true,
   docgenConfig: {

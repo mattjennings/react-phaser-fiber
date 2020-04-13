@@ -9068,7 +9068,7 @@ gatsby-transformer-sharp@^2.2.7:
     semver "^5.7.1"
     sharp "^0.25.1"
 
-gatsby@^2.13.27, gatsby@^2.20.12:
+gatsby@^2.13.27, gatsby@^2.20.18:
   version "2.20.18"
   resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.20.18.tgz#d647f396f2ab634edd4cb0c7820475cf49f0bc38"
   integrity sha512-YJGjmb/0TVJx+5wWWmARNQnswzdORJHPlbkd0pm1e+jddVfXQLkGrLs92+E/yTRUMKAFtS/YfPgGVUzZ97/E8Q==

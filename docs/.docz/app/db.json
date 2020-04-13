@@ -2,7 +2,13 @@
   "config": {
     "title": "react-phaser-fiber",
     "description": "My awesome app using docz",
-    "menu": ["Getting Started", "Components"],
+    "menu": [
+      "Getting Started",
+      {
+        "name": "Components",
+        "menu": ["Game Objects"]
+      }
+    ],
     "version": "0.1.0",
     "repository": "https://github.com/mattjennings/react-phaser-fiber",
     "native": false,
@@ -5401,225 +5407,6 @@
       ]
     },
     {
-      "key": "../packages/react-phaser-fiber/src/components/Game/GameContext.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/components/Scene/Scene.tsx",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Scene",
-          "methods": [],
-          "props": {
-            "sceneKey": {
-              "defaultValue": null,
-              "description": "",
-              "name": "sceneKey",
-              "required": true,
-              "type": {
-                "name": "string"
-              }
-            },
-            "onPreload": {
-              "defaultValue": null,
-              "description": "",
-              "name": "onPreload",
-              "required": false,
-              "type": {
-                "name": "((scene: Scene) => any) | undefined"
-              }
-            },
-            "onCreate": {
-              "defaultValue": null,
-              "description": "",
-              "name": "onCreate",
-              "required": false,
-              "type": {
-                "name": "((scene: Scene) => any) | undefined"
-              }
-            },
-            "onInit": {
-              "defaultValue": null,
-              "description": "",
-              "name": "onInit",
-              "required": false,
-              "type": {
-                "name": "((scene: Scene) => any) | undefined"
-              }
-            },
-            "renderLoading": {
-              "defaultValue": null,
-              "description": "",
-              "name": "renderLoading",
-              "required": false,
-              "type": {
-                "name": "((progress: number) => ReactNode) | undefined"
-              }
-            },
-            "key": {
-              "defaultValue": null,
-              "description": "The unique key of this Scene. Must be unique within the entire Game instance.",
-              "name": "key",
-              "required": false,
-              "type": {
-                "name": "string | undefined"
-              }
-            },
-            "active": {
-              "defaultValue": null,
-              "description": "Does the Scene start as active or not? An active Scene updates each step.",
-              "name": "active",
-              "required": false,
-              "type": {
-                "name": "boolean | undefined"
-              }
-            },
-            "visible": {
-              "defaultValue": null,
-              "description": "Does the Scene start as visible or not? A visible Scene renders each step.",
-              "name": "visible",
-              "required": false,
-              "type": {
-                "name": "boolean | undefined"
-              }
-            },
-            "pack": {
-              "defaultValue": null,
-              "description": "An optional Loader Packfile to be loaded before the Scene begins.",
-              "name": "pack",
-              "required": false,
-              "type": {
-                "name": "false | PackFileConfig | undefined"
-              }
-            },
-            "cameras": {
-              "defaultValue": null,
-              "description": "An optional Camera configuration object.",
-              "name": "cameras",
-              "required": false,
-              "type": {
-                "name": "JSONCamera | JSONCamera[] | undefined"
-              }
-            },
-            "map": {
-              "defaultValue": null,
-              "description": "Overwrites the default injection map for a scene.",
-              "name": "map",
-              "required": false,
-              "type": {
-                "name": "{ [key: string]: string; } | undefined"
-              }
-            },
-            "mapAdd": {
-              "defaultValue": null,
-              "description": "Extends the injection map for a scene.",
-              "name": "mapAdd",
-              "required": false,
-              "type": {
-                "name": "{ [key: string]: string; } | undefined"
-              }
-            },
-            "physics": {
-              "defaultValue": null,
-              "description": "The physics configuration object for the Scene.",
-              "name": "physics",
-              "required": false,
-              "type": {
-                "name": "PhysicsConfig | undefined"
-              }
-            },
-            "loader": {
-              "defaultValue": null,
-              "description": "The loader configuration object for the Scene.",
-              "name": "loader",
-              "required": false,
-              "type": {
-                "name": "LoaderConfig | undefined"
-              }
-            },
-            "plugins": {
-              "defaultValue": null,
-              "description": "The plugin configuration object for the Scene.",
-              "name": "plugins",
-              "required": false,
-              "type": {
-                "name": "any"
-              }
-            },
-            "ref": {
-              "defaultValue": null,
-              "description": "",
-              "name": "ref",
-              "required": false,
-              "type": {
-                "name": "((instance: Scene | null) => void) | RefObject<Scene> | null | undefined"
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/components/Scene/SceneContext.tsx",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/components/Spawner/Spawner.tsx",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Spawner",
-          "methods": [],
-          "props": {}
-        }
-      ]
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/components/Spawner/SpawnerContext.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/ArcadeGroup.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/ArcadeImage.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/ArcadeSprite.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/Group.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/Image.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/MatterImage.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/MatterSprite.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/Sprite.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/Text.ts",
-      "value": []
-    },
-    {
-      "key": "../packages/react-phaser-fiber/src/reconciler/elements/TileSprite.ts",
-      "value": []
-    },
-    {
       "key": "../packages/react-phaser-fiber/src/components/Game/Game.tsx",
       "value": [
         {
@@ -5900,6 +5687,225 @@
           }
         }
       ]
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/components/Game/GameContext.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/components/Scene/Scene.tsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Scene",
+          "methods": [],
+          "props": {
+            "sceneKey": {
+              "defaultValue": null,
+              "description": "",
+              "name": "sceneKey",
+              "required": true,
+              "type": {
+                "name": "string"
+              }
+            },
+            "onPreload": {
+              "defaultValue": null,
+              "description": "",
+              "name": "onPreload",
+              "required": false,
+              "type": {
+                "name": "((scene: Scene) => any) | undefined"
+              }
+            },
+            "onCreate": {
+              "defaultValue": null,
+              "description": "",
+              "name": "onCreate",
+              "required": false,
+              "type": {
+                "name": "((scene: Scene) => any) | undefined"
+              }
+            },
+            "onInit": {
+              "defaultValue": null,
+              "description": "",
+              "name": "onInit",
+              "required": false,
+              "type": {
+                "name": "((scene: Scene) => any) | undefined"
+              }
+            },
+            "renderLoading": {
+              "defaultValue": null,
+              "description": "",
+              "name": "renderLoading",
+              "required": false,
+              "type": {
+                "name": "((progress: number) => ReactNode) | undefined"
+              }
+            },
+            "key": {
+              "defaultValue": null,
+              "description": "The unique key of this Scene. Must be unique within the entire Game instance.",
+              "name": "key",
+              "required": false,
+              "type": {
+                "name": "string | undefined"
+              }
+            },
+            "active": {
+              "defaultValue": null,
+              "description": "Does the Scene start as active or not? An active Scene updates each step.",
+              "name": "active",
+              "required": false,
+              "type": {
+                "name": "boolean | undefined"
+              }
+            },
+            "visible": {
+              "defaultValue": null,
+              "description": "Does the Scene start as visible or not? A visible Scene renders each step.",
+              "name": "visible",
+              "required": false,
+              "type": {
+                "name": "boolean | undefined"
+              }
+            },
+            "pack": {
+              "defaultValue": null,
+              "description": "An optional Loader Packfile to be loaded before the Scene begins.",
+              "name": "pack",
+              "required": false,
+              "type": {
+                "name": "false | PackFileConfig | undefined"
+              }
+            },
+            "cameras": {
+              "defaultValue": null,
+              "description": "An optional Camera configuration object.",
+              "name": "cameras",
+              "required": false,
+              "type": {
+                "name": "JSONCamera | JSONCamera[] | undefined"
+              }
+            },
+            "map": {
+              "defaultValue": null,
+              "description": "Overwrites the default injection map for a scene.",
+              "name": "map",
+              "required": false,
+              "type": {
+                "name": "{ [key: string]: string; } | undefined"
+              }
+            },
+            "mapAdd": {
+              "defaultValue": null,
+              "description": "Extends the injection map for a scene.",
+              "name": "mapAdd",
+              "required": false,
+              "type": {
+                "name": "{ [key: string]: string; } | undefined"
+              }
+            },
+            "physics": {
+              "defaultValue": null,
+              "description": "The physics configuration object for the Scene.",
+              "name": "physics",
+              "required": false,
+              "type": {
+                "name": "PhysicsConfig | undefined"
+              }
+            },
+            "loader": {
+              "defaultValue": null,
+              "description": "The loader configuration object for the Scene.",
+              "name": "loader",
+              "required": false,
+              "type": {
+                "name": "LoaderConfig | undefined"
+              }
+            },
+            "plugins": {
+              "defaultValue": null,
+              "description": "The plugin configuration object for the Scene.",
+              "name": "plugins",
+              "required": false,
+              "type": {
+                "name": "any"
+              }
+            },
+            "ref": {
+              "defaultValue": null,
+              "description": "",
+              "name": "ref",
+              "required": false,
+              "type": {
+                "name": "((instance: Scene | null) => void) | RefObject<Scene> | null | undefined"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/components/Scene/SceneContext.tsx",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/components/Spawner/Spawner.tsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Spawner",
+          "methods": [],
+          "props": {}
+        }
+      ]
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/components/Spawner/SpawnerContext.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/ArcadeGroup.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/ArcadeImage.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/ArcadeSprite.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/Group.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/Image.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/MatterImage.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/MatterSprite.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/Sprite.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/Text.ts",
+      "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/reconciler/elements/TileSprite.ts",
+      "value": []
     }
   ],
   "entries": [
@@ -5983,6 +5989,28 @@
         "hidden": false,
         "slug": "src-docs-getting-started-without-react-dom",
         "headings": []
+      }
+    },
+    {
+      "key": "src/docs/components/game-objects/Text.mdx",
+      "value": {
+        "name": "Text",
+        "menu": "Components",
+        "parent": "Game Objects",
+        "route": "/components/game-objects/game",
+        "id": "32a439ce62ea1e19491dd260f786e83e",
+        "filepath": "src/docs/components/game-objects/Text.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/components/game-objects/Text.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/components/game-objects/Text.mdx",
+        "hidden": false,
+        "slug": "src-docs-components-game-objects-text",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
       }
     }
   ]
