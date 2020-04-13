@@ -8,11 +8,14 @@ route: /components/game-objects/game
 import { Playground, Props } from 'docz'
 import { Game, Scene, Text, Canvas } from 'react-phaser-fiber'
 
-<!--
 <Playground>
-  <Game width={400} height={400} />
-</Playground> -->
+  <Game width={400} height={400}>
+    <Scene sceneKey="main">
+      <Text x={150} y={150} text="Hello World" style={{ color: 'white' }} />
+    </Scene>
+  </Game>
+</Playground>
 
 ## Props
 
-<Props of={Game} />
+<Props of={Text} />

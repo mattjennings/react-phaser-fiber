@@ -95,20 +95,9 @@ const Table = (props) => {
     >
       <Box
         as="table"
+        width="100%"
         overflow="hidden"
         fontSize={['0.7em', '0.7em', '0.9em']}
-        css={(theme) => css`
-          code {
-            background-color: ${colorMode === 'dark'
-              ? theme.colors.gray[700]
-              : theme.colors.gray[200]};
-            padding: 4px;
-            margin-left: 2px;
-            margin-right: 2px;
-            border-radius: 5px;
-            font-size: 0.9em;
-          }
-        `}
         {...props}
       />
     </Box>

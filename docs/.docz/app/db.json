@@ -20,6 +20,154 @@
       "searchPath": "../packages/react-phaser-fiber/src"
     }
   },
+  "entries": [
+    {
+      "key": "src/pages/index.mdx",
+      "value": {
+        "name": "Home",
+        "route": "/",
+        "id": "522b7407e210088f3588b943aec44115",
+        "filepath": "src/pages/index.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/pages/index.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/pages/index.mdx",
+        "hidden": false,
+        "slug": "src-pages-index",
+        "menu": "",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/components/Canvas.mdx",
+      "value": {
+        "name": "Canvas",
+        "menu": "Components",
+        "route": "/components/canvas",
+        "id": "bea89bbe5b0c1179abe27194ba80bc63",
+        "filepath": "src/docs/components/Canvas.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/components/Canvas.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/components/Canvas.mdx",
+        "hidden": false,
+        "slug": "src-docs-components-canvas",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/docs/components/Game.mdx",
+      "value": {
+        "name": "Game",
+        "menu": "Components",
+        "route": "/components/game",
+        "id": "a5495f9d75f3f9b9d4341b93959dbf9d",
+        "filepath": "src/docs/components/Game.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/components/Game.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/components/Game.mdx",
+        "hidden": false,
+        "slug": "src-docs-components-game",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/docs/components/Scene.mdx",
+      "value": {
+        "name": "Scene",
+        "menu": "Components",
+        "route": "/components/scene",
+        "id": "389ac9e0183dd624c23e6ac5bfe1acdf",
+        "filepath": "src/docs/components/Scene.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/components/Scene.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/components/Scene.mdx",
+        "hidden": false,
+        "slug": "src-docs-components-scene",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/docs/getting-started/installation.mdx",
+      "value": {
+        "name": "Installation",
+        "menu": "Getting Started",
+        "route": "/getting-started/installation",
+        "next": "/getting-started/with-react-dom",
+        "id": "af652c2fbb8907afb3fd35d42ff464b2",
+        "filepath": "src/docs/getting-started/installation.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/getting-started/installation.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/getting-started/installation.mdx",
+        "hidden": false,
+        "slug": "src-docs-getting-started-installation",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/getting-started/with-react-dom.mdx",
+      "value": {
+        "name": "With React DOM",
+        "menu": "Getting Started",
+        "route": "/getting-started/with-react-dom",
+        "id": "e6db82ae565367e9514d1cc3d2e09dfd",
+        "filepath": "src/docs/getting-started/with-react-dom.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/getting-started/with-react-dom.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/getting-started/with-react-dom.mdx",
+        "hidden": false,
+        "slug": "src-docs-getting-started-with-react-dom",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/getting-started/without-react-dom.mdx",
+      "value": {
+        "name": "Without React DOM",
+        "menu": "Getting Started",
+        "route": "/getting-started/without-react-dom",
+        "id": "d2766099ac8a7df94d475ae906bfbea9",
+        "filepath": "src/docs/getting-started/without-react-dom.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/getting-started/without-react-dom.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/getting-started/without-react-dom.mdx",
+        "hidden": false,
+        "slug": "src-docs-getting-started-without-react-dom",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/docs/components/game-objects/Text.mdx",
+      "value": {
+        "name": "Text",
+        "menu": "Components",
+        "parent": "Game Objects",
+        "route": "/components/game-objects/game",
+        "id": "32a439ce62ea1e19491dd260f786e83e",
+        "filepath": "src/docs/components/game-objects/Text.mdx",
+        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/components/game-objects/Text.mdx",
+        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/components/game-objects/Text.mdx",
+        "hidden": false,
+        "slug": "src-docs-components-game-objects-text",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    }
+  ],
   "props": [
     {
       "key": "../packages/react-phaser-fiber/src/components/ArcadeCollider.tsx",
@@ -5377,36 +5525,6 @@
       ]
     },
     {
-      "key": "../packages/react-phaser-fiber/src/components/Canvas/Canvas.tsx",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Canvas",
-          "methods": [],
-          "props": {
-            "ref": {
-              "defaultValue": null,
-              "description": "",
-              "name": "ref",
-              "required": false,
-              "type": {
-                "name": "((instance: unknown) => void) | RefObject<unknown> | null | undefined"
-              }
-            },
-            "key": {
-              "defaultValue": null,
-              "description": "",
-              "name": "key",
-              "required": false,
-              "type": {
-                "name": "string | number | undefined"
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "../packages/react-phaser-fiber/src/components/Game/Game.tsx",
       "value": [
         {
@@ -5432,19 +5550,28 @@
                 "name": "BootCallback | undefined"
               }
             },
-            "width": {
+            "scale": {
               "defaultValue": null,
-              "description": "The width of the game, in game pixels.",
-              "name": "width",
+              "description": "The Scale Manager configuration.",
+              "name": "scale",
               "required": false,
               "type": {
-                "name": "string | number | undefined"
+                "name": "ScaleConfig | undefined"
               }
             },
             "height": {
               "defaultValue": null,
               "description": "The height of the game, in game pixels.",
               "name": "height",
+              "required": false,
+              "type": {
+                "name": "string | number | undefined"
+              }
+            },
+            "width": {
+              "defaultValue": null,
+              "description": "The width of the game, in game pixels.",
+              "name": "width",
               "required": false,
               "type": {
                 "name": "string | number | undefined"
@@ -5648,15 +5775,6 @@
                 "name": "PluginObject | PluginObjectItem[] | undefined"
               }
             },
-            "scale": {
-              "defaultValue": null,
-              "description": "The Scale Manager configuration.",
-              "name": "scale",
-              "required": false,
-              "type": {
-                "name": "ScaleConfig | undefined"
-              }
-            },
             "audio": {
               "defaultValue": null,
               "description": "The Audio Configuration object.",
@@ -5691,6 +5809,36 @@
     {
       "key": "../packages/react-phaser-fiber/src/components/Game/GameContext.ts",
       "value": []
+    },
+    {
+      "key": "../packages/react-phaser-fiber/src/components/Canvas/Canvas.tsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Canvas",
+          "methods": [],
+          "props": {
+            "ref": {
+              "defaultValue": null,
+              "description": "",
+              "name": "ref",
+              "required": false,
+              "type": {
+                "name": "((instance: unknown) => void) | RefObject<unknown> | null | undefined"
+              }
+            },
+            "key": {
+              "defaultValue": null,
+              "description": "",
+              "name": "key",
+              "required": false,
+              "type": {
+                "name": "string | number | undefined"
+              }
+            }
+          }
+        }
+      ]
     },
     {
       "key": "../packages/react-phaser-fiber/src/components/Scene/Scene.tsx",
@@ -5906,112 +6054,6 @@
     {
       "key": "../packages/react-phaser-fiber/src/reconciler/elements/TileSprite.ts",
       "value": []
-    }
-  ],
-  "entries": [
-    {
-      "key": "src/pages/index.mdx",
-      "value": {
-        "name": "Home",
-        "route": "/",
-        "id": "522b7407e210088f3588b943aec44115",
-        "filepath": "src/pages/index.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/pages/index.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/pages/index.mdx",
-        "hidden": false,
-        "slug": "src-pages-index",
-        "menu": "",
-        "headings": []
-      }
-    },
-    {
-      "key": "src/docs/components/Game.mdx",
-      "value": {
-        "name": "Game",
-        "menu": "Components",
-        "route": "/components/game",
-        "id": "a5495f9d75f3f9b9d4341b93959dbf9d",
-        "filepath": "src/docs/components/Game.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/components/Game.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/components/Game.mdx",
-        "hidden": false,
-        "slug": "src-docs-components-game",
-        "headings": [
-          {
-            "slug": "props",
-            "depth": 2,
-            "value": "Props"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/docs/getting-started/installation.mdx",
-      "value": {
-        "name": "Installation",
-        "menu": "Getting Started",
-        "route": "/getting-started/installation",
-        "next": "/getting-started/with-react-dom",
-        "id": "af652c2fbb8907afb3fd35d42ff464b2",
-        "filepath": "src/docs/getting-started/installation.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/getting-started/installation.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/getting-started/installation.mdx",
-        "hidden": false,
-        "slug": "src-docs-getting-started-installation",
-        "headings": []
-      }
-    },
-    {
-      "key": "src/docs/getting-started/with-react-dom.mdx",
-      "value": {
-        "name": "With React DOM",
-        "menu": "Getting Started",
-        "route": "/getting-started/with-react-dom",
-        "id": "e6db82ae565367e9514d1cc3d2e09dfd",
-        "filepath": "src/docs/getting-started/with-react-dom.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/getting-started/with-react-dom.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/getting-started/with-react-dom.mdx",
-        "hidden": false,
-        "slug": "src-docs-getting-started-with-react-dom",
-        "headings": []
-      }
-    },
-    {
-      "key": "src/docs/getting-started/without-react-dom.mdx",
-      "value": {
-        "name": "Without React DOM",
-        "menu": "Getting Started",
-        "route": "/getting-started/without-react-dom",
-        "id": "d2766099ac8a7df94d475ae906bfbea9",
-        "filepath": "src/docs/getting-started/without-react-dom.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/getting-started/without-react-dom.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/getting-started/without-react-dom.mdx",
-        "hidden": false,
-        "slug": "src-docs-getting-started-without-react-dom",
-        "headings": []
-      }
-    },
-    {
-      "key": "src/docs/components/game-objects/Text.mdx",
-      "value": {
-        "name": "Text",
-        "menu": "Components",
-        "parent": "Game Objects",
-        "route": "/components/game-objects/game",
-        "id": "32a439ce62ea1e19491dd260f786e83e",
-        "filepath": "src/docs/components/game-objects/Text.mdx",
-        "fullpath": "/Users/mattjennings/dev/react-phaser-fiber/docs/src/docs/components/game-objects/Text.mdx",
-        "link": "https://github.com/mattjennings/react-phaser-fiber/edit/master/docs/src/docs/components/game-objects/Text.mdx",
-        "hidden": false,
-        "slug": "src-docs-components-game-objects-text",
-        "headings": [
-          {
-            "slug": "props",
-            "depth": 2,
-            "value": "Props"
-          }
-        ]
-      }
     }
   ]
 }

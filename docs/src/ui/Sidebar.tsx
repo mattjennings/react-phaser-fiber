@@ -208,7 +208,7 @@ function MenuLink({ item }: { item: MenuItem }) {
   }, [])
 
   return (
-    <Box paddingBottom={2}>
+    <Box paddingBottom={1}>
       <PseudoBox
         as={(props) => (
           <HeaderLink {...props} to={item.route} whileHover={{}} />

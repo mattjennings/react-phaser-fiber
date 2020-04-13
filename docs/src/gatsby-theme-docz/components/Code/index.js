@@ -24,7 +24,7 @@ export const Code = ({ children, className: outerClassName }) => {
         <Box
           as="pre"
           padding={2}
-          marginY={2}
+          marginY={4}
           className={`${outerClassName || ''} ${className}`}
           overflowX="auto"
           style={style}

@@ -42,19 +42,29 @@ const transformCode = (code) => {
   return `<React.Fragment>${code}</React.Fragment>`
 }
 
-export const Playground = ({ code, scope, language, useScoping = false }) => {
+export const Playground = ({
+  code,
+  scope,
+  language,
+  useScoping = false,
+  customCanvas = false,
+  ...other
+}) => {
   const modifiedScope = useMemo(
     () => ({
       ...scope,
       // we need the canvas to render inside the preview, but we don't want to pollute every example
       // with a wrapped canvas
-      Game: React.memo((gameProps) => (
-        <Canvas>
+      Game: (gameProps) =>
+        code.includes('<Canvas') ? (
           <Game {...gameProps} />
-        </Canvas>
-      )),
+        ) : (
+          <Canvas>
+            <Game {...gameProps} />
+          </Canvas>
+        ),
     }),
-    [scope]
+    [scope, code]
   )
 
   const { colorMode } = useColorMode()
@@ -66,7 +76,7 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
   const copyCode = () => copy(code)
 
   return (
-    <Box paddingBottom={4} maxWidth={800} marginX="auto">
+    <Box paddingY={2} maxWidth={800} marginX="auto">
       <Resizable {...resizableProps} data-testid="playground">
         <LiveProvider
           code={code}
@@ -86,6 +96,7 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
                 borderTopLeftRadius={5}
                 borderTopRightRadius={5}
                 background={prismTheme.plain.backgroundColor}
+                minHeight={400}
               >
                 <Box as={LivePreview} margin={0} />
               </Box>

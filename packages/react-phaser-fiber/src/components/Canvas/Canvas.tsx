@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState } from 'react'
+import React, { useRef, useLayoutEffect, useState, HTMLProps } from 'react'
 
 export const CanvasContext = React.createContext<HTMLCanvasElement>(null)
 
@@ -6,8 +6,10 @@ export interface WithCanvas {
   canvas?: HTMLCanvasElement
 }
 
+export type CanvasProps = HTMLProps<HTMLCanvasElement>
+
 export default React.forwardRef(function Canvas(
-  { children, ...props }: JSX.IntrinsicElements['canvas'],
+  { children, ...props }: CanvasProps,
   ref: React.RefObject<HTMLCanvasElement>
 ) {
   const innerRef = useRef(null)

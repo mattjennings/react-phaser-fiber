@@ -5,8 +5,10 @@ import {
   ThemeProvider as ChakraThemeProvider,
   CSSReset,
   theme as chakraTheme,
+  useColorMode,
 } from '@chakra-ui/core'
 import ColorModeProvider from './ColorModeProvider'
+import { Global, css } from '@emotion/core'
 
 const theme = {
   ...chakraTheme,
@@ -43,13 +45,37 @@ export default function ThemeProvider({
   return (
     <ChakraThemeProvider theme={theme}>
       <ColorModeProvider>
-        <CSSReset />
+        <GlobalStyles />
         {children}
       </ColorModeProvider>
     </ChakraThemeProvider>
   )
 }
 
+function GlobalStyles() {
+  const { colorMode } = useColorMode()
+
+  return (
+    <>
+      <CSSReset />
+      <Global
+        styles={{
+          code: {
+            backgroundColor:
+              colorMode === 'dark'
+                ? theme.colors.gray[700]
+                : theme.colors.gray[200],
+            padding: 4,
+            marginLeft: 2,
+            marginRight: 2,
+            borderRadius: 5,
+            fontSize: '0.9em',
+          },
+        }}
+      />
+    </>
+  )
+}
 declare module '@chakra-ui/core/dist/theme' {
   export interface DefaultTheme {
     prism: {

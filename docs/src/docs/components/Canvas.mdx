@@ -1,0 +1,23 @@
+---
+name: Canvas
+menu: Components
+route: /components/canvas
+---
+
+import { Playground, Props } from 'docz'
+import { Game, Scene, Canvas } from 'react-phaser-fiber'
+
+If you are using react-dom, you can customize the `canvas` element that Phaser renders into.
+
+If you are not using react-dom, you can setup a custom canvas by passing the DOM
+reference in the [Phaser.Game config](https://photonstorm.github.io/phaser3-docs/Phaser.Game.html#canvas__anchor)
+
+<Playground customCanvas>
+  <Canvas style={{ border: '1px solid red' }}>
+    <Game width={400} height={400} />
+  </Canvas>
+</Playground>
+
+## Props
+
+Same props as a regular `<canvas />`
