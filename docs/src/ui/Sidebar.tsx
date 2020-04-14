@@ -20,6 +20,7 @@ import { useSidebar } from '../components/SidebarProvider'
 import { useIsMobile } from '../hooks'
 import { debounce, throttle, uniq } from 'lodash'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 const MotionChakraLink = motion.custom(ChakraLink)
 
@@ -164,45 +165,45 @@ function MenuLink({ item }: { item: MenuItem }) {
   const isActive = currentDoc.route === item.route
   const theme = useTheme()
 
-  const [activeHeading, setActiveHeading] = useState(null)
+  const [activeHeading, setActiveHeading] = useState<string | null>(null)
 
   useLayoutEffect(() => {
     if (typeof window !== 'undefined') {
-      setActiveHeading(
-        currentDoc?.headings.find(
-          (heading: any) =>
-            heading.slug === window.location.hash?.replace('#', '')
-        )
-      )
+      setActiveHeading(window.location.hash?.replace('#', ''))
     }
   }, [])
 
-  // check current heading on scroll
+  // highlight active heading that is visible on page
   useLayoutEffect(() => {
-    const el = document.querySelector('main')
+    if (typeof window !== 'undefined') {
+      const mainEl = document.querySelector('main')
 
-    const onScroll = throttle((ev: any) => {
-      if (el && currentDoc.headings) {
-        let currentHeading = null
-        for (const heading of currentDoc.headings) {
-          const headingEl = document.querySelector(`#${heading.slug}`)
-
-          if (
-            headingEl &&
-            headingEl.getBoundingClientRect().top <= ev.target.scrollTop
-          ) {
-            currentHeading = heading
+      function callback(entries: IntersectionObserverEntry[]) {
+        let heading = null
+        for (const entry of entries) {
+          // if the heading was scrolled past, then it is the active one
+          if (mainEl && entry.boundingClientRect.top < mainEl.scrollTop) {
+            heading = entry.target.id
           }
         }
-        setActiveHeading(currentHeading)
+        setActiveHeading(heading)
       }
-    }, 100)
 
-    if (el) {
-      el.addEventListener('scroll', onScroll)
+      const observer = new IntersectionObserver(callback, {
+        root: mainEl,
+        threshold: 0.75,
+      })
+
+      // observe each heading element
+      for (const heading of currentDoc.headings) {
+        const headingEl = document.querySelector(`#${heading.slug}`)
+        if (headingEl) {
+          observer.observe(headingEl)
+        }
+      }
 
       return () => {
-        el.removeEventListener('scroll', onScroll)
+        observer.disconnect()
       }
     }
   }, [])
@@ -226,7 +227,7 @@ function MenuLink({ item }: { item: MenuItem }) {
       {isActive && currentDoc.headings.length > 0 && (
         <Box paddingLeft={2}>
           {currentDoc.headings.map((heading: any) => {
-            const isHeadingActive = activeHeading === heading
+            const isHeadingActive = activeHeading === heading.slug
 
             return (
               <Box key={heading.slug} display="flex" alignItems="center">
