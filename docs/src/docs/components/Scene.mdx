@@ -5,13 +5,30 @@ route: /components/scene
 ---
 
 import { Playground, Props } from 'docz'
-import { Game, Scene } from 'react-phaser-fiber'
+import { Game, Scene, Text, Sprite } from 'react-phaser-fiber'
+
+A Scene is required to render components into your game. Typically Scenes are used as levels, or stages, for your game, but
+you can render more than one at a time if you wish.
+
+Every Scene requires a `sceneKey` which should be a unique identifier. If you have textures or other assets that you need to preload,
+you can load them in `onPreload`.
 
 <Playground>
   <Game width={400} height={400}>
-    <Scene sceneKey="main" />
+    <Scene
+      sceneKey="main"
+      onPreload={(scene) => {
+        scene.load.image('mushroom', '/images/mushroom.png')
+      }}
+    >
+      <Sprite x={200} y={200} texture="mushroom" />
+    </Scene>
   </Game>
 </Playground>
+
+## Examples
+
+- [Multiple Scenes](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/multiple-scenes)
 
 ## Props
 
