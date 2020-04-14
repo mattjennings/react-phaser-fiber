@@ -9,11 +9,31 @@ import { useGame } from '../../hooks/useGame'
 import SceneContext from './SceneContext'
 
 export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
+  /**
+   * The unique key of this Scene. Must be unique within the entire Game instance
+   */
   sceneKey: string
+
   children?: JSX.Element | JSX.Element[]
+
+  /**
+   * Called on the Scene's preload stage. Any assets for the scene should be loaded here
+   */
   onPreload?: (scene: Phaser.Scene) => any
+
+  /**
+   * Called on the Scene's `create` stage
+   */
   onCreate?: (scene: Phaser.Scene) => any
+
+  /**
+   * Caled on the Scene's init stage.
+   */
   onInit?: (scene: Phaser.Scene) => any
+
+  /**
+   * Render prop that is called with the progress while the Scene is loading assets. Use this for loading screens.
+   */
   renderLoading?: (progress: number) => React.ReactNode
 }
 
@@ -71,8 +91,8 @@ function Scene(
     return () => {
       game.scene.remove(sceneKey)
 
-      listeners.forEach(listener => {
-        listener.eventNames().forEach(event => listener.off(event))
+      listeners.forEach((listener) => {
+        listener.eventNames().forEach((event) => listener.off(event))
       })
     }
   }, [])

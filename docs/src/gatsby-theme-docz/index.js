@@ -11,6 +11,7 @@ const components = {
   layout: Page,
   p: (props) => <Box as="p" marginY={2} {...props}></Box>,
   a: (props) => <Box as="a" color="teal.500" {...props} />,
+  ul: (props) => <Box as="ul" marginLeft={8} {...props} />,
 }
 
 const Root = ({ children }) => {

@@ -13,6 +13,7 @@ const HeadingText = (props) => {
     <Text
       {...props}
       tabIndex="0"
+      marginTop={4}
       onFocus={() => setShowLink(true)}
       onBlur={() => setShowLink(false)}
       onMouseEnter={() => setShowLink(true)}
@@ -47,7 +48,7 @@ const HeadingText = (props) => {
 export const h2 = (props) => (
   <HeadingText
     as="h2"
-    fontSize="xl"
+    fontSize="2xl"
     fontFamily="heading"
     marginBottom={1}
     {...props}
@@ -57,7 +58,7 @@ export const h2 = (props) => (
 export const h3 = (props) => (
   <HeadingText
     as="h3"
-    fontSize="lg"
+    fontSize="xl"
     fontFamily="heading"
     marginBottom={1}
     {...props}
@@ -67,7 +68,7 @@ export const h3 = (props) => (
 export const h4 = (props) => (
   <HeadingText
     as="h4"
-    fontSize="md"
+    fontSize="lg"
     fontFamily="heading"
     marginBottom={1}
     {...props}
@@ -75,7 +76,7 @@ export const h4 = (props) => (
 )
 
 export const h5 = (props) => (
-  <HeadingText as="h5" fontSize="base" marginBottom={1} {...props} />
+  <HeadingText as="h5" fontSize="md" marginBottom={1} {...props} />
 )
 
 export const h6 = (props) => (

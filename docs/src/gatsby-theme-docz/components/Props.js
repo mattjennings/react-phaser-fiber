@@ -31,7 +31,8 @@ export const Prop = ({ propName, prop, getPropType }) => {
         fontWeight="medium"
         color={colorMode === 'dark' ? 'blue.400' : 'blue.500'}
       >
-        {propName} {prop.required ? '*' : ''}
+        {propName}
+        {prop.required ? '*' : ''}
       </TableCell>
       <TableCell>{type}</TableCell>
       <TableCell>
@@ -46,8 +47,12 @@ export const Props = ({ props, getPropType }) => {
   const entries = Object.entries(props)
     .sort(([, aProp], [, bProp]) => {
       // sort required first
-      if (aProp.required || bProp.required) {
+      if (aProp.required && !bProp.required) {
         return -1
+      }
+
+      if (bProp.required && !aProp.required) {
+        return 1
       }
 
       // then sort alphabetically
@@ -89,6 +94,7 @@ const Table = (props) => {
       overflow="hidden"
       overflowX="scroll"
       borderRadius={5}
+      marginY={2}
       border={`1px solid ${
         colorMode === 'dark' ? theme.colors.gray[700] : theme.colors.gray[200]
       }`}
