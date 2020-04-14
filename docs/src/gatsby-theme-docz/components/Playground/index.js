@@ -143,7 +143,7 @@ export const Playground = ({
                 }
               `}
             >
-              <LiveEditor data-testid="live-editor" />
+              <LiveEditor data-testid="live-editor" disabled />
             </Box>
           </Wrapper>
         </LiveProvider>
