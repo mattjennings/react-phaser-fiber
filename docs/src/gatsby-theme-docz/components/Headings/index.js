@@ -1,20 +1,43 @@
-import React from 'react'
-import { Text, PseudoBox } from '@chakra-ui/core'
+import React, { useState } from 'react'
+import { Text, Icon, Box, PseudoBox, useColorMode } from '@chakra-ui/core'
 
 const HeadingText = (props) => {
+  const [showLink, setShowLink] = useState(false)
+
+  const { colorMode } = useColorMode()
+
+  const linkColor = colorMode === 'dark' ? 'gray.500' : 'gray.500'
+  const hoverColor = colorMode === 'dark' ? 'gray.400' : 'gray.700'
+
   return !!props.id ? (
-    <Text {...props}>
-      <PseudoBox
-        as="a"
-        href={`#${props.id}`}
-        color="inherit"
-        textDecoration="none"
-        _hover={{
-          textDecoration: 'underline',
-        }}
-      >
+    <Text
+      {...props}
+      tabIndex="0"
+      onFocus={() => setShowLink(true)}
+      onBlur={() => setShowLink(false)}
+      onMouseEnter={() => setShowLink(true)}
+      onMouseLeave={() => setShowLink(false)}
+    >
+      <Box as="span" position="relative">
         {props.children}
-      </PseudoBox>
+        {showLink && (
+          <PseudoBox
+            as="a"
+            position="absolute"
+            color={linkColor}
+            right={-24}
+            top="-4px"
+            href={`#${props.id}`}
+            textDecoration="none"
+            _hover={{
+              color: hoverColor,
+              textDecoration: 'none',
+            }}
+          >
+            <Icon name="link" size="0.8em" />
+          </PseudoBox>
+        )}
+      </Box>
     </Text>
   ) : (
     <Text {...props} />
