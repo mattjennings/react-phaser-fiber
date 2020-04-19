@@ -180,11 +180,10 @@ function MenuLink({ item }: { item: MenuItem }) {
 
       function callback(entries: IntersectionObserverEntry[]) {
         let heading = null
+
         for (const entry of entries) {
-          const isAbove =
-            entry.boundingClientRect.y < (entry.rootBounds?.y ?? 0)
           // if the heading was scrolled past, then it is the active one
-          if (mainEl && isAbove) {
+          if (mainEl && entry.boundingClientRect.bottom < mainEl.scrollTop) {
             heading = entry.target.id
           }
         }
@@ -193,7 +192,7 @@ function MenuLink({ item }: { item: MenuItem }) {
 
       const observer = new IntersectionObserver(callback, {
         root: mainEl,
-        threshold: 0.75,
+        threshold: 0.5,
       })
 
       // observe each heading element

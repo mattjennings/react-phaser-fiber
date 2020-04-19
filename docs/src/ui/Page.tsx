@@ -20,6 +20,9 @@ export default function Page({ children, doc }: any) {
     }
   }, [])
 
+  const maxWidth = [null, null, null, 800]
+  const margin = [0, 0, 0, 'auto']
+
   return (
     <Box display="flex">
       <Sidebar />
@@ -32,8 +35,10 @@ export default function Page({ children, doc }: any) {
         paddingBottom={4}
         bg={colorMode === 'dark' ? 'gray.900' : 'white'}
       >
-        <Header doc={doc} />
-        {children}
+        <Header maxWidth={maxWidth} margin={margin} doc={doc} />
+        <Box maxWidth={maxWidth} margin={margin}>
+          {children}
+        </Box>
       </Box>
     </Box>
   )

@@ -1,10 +1,10 @@
-import { Box, IconButton, Text, useColorMode } from '@chakra-ui/core'
+import { Box, IconButton, Text, useColorMode, BoxProps } from '@chakra-ui/core'
 import React from 'react'
 import { IoIosMenu } from 'react-icons/io'
 import { useIsMobile } from '../hooks'
 import { useSidebar } from '../components/SidebarProvider'
 
-const Header = ({ doc }: { doc: any }) => {
+const Header = ({ doc, ...props }: { doc: any } & BoxProps) => {
   const { openSidebar } = useSidebar()
   const isMobile = useIsMobile()
   const { colorMode, toggleColorMode } = useColorMode()
@@ -17,8 +17,10 @@ const Header = ({ doc }: { doc: any }) => {
       justifyContent="space-between"
       paddingY={2}
       height={60}
+      width="100%"
+      {...props}
     >
-      <Box display="flex">
+      <Box display="flex" alignItems="center">
         {isMobile && (
           <IconButton
             variant="ghost"
