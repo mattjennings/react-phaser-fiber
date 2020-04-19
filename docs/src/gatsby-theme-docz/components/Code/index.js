@@ -6,7 +6,7 @@ import { jsx } from 'theme-ui'
 import { usePrismTheme } from '../../../hooks/usePrismTheme'
 import { useTheme, useColorMode, Box } from '@chakra-ui/core'
 
-export const Code = ({ children, className: outerClassName }) => {
+export const Code = ({ children, className: outerClassName, ...props }) => {
   const [language] = outerClassName
     ? outerClassName.replace(/language-/, '').split(' ')
     : ['text']

@@ -21,19 +21,19 @@ const App = () => {
     >
       <Scene
         sceneKey="breakout"
-        onPreload={scene => {
+        onPreload={(scene) => {
           scene.load.atlas(
             'assets',
             'assets/breakout.png',
             'assets/breakout.json'
           )
         }}
-        renderLoading={progress => (
+        renderLoading={(progress) => (
           <Text
             x={300}
             y={400}
             text={`Loading... (${progress * 100}%)`}
-            style={{ color: 'white' }}
+            color="white"
           />
         )}
       >

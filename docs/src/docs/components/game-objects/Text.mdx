@@ -2,16 +2,16 @@
 name: Text
 menu: Components
 parent: Game Objects
-route: /components/game-objects/game
+route: /components/game-objects/text
 ---
 
 import { Playground, Props } from 'docz'
-import { Game, Scene, Text, Canvas } from 'react-phaser-fiber'
+import { Game, Scene, Text } from 'react-phaser-fiber'
 
 <Playground>
   <Game width={400} height={400}>
     <Scene sceneKey="main">
-      <Text x={150} y={150} text="Hello World" style={{ color: 'white' }} />
+      <Text x={150} y={150} text="Hello World" color="white" />
     </Scene>
   </Game>
 </Playground>

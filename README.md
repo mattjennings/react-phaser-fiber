@@ -53,7 +53,7 @@ const App = () => {
   return (
     <Game width={400} height={400}>
       <Scene sceneKey="main">
-        <Text x={100} y={100} text="Hello World!" style={{ color: 'white' }} />
+        <Text x={100} y={100} text="Hello World!" color="white" />
       </Scene>
     </Game>
   )
