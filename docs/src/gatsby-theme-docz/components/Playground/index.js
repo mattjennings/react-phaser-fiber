@@ -1,14 +1,19 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import React, { useMemo, useState } from 'react'
-import { useConfig } from 'docz'
+import React, { useMemo, useState, useEffect } from 'react'
 import { LiveProvider, LiveError, LivePreview, LiveEditor } from 'react-live'
 import { Resizable } from 're-resizable'
 import copy from 'copy-text-to-clipboard'
 import { Game, Canvas } from 'react-phaser-fiber'
 
 import { Wrapper } from './Wrapper'
-import { IconButton, Box, useColorMode } from '@chakra-ui/core'
+import {
+  IconButton,
+  Box,
+  useColorMode,
+  useTheme,
+  Tooltip,
+} from '@chakra-ui/core'
 import { usePrismTheme } from '../../../hooks/usePrismTheme'
 
 const getResizableProps = (width, setWidth) => ({
@@ -42,21 +47,23 @@ const transformCode = (code) => {
   return `<React.Fragment>${code}</React.Fragment>`
 }
 
+const Memod = React.memo(LiveProvider)
+
 export const Playground = ({
   code,
   scope,
   language,
   useScoping = false,
-  customCanvas = false,
   ...other
 }) => {
+  const customCanvas = code.includes('<Canvas')
   const modifiedScope = useMemo(
     () => ({
       ...scope,
       // we need the canvas to render inside the preview, but we don't want to pollute every example
       // with a wrapped canvas
       Game: (gameProps) =>
-        code.includes('<Canvas') ? (
+        customCanvas ? (
           <Game {...gameProps} />
         ) : (
           <Canvas>
@@ -64,7 +71,11 @@ export const Playground = ({
           </Canvas>
         ),
     }),
-    [scope, code]
+    [
+      // awful, awful hack. a hot reload in dev causes infinite renders if scope/code are dependencies,
+      // but we do want the memo to run, so we'll just enable it for production
+      ...(process.env.NODE_ENV === 'production' ? [scope, customCanvas] : []),
+    ]
   )
 
   const { colorMode } = useColorMode()
@@ -117,12 +128,11 @@ export const Playground = ({
               />
             </Wrapper>
             <Box position="relative" zIndex={5}>
-              <IconButton
-                icon="copy"
+              <CopyButton
                 onClick={copyCode}
                 position="absolute"
                 right={1}
-                top={0}
+                top={1}
               />
             </Box>
           </Box>
@@ -138,6 +148,10 @@ export const Playground = ({
               fontFamily="monospace"
               fontSize={16}
               css={css`
+                pre {
+                  /* keep text selectable when editor is disabled */
+                  pointer-events: auto !important;
+                }
                 * > textarea:focus {
                   outline: none;
                 }
@@ -149,5 +163,52 @@ export const Playground = ({
         </LiveProvider>
       </Resizable>
     </Box>
+  )
+}
+
+function CopyButton({ onClick, ...props }) {
+  const [icon, setIcon] = useState('copy')
+  const { colorMode } = useColorMode()
+
+  useEffect(() => {
+    if (icon !== 'copy') {
+      const timeout = setTimeout(() => setIcon('copy'), 2000)
+
+      return () => clearTimeout(timeout)
+    }
+  }, [icon])
+
+  const variants = {
+    copy: {
+      light: {
+        backgroundColor: 'gray.200',
+        _hover: {
+          backgroundColor: 'gray.300',
+        },
+      },
+      dark: {},
+    },
+    check: {
+      light: {
+        variantColor: 'green',
+      },
+      dark: {
+        variantColor: 'green',
+      },
+    },
+  }
+
+  return (
+    <Tooltip label="Copy">
+      <IconButton
+        icon={icon}
+        onClick={() => {
+          onClick()
+          setIcon('check')
+        }}
+        {...variants[icon][colorMode]}
+        {...props}
+      />
+    </Tooltip>
   )
 }
