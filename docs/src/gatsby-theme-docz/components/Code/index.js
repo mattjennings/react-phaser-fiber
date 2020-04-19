@@ -1,12 +1,10 @@
 /* eslint react/jsx-key: 0 */
-import React from 'react'
+import { Box, useColorMode } from '@chakra-ui/core'
 import Highlight, { defaultProps } from 'prism-react-renderer'
-import { jsx } from 'theme-ui'
-
+import React from 'react'
 import { usePrismTheme } from '../../../hooks/usePrismTheme'
-import { useTheme, useColorMode, Box } from '@chakra-ui/core'
 
-export const Code = ({ children, className: outerClassName, ...props }) => {
+export const Code = ({ children, className: outerClassName }) => {
   const [language] = outerClassName
     ? outerClassName.replace(/language-/, '').split(' ')
     : ['text']

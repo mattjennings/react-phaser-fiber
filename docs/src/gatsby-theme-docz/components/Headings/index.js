@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, Icon, Box, PseudoBox, useColorMode } from '@chakra-ui/core'
-
+import { css } from '@emotion/core'
 const HeadingText = (props) => {
   const [showLink, setShowLink] = useState(false)
 
@@ -13,7 +13,12 @@ const HeadingText = (props) => {
     <Text
       {...props}
       tabIndex="0"
-      marginTop={4}
+      css={(theme) => css`
+        /* add margin-top when it follows another element */
+        :not(:first-of-type) {
+          margin-top: ${theme.space[4]};
+        }
+      `}
       onFocus={() => setShowLink(true)}
       onBlur={() => setShowLink(false)}
       onMouseEnter={() => setShowLink(true)}
