@@ -1,5 +1,6 @@
 import {
   Box,
+  BoxProps,
   Button,
   Collapse,
   Drawer,
@@ -7,20 +8,19 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Link as ChakraLink,
   PseudoBox,
   Text,
-  Link as ChakraLink,
   useTheme,
-  BoxProps,
 } from '@chakra-ui/core'
+import { useLocation } from '@reach/router'
 import { MenuItem, useCurrentDoc, useMenus } from 'docz'
-import React, { useState, useLayoutEffect } from 'react'
+import { motion } from 'framer-motion'
+import { throttle, uniq } from 'lodash'
+import React, { useLayoutEffect, useState } from 'react'
 import HeaderLink from '../components/HeaderLink'
 import { useSidebar } from '../components/SidebarProvider'
 import { useIsMobile } from '../hooks'
-import { debounce, throttle, uniq } from 'lodash'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 
 const MotionChakraLink = motion.custom(ChakraLink)
 
@@ -161,6 +161,7 @@ function ChildLinks({ item, ...props }: { item: MenuItem } & BoxProps) {
 }
 
 function MenuLink({ item }: { item: MenuItem }) {
+  const location = useLocation()
   const currentDoc = useCurrentDoc()
   const isActive = currentDoc.route === item.route
   const theme = useTheme()
@@ -168,43 +169,42 @@ function MenuLink({ item }: { item: MenuItem }) {
   const [activeHeading, setActiveHeading] = useState<string | null>(null)
 
   useLayoutEffect(() => {
-    if (typeof window !== 'undefined') {
-      setActiveHeading(window.location.hash?.replace('#', ''))
-    }
-  }, [])
+    setActiveHeading(location.hash?.replace('#', ''))
+  }, [location])
 
   // highlight active heading that is visible on page
   useLayoutEffect(() => {
     if (typeof window !== 'undefined') {
       const mainEl = document.querySelector('main')
 
-      function callback(entries: IntersectionObserverEntry[]) {
-        let heading = null
+      const headingPositions = currentDoc.headings
+        .map(({ slug }: any) => document.querySelector(`#${slug}`))
+        .filter(Boolean)
+        .map((el: HTMLElement) => ({
+          id: el.id,
+          y: el.offsetTop,
+        }))
 
-        for (const entry of entries) {
-          // if the heading was scrolled past, then it is the active one
-          if (mainEl && entry.boundingClientRect.bottom < mainEl.scrollTop) {
-            heading = entry.target.id
+      if (mainEl) {
+        const callback = throttle((ev: any) => {
+          const top = ev.target.scrollTop
+
+          let currentHeading = null
+
+          for (const heading of headingPositions) {
+            if (top >= heading.y) {
+              currentHeading = heading.id
+            }
           }
+
+          setActiveHeading(currentHeading)
+        }, 100)
+
+        mainEl.addEventListener('scroll', callback)
+
+        return () => {
+          mainEl.removeEventListener('scroll', callback)
         }
-        setActiveHeading(heading)
-      }
-
-      const observer = new IntersectionObserver(callback, {
-        root: mainEl,
-        threshold: 0.5,
-      })
-
-      // observe each heading element
-      for (const heading of currentDoc.headings) {
-        const headingEl = document.querySelector(`#${heading.slug}`)
-        if (headingEl) {
-          observer.observe(headingEl)
-        }
-      }
-
-      return () => {
-        observer.disconnect()
       }
     }
   }, [])
