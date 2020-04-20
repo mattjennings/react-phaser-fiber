@@ -29,38 +29,40 @@ function Sidebar() {
   const { isSidebarOpen, closeSidebar } = useSidebar()
   const isOpen = isMobile && isSidebarOpen
 
-  return isMobile ? (
-    <Drawer isOpen={isOpen} placement="left" onClose={closeSidebar}>
-      <DrawerOverlay />
-      <DrawerContent backgroundColor="gray.900" color="gray.100">
-        <DrawerCloseButton marginTop={2} />
+  return (
+    <>
+      <Box
+        as="nav"
+        display={['none', 'none', 'block']}
+        backgroundColor={'gray.900'}
+        borderRight="1px solid"
+        borderRightColor="gray.700"
+        color="gray.100"
+        width={250}
+        height="100vh"
+        overflowY="scroll"
+        flexShrink={0}
+      >
         <DrawerHeader>
           <HeaderLink to="/" display="inline-block">
             react-phaser-fiber
           </HeaderLink>
         </DrawerHeader>
         <Links />
-      </DrawerContent>
-    </Drawer>
-  ) : (
-    <Box
-      as="nav"
-      backgroundColor={'gray.900'}
-      borderRight="1px solid"
-      borderRightColor="gray.700"
-      color="gray.100"
-      width={250}
-      height="100vh"
-      overflowY="scroll"
-      flexShrink={0}
-    >
-      <DrawerHeader>
-        <HeaderLink to="/" display="inline-block">
-          react-phaser-fiber
-        </HeaderLink>
-      </DrawerHeader>
-      <Links />
-    </Box>
+      </Box>
+      <Drawer isOpen={isOpen} placement="left" onClose={closeSidebar}>
+        <DrawerOverlay />
+        <DrawerContent backgroundColor="gray.900" color="gray.100">
+          <DrawerCloseButton marginTop={2} />
+          <DrawerHeader>
+            <HeaderLink to="/" display="inline-block">
+              react-phaser-fiber
+            </HeaderLink>
+          </DrawerHeader>
+          <Links />
+        </DrawerContent>
+      </Drawer>
+    </>
   )
 }
 
