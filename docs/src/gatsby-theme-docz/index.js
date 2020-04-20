@@ -4,7 +4,7 @@ import React from 'react'
 import { ThemeProvider as ThemeUIProvider } from 'theme-ui'
 import ThemeProvider from '../components/ThemeProvider'
 import Page from '../ui/Page'
-import { Box, PseudoBox, useTheme } from '@chakra-ui/core'
+import { Box } from '@chakra-ui/core'
 import Link from '../components/Link'
 import CodeSandbox from '../components/CodeSandbox'
 
@@ -13,7 +13,17 @@ const components = {
   CodeSandbox,
   layout: Page,
   p: (props) => <Box as="p" marginY={2} {...props}></Box>,
-  a: Link,
+  a: ({ href, ...props }) => {
+    const isGatsbyLink = href.startsWith('/')
+
+    const linkProps = isGatsbyLink
+      ? {
+          to: href,
+        }
+      : { href }
+
+    return <Link {...props} {...linkProps} />
+  },
   ul: (props) => <Box as="ul" marginLeft={8} {...props} />,
 }
 

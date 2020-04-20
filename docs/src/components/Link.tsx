@@ -6,12 +6,14 @@ import {
   theme,
   useTheme,
 } from '@chakra-ui/core'
+import { Link as GatsbyLink } from 'gatsby'
 
-export default function Link(props: LinkProps) {
+export default function Link(props: LinkProps & { to?: string }) {
   const theme = useTheme()
 
   return (
-    <ChakraLink
+    <PseudoBox
+      as={props.to ? GatsbyLink : ChakraLink}
       color="teal.400"
       _hover={{
         color: theme.colors.teal[300],

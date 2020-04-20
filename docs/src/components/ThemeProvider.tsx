@@ -35,8 +35,6 @@ const theme = {
   },
 }
 
-// console.log(theme)
-
 export default function ThemeProvider({
   children,
 }: {
