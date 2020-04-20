@@ -156,6 +156,8 @@ export const Playground = ({
                   outline: none;
                 }
               `}
+              maxHeight={500}
+              overflowY="scroll"
             >
               <LiveEditor data-testid="live-editor" disabled />
             </Box>

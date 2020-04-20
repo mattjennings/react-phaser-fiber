@@ -1,0 +1,28 @@
+---
+name: Image
+menu: Components
+parent: Game Objects
+route: /components/game-objects/image
+---
+
+import { Playground, Props } from 'docz'
+import { Game, Scene, Image } from 'react-phaser-fiber'
+
+Displays a static image.
+
+<Playground>
+  <Game width={400} height={400}>
+    <Scene
+      sceneKey="main"
+      onPreload={(scene) => {
+        scene.load.image('mushroom', '/images/mushroom.png')
+      }}
+    >
+      <Image x={200} y={200} texture="mushroom" />
+    </Scene>
+  </Game>
+</Playground>
+
+## Props
+
+<Props of={Image} />
