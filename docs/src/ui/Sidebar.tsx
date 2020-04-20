@@ -142,7 +142,7 @@ function ChildLinks({ item, ...props }: { item: MenuItem } & BoxProps) {
         }
 
         return (
-          <>
+          <React.Fragment key={childMenu.id}>
             <Text
               color="gray.500"
               paddingBottom={1}
@@ -153,7 +153,7 @@ function ChildLinks({ item, ...props }: { item: MenuItem } & BoxProps) {
               {childMenu.name}
             </Text>
             <ChildLinks item={childMenu} paddingLeft={2} />
-          </>
+          </React.Fragment>
         )
       })}
     </Box>
