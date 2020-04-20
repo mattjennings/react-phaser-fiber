@@ -5,25 +5,15 @@ import { ThemeProvider as ThemeUIProvider } from 'theme-ui'
 import ThemeProvider from '../components/ThemeProvider'
 import Page from '../ui/Page'
 import { Box, PseudoBox, useTheme } from '@chakra-ui/core'
+import Link from '../components/Link'
+import CodeSandbox from '../components/CodeSandbox'
 
 const components = {
   ...baseComponents,
+  CodeSandbox,
   layout: Page,
   p: (props) => <Box as="p" marginY={2} {...props}></Box>,
-  a: (props) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const theme = useTheme()
-    return (
-      <PseudoBox
-        as="a"
-        color="teal.400"
-        _hover={{
-          color: theme.colors.teal[300],
-        }}
-        {...props}
-      />
-    )
-  },
+  a: Link,
   ul: (props) => <Box as="ul" marginLeft={8} {...props} />,
 }
 

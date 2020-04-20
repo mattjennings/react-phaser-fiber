@@ -41,6 +41,7 @@
     "lodash": "^4.17.15",
     "phaser": "^3.22.0",
     "prop-types": "^15.7.2",
+    "query-string": "^6.12.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-helmet-async": "^1.0.4",

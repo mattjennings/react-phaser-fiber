@@ -1,7 +1,11 @@
 export default {
   title: 'react-phaser-fiber',
   menu: [
-    'Getting Started',
+    {
+      name: 'Getting Started',
+      menu: ['Installation', 'Usage', 'Examples'],
+    },
+    'Examples',
     {
       name: 'Components',
       menu: ['Game Objects'],
