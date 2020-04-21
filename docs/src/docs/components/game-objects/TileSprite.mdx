@@ -1,0 +1,37 @@
+---
+name: TileSprite
+menu: Components
+parent: Game Objects
+route: /components/game-objects/tile-sprite
+---
+
+import { Playground, Props } from 'docz'
+import { Game, Scene, TileSprite } from 'react-phaser-fiber'
+
+TileSprites are Sprites with repeating textures. They are often used for backgrounds and can be scrolled using
+their `tilePositionX` and `tilePositionY` props.
+
+<Playground>
+  <Game width={400} height={400}>
+    <Scene
+      sceneKey="main"
+      onPreload={(scene) => {
+        // a 32x32 image
+        scene.load.image('tile', '/images/tile.png')
+      }}
+    >
+      <TileSprite
+        x={200}
+        y={200}
+        texture="tile"
+        width={400}
+        height={400}
+        tilePosition
+      />
+    </Scene>
+  </Game>
+</Playground>
+
+## Props
+
+<Props of={TileSprite} />
