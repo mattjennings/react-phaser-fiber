@@ -117,6 +117,12 @@ export type TransformProps = Partial<
   }
 >
 
+export type GroupTransformProps = Partial<
+  Pick<Phaser.GameObjects.Components.Transform, 'angle' | 'x' | 'y'> & {
+    scale?: number | Point
+  }
+>
+
 export type VisibleProps = Partial<
   Pick<Phaser.GameObjects.Components.Visible, 'visible'>
 >

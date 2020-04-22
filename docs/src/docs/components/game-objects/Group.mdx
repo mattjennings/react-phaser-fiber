@@ -1,0 +1,30 @@
+---
+name: Group
+menu: Components
+parent: Game Objects
+route: /components/game-objects/group
+---
+
+import { Playground, Props } from 'docz'
+import { Game, Scene, Group, Text } from 'react-phaser-fiber'
+
+Groups can be used to manage multiple game objects together and apply common props to their children.
+
+It may make more sense to group game objects by your own React components and share props that way. The Group component
+is the implementation of [Phaser Groups](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Group.html),
+but I am not yet sure if they make sense in a React world.
+
+<Playground>
+  <Game width={400} height={400}>
+    <Scene sceneKey="main">
+      <Group alpha={0.5} angle={-10}>
+        <Text x={20} y={100} text="This some text" color="white" />
+        <Text x={20} y={150} text="This is some more text" color="white" />
+      </Group>
+    </Scene>
+  </Game>
+</Playground>
+
+## Props
+
+<Props of={Group} />

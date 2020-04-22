@@ -12,6 +12,7 @@ import {
   OriginProps,
   TintProps,
   TransformProps,
+  Point,
 } from '../props'
 import { initArcadePhysicsObject } from '../util/initArcadePhysicsObject'
 import { iterateProps } from '../util/iterateProps'
@@ -21,7 +22,6 @@ export interface ArcadeGroupElementProps
     DepthProps,
     OriginProps,
     TintProps,
-    TransformProps,
     ArcadeVelocityProps {
   instance: Phaser.Physics.Arcade.Group
   scene: Phaser.Scene
@@ -31,6 +31,11 @@ export interface ArcadeGroupElementProps
   name?: string
   runChildUpdate?: boolean
   children?: React.ReactNode
+
+  scale?: number | Point
+  angle?: number
+  x?: number
+  y?: number
 }
 
 export const ArcadeGroupElement: CreatePhaserComponentConfig<
@@ -55,6 +60,23 @@ export const ArcadeGroupElement: CreatePhaserComponentConfig<
         case 'runChildUpdate':
           instance.runChildUpdate = newValue as boolean
           break
+        case 'angle':
+          instance.angle(newValue as number)
+          break
+        case 'x':
+          instance.setX(newValue as number)
+          break
+        case 'y':
+          instance.setY(newValue as number)
+          break
+        case 'scale':
+          if (typeof newValue === 'number') {
+            instance.scaleXY(newValue)
+          } else {
+            const asPoint = newValue as Point
+            instance.scaleXY(asPoint.x ?? 1, asPoint.y ?? 1)
+          }
+          break
       }
     })
 
@@ -62,7 +84,6 @@ export const ArcadeGroupElement: CreatePhaserComponentConfig<
     applyDepthProps(instance as any, oldProps, newProps)
     applyOriginProps(instance as any, oldProps, newProps)
     applyTintProps(instance as any, oldProps, newProps)
-    applyTransformProps(instance as any, oldProps, newProps)
 
     // arcade physics
     applyArcadeVelocityProps(instance as any, oldProps, newProps)
