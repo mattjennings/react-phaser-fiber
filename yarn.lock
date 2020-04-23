@@ -15899,10 +15899,10 @@ prettier@^1.18.2, prettier@^1.19.1:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
 
-prettier@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.2.tgz#1ba8f3eb92231e769b7fcd7cb73ae1b6b74ade08"
-  integrity sha512-5xJQIPT8BraI7ZnaDwSbu5zLrB6vvi8hVV58yHQ+QK64qrY40dULy0HSRlQ2/2IdzeBpjhDkqdcFBnFeDEMVdg==
+prettier@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.5.tgz#d6d56282455243f2f92cc1716692c08aa31522d4"
+  integrity sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==
 
 pretty-bytes@^4.0.2:
   version "4.0.2"
@@ -16532,17 +16532,6 @@ react-live@^2.2.1:
     prop-types "^15.5.8"
     react-simple-code-editor "^0.10.0"
     unescape "^1.0.1"
-
-react-phaser-fiber@^0.2.3:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/react-phaser-fiber/-/react-phaser-fiber-0.2.4.tgz#c1d78094eef2fd94e7d8f88a7ce7a1fbdcd249a6"
-  integrity sha512-mlX/GJQL9k4+C9vlNFJYXQI+q1MihCQaPG4D/hem8yTYMAVInvUMnOPRmugG9m3M7/m9conZ05mlHQtHRwmqYA==
-  dependencies:
-    fbjs "^1.0.0"
-    performance-now "^2.1.0"
-    phaser "^3.19.0"
-    react-reconciler "^0.21.0"
-    uuid "^3.3.3"
 
 react-phaser-fiber@next:
   version "0.3.0-beta.1"

@@ -33,7 +33,7 @@ export default function Spawner({ children }: SpawnerProps) {
   return (
     <SpawnerContext.Provider value={value}>
       {children}
-      {state.children.map(child => {
+      {state.children.map((child) => {
         return (
           <child.component
             key={child.key}
@@ -65,7 +65,9 @@ function reducer(state: SpawnerState, action: { type: string; payload: any }) {
     case 'DESTROY_CHILD':
       return {
         ...state,
-        children: state.children.filter(child => child.key !== action.payload),
+        children: state.children.filter(
+          (child) => child.key !== action.payload
+        ),
       }
   }
 

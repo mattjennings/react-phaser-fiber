@@ -43,7 +43,7 @@ export const Prop = ({ propName, prop, getPropType }) => {
   )
 }
 
-export const Props = ({ props, getPropType }) => {
+export const Props = ({ props, getPropType, ...rest }) => {
   const entries = Object.entries(props)
     .sort(([, aProp], [, bProp]) => {
       // sort required first

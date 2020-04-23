@@ -16,6 +16,7 @@ export default function CodeSandbox({
     fontSize: 14,
     hidenavigation: 1,
     theme: 'dark',
+    view: 'preview',
     ...config,
   })
 
@@ -28,6 +29,7 @@ export default function CodeSandbox({
         border: 0,
         borderRadius: 4,
         overflow: 'hidden',
+        marginBottom: 12,
       }}
       title={name}
       allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr"

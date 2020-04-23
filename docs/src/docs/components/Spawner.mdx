@@ -1,0 +1,49 @@
+---
+name: Spawner
+menu: Components
+route: /components/spawner
+---
+
+import { Playground, Props } from 'docz'
+import { Game, Scene, Spawner, Sprite } from 'react-phaser-fiber'
+
+A helper for spawning components such as enemies or projectiles.
+
+Children of `<Spawner />` can use the `useSpawner` hook to spawn instances. Because these children components
+are not rendered by any JSX, they are provided an `onDestroy` prop that they can call to be removed from the game.
+
+```jsx live=false
+// Spawner Example
+import { Spawner, Sprite, useTimer } from 'react-phaser-fiber'
+
+function SpawnBallOnClick() {
+  const { spawn } = useSpawner()
+
+  // Spawn a <Ball /> component at the mouse's position when clicked
+  useInputEvent('pointerdown', (pointer) => {
+    spawn(Ball, {
+      x: pointer.x,
+      y: pointer.y,
+    })
+  })
+
+  return null
+}
+
+function Ball({ x, y, onDestroy }) {
+  // destroy the ball after 3 seconds
+  useTimer(onDestroy, 3000)
+
+  return <Sprite x={x} y={y} texture="ball" />
+}
+
+<Spawner>
+  <SpawnBallOnClick />
+</Spawner>
+```
+
+Take a look at the [CodeSandbox example](https://codesandbox.io/s/github/mattjennings/react-phaser-fiber/tree/master/examples/spawner) to see the Spawner in action
+
+## Props
+
+`<Spawner />` takes no props other than children.
