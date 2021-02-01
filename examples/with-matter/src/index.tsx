@@ -30,7 +30,7 @@ const App = () => {
             'assets/atlases/emoji.json'
           )
         }}
-        onCreate={(scene) => {
+        onLoaded={(scene) => {
           const map = scene.make.tilemap({ key: 'map' })
           const tileset = map.addTilesetImage('kenney-tileset-64px-extruded')
           const groundLayer = map.createDynamicLayer('Ground', tileset, 0, 0)

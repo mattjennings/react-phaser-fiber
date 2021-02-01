@@ -38,7 +38,7 @@ const App = () => {
             frameHeight: 48,
           })
         }}
-        onCreate={(scene) => {
+        onLoaded={(scene) => {
           scene.anims.create({
             key: 'left',
             frames: scene.anims.generateFrameNumbers('dude', {

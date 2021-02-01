@@ -10,7 +10,7 @@ export interface GameProps
     Phaser.Types.Core.GameConfig,
     'canvas' | 'key' | 'scene' | 'parent' | 'canvasStyle' | 'callbacks'
   > {
-  children?: JSX.Element | JSX.Element[]
+  children?: JSX.Element | JSX.Element[] | React.ReactNode
 
   /**
    * Called at the start of the boot sequence.

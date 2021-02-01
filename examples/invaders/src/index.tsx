@@ -47,7 +47,7 @@ const App = () => {
           scene.load.image('textures/player/bullet', 'bullet.png')
           scene.load.image('textures/enemy/bullet', 'enemy-bullet.png')
         }}
-        onCreate={(scene) => {
+        onLoaded={(scene) => {
           scene.anims.create({
             key: 'anims/enemy/fly',
             frames: scene.anims.generateFrameNumbers('textures/enemy', {
