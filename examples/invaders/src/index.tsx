@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Game, Scene, Spawner } from 'react-phaser-fiber'
+import { Game, Scene, Spawner, Text } from 'react-phaser-fiber'
 import Background from './Background'
 import Enemies from './Enemies'
 import Player from './Player'
@@ -25,7 +25,15 @@ const App = () => {
     >
       <Scene
         sceneKey="main"
-        onPreload={scene => {
+        renderLoading={(progress) => (
+          <Text
+            x={300}
+            y={400}
+            text={`Loading... (${progress * 100}%)`}
+            color="white"
+          />
+        )}
+        onPreload={(scene) => {
           scene.load.image('textures/starfield', 'starfield.png')
           scene.load.spritesheet('textures/enemy', 'invader.png', {
             frameWidth: 32,
@@ -39,7 +47,7 @@ const App = () => {
           scene.load.image('textures/player/bullet', 'bullet.png')
           scene.load.image('textures/enemy/bullet', 'enemy-bullet.png')
         }}
-        onCreate={scene => {
+        onCreate={(scene) => {
           scene.anims.create({
             key: 'anims/enemy/fly',
             frames: scene.anims.generateFrameNumbers('textures/enemy', {

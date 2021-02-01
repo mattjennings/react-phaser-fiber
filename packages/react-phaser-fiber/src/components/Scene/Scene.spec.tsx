@@ -92,7 +92,7 @@ describe('Scene', () => {
           sceneKey="main"
           ref={sceneRef}
           renderLoading={renderLoading}
-          onPreload={scene => {
+          onPreload={(scene) => {
             scene.load.json({
               key: 'json',
               url: 'http://fake-url.com/json',
@@ -110,6 +110,7 @@ describe('Scene', () => {
       </Game>
     )
 
+    await wait()
     await wait()
     await wait()
 

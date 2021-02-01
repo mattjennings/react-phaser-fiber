@@ -24,7 +24,7 @@ export function applyArcadeBodyProps<
           break
         case 'allowRotation':
           // @ts-ignore - doesn't exist in type defs
-          instance.body.allowRotation(newValue as boolean)
+          instance.body.allowRotation = newValue
           break
         case 'onWorldBounds':
           ;(instance.body as Phaser.Physics.Arcade.Body).onWorldBounds = newValue as boolean

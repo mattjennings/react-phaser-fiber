@@ -3,7 +3,7 @@ import SpawnerContext, { SpawnerContextValue } from './SpawnerContext'
 import uuid from 'uuid/v4'
 
 export interface SpawnerProps {
-  children?: JSX.Element | JSX.Element[]
+  children?: JSX.Element | JSX.Element[] | React.ReactNode
 }
 
 export interface SpawnedChild<P = any> {

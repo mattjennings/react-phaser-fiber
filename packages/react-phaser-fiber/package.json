@@ -23,7 +23,7 @@
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
     "update-readme": "cp ../../README.md README.md",
-    "prepare": "yarn update-readme && yarn build",
+    "prepare": "yarn update-readme && yarn test && yarn build",
     "publish:next": "yarn publish --tag next"
   },
   "peerDependencies": {

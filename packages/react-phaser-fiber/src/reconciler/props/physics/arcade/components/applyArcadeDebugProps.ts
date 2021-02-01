@@ -20,7 +20,9 @@ export function applyArcadeDebugProps<
               showVelocity = false,
               bodyColor,
             } = newValue
-            instance.setDebug(showBody, showVelocity, bodyColor)
+            instance.debugBodyColor = bodyColor
+            instance.debugShowBody = showBody
+            instance.debugShowVelocity = showVelocity
           }
           break
       }

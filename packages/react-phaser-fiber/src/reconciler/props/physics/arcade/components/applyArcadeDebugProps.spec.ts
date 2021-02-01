@@ -20,6 +20,8 @@ describe('applyArcadeDebugProps', () => {
       }
     )
 
-    expect(setDebug).toHaveBeenCalledWith(true, true, 12)
+    expect(instance.debugShowBody).toEqual(true)
+    expect(instance.debugShowVelocity).toEqual(true)
+    expect(instance.debugBodyColor).toEqual(12)
   })
 })
