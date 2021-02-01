@@ -16534,9 +16534,7 @@ react-live@^2.2.1:
     unescape "^1.0.1"
 
 react-phaser-fiber@next:
-  version "0.3.0-beta.1"
-  resolved "https://registry.yarnpkg.com/react-phaser-fiber/-/react-phaser-fiber-0.3.0-beta.1.tgz#21fa2ca7b86ba7b69f368f4834225acae1b9e60c"
-  integrity sha512-oUDr6PiFq8FfgxhStoy9DQ3zwp+LVVsFdsW1aL/w9dCSNkh+pHhbb/njXokMuVmctGvYQnZo5dWufSAQ1kHQjA==
+  version "0.3.0"
   dependencies:
     fast-deep-equal "^3.1.1"
     fbjs "^1.0.0"

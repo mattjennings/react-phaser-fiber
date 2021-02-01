@@ -7,11 +7,19 @@ import { BlendModeProps } from '../types'
 export function applyBlendModeProps<
   T extends Phaser.GameObjects.Components.BlendMode
 >(instance: T, oldProps: BlendModeProps, newProps: BlendModeProps) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'blendMode':
         instance.setBlendMode(newValue)
         break
     }
   })
+}
+
+function getProps(props: BlendModeProps) {
+  const { blendMode } = props
+
+  return {
+    blendMode,
+  }
 }

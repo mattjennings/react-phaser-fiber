@@ -107,6 +107,8 @@ export const ArcadeSpriteElement: CreatePhaserComponentConfig<
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {
+    const ts = window.performance.now()
+
     applyGameObjectProps(instance, oldProps, newProps)
     applySpriteProps(instance, oldProps, newProps)
     applyAlphaProps(instance, oldProps, newProps)
@@ -124,7 +126,6 @@ export const ArcadeSpriteElement: CreatePhaserComponentConfig<
     applyTintProps(instance, oldProps, newProps)
     applyTransformProps(instance, oldProps, newProps)
     applyVisibleProps(instance, oldProps, newProps)
-
     // arcade physics
     applyArcadeAccelerationProps(instance, oldProps, newProps)
     applyArcadeAngularProps(instance, oldProps, newProps)
@@ -139,5 +140,10 @@ export const ArcadeSpriteElement: CreatePhaserComponentConfig<
     applyArcadeSizeProps(instance, oldProps, newProps)
     applyArcadeVelocityProps(instance, oldProps, newProps)
     applyArcadeBodyProps(instance, oldProps, newProps)
+    const te = window.performance.now()
+    const t = te - ts
+    if (t > 1) {
+      console.log(t)
+    }
   },
 }

@@ -72,102 +72,108 @@ export const TextElement: CreatePhaserComponentConfig<
   },
   applyProps: (instance, oldProps, newProps) => {
     // apply text props
-    iterateProps(oldProps, newProps, (key, newValue, oldValue) => {
-      switch (key) {
-        case 'text':
-          instance.setText(newValue as string)
-          break
-        case 'style':
-          instance.setStyle(newValue as Phaser.Types.GameObjects.Text.TextStyle)
-          break
-        case 'fontFamily':
-          instance.setFontFamily(newValue)
-          break
-        case 'fontSize':
-          instance.setFontSize(newValue)
-          break
-        case 'fontStyle':
-          instance.setFontStyle(newValue)
-          break
-        case 'backgroundColor':
-          instance.setBackgroundColor(newValue)
-          break
-        case 'color':
-          instance.setColor(newValue)
-          break
-        case 'stroke':
-          instance.setStroke(newValue, instance.style.strokeThickness)
-          break
-        case 'strokeThickness':
-          instance.setStroke(instance.style.stroke, newValue)
-          break
-        case 'align':
-          instance.setAlign(newValue)
-          break
-        case 'maxLines':
-          instance.setMaxLines(newValue)
-          break
-        case 'fixedWidth':
-          instance.setFixedSize(newValue, instance.style.fixedHeight ?? 0)
-          break
-        case 'fixedHeight':
-          instance.setFixedSize(instance.style.fixedWidth ?? 0, newValue)
-          break
-        case 'resolution':
-          instance.setResolution(newValue)
-          break
-        case 'baselineX':
-          instance.style.baselineX = newValue
-          break
-        case 'baselineY':
-          instance.style.baselineY = newValue
-          break
-        case 'rtl':
-          instance.style.rtl = newValue
-          break
-        case 'shadow': {
-          const value = newValue as Phaser.Types.GameObjects.Text.TextShadow
-          if (!isEqual(oldValue, value)) {
-            instance.setShadow(
-              value.offsetX,
-              value.offsetY,
-              value.color,
-              value.blur,
-              value.stroke,
-              value.fill
+    iterateProps(
+      getProps(oldProps),
+      getProps(newProps),
+      (key, newValue, oldValue) => {
+        switch (key) {
+          case 'text':
+            instance.setText(newValue as string)
+            break
+          case 'style':
+            instance.setStyle(
+              newValue as Phaser.Types.GameObjects.Text.TextStyle
             )
+            break
+          case 'fontFamily':
+            instance.setFontFamily(newValue)
+            break
+          case 'fontSize':
+            instance.setFontSize(newValue)
+            break
+          case 'fontStyle':
+            instance.setFontStyle(newValue)
+            break
+          case 'backgroundColor':
+            instance.setBackgroundColor(newValue)
+            break
+          case 'color':
+            instance.setColor(newValue)
+            break
+          case 'stroke':
+            instance.setStroke(newValue, instance.style.strokeThickness)
+            break
+          case 'strokeThickness':
+            instance.setStroke(instance.style.stroke, newValue)
+            break
+          case 'align':
+            instance.setAlign(newValue)
+            break
+          case 'maxLines':
+            instance.setMaxLines(newValue)
+            break
+          case 'fixedWidth':
+            instance.setFixedSize(newValue, instance.style.fixedHeight ?? 0)
+            break
+          case 'fixedHeight':
+            instance.setFixedSize(instance.style.fixedWidth ?? 0, newValue)
+            break
+          case 'resolution':
+            instance.setResolution(newValue)
+            break
+          case 'baselineX':
+            instance.style.baselineX = newValue
+            break
+          case 'baselineY':
+            instance.style.baselineY = newValue
+            break
+          case 'rtl':
+            instance.style.rtl = newValue
+            break
+          case 'shadow': {
+            const value = newValue as Phaser.Types.GameObjects.Text.TextShadow
+            if (!isEqual(oldValue, value)) {
+              instance.setShadow(
+                value.offsetX,
+                value.offsetY,
+                value.color,
+                value.blur,
+                value.stroke,
+                value.fill
+              )
+            }
+            break
           }
-          break
-        }
-        case 'padding': {
-          const value = newValue as Phaser.Types.GameObjects.Text.TextPadding
-          if (!isEqual(oldValue, value)) {
-            instance.setPadding(
-              value.left,
-              value.top,
-              value.right,
-              value.bottom
-            )
+          case 'padding': {
+            const value = newValue as Phaser.Types.GameObjects.Text.TextPadding
+            if (!isEqual(oldValue, value)) {
+              instance.setPadding(
+                value.left,
+                value.top,
+                value.right,
+                value.bottom
+              )
+            }
+            break
           }
-          break
-        }
-        case 'wordWrap': {
-          const value = newValue as Phaser.Types.GameObjects.Text.TextWordWrap
-          if (!isEqual(oldValue, value)) {
-            instance.setWordWrapWidth(value.width, value.useAdvancedWrap)
+          case 'wordWrap': {
+            const value = newValue as Phaser.Types.GameObjects.Text.TextWordWrap
+            if (!isEqual(oldValue, value)) {
+              instance.setWordWrapWidth(value.width, value.useAdvancedWrap)
+            }
+            break
           }
-          break
-        }
-        case 'metrics': {
-          const value = newValue as Phaser.Types.GameObjects.Text.TextMetrics
-          if (!isEqual(oldValue, value)) {
-            // @ts-ignore - not in ts definitions
-            instance.style.metrics = value
+          case 'metrics': {
+            const value = newValue as Phaser.Types.GameObjects.Text.TextMetrics
+            if (!isEqual(oldValue, value)) {
+              // @ts-ignore - not in ts definitions
+              instance.style.metrics = value
+            }
+            break
           }
-          break
         }
       }
-    })
+    )
 
     applyGameObjectProps(instance, oldProps, newProps)
     applyAlphaProps(instance, oldProps, newProps)
@@ -184,4 +190,54 @@ export const TextElement: CreatePhaserComponentConfig<
     applyTransformProps(instance, oldProps, newProps)
     applyVisibleProps(instance, oldProps, newProps)
   },
+}
+
+function getProps(props: TextElementProps): Partial<TextElementProps> {
+  const {
+    text,
+    style,
+    fontFamily,
+    fontSize,
+    fontStyle,
+    backgroundColor,
+    color,
+    stroke,
+    strokeThickness,
+    align,
+    maxLines,
+    fixedWidth,
+    fixedHeight,
+    resolution,
+    baselineX,
+    baselineY,
+    rtl,
+    shadow,
+    padding,
+    wordWrap,
+    metrics,
+  } = props
+
+  return {
+    text,
+    style,
+    fontFamily,
+    fontSize,
+    fontStyle,
+    backgroundColor,
+    color,
+    stroke,
+    strokeThickness,
+    align,
+    maxLines,
+    fixedWidth,
+    fixedHeight,
+    resolution,
+    baselineX,
+    baselineY,
+    rtl,
+    shadow,
+    padding,
+    wordWrap,
+    metrics,
+  }
 }

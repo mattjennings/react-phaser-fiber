@@ -9,7 +9,7 @@ export function applySizeProps<
     | Phaser.GameObjects.Components.ComputedSize
     | Phaser.GameObjects.Components.Size
 >(instance: T, oldProps: SizeProps, newProps: SizeProps) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'width':
         instance.width = newValue as number
@@ -30,4 +30,16 @@ export function applySizeProps<
         break
     }
   })
+}
+
+function getProps(props: SizeProps) {
+  const { width, height, displayWidth, displayHeight, setSizeToFrame } = props
+
+  return {
+    width,
+    height,
+    displayWidth,
+    displayHeight,
+    setSizeToFrame,
+  }
 }

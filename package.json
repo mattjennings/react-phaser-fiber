@@ -22,7 +22,8 @@
   },
   "resolutions": {
     "phaser": "3.21",
-    "docz/**/webpack": "4.28.4"
+    "docz/**/webpack": "4.28.4",
+    "react-phaser-fiber": "*"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.19.0",

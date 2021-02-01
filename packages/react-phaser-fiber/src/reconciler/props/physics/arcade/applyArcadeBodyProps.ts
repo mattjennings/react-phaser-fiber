@@ -9,28 +9,50 @@ export function applyArcadeBodyProps<
     body: Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody
   }
 >(instance: T, oldProps: ArcadeBodyProps, newProps: ArcadeBodyProps) {
-  iterateProps(oldProps, newProps, (key, newValue, oldValue) => {
-    switch (key) {
-      case 'allowGravity':
-        // @ts-ignore - doesn't exist in type defs
-        instance.body.setAllowGravity(newValue as boolean)
-        break
-      case 'allowDrag':
-        // @ts-ignore - doesn't exist in type defs
-        instance.body.setAllowDrag(newValue as boolean)
-        break
-      case 'allowRotation':
-        // @ts-ignore - doesn't exist in type defs
-        instance.body.allowRotation(newValue as boolean)
-        break
-      case 'onWorldBounds':
-        ;(instance.body as Phaser.Physics.Arcade.Body).onWorldBounds = newValue as boolean
-        break
-      case 'collideWorldBounds':
-        ;(instance.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(
-          newValue as boolean
-        )
-        break
+  iterateProps(
+    getProps(oldProps),
+    getProps(newProps),
+    (key, newValue, oldValue) => {
+      switch (key) {
+        case 'allowGravity':
+          // @ts-ignore - doesn't exist in type defs
+          instance.body.setAllowGravity(newValue as boolean)
+          break
+        case 'allowDrag':
+          // @ts-ignore - doesn't exist in type defs
+          instance.body.setAllowDrag(newValue as boolean)
+          break
+        case 'allowRotation':
+          // @ts-ignore - doesn't exist in type defs
+          instance.body.allowRotation(newValue as boolean)
+          break
+        case 'onWorldBounds':
+          ;(instance.body as Phaser.Physics.Arcade.Body).onWorldBounds = newValue as boolean
+          break
+        case 'collideWorldBounds':
+          ;(instance.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(
+            newValue as boolean
+          )
+          break
+      }
     }
-  })
+  )
+}
+
+function getProps(props: ArcadeBodyProps) {
+  const {
+    allowGravity,
+    allowDrag,
+    allowRotation,
+    onWorldBounds,
+    collideWorldBounds,
+  } = props
+
+  return {
+    allowGravity,
+    allowDrag,
+    allowRotation,
+    onWorldBounds,
+    collideWorldBounds,
+  }
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { GroupProps } from '../../components'
 import { CreatePhaserComponentConfig } from '../element'
 import {
   AlphaProps,
@@ -42,7 +43,7 @@ export const GroupElement: CreatePhaserComponentConfig<
   },
   applyProps: (instance, oldProps, newProps) => {
     // apply group props
-    iterateProps(oldProps, newProps, (key, newValue) => {
+    iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
       switch (key) {
         case 'active':
           instance.active = newValue as boolean
@@ -78,4 +79,9 @@ export const GroupElement: CreatePhaserComponentConfig<
     applyOriginProps(instance as any, oldProps, newProps)
     applyTintProps(instance as any, oldProps, newProps)
   },
+}
+
+function getProps(props: GroupProps) {
+  const { active, name, runChildUpdate, angle, x, y, scale } = props
+  return { active, name, runChildUpdate, angle, x, y, scale }
 }

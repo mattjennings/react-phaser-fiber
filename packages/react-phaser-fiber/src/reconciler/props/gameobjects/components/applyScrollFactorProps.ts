@@ -7,7 +7,7 @@ import { ScrollFactorProps } from '../types'
 export function applyScrollFactorProps<
   T extends Phaser.GameObjects.Components.ScrollFactor
 >(instance: T, oldProps: ScrollFactorProps, newProps: ScrollFactorProps) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'scrollFactorX':
         instance.scrollFactorX = newValue
@@ -17,4 +17,13 @@ export function applyScrollFactorProps<
         break
     }
   })
+}
+
+function getProps(props: ScrollFactorProps) {
+  const { scrollFactorX, scrollFactorY } = props
+
+  return {
+    scrollFactorX,
+    scrollFactorY,
+  }
 }

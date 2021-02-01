@@ -7,11 +7,19 @@ import { PipelineProps } from '../types'
 export function applyPipelineProps<
   T extends Phaser.GameObjects.Components.Pipeline
 >(instance: T, oldProps: PipelineProps, newProps: PipelineProps) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'pipeline':
         instance.setPipeline(newValue)
         break
     }
   })
+}
+
+function getProps(props: PipelineProps) {
+  const { pipeline } = props
+
+  return {
+    pipeline,
+  }
 }

@@ -9,7 +9,7 @@ export function applyFlipProps<T extends Phaser.GameObjects.Components.Flip>(
   oldProps: FlipProps,
   newProps: FlipProps
 ) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'flipX':
         instance.setFlipX(newValue)
@@ -19,4 +19,13 @@ export function applyFlipProps<T extends Phaser.GameObjects.Components.Flip>(
         break
     }
   })
+}
+
+function getProps(props: FlipProps) {
+  const { flipX, flipY } = props
+
+  return {
+    flipX,
+    flipY,
+  }
 }

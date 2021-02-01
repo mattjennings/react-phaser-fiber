@@ -9,7 +9,7 @@ export function applyMaskProps<T extends Phaser.GameObjects.Components.Mask>(
   oldProps: MaskProps,
   newProps: MaskProps
 ) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'mask':
         if (newValue) {
@@ -20,4 +20,12 @@ export function applyMaskProps<T extends Phaser.GameObjects.Components.Mask>(
         break
     }
   })
+}
+
+function getProps(props: MaskProps) {
+  const { mask } = props
+
+  return {
+    mask,
+  }
 }
