@@ -1,9 +1,14 @@
 import React, { useMemo, useEffect, useRef } from 'react'
-import { ArcadeImage, ArcadeImageProps, SpawnProps } from 'react-phaser-fiber'
+import {
+  ArcadeImage,
+  ArcadeImageProps,
+  SpawnProps,
+  useTimer,
+} from 'react-phaser-fiber'
 
 export type BallProps = Omit<ArcadeImageProps, 'texture'> & SpawnProps
 
-function Ball(props: BallProps) {
+function Ball({ onDestroy, ...props }: BallProps) {
   const ref = useRef(null)
   // create a random velocity and memoize it so it doesn't change on re-renders
   const velocity = useMemo(() => {
@@ -17,12 +22,7 @@ function Ball(props: BallProps) {
   }, [])
 
   // destroy self after 3 seconds
-  useEffect(() => {
-    if (props.onDestroy) {
-      setTimeout(props.onDestroy, 3000)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useTimer(onDestroy, 3000)
 
   return (
     <ArcadeImage
@@ -32,7 +32,6 @@ function Ball(props: BallProps) {
       velocity={velocity}
       bounce={1}
       collideWorldBounds
-      physics="arcade"
       {...props}
     />
   )

@@ -1,3 +1,4 @@
+import { TileSpriteProps } from '../../components'
 import { CreatePhaserComponentConfig } from '../element'
 import {
   AlphaProps,
@@ -69,7 +70,7 @@ export const TileSpriteElement: CreatePhaserComponentConfig<
     return instance
   },
   applyProps: (instance, oldProps, newProps) => {
-    iterateProps(oldProps, newProps, (key, newValue) => {
+    iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
       switch (key) {
         case 'tilePositionX':
           instance.tilePositionX = newValue
@@ -102,4 +103,15 @@ export const TileSpriteElement: CreatePhaserComponentConfig<
     applyTransformProps(instance, oldProps, newProps)
     applyVisibleProps(instance, oldProps, newProps)
   },
+}
+
+function getProps(props: TileSpriteProps) {
+  const { tilePositionX, tilePositionY, tileScaleX, tileScaleY } = props
+
+  return {
+    tilePositionX,
+    tilePositionY,
+    tileScaleX,
+    tileScaleY,
+  }
 }

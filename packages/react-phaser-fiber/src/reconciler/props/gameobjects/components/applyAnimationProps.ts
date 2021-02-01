@@ -7,7 +7,7 @@ import { AnimationProps } from '../types'
 export function applyAnimationProps<
   T extends { anims: Phaser.GameObjects.Components.Animation }
 >(instance: T, oldProps: AnimationProps, newProps: AnimationProps) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'accumulator':
         instance.anims.accumulator = newValue as number
@@ -60,4 +60,44 @@ export function applyAnimationProps<
         break
     }
   })
+}
+
+function getProps(props: AnimationProps) {
+  const {
+    accumulator,
+    animation,
+    delay,
+    duration,
+    forward,
+    frameRate,
+    isPlaying,
+    msPerFrame,
+    skipMissedFrames,
+    progress,
+    stopOnFrame,
+    stopAfterDelay,
+    repeat,
+    repeatDelay,
+    timeScale,
+    yoyo,
+  } = props
+
+  return {
+    accumulator,
+    animation,
+    delay,
+    duration,
+    forward,
+    frameRate,
+    isPlaying,
+    msPerFrame,
+    skipMissedFrames,
+    progress,
+    stopOnFrame,
+    stopAfterDelay,
+    repeat,
+    repeatDelay,
+    timeScale,
+    yoyo,
+  }
 }

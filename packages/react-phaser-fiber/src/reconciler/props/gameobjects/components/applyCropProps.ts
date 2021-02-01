@@ -9,7 +9,7 @@ export function applyCropProps<
     | Phaser.GameObjects.Components.Crop
     | Phaser.GameObjects.Components.TextureCrop
 >(instance: T, oldProps: CropProps, newProps: CropProps) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'crop':
         const asCrop = newValue as {
@@ -31,4 +31,13 @@ export function applyCropProps<
         break
     }
   })
+}
+
+function getProps(props: CropProps) {
+  const { crop, isCropped } = props
+
+  return {
+    crop,
+    isCropped,
+  }
 }

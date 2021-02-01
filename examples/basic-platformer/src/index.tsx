@@ -29,7 +29,7 @@ const App = () => {
     >
       <Scene
         sceneKey="main"
-        onPreload={scene => {
+        onPreload={(scene) => {
           scene.load.image('sky', 'sky.png')
           scene.load.image('ground', 'platform.png')
           scene.load.image('star', 'star.png')
@@ -38,7 +38,7 @@ const App = () => {
             frameHeight: 48,
           })
         }}
-        onCreate={scene => {
+        onLoaded={(scene) => {
           scene.anims.create({
             key: 'left',
             frames: scene.anims.generateFrameNumbers('dude', {
@@ -65,12 +65,12 @@ const App = () => {
             repeat: -1,
           })
         }}
-        renderLoading={progress => (
+        renderLoading={(progress) => (
           <Text
             x={300}
             y={300}
             text={`Loading... (${progress * 100}%)`}
-            style={{ color: 'white' }}
+            color="white"
           />
         )}
       >

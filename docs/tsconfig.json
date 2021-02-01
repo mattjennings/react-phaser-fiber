@@ -1,0 +1,18 @@
+{
+  "include": ["../packages/react-phaser-fiber/src", "src/**/*"],
+  "compilerOptions": {
+    "target": "es2015",
+    "moduleResolution": "node",
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": false,
+    "noEmit": true,
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["./src/*"],
+      "react-phaser-fiber": ["../packages/react-phaser-fiber/src/index.ts"]
+    }
+  }
+}

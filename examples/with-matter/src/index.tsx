@@ -18,7 +18,7 @@ const App = () => {
     >
       <Scene
         sceneKey="main"
-        onPreload={scene => {
+        onPreload={(scene) => {
           scene.load.tilemapTiledJSON('map', 'assets/tilemaps/level.json')
           scene.load.image(
             'kenney-tileset-64px-extruded',
@@ -30,7 +30,7 @@ const App = () => {
             'assets/atlases/emoji.json'
           )
         }}
-        onCreate={scene => {
+        onLoaded={(scene) => {
           const map = scene.make.tilemap({ key: 'map' })
           const tileset = map.addTilesetImage('kenney-tileset-64px-extruded')
           const groundLayer = map.createDynamicLayer('Ground', tileset, 0, 0)
@@ -74,12 +74,12 @@ const App = () => {
             'url(assets/cursors/pointer.cur), pointer'
           )
         }}
-        renderLoading={progress => (
+        renderLoading={(progress) => (
           <Text
             x={200}
             y={200}
             text={`Loading... (${progress * 100}%)`}
-            style={{ color: 'white' }}
+            color="white"
           />
         )}
       >
@@ -87,7 +87,7 @@ const App = () => {
           <Text
             x={35}
             y={200}
-            style={{ color: 'white' }}
+            color="white"
             text="Left-click to emoji.\nArrows to move camera."
           />
           <EmojiSpawner />

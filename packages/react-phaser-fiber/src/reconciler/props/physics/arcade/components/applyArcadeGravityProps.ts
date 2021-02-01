@@ -9,22 +9,36 @@ import { Point } from '../../../types'
 export function applyArcadeGravityProps<
   T extends Phaser.Physics.Arcade.Components.Gravity
 >(instance: T, oldProps: ArcadeGravityProps, newProps: ArcadeGravityProps) {
-  iterateProps(oldProps, newProps, (key, newValue, oldValue) => {
-    switch (key) {
-      case 'gravity':
-        if (typeof newValue === 'number') {
-          instance.setGravity(newValue)
-        } else if (!isEqual(newValue, oldValue)) {
-          const { x, y } = newValue as Point
-          instance.setGravity(x, y)
-        }
-        break
-      case 'gravityX':
-        instance.setGravityX(newValue as number)
-        break
-      case 'gravityY':
-        instance.setGravityY(newValue as number)
-        break
+  iterateProps(
+    getProps(oldProps),
+    getProps(newProps),
+    (key, newValue, oldValue) => {
+      switch (key) {
+        case 'gravity':
+          if (typeof newValue === 'number') {
+            instance.setGravity(newValue)
+          } else if (!isEqual(newValue, oldValue)) {
+            const { x, y } = newValue as Point
+            instance.setGravity(x, y)
+          }
+          break
+        case 'gravityX':
+          instance.setGravityX(newValue as number)
+          break
+        case 'gravityY':
+          instance.setGravityY(newValue as number)
+          break
+      }
     }
-  })
+  )
+}
+
+function getProps(props: ArcadeGravityProps) {
+  const { gravity, gravityX, gravityY } = props
+
+  return {
+    gravity,
+    gravityX,
+    gravityY,
+  }
 }

@@ -1,39 +1,76 @@
-import * as Phaser from 'phaser'
+import Phaser from 'phaser'
 import React from 'react'
 import { FiberRoot } from 'react-reconciler'
-import { PACKAGE_NAME, PhaserFiber, VERSION } from '../../reconciler'
 import GameContext from './GameContext'
+import { WithCanvas, CanvasContext } from '../Canvas/Canvas'
+import { PhaserFiber, injectDevtools } from '../../reconciler/reconciler'
 
-export interface GameProps extends Phaser.Types.Core.GameConfig {
+export interface GameProps
+  extends Omit<
+    Phaser.Types.Core.GameConfig,
+    'canvas' | 'key' | 'scene' | 'parent' | 'canvasStyle' | 'callbacks'
+  > {
   children?: JSX.Element | JSX.Element[] | React.ReactNode
+
+  /**
+   * Called at the start of the boot sequence.
+   */
+  onPostBoot?: Phaser.Types.Core.BootCallback
+
+  /**
+   * Called at the end of the boot sequence. At this point, all the game systems have started and plugins have been loaded.
+   */
+  onPreBoot?: Phaser.Types.Core.BootCallback
 }
 
-class Game extends React.Component<GameProps, { booting: boolean }> {
+/**
+ * Helper type for correctly typing a game ref
+ */
+export type GameRefType = Game
+
+interface GameState {
+  booting: boolean
+}
+
+class Game extends React.Component<GameProps & WithCanvas, GameState> {
   static displayName = 'Game'
   mountNode: FiberRoot
   game: Phaser.Game
 
-  state = {
-    booting: true,
-  }
+  constructor(props: GameProps & WithCanvas) {
+    super(props)
+    const { children, canvas, onPostBoot, onPreBoot, ...config } = props
 
-  componentDidMount() {
-    const { children, canvas, ...config } = this.props
+    this.game = new Phaser.Game({
+      canvas,
+      type: canvas ? Phaser.CANVAS : Phaser.AUTO,
+      ...config,
+      callbacks: {
+        postBoot: onPostBoot ?? (() => null),
+        preBoot: onPreBoot ?? (() => null),
+      },
+    })
 
-    this.game = new Phaser.Game({ ...config })
+    this.state = {
+      booting: true,
+    }
 
     this.game.events.on('ready', () => {
       this.setState({ booting: false })
     })
 
-    this.mountNode = PhaserFiber.createContainer(this.game, false, false)
-
-    injectDevtools()
-
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' && window) {
       // @ts-ignore
       window.game = this.game
     }
+  }
+
+  componentDidMount() {
+    const { children, canvas, ...config } = this.props
+
+    this.mountNode = PhaserFiber.createContainer(this.game, false, false)
+
+    injectDevtools()
 
     PhaserFiber.updateContainer(
       this.getChildren(),
@@ -55,7 +92,6 @@ class Game extends React.Component<GameProps, { booting: boolean }> {
 
   getChildren() {
     const children = this.state.booting ? null : this.props.children
-
     return (
       <GameContext.Provider value={this.game}>{children}</GameContext.Provider>
     )
@@ -69,7 +105,7 @@ class Game extends React.Component<GameProps, { booting: boolean }> {
 
   componentWillUnmount() {
     PhaserFiber.updateContainer(null, this.mountNode, this, null as any)
-    this.game.destroy(true)
+    this.game.destroy(!this.props.canvas)
   }
 
   render() {
@@ -77,16 +113,12 @@ class Game extends React.Component<GameProps, { booting: boolean }> {
   }
 }
 
-export default Game
+const ForwardedWithCanvas = React.forwardRef<Game, GameProps>((props, ref) => (
+  <CanvasContext.Consumer>
+    {(canvas) => <Game {...props} ref={ref} canvas={canvas} />}
+  </CanvasContext.Consumer>
+))
 
-/**
- * Inject into React Devtools
- */
-function injectDevtools() {
-  PhaserFiber.injectIntoDevTools({
-    bundleType: process.env.NODE_ENV !== 'production' ? 1 : 0,
-    version: VERSION,
-    rendererPackageName: PACKAGE_NAME,
-    findFiberByHostInstance: PhaserFiber.findHostInstance as any,
-  })
-}
+ForwardedWithCanvas.displayName = 'Game'
+
+export default ForwardedWithCanvas

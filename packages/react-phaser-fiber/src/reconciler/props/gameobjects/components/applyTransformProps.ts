@@ -10,7 +10,7 @@ export function applyTransformProps<
     body?: any
   }
 >(instance: T, oldProps: TransformProps, newProps: TransformProps) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'angle':
         instance.setAngle(newValue as number)
@@ -51,4 +51,18 @@ export function applyTransformProps<
         break
     }
   })
+}
+
+function getProps(props: TransformProps) {
+  const { angle, rotation, x, y, z, w, scale } = props
+
+  return {
+    angle,
+    rotation,
+    x,
+    y,
+    z,
+    w,
+    scale,
+  }
 }

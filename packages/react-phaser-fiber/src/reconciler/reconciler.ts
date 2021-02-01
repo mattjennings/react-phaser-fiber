@@ -7,7 +7,8 @@
  *   https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberHostConfig.custom.js
  * -------------------------------------------
  */
-
+import Reconciler from 'react-reconciler'
+import pkg from '../../package.json'
 import invariant from 'fbjs/lib/invariant'
 import performanceNow from 'performance-now'
 
@@ -74,7 +75,7 @@ function insertBefore(
   }
 }
 
-export default {
+const hostconfig = {
   getRootHostContext(rootContainerInstance: any) {
     return rootContainerInstance
   },
@@ -291,4 +292,20 @@ export default {
   resetTextContent(phaserElement: any) {
     // noop
   },
+}
+
+export const PhaserFiber = Reconciler(hostconfig as any)
+export const VERSION = pkg.version
+export const PACKAGE_NAME = pkg.name
+
+/**
+ * Inject into React Devtools
+ */
+export function injectDevtools() {
+  PhaserFiber.injectIntoDevTools({
+    bundleType: process.env.NODE_ENV !== 'production' ? 1 : 0,
+    version: VERSION,
+    rendererPackageName: PACKAGE_NAME,
+    findFiberByHostInstance: PhaserFiber.findHostInstance as any,
+  })
 }

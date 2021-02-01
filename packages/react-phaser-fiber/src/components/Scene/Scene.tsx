@@ -10,11 +10,36 @@ import { useGame } from '../../hooks/useGame'
 import SceneContext from './SceneContext'
 
 export interface SceneProps extends Phaser.Types.Scenes.SettingsConfig {
+  /**
+   * The unique key of this Scene. Must be unique within the entire Game instance
+   */
   sceneKey: string
+
   children?: JSX.Element | JSX.Element[] | React.ReactNode
+
+  /**
+   * Called on the Scene's preload stage. Any assets for the scene should be loaded here
+   */
   onPreload?: (scene: Phaser.Scene) => any
+
+  /**
+   * Called when the scene has finished preloading
+   */
+  onLoaded?: (scene: Phaser.Scene) => any
+
+  /**
+   * Called on the Scene's `create` stage
+   */
   onCreate?: (scene: Phaser.Scene) => any
+
+  /**
+   * Caled on the Scene's init stage.
+   */
   onInit?: (scene: Phaser.Scene) => any
+
+  /**
+   * Render prop that is called with the progress while the Scene is loading assets. Use this for loading screens.
+   */
   renderLoading?: (progress: number) => React.ReactNode
 }
 
@@ -24,6 +49,7 @@ function Scene(
     children,
     renderLoading = () => null,
     onPreload,
+    onLoaded,
     onCreate,
     onInit,
     ...options
@@ -48,6 +74,7 @@ function Scene(
           onPreload(instance)
           listeners.current.push(
             instance.load.once('complete', () => {
+              onLoaded?.(instance)
               setLoading(false)
               setLoadProgress(0)
             })
@@ -79,8 +106,8 @@ function Scene(
     return () => {
       game.scene.remove(sceneKey)
 
-      listeners.current.forEach(listener => {
-        listener.eventNames().forEach(event => listener.off(event))
+      listeners.current.forEach((listener) => {
+        listener.eventNames().forEach((event) => listener.off(event))
       })
     }
   }, [])

@@ -24,10 +24,10 @@ const SceneA = ({
 }) => (
   <Scene
     sceneKey="scene-a"
-    onPreload={scene => {
+    onPreload={(scene) => {
       scene.load.image('yellow-star', '/assets/yellow-star.png')
     }}
-    renderLoading={progress => (
+    renderLoading={(progress) => (
       <Text
         x={100}
         y={100}
@@ -55,10 +55,10 @@ const SceneB = ({
   <Scene
     sceneKey="scene-b"
     // we can still preload assets for Scene B
-    onPreload={scene => {
+    onPreload={(scene) => {
       scene.load.image('blue-star', '/assets/blue-star.png')
     }}
-    renderLoading={progress => (
+    renderLoading={(progress) => (
       <Text
         x={100}
         y={100}

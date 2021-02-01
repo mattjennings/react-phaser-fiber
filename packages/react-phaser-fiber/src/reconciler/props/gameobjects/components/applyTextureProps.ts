@@ -7,7 +7,7 @@ import { iterateProps } from '../../../util/iterateProps'
 export function applyTextureProps<
   T extends Phaser.GameObjects.Components.Texture
 >(instance: T, oldProps: TextureProps, newProps: TextureProps) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'texture':
         if (newValue !== instance.texture.key) {
@@ -19,4 +19,13 @@ export function applyTextureProps<
         break
     }
   })
+}
+
+function getProps(props: TextureProps) {
+  const { texture, frame } = props
+
+  return {
+    texture,
+    frame,
+  }
 }

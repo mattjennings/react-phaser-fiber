@@ -7,7 +7,7 @@ import { iterateProps } from '../../../../util/iterateProps'
 export function applyArcadeAngularProps<
   T extends Phaser.Physics.Arcade.Components.Angular
 >(instance: T, oldProps: ArcadeAngularProps, newProps: ArcadeAngularProps) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'angularAcceleration':
         instance.setAngularAcceleration(newValue as number)
@@ -20,4 +20,14 @@ export function applyArcadeAngularProps<
         break
     }
   })
+}
+
+function getProps(props: ArcadeAngularProps) {
+  const { angularAcceleration, angularDrag, angularVelocity } = props
+
+  return {
+    angularAcceleration,
+    angularDrag,
+    angularVelocity,
+  }
 }

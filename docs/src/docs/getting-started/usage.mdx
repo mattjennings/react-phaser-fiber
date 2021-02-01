@@ -1,0 +1,49 @@
+---
+name: Usage
+menu: Getting Started
+route: /getting-started/usage
+---
+
+## With ReactDOM
+
+If you are using react with react-dom you can get started by using the `<Game />` component
+
+```jsx
+import { Game, Scene, Text } from 'react-phaser-fiber'
+import { render } from 'react-dom'
+
+function App() {
+  return (
+    <Game width={400} height={400}>
+      <Scene sceneKey="main">
+        <Text x={140} y={150} text="Hello World" color="white" />
+      </Scene>
+    </Game>
+  )
+}
+
+render(<App />, document.getElementById('root'))
+```
+
+## Without ReactDOM
+
+If you would rather not ship react-dom with your bundle, you can use the provided `render` function.
+
+You cannot use the [Game](/components/game) or [Canvas](/components/canvas) components with this approach.
+
+```jsx
+import Phaser from 'phaser'
+import { render, Game, Scene, Text } from 'react-phaser-fiber'
+
+function App() {
+  return (
+    <Scene sceneKey="main">
+      <Text x={140} y={150} text="Hello World" color="white" />
+    </Scene>
+  )
+}
+
+const PhaserGame = new Phaser.Game({ width: 400, height: 400 })
+
+render(<App />, PhaserGame)
+```

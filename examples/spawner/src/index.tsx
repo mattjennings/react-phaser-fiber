@@ -18,22 +18,22 @@ const App = () => {
     >
       <Scene
         sceneKey="main"
-        onPreload={scene => {
+        onPreload={(scene) => {
           scene.load.atlas(
             'assets',
             'assets/breakout.png',
             'assets/breakout.json'
           )
         }}
-        onCreate={scene => {
+        onCreate={(scene) => {
           scene.physics.world.setBoundsCollision(true, true, true, true)
         }}
-        renderLoading={progress => (
+        renderLoading={(progress) => (
           <Text
             x={200}
             y={200}
             text={`Loading... (${progress * 100}%)`}
-            style={{ color: 'white' }}
+            color="white"
           />
         )}
       >
@@ -41,7 +41,7 @@ const App = () => {
           <Text
             x={35}
             y={200}
-            style={{ color: 'white' }}
+            color="white"
             text="Click anywhere to create a ball that lives for 3 seconds"
           />
           <BallSpawner />

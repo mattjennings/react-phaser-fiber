@@ -9,11 +9,19 @@ export function applyDepthProps<T extends Phaser.GameObjects.Components.Depth>(
   oldProps: DepthProps,
   newProps: DepthProps
 ) {
-  iterateProps(oldProps, newProps, (key, newValue) => {
+  iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
     switch (key) {
       case 'depth':
         instance.setDepth(newValue)
         break
     }
   })
+}
+
+function getProps(props: DepthProps) {
+  const { depth } = props
+
+  return {
+    depth,
+  }
 }

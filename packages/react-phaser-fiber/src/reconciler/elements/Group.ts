@@ -1,4 +1,5 @@
 import React from 'react'
+import { GroupProps } from '../../components'
 import { CreatePhaserComponentConfig } from '../element'
 import {
   AlphaProps,
@@ -11,6 +12,7 @@ import {
   OriginProps,
   TintProps,
   TransformProps,
+  Point,
 } from '../props'
 import { iterateProps } from '../util/iterateProps'
 
@@ -18,8 +20,7 @@ export interface GroupElementProps
   extends AlphaProps,
     DepthProps,
     OriginProps,
-    TintProps,
-    TransformProps {
+    TintProps {
   instance: Phaser.GameObjects.Group
   scene: Phaser.Scene
   ref?: React.Ref<Phaser.GameObjects.Group>
@@ -27,6 +28,10 @@ export interface GroupElementProps
   name?: string
   runChildUpdate?: boolean
   children?: React.ReactNode
+  scale?: number | Point
+  angle?: number
+  x?: number
+  y?: number
 }
 
 export const GroupElement: CreatePhaserComponentConfig<
@@ -38,7 +43,7 @@ export const GroupElement: CreatePhaserComponentConfig<
   },
   applyProps: (instance, oldProps, newProps) => {
     // apply group props
-    iterateProps(oldProps, newProps, (key, newValue) => {
+    iterateProps(getProps(oldProps), getProps(newProps), (key, newValue) => {
       switch (key) {
         case 'active':
           instance.active = newValue as boolean
@@ -49,6 +54,23 @@ export const GroupElement: CreatePhaserComponentConfig<
         case 'runChildUpdate':
           instance.runChildUpdate = newValue as boolean
           break
+        case 'angle':
+          instance.angle(newValue as number)
+          break
+        case 'x':
+          instance.setX(newValue as number)
+          break
+        case 'y':
+          instance.setY(newValue as number)
+          break
+        case 'scale':
+          if (typeof newValue === 'number') {
+            instance.scaleXY(newValue)
+          } else {
+            const asPoint = newValue as Point
+            instance.scaleXY(asPoint.x ?? 1, asPoint.y ?? 1)
+          }
+          break
       }
     })
 
@@ -56,6 +78,10 @@ export const GroupElement: CreatePhaserComponentConfig<
     applyDepthProps(instance as any, oldProps, newProps)
     applyOriginProps(instance as any, oldProps, newProps)
     applyTintProps(instance as any, oldProps, newProps)
-    applyTransformProps(instance as any, oldProps, newProps)
   },
+}
+
+function getProps(props: GroupProps) {
+  const { active, name, runChildUpdate, angle, x, y, scale } = props
+  return { active, name, runChildUpdate, angle, x, y, scale }
 }

@@ -8,16 +8,32 @@ import isEqual from 'fast-deep-equal'
 export function applyArcadeDebugProps<
   T extends Phaser.Physics.Arcade.Components.Debug
 >(instance: T, oldProps: ArcadeDebugProps, newProps: ArcadeDebugProps) {
-  iterateProps(oldProps, newProps, (key, newValue, oldValue) => {
-    switch (key) {
-      case 'debug':
-        if (!isEqual(newValue, oldValue)) {
-          const { showBody = false, showVelocity = false, bodyColor } = newValue
-          instance.debugBodyColor = bodyColor
-          instance.debugShowBody = showBody
-          instance.debugShowVelocity = showVelocity
-        }
-        break
+  iterateProps(
+    getProps(oldProps),
+    getProps(newProps),
+    (key, newValue, oldValue) => {
+      switch (key) {
+        case 'debug':
+          if (!isEqual(newValue, oldValue)) {
+            const {
+              showBody = false,
+              showVelocity = false,
+              bodyColor,
+            } = newValue
+            instance.debugBodyColor = bodyColor
+            instance.debugShowBody = showBody
+            instance.debugShowVelocity = showVelocity
+          }
+          break
+      }
     }
-  })
+  )
+}
+
+function getProps(props: ArcadeDebugProps) {
+  const { debug } = props
+
+  return {
+    debug,
+  }
 }

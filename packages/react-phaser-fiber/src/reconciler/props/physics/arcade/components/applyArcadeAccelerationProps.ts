@@ -12,21 +12,35 @@ export function applyArcadeAccelerationProps<
   oldProps: ArcadeAccelerationProps,
   newProps: ArcadeAccelerationProps
 ) {
-  iterateProps(oldProps, newProps, (key, newValue, oldValue) => {
-    switch (key) {
-      case 'acceleration':
-        if (typeof newValue === 'number') {
-          instance.setAcceleration(newValue as number)
-        } else if (!isEqual(oldValue, newValue)) {
-          instance.setAcceleration(newValue.x, newValue.y)
-        }
-        break
-      case 'accelerationX':
-        instance.setAccelerationX(newValue as number)
-        break
-      case 'accelerationY':
-        instance.setAccelerationY(newValue as number)
-        break
+  iterateProps(
+    getProps(oldProps),
+    getProps(newProps),
+    (key, newValue, oldValue) => {
+      switch (key) {
+        case 'acceleration':
+          if (typeof newValue === 'number') {
+            instance.setAcceleration(newValue as number)
+          } else if (!isEqual(oldValue, newValue)) {
+            instance.setAcceleration(newValue.x, newValue.y)
+          }
+          break
+        case 'accelerationX':
+          instance.setAccelerationX(newValue as number)
+          break
+        case 'accelerationY':
+          instance.setAccelerationY(newValue as number)
+          break
+      }
     }
-  })
+  )
+}
+
+function getProps(props: ArcadeAccelerationProps) {
+  const { acceleration, accelerationX, accelerationY } = props
+
+  return {
+    acceleration,
+    accelerationX,
+    accelerationY,
+  }
 }

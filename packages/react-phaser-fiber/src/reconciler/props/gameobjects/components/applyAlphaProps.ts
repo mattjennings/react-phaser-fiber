@@ -11,22 +11,34 @@ export function applyAlphaProps<T extends Phaser.GameObjects.Components.Alpha>(
   oldProps: AlphaProps,
   newProps: AlphaProps
 ) {
-  iterateProps(oldProps, newProps, (key, newValue, oldValue) => {
-    switch (key) {
-      case 'alpha':
-        if (typeof newValue === 'number') {
-          instance.setAlpha(newValue)
-        } else if (!isEqual(newValue, oldValue)) {
-          const alphaConfig = newValue as CornerValues
+  iterateProps(
+    getProps(oldProps),
+    getProps(newProps),
+    (key, newValue, oldValue) => {
+      switch (key) {
+        case 'alpha':
+          if (typeof newValue === 'number') {
+            instance.setAlpha(newValue)
+          } else if (!isEqual(newValue, oldValue)) {
+            const alphaConfig = newValue as CornerValues
 
-          instance.setAlpha(
-            alphaConfig.topLeft,
-            alphaConfig.topRight,
-            alphaConfig.bottomLeft,
-            alphaConfig.bottomRight
-          )
-        }
-        break
+            instance.setAlpha(
+              alphaConfig.topLeft,
+              alphaConfig.topRight,
+              alphaConfig.bottomLeft,
+              alphaConfig.bottomRight
+            )
+          }
+          break
+      }
     }
-  })
+  )
+}
+
+function getProps(props: AlphaProps) {
+  const { alpha } = props
+
+  return {
+    alpha,
+  }
 }
